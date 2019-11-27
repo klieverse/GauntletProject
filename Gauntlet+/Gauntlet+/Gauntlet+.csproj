@@ -80,10 +80,6 @@
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
-    <None Include="GameManagement\.vs\GameManagement\v15\.suo" />
-    <None Include="GameManagement\.vs\ProjectSettings.json" />
-    <None Include="GameManagement\.vs\slnx.sqlite" />
-    <None Include="GameManagement\.vs\VSWorkspaceState.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
