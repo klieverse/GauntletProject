@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GauntletProject", "GauntletProject\GauntletProject.csproj", "{AE1187F9-974A-4CE4-8EE8-0044B5F29500}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gauntlet+", "Gauntlet+\Gauntlet+.csproj", "{583D457F-8911-4D46-AE80-83C49AB73E60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AE1187F9-974A-4CE4-8EE8-0044B5F29500}.Debug|x86.ActiveCfg = Debug|x86
-		{AE1187F9-974A-4CE4-8EE8-0044B5F29500}.Debug|x86.Build.0 = Debug|x86
-		{AE1187F9-974A-4CE4-8EE8-0044B5F29500}.Release|x86.ActiveCfg = Release|x86
-		{AE1187F9-974A-4CE4-8EE8-0044B5F29500}.Release|x86.Build.0 = Release|x86
+		{583D457F-8911-4D46-AE80-83C49AB73E60}.Debug|x86.ActiveCfg = Debug|x86
+		{583D457F-8911-4D46-AE80-83C49AB73E60}.Debug|x86.Build.0 = Debug|x86
+		{583D457F-8911-4D46-AE80-83C49AB73E60}.Release|x86.ActiveCfg = Release|x86
+		{583D457F-8911-4D46-AE80-83C49AB73E60}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {AA8E8319-60A9-4E63-B4DA-7431E03CFA1D}
+		SolutionGuid = {3A2262D4-A869-4191-AA38-EBB201F0A5AC}
 	EndGlobalSection
 EndGlobal
