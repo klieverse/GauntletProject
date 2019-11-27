@@ -35,13 +35,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
-    <Compile Include="Game1.cs" />
     <Compile Include="GameManagement\AnimatedGameObject.cs" />
     <Compile Include="GameManagement\Animation.cs" />
     <Compile Include="GameManagement\AssetManager.cs" />
@@ -74,11 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
-    <None Include="app.manifest" />
     <None Include="GameManagement\.vs\GameManagement\v15\.suo" />
     <None Include="GameManagement\.vs\ProjectSettings.json" />
     <None Include="GameManagement\.vs\slnx.sqlite" />
