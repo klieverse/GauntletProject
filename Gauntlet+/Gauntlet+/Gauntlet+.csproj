@@ -57,6 +57,13 @@
     <Compile Include="GameManagement\SpriteSheet.cs" />
     <Compile Include="GameManagement\TextGameObject.cs" />
     <Compile Include="GameObjects\Button.cs" />
+    <Compile Include="GameStates\BetweenLevelState.cs" />
+    <Compile Include="GameStates\GameOverState.cs" />
+    <Compile Include="GameStates\HelpState.cs" />
+    <Compile Include="GameStates\MultiPlayerState.cs" />
+    <Compile Include="GameStates\PlayingState.cs" />
+    <Compile Include="GameStates\SinglePlayerState.cs" />
+    <Compile Include="GameStates\TitleMenuState.cs" />
     <Compile Include="Level\Level.cs" />
     <Compile Include="Level\LevelGameLoop.cs" />
     <Compile Include="Level\LevelLoading.cs" />
