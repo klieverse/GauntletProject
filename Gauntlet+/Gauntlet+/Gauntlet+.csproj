@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{51FE8D12-D0A4-440B-9AFB-F89E3AA01611}</ProjectGuid>
+    <ProjectGuid>{583D457F-8911-4D46-AE80-83C49AB73E60}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Gauntlet_</RootNamespace>
@@ -41,35 +41,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="GameManagement\AnimatedGameObject.cs" />
-    <Compile Include="GameManagement\Animation.cs" />
-    <Compile Include="GameManagement\AssetManager.cs" />
-    <Compile Include="GameManagement\Collision.cs" />
-    <Compile Include="GameManagement\DrawingHelper.cs" />
-    <Compile Include="GameManagement\GameEnvironment.cs" />
-    <Compile Include="GameManagement\GameObject.cs" />
-    <Compile Include="GameManagement\GameObjectGrid.cs" />
-    <Compile Include="GameManagement\GameObjectList.cs" />
-    <Compile Include="GameManagement\GameStateManager.cs" />
-    <Compile Include="GameManagement\IGameLoopObject.cs" />
-    <Compile Include="GameManagement\InputHelper.cs" />
-    <Compile Include="GameManagement\SpriteGameObject.cs" />
-    <Compile Include="GameManagement\SpriteSheet.cs" />
-    <Compile Include="GameManagement\TextGameObject.cs" />
-    <Compile Include="GameObjects\Button.cs" />
-    <Compile Include="GameStates\BetweenLevelState.cs" />
-    <Compile Include="GameStates\GameOverState.cs" />
-    <Compile Include="GameStates\HelpState.cs" />
-    <Compile Include="GameStates\MultiPlayerState.cs" />
-    <Compile Include="GameStates\PlayingState.cs" />
-    <Compile Include="GameStates\SinglePlayerState.cs" />
-    <Compile Include="GameStates\TitleMenuState.cs" />
-    <Compile Include="Gauntlet.cs" />
-    <Compile Include="Level\Level.cs" />
-    <Compile Include="Level\LevelGameLoop.cs" />
-    <Compile Include="Level\LevelLoading.cs" />
-    <Compile Include="Level\Tile.cs" />
-    <Compile Include="Level\TileField.cs" />
+    <Compile Include="Game1.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
