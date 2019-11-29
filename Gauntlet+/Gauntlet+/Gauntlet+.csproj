@@ -57,6 +57,7 @@
     <Compile Include="GameManagement\SpriteSheet.cs" />
     <Compile Include="GameManagement\TextGameObject.cs" />
     <Compile Include="GameObjects\Button.cs" />
+    <Compile Include="GameObjects\PlayerObject.cs" />
     <Compile Include="GameStates\BetweenLevelState.cs" />
     <Compile Include="GameStates\GameOverState.cs" />
     <Compile Include="GameStates\HelpState.cs" />
