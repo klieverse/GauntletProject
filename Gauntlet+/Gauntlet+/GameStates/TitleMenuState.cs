@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 class TitleMenuState : GameObjectList
 {
@@ -6,23 +8,23 @@ class TitleMenuState : GameObjectList
 
     public TitleMenuState()
     {
-        // load the title screen
-        SpriteGameObject titleScreen = new SpriteGameObject("Backgrounds/spr_title", 0, "background");
+        // load the title screen background
+        SpriteGameObject titleScreen = new SpriteGameObject("Backgrounds/spr_title", 1, "background");
         Add(titleScreen);
 
         // add a single player button
-        singlePlayerButton = new Button("Sprites/Button", 1);
-        singlePlayerButton.Position = new Vector2((GameEnvironment.Screen.X - singlePlayerButton.Width) / 2, 440);
+        singlePlayerButton = new Button("Sprites/Buttons/SinglePlayerButton", 1);
+        singlePlayerButton.BeginPosition = new Vector2((GameEnvironment.Screen.X - singlePlayerButton.Width) / 2, 370);
         Add(singlePlayerButton);
 
         //add a multi player button
-        multiPlayerButton = new Button("Sprites/Button", 1);
-        multiPlayerButton.Position = new Vector2((GameEnvironment.Screen.X - singlePlayerButton.Width) / 2, 540);
-        Add(singlePlayerButton);
+        multiPlayerButton = new Button("Sprites/Buttons/MultiPlayerButton", 1);
+        multiPlayerButton.BeginPosition = new Vector2((GameEnvironment.Screen.X - singlePlayerButton.Width) / 2, 470);
+        Add(multiPlayerButton);
 
         // add a help button
-        helpButton = new Button("Sprites/Button", 1);
-        helpButton.Position = new Vector2((GameEnvironment.Screen.X - helpButton.Width) / 2, 600);
+        helpButton = new Button("Sprites/Buttons/HelpButton", 1);
+        helpButton.BeginPosition = new Vector2((GameEnvironment.Screen.X - helpButton.Width) / 2, 570);
         Add(helpButton);
     }
 
@@ -31,7 +33,7 @@ class TitleMenuState : GameObjectList
         base.HandleInput(inputHelper);
         if (singlePlayerButton.Pressed)
         {
-            GameEnvironment.GameStateManager.SwitchTo("singlePlayerState");
+            GameEnvironment.GameStateManager.SwitchTo("playingState");
         }
         else if(multiPlayerButton.Pressed)
         {
@@ -42,4 +44,5 @@ class TitleMenuState : GameObjectList
             GameEnvironment.GameStateManager.SwitchTo("helpState");
         }
     }
+    
 }

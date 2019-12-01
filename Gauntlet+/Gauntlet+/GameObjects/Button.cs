@@ -3,12 +3,13 @@
 class Button : SpriteGameObject
 {
     protected bool pressed;
-    Color backgroundcolor = Color.Gray;
+    protected Vector2 beginPosition;
 
     public Button(string imageAsset, int layer = 0, string id = "")
         : base(imageAsset, layer, id)
     {
         pressed = false;
+        beginPosition = Vector2.Zero;
     }
 
     public override void HandleInput(InputHelper inputHelper)
@@ -17,11 +18,11 @@ class Button : SpriteGameObject
             BoundingBox.Contains((int)inputHelper.MousePosition.X, (int)inputHelper.MousePosition.Y);
         if (BoundingBox.Contains((int)inputHelper.MousePosition.X, (int)inputHelper.MousePosition.Y))
         {
-            backgroundcolor = Color.LightGray;
+            position = beginPosition - new Vector2(5, 5);
         }
         else
         {
-            backgroundcolor = Color.Gray;
+            position = beginPosition;
         }
     }
 
@@ -34,5 +35,11 @@ class Button : SpriteGameObject
     public bool Pressed
     {
         get { return pressed; }
+    }
+
+    public virtual Vector2 BeginPosition
+    {
+        get { return beginPosition; }
+        set { beginPosition = value; }
     }
 }

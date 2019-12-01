@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 public class SpriteGameObject : GameObject
 {
@@ -26,7 +27,14 @@ public class SpriteGameObject : GameObject
         {
             return;
         }
-        sprite.Draw(spriteBatch, this.Position, origin);
+        if (GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("playingState"))
+        {
+            sprite.Draw(spriteBatch, this.GlobalPosition - GameEnvironment.Camera.cameraPosition, origin);
+        }
+        else
+        {
+            sprite.Draw(spriteBatch, this.GlobalPosition, origin);
+        }
     }
 
     public SpriteSheet Sprite
@@ -71,8 +79,8 @@ public class SpriteGameObject : GameObject
     {
         get
         {
-            int left = (int)(Position.X - origin.X);
-            int top = (int)(Position.Y - origin.Y);
+            int left = (int)(GlobalPosition.X - origin.X);
+            int top = (int)(GlobalPosition.Y - origin.Y);
             return new Rectangle(left, top, Width, Height);
         }
     }
@@ -92,10 +100,10 @@ public class SpriteGameObject : GameObject
         {
             for (int y = 0; y < b.Height; y++)
             {
-                int thisx = b.X - (int)(Position.X - origin.X) + x;
-                int thisy = b.Y - (int)(Position.Y - origin.Y) + y;
-                int objx = b.X - (int)(obj.Position.X - obj.origin.X) + x;
-                int objy = b.Y - (int)(obj.Position.Y - obj.origin.Y) + y;
+                int thisx = b.X - (int)(GlobalPosition.X - origin.X) + x;
+                int thisy = b.Y - (int)(GlobalPosition.Y - origin.Y) + y;
+                int objx = b.X - (int)(obj.GlobalPosition.X - obj.origin.X) + x;
+                int objy = b.Y - (int)(obj.GlobalPosition.Y - obj.origin.Y) + y;
                 if (sprite.IsTranslucent(thisx, thisy) && obj.sprite.IsTranslucent(objx, objy))
                 {
                     return true;

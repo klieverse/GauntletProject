@@ -77,11 +77,11 @@ public class GameObjectList : GameObject
         {
             return;
         }
-        List<GameObject>.Enumerator e = children.GetEnumerator();
-        while (e.MoveNext())
+        foreach(GameObject obj in children)
         {
-            e.Current.Draw(gameTime, spriteBatch);
+            obj.Draw(gameTime, spriteBatch);
         }
+        
     }
 
     public override void Reset()
