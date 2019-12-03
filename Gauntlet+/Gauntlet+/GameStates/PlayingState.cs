@@ -12,7 +12,7 @@ class PlayingState : IGameLoopObject
     public PlayingState(ContentManager content)
     {
         this.content = content;
-        currentLevelIndex = -1;
+        currentLevelIndex = 0;
         levels = new List<Level>();
         LoadLevels();
     }
@@ -83,9 +83,6 @@ class PlayingState : IGameLoopObject
 
     public void LoadLevels()
     {
-        for (int currLevel = 1; currLevel <= 10; currLevel++)
-        {
-            levels.Add(new Level(currLevel));
-        }
+            levels.Add(new Level(1));
     }
 }

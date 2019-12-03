@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 enum TileType
 {
@@ -24,12 +25,9 @@ class Tile : SpriteGameObject
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
-        if (type == TileType.Background)
-        {
-            return;
-        }
         base.Draw(gameTime, spriteBatch);
     }
+
 
     public TileType TileType
     {

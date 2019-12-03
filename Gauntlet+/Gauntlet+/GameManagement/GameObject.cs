@@ -3,7 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 public abstract class GameObject : IGameLoopObject
 {
-    protected Vector2 position;
+    protected GameObject parent;
+    protected Vector2 position, velocity;
     protected int layer;
     protected string id;
     protected bool visible;
@@ -13,6 +14,7 @@ public abstract class GameObject : IGameLoopObject
         this.layer = layer;
         this.id = id;
         position = Vector2.Zero;
+        velocity = Vector2.Zero;
         visible = true;
     }
 
@@ -22,6 +24,7 @@ public abstract class GameObject : IGameLoopObject
 
     public virtual void Update(GameTime gameTime)
     {
+        position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
     }
 
     public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -39,10 +42,60 @@ public abstract class GameObject : IGameLoopObject
         set { position = value; }
     }
 
+    public virtual Vector2 Velocity
+    {
+        get { return velocity; }
+        set { velocity = value; }
+    }
+
+    public virtual Vector2 GlobalPosition
+    {
+        get
+        {
+            if (parent != null)
+            {
+                return parent.GlobalPosition + Position;
+            }
+            else
+            {
+                return Position;
+            }
+        }
+    }
+
+    public GameObject Root
+    {
+        get
+        {
+            if (parent != null)
+            {
+                return parent.Root;
+            }
+            else
+            {
+                return this;
+            }
+        }
+    }
+
+    public GameObjectList GameWorld
+    {
+        get
+        {
+            return Root as GameObjectList;
+        }
+    }
+
     public virtual int Layer
     {
         get { return layer; }
         set { layer = value; }
+    }
+
+    public virtual GameObject Parent
+    {
+        get { return parent; }
+        set { parent = value; }
     }
 
     public string Id
@@ -60,8 +113,7 @@ public abstract class GameObject : IGameLoopObject
     {
         get
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, 0, 0);
+            return new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, 0, 0);
         }
     }
-
 }
