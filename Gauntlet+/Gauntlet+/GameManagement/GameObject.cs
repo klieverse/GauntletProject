@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 public abstract class GameObject : IGameLoopObject
 {
-    protected Vector2 position;
+    protected Vector2 position, velocity;
     protected int layer;
     protected string id;
     protected bool visible;
@@ -13,6 +13,7 @@ public abstract class GameObject : IGameLoopObject
         this.layer = layer;
         this.id = id;
         position = Vector2.Zero;
+        velocity = Vector2.Zero;
         visible = true;
     }
 
@@ -22,6 +23,7 @@ public abstract class GameObject : IGameLoopObject
 
     public virtual void Update(GameTime gameTime)
     {
+        position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
     }
 
     public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)

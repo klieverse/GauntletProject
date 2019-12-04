@@ -57,7 +57,7 @@
     <Compile Include="GameManagement\SpriteSheet.cs" />
     <Compile Include="GameManagement\TextGameObject.cs" />
     <Compile Include="GameObjects\Button.cs" />
-    <Compile Include="GameObjects\PlayerObject.cs" />
+    <Compile Include="GameManagement\PlayerObject.cs" />
     <Compile Include="GameObjects\Players\Elf.cs" />
     <Compile Include="GameObjects\Players\Valkyrie.cs" />
     <Compile Include="GameObjects\Players\Warrior.cs" />
