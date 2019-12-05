@@ -4,8 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 public class SpriteGameObject : GameObject
 {
     protected SpriteSheet sprite;
-    protected Vector2 origin;
+    protected Vector2 origin, scale;
     public bool PerPixelCollisionDetection = true;
+    protected float rotation = 0;
 
     public SpriteGameObject(string assetName, int layer = 0, string id = "", int sheetIndex = 0)
         : base(layer, id)
@@ -20,13 +21,18 @@ public class SpriteGameObject : GameObject
         }
     }
 
+    public void Rotate(int degrees)
+    {
+        rotation = (float)MathHelper.ToRadians(degrees);
+    }
+
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         if (!visible || sprite == null)
         {
             return;
         }
-        sprite.Draw(spriteBatch, this.Position, origin);
+        sprite.Draw(spriteBatch, this.Position, rotation, origin);
     }
 
     public SpriteSheet Sprite

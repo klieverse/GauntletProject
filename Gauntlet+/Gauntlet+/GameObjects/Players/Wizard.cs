@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,9 @@ namespace Gauntlet_.GameObjects.Players
     class Wizard : PlayerObject
     {
         public Wizard(int layer, string id, Vector2 start, Level level)
-        : base(layer, id, start, level, 300f, 0f, 3f, 1.5f, 3.5f)
+        : base(layer, id, start, level, speed: 300f, armor: 0f, magic: 3f, shotStrength: 1.5f, shotSpeed: 3.5f, melee: 1f)
         {
+        
             Reset();
         }
 
@@ -25,6 +27,8 @@ namespace Gauntlet_.GameObjects.Players
             base.Update(gameTime);
 
         }
+
+        
 
     }
 }

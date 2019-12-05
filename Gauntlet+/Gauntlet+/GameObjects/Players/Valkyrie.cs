@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Gauntlet_.GameObjects.Players
     class Valkyrie : PlayerObject
     {
         public Valkyrie(int layer, string id, Vector2 start, Level level)
-        : base(layer, id, start, level, 350f, 30f, 3f, 1f, 3f)
+        : base(layer, id, start, level, speed: 350f, armor: 30f, magic: 1.5f, shotStrength: 1f, shotSpeed: 3f, melee: 2f)
         {
             Reset();
         }
