@@ -9,7 +9,8 @@ enum TileType
     Wall,
     BreakableWall,
     Teleporter,
-    Door,
+    HorizontalDoor,
+    VerticalDoor,
     Trap
 }
 
