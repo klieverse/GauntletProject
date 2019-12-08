@@ -5,10 +5,12 @@ using System;
 class Player : SpriteGameObject
 {
     public static Vector2 playerPosition;
+    public int health = 600;
 
-    public Player(Vector2 start) : base("Player", 2, "player")
+    public Player(Vector2 start) : base("Player", 2, id:"player")
     {
         Vector2 playerPosition = start;
+        position = start;
     }
 
     public override void HandleInput(InputHelper inputHelper)

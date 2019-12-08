@@ -51,8 +51,16 @@ partial class Level : GameObjectList
                 return LoadBasicTile("Teleport", TileType.Teleporter, 1);
             case 'x':
                 return LoadBasicTile("Trap", TileType.Trap, 1);
-
-            //Players
+            case 'S':
+                return LoadSkeleton(x, y);
+            case 'G':
+                return LoadGnome(x, y);
+//            case 'T':
+//                return LoadTempleTroll(x, y);
+//            case 'H':
+//                return LoadTempleHellhound(x, y);
+//            case 'w':
+//                return LoadTempleWizard(x, y);
             case 'V':
                 return LoadThyra(x, y);
             case 'W':
@@ -94,9 +102,42 @@ partial class Level : GameObjectList
         return new Tile("Tiles/" + name, tileType);
     }
 
+    private Tile LoadSkeleton(int x, int y)
+    {
+        GameObjectList enemies = Find("enemies") as GameObjectList;
+        TileField tiles = Find("tiles") as TileField;
+        Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
+        Ghost enemy = new Ghost(startPosition);
+        //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
+        enemies.Add(enemy);
+        return new Tile();
+        /*        TileField tiles = Find("tiles") as TileField;
+                Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
+                Ghost ghost = new Ghost(startPosition);
+                Add(ghost);
+        */
+        return new Tile("Tiles/background", TileType.Background);
+    }
+
+    private Tile LoadGnome(int x, int y)
+    {
+        GameObjectList enemies = Find("enemies") as GameObjectList;
+        TileField tiles = Find("tiles") as TileField;
+        Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
+        Gnome enemy = new Gnome(startPosition);
+        //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
+        enemies.Add(enemy);
+        return new Tile();
+        /*        TileField tiles = Find("tiles") as TileField;
+                Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
+                Gnome gnome = new Gnome(startPosition);
+                Add(gnome);
+                return new Tile("Tiles/background", TileType.Background);
+                */
+    }
+
     private Tile LoadThyra(int x, int y)
     {
-
         return new Tile("Tiles/background", TileType.Background);
     }
 

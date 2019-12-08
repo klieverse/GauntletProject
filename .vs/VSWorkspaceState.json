@@ -1,8 +1,14 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Gauntlet+"
+    "\\Gauntlet+",
+    "\\Gauntlet+\\Gauntlet+",
+    "\\Gauntlet+\\Gauntlet+\\Content",
+    "\\Gauntlet+\\Gauntlet+\\GameManagement",
+    "\\Gauntlet+\\Gauntlet+\\GameObjects",
+    "\\Gauntlet+\\Gauntlet+\\GameStates",
+    "\\Gauntlet+\\Gauntlet+\\Level"
   ],
-  "SelectedNode": "\\Gauntlet+\\Gauntlet+.sln",
+  "SelectedNode": "\\Gauntlet+\\Gauntlet+\\GameManagement\\SpriteGameObject.cs",
   "PreviewInSolutionExplorer": false
 }
