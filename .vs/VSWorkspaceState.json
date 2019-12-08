@@ -1,16 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Gauntlet+",
-    "\\Gauntlet+\\Gauntlet+",
-    "\\Gauntlet+\\Gauntlet+\\Content",
-    "\\Gauntlet+\\Gauntlet+\\GameManagement",
-    "\\Gauntlet+\\Gauntlet+\\GameObjects",
-    "\\Gauntlet+\\Gauntlet+\\GameObjects\\Enemies",
-    "\\Gauntlet+\\Gauntlet+\\GameObjects\\Players",
-    "\\Gauntlet+\\Gauntlet+\\GameStates",
-    "\\Gauntlet+\\Gauntlet+\\Level"
+    "\\Gauntlet+"
   ],
-  "SelectedNode": "\\Gauntlet+\\Gauntlet+\\Level\\LevelLoading.cs",
+  "SelectedNode": "\\Gauntlet+\\Gauntlet+.sln",
   "PreviewInSolutionExplorer": false
 }

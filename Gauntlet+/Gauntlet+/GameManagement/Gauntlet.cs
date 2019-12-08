@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SuperWebSocket;
 using System;
 
 class Gauntlet : GameEnvironment
@@ -8,6 +9,7 @@ class Gauntlet : GameEnvironment
     {
         Gauntlet game = new Gauntlet();
         game.Run();
+        
     }
 
     public Gauntlet()
@@ -26,11 +28,11 @@ class Gauntlet : GameEnvironment
         gameStateManager.AddGameState("titleMenu", new TitleMenuState());
         //gameStateManager.AddGameState("helpState", new HelpState());
         //gameStateManager.AddGameState("ChooseCharacterState", new ChooseCharacterState());
-        //gameStateManager.AddGameState("singlePlayerState", new SinglePlayerState(Content));
-        //gameStateManager.AddGameState("multiPlaterState", new MultiPlayerState(Content));
+        gameStateManager.AddGameState("playingState", new PlayingState(Content));
+        //gameStateManager.AddGameState("multiPlayerState", new MultiPlayerState(Content));
         //gameStateManager.AddGameState("gameOverState", new GameOverState());
         //gameStateManager.AddGameState("BetweenLevelState", new BetweenLevelState());
-        //gameStateManager.SwitchTo("titleMenu");
+        gameStateManager.SwitchTo("titleMenu");
 
         //AssetManager.PlayMusic("Sounds/snd_music");
     }

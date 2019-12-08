@@ -3,15 +3,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 public abstract class GameObject : IGameLoopObject
 {
+    protected GameObject parent;
     protected Vector2 position, velocity;
     protected int layer;
     protected string id;
     protected bool visible;
-    protected GameObject parent;
 
     public GameObject(int layer = 0, string id = "")
     {
-        
         this.layer = layer;
         this.id = id;
         position = Vector2.Zero;
@@ -41,6 +40,27 @@ public abstract class GameObject : IGameLoopObject
     {
         get { return position; }
         set { position = value; }
+    }
+
+    public virtual Vector2 Velocity
+    {
+        get { return velocity; }
+        set { velocity = value; }
+    }
+
+    public virtual Vector2 GlobalPosition
+    {
+        get
+        {
+            if (parent != null)
+            {
+                return parent.GlobalPosition + Position;
+            }
+            else
+            {
+                return Position;
+            }
+        }
     }
 
     public GameObject Root
@@ -93,8 +113,7 @@ public abstract class GameObject : IGameLoopObject
     {
         get
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, 0, 0);
+            return new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, 0, 0);
         }
     }
-
 }

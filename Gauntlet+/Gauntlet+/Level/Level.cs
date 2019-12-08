@@ -7,16 +7,16 @@ partial class Level : GameObjectList
     public Level(int levelIndex)
     {
         // load the backgrounds
-        
-        
-        //quitButton = new Button("Sprites/spr_button_quit", 100);
-       // quitButton.Position = new Vector2(GameEnvironment.Screen.X - quitButton.Width - 10, 10);
-        //Add(quitButton);
 
+
+        //quitButton = new Button("Sprites/spr_button_quit", 100);
+        // quitButton.Position = new Vector2(GameEnvironment.Screen.X - quitButton.Width - 10, 10);
+        //Add(quitButton);
 
         Add(new GameObjectList(2, "players"));
         Add(new GameObjectList(2, "enemies"));
         Add(new GameObjectList(1, "items"));
+        Add(new Player(new Vector2(0, 0)));
 
         LoadTiles("Content/Levels/" + levelIndex + ".txt");
     }
@@ -25,7 +25,7 @@ partial class Level : GameObjectList
     {
         get
         {
-            SpriteGameObject exitObj = Find("exit") as SpriteGameObject;
+            //SpriteGameObject exitObj = Find("exit") as SpriteGameObject;
             //Player player = Find("player") as Player;
             //if (!exitObj.CollidesWith(player))
             //{
