@@ -71,6 +71,8 @@ partial class Level : GameObjectList
                 return LoadKey(x, y);
             case 'a':
                 return LoadExtraPotion(x, y);
+            case 't':
+                return LoadTreasure(x, y);
 
             default:
                 int t = (int)tileType;
@@ -123,6 +125,12 @@ partial class Level : GameObjectList
     }
 
     private Tile LoadExtraPotion(int x, int y)
+    {
+
+        return new Tile("Tiles/background", TileType.Background);
+    }
+
+    private Tile LoadTreasure(int x, int y)
     {
 
         return new Tile("Tiles/background", TileType.Background);
