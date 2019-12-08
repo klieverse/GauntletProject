@@ -65,7 +65,7 @@ namespace Gauntlet_.GameObjects
 
         public override void HandleInput(InputHelper inputHelper)
         {
-            previousPosition = position;
+           
 
             if (!isAlive)
             {
@@ -119,6 +119,7 @@ namespace Gauntlet_.GameObjects
 
         public override void Update(GameTime gameTime)
         {
+            previousPosition = position;
             base.Update(gameTime);
 
             if (isAlive)
@@ -196,7 +197,7 @@ namespace Gauntlet_.GameObjects
             }
 
             isAlive = false;
-            visible = false
+            visible = false;
             velocity.Y = -900;
             GameEnvironment.AssetManager.PlaySound("Sounds/snd_" + id + "_die");
         
@@ -240,7 +241,7 @@ namespace Gauntlet_.GameObjects
             }
         }
 
-        public void HitByEnemy(float EnemyStrength)//, EnemyObject)
+        public void HitByEnemy(float EnemyStrength)
         {
             float Damage = (0.5f * EnemyStrength) + (0.5f * EnemyStrength * (1- ((armor/100) / (armor/100+1)) ));
             health -= (int)Damage; 

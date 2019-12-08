@@ -12,7 +12,6 @@ namespace Gauntlet_.GameObjects
     {
         float shotSpeed;
         float shotStrength;
-        Vector2 direction;
         protected Level level;
         protected TileField tileField;
 
@@ -21,55 +20,55 @@ namespace Gauntlet_.GameObjects
         {
 
             HandleDirection();
-            this.direction = direction;
+            velocity = direction;
             this.shotSpeed = shotSpeed;
             this.shotStrength = shotStrength;
         }
 
         void HandleDirection()
         {
-            if (direction.X > 0 && direction.Y == 0)
+            if (velocity.X > 0 && velocity.Y == 0)
             {
-                direction.X = shotSpeed * 50 + 200;
+                velocity.X = shotSpeed * 50 + 200;
                 Rotate(90);
             }
-            if (direction.X > 0 && direction.Y > 0)
+            if (velocity.X > 0 && velocity.Y > 0)
             {
-                direction.X = 0.71f * (shotSpeed * 50 + 200);
-                direction.Y = 0.71f * (shotSpeed * 50 + 200);
+                velocity.X = 0.71f * (shotSpeed * 50 + 200);
+                velocity.Y = 0.71f * (shotSpeed * 50 + 200);
                 Rotate(135);
             }
-            if (direction.X < 0 && direction.Y < 0)
+            if (velocity.X < 0 && velocity.Y < 0)
             {
-                direction.X = -0.71f * (shotSpeed * 50 + 200);
-                direction.Y = -0.71f * (shotSpeed * 50 + 200);
+                velocity.X = -0.71f * (shotSpeed * 50 + 200);
+                velocity.Y = -0.71f * (shotSpeed * 50 + 200);
                 Rotate(315);
             }
-            if (direction.X == 0 && direction.Y > 0)
+            if (velocity.X == 0 && velocity.Y > 0)
             {
-                direction.Y = (shotSpeed * 50 + 200);
+                velocity.Y = (shotSpeed * 50 + 200);
                 Rotate(180);
             }
-            if (direction.X < 0 && direction.Y == 0)
+            if (velocity.X < 0 && velocity.Y == 0)
             {
-                direction.X = -(shotSpeed * 50 + 200);
+                velocity.X = -(shotSpeed * 50 + 200);
                 Rotate(270);
             }
-            if (direction.X == 0 && direction.Y < 0)
+            if (velocity.X == 0 && velocity.Y < 0)
             {
-                direction.Y = -(shotSpeed * 50 + 200);
+                velocity.Y = -(shotSpeed * 50 + 200);
                 Rotate(0);
             }
-            if (direction.X > 0 && direction.Y < 0)
+            if (velocity.X > 0 && velocity.Y < 0)
             {
-                direction.X = 0.71f * (shotSpeed * 50 + 200);
-                direction.Y = -0.71f * (shotSpeed * 50 + 200);
+                velocity.X = 0.71f * (shotSpeed * 50 + 200);
+                velocity.Y = -0.71f * (shotSpeed * 50 + 200);
                 Rotate(45);
             }
-            if (direction.X < 0 && direction.Y > 0)
+            if (velocity.X < 0 && velocity.Y > 0)
             {
-                direction.X = -0.71f * (shotSpeed * 50 + 200);
-                direction.Y = 0.71f * (shotSpeed * 50 + 200);
+                velocity.X = -0.71f * (shotSpeed * 50 + 200);
+                velocity.Y = 0.71f * (shotSpeed * 50 + 200);
                 Rotate(225);
             }
         }
