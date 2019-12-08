@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -39,11 +40,16 @@
     </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="GameManagement\AnimatedGameObject.cs" />
     <Compile Include="GameManagement\Animation.cs" />
     <Compile Include="GameManagement\AssetManager.cs" />
     <Compile Include="GameManagement\Camera.cs" />
+    <Compile Include="GameManagement\PlayerObject.cs" />
+    <Compile Include="GameManagement\EnemyObject.cs" />
     <Compile Include="GameManagement\Collision.cs" />
     <Compile Include="GameManagement\DrawingHelper.cs" />
     <Compile Include="GameManagement\GameEnvironment.cs" />
@@ -58,8 +64,26 @@
     <Compile Include="GameManagement\SpriteSheet.cs" />
     <Compile Include="GameManagement\TextGameObject.cs" />
     <Compile Include="GameObjects\Button.cs" />
+    <Compile Include="GameObjects\Enemies\Skeleton.cs" />
+    <Compile Include="GameObjects\Enemies\TempleHellhounds.cs" />
+    <Compile Include="GameObjects\Enemies\TempleTrolls.cs" />
+    <Compile Include="GameObjects\Enemies\TempleWizards.cs" />
+    <Compile Include="GameObjects\Enemies\GnomeShoot.cs" />
+    <Compile Include="GameObjects\Enemies\HellhoundShoot.cs" />
+    <Compile Include="GameObjects\PlayerShot.cs" />
+    <Compile Include="GameObjects\Enemies\Thief.cs" />
+    <Compile Include="GameObjects\Enemies\Death.cs" />
+    <Compile Include="GameObjects\Enemies\Gnome.cs" />
+    <Compile Include="GameObjects\Enemies\Hellhound.cs" />
+    <Compile Include="GameObjects\Enemies\Troll.cs" />
+    <Compile Include="GameObjects\Enemies\Ghost.cs" />
+    <Compile Include="GameObjects\Enemies\Wizard.cs" />
     <Compile Include="GameObjects\Items\Potion.cs" />
     <Compile Include="GameObjects\Player.cs" />
+    <Compile Include="GameObjects\Players\Elf.cs" />
+    <Compile Include="GameObjects\Players\Thyra.cs" />
+    <Compile Include="GameObjects\Players\Warrior.cs" />
+    <Compile Include="GameObjects\Players\Merlin.cs" />
     <Compile Include="GameStates\BetweenLevelState.cs" />
     <Compile Include="GameStates\GameOverState.cs" />
     <Compile Include="GameStates\HelpState.cs" />

@@ -7,6 +7,7 @@ public class SpriteGameObject : GameObject
     protected SpriteSheet sprite;
     protected Vector2 origin;
     public bool PerPixelCollisionDetection = true;
+    protected float rotation = 0;
 
     public SpriteGameObject(string assetName, int layer = 0, string id = "", int sheetIndex = 0)
         : base(layer, id)
@@ -19,6 +20,11 @@ public class SpriteGameObject : GameObject
         {
             sprite = null;
         }
+    }
+
+    public void Rotate(int degrees)
+    {
+        rotation = (float)MathHelper.ToRadians(degrees);
     }
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
