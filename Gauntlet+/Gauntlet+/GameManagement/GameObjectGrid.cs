@@ -22,6 +22,7 @@ public class GameObjectGrid : GameObject
     public void Add(GameObject obj, int x, int y)
     {
         grid[x, y] = obj;
+        obj.Parent = this;
         obj.Position = new Vector2(x * cellWidth, y * cellHeight);
     }
 

@@ -12,6 +12,7 @@ namespace Gauntlet_.GameObjects
     {
         protected Vector2 startPosition;
         protected Level level;
+        protected TileField tileField;
         protected bool isAlive;
         protected float walkingSpeed;
         protected int health = 600;
@@ -19,7 +20,9 @@ namespace Gauntlet_.GameObjects
         protected float magic;
         protected float shotStrength;
         protected float shotSpeed;
+        protected float melee;
         protected PlayerShot playerShot;
+        protected Vector2 previousPosition;
 
         //protected List<Item> inventory;
 
@@ -44,6 +47,7 @@ namespace Gauntlet_.GameObjects
             this.magic = magic;
             this.shotStrength = shotStrength;
             this.shotSpeed = shotSpeed;
+            this.melee = melee;
             this.id = id;
             startPosition = start;
             //protected List<Item> invent = new List<Item>();
@@ -61,6 +65,8 @@ namespace Gauntlet_.GameObjects
 
         public override void HandleInput(InputHelper inputHelper)
         {
+            previousPosition = position;
+
             if (!isAlive)
             {
                 return;
@@ -118,13 +124,27 @@ namespace Gauntlet_.GameObjects
             if (isAlive)
             {
                 HandleAnimations();
+                CheckEnemyMelee();
                 HandleCollisions();
             }
+
 
             if(health <= 0)
             {
                 Die();
             }
+        }
+
+        void CheckEnemyMelee()
+        {
+            //check enemycollision
+            List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
+            foreach (SpriteGameObject enemy in enemies)
+                if (CollidesWith(enemy))
+                {
+                    //enemy.HitByPlayer(melee);
+                }
+                   
         }
 
         private void HandleAnimations()
@@ -176,19 +196,48 @@ namespace Gauntlet_.GameObjects
             }
 
             isAlive = false;
+            visible = false
             velocity.Y = -900;
             GameEnvironment.AssetManager.PlaySound("Sounds/snd_" + id + "_die");
         
             PlayAnimation(id + "die");
         }
 
+        public bool CollidesWithObject()
+        {
+            //check wall collision
+            Tile tile = tileField.Get(1, 1) as Tile;
+            int Left = (int)(position.X / tile.Width);
+            int Right = (int)((position.X + Width) / tile.Width);
+            int Top = (int)(position.Y / tile.Height);
+            int Bottom = (int)((position.Y + Height) / tile.Height);
+
+            for (int x = Left; x <= Right; x++)
+                for (int y = Top; y <= Bottom; y++)
+                    if (tileField.GetTileType(x, y) == TileType.Wall || tileField.GetTileType(x, y) == TileType.BreakableWall)
+                        return true;
+            //check playercollision
+            List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
+            if (players != null)
+                foreach (SpriteGameObject player in players)
+                    if (player != this)
+                        if (CollidesWith(player))
+                            return true;
+            //check enemycollision
+            List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
+            foreach (SpriteGameObject enemy in enemies)
+                if (CollidesWith(enemy))
+                    return true;
+
+            return false;
+        }
+
         private void HandleCollisions()
         {
-            //foreach (var EnemyObject in List<EnemyObject>)
-            //{
-                //CollidesWith(EnemyObject) ????????
-            //}
-
+            if (CollidesWithObject() == true)
+            {
+                position = previousPosition;
+            }
         }
 
         public void HitByEnemy(float EnemyStrength)//, EnemyObject)

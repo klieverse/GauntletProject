@@ -2,9 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\Gauntlet+",
+    "\\Gauntlet+\\Gauntlet+",
+    "\\Gauntlet+\\Gauntlet+\\GameObjects",
+    "\\Gauntlet+\\Gauntlet+\\GameObjects\\Players",
     "\\GauntletProject",
     "\\GauntletProject\\GauntletProject"
   ],
-  "SelectedNode": "\\Gauntlet+\\Gauntlet+.sln",
+  "SelectedNode": "\\Gauntlet+\\Gauntlet+\\GameObjects\\Players\\Elf.cs",
   "PreviewInSolutionExplorer": false
 }

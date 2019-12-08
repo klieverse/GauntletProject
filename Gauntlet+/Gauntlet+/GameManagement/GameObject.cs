@@ -7,9 +7,11 @@ public abstract class GameObject : IGameLoopObject
     protected int layer;
     protected string id;
     protected bool visible;
+    protected GameObject parent;
 
     public GameObject(int layer = 0, string id = "")
     {
+        
         this.layer = layer;
         this.id = id;
         position = Vector2.Zero;
@@ -41,10 +43,39 @@ public abstract class GameObject : IGameLoopObject
         set { position = value; }
     }
 
+    public GameObject Root
+    {
+        get
+        {
+            if (parent != null)
+            {
+                return parent.Root;
+            }
+            else
+            {
+                return this;
+            }
+        }
+    }
+
+    public GameObjectList GameWorld
+    {
+        get
+        {
+            return Root as GameObjectList;
+        }
+    }
+
     public virtual int Layer
     {
         get { return layer; }
         set { layer = value; }
+    }
+
+    public virtual GameObject Parent
+    {
+        get { return parent; }
+        set { parent = value; }
     }
 
     public string Id
