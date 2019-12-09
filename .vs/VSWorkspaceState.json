@@ -6,9 +6,10 @@
     "\\Gauntlet+\\Gauntlet+\\Content",
     "\\Gauntlet+\\Gauntlet+\\GameManagement",
     "\\Gauntlet+\\Gauntlet+\\GameObjects",
+    "\\Gauntlet+\\Gauntlet+\\GameObjects\\Players",
     "\\Gauntlet+\\Gauntlet+\\GameStates",
     "\\Gauntlet+\\Gauntlet+\\Level"
   ],
-  "SelectedNode": "\\Gauntlet+\\Gauntlet+\\GameManagement\\SpriteGameObject.cs",
+  "SelectedNode": "\\Gauntlet+\\Gauntlet+.sln",
   "PreviewInSolutionExplorer": false
 }
