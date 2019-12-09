@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 class Thief : EnemyObject
 {
     int thiefSpeed = 500;
-    public Thief(Vector2 startPosition) : base(2, "Thief", false, false, false, false, false, false, true)
+    public Thief(Vector2 startPosition) : base(2, "Thief")
     {
         speed = thiefSpeed;
         position = startPosition;

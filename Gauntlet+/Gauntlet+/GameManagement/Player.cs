@@ -7,14 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-class PlayerObject : AnimatedGameObject
+class Player : AnimatedGameObject
 {
     protected Vector2 startPosition;
     protected Level level;
     protected TileField tileField;
     protected bool isAlive;
     protected float walkingSpeed;
-    protected int health = 600;
+    public int health = 600;
     protected float armor;
     protected float magic;
     protected float shotStrength;
@@ -22,10 +22,11 @@ class PlayerObject : AnimatedGameObject
     protected float melee;
     protected PlayerShot playerShot;
     protected Vector2 previousPosition;
+    public static  Vector2 Playerposition;
 
     //protected List<Item> inventory;
 
-    public PlayerObject(int layer, string id, Vector2 start, Level level, float speed, float armor,
+    public Player(int layer, string id, Vector2 start, Level level, float speed, float armor,
                         float magic, float shotStrength, float shotSpeed, float melee)
     : base(layer, id)
     {
@@ -118,7 +119,10 @@ class PlayerObject : AnimatedGameObject
 
     public override void Update(GameTime gameTime)
     {
+        previousPosition= position;
+        
         base.Update(gameTime);
+        Playerposition = Position;
 
         if (isAlive)
         {
@@ -126,12 +130,14 @@ class PlayerObject : AnimatedGameObject
             CheckEnemyMelee();
             HandleCollisions();
         }
-
+    
 
         if (health <= 0)
         {
             Die();
         }
+
+        
     }
 
     void CheckEnemyMelee()

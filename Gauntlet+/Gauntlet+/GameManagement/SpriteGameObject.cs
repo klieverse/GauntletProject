@@ -39,7 +39,7 @@ public class SpriteGameObject : GameObject
         }
         else
         {
-            sprite.Draw(spriteBatch, this.GlobalPosition, origin);
+            sprite.Draw(spriteBatch, this.GlobalPosition, rotation, origin);
         }
     }
 

@@ -6,8 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gauntlet_.GameObjects
-{
     class PlayerShot : SpriteGameObject
     {
         float shotSpeed;
@@ -117,4 +115,4 @@ namespace Gauntlet_.GameObjects
                     
         }
     }
-}
+

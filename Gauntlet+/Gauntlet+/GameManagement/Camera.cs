@@ -16,8 +16,8 @@ public class Camera
     {
         if (GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("playingState"))
         {
-            cameraPosition.X = Player.PlayerPosition.X - 55 - cameraField.Width / 2;
-            cameraPosition.Y = Player.PlayerPosition.Y - 55 - cameraField.Height / 2;
+            cameraPosition.X = Player.Playerposition.X - 55 - cameraField.Width / 2;
+            cameraPosition.Y = Player.Playerposition.Y - 55 - cameraField.Height / 2;
             if (cameraPosition.X < 0)
             {
                 cameraPosition.X = 0;
