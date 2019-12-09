@@ -195,7 +195,7 @@ class PlayerObject : AnimatedGameObject
             }
 
             isAlive = false;
-            visible = false
+            visible = false;
             velocity.Y = -900;
             GameEnvironment.AssetManager.PlaySound("Sounds/snd_" + id + "_die");
         
