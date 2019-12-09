@@ -20,7 +20,7 @@ class TempleTrolls : SpawnObject
 
     public override void Spawn()
     {
-        Troll troll = new Troll(spawnLocation);
+        (GameWorld.Find("enemies") as GameObjectList).Add(new Troll(spawnLocation));
     }
 }
 

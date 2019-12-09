@@ -22,7 +22,7 @@ class TempleHellhounds : SpawnObject
 
     public override void Spawn()
     {
-        Hellhound hellhound = new Hellhound(spawnLocation);
+        (GameWorld.Find("enemies") as GameObjectList).Add( new Hellhound(spawnLocation));
     }
 }
 

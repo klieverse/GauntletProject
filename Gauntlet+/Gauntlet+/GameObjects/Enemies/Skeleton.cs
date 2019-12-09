@@ -22,7 +22,7 @@ class Skeleton : SpawnObject
 
    public override void Spawn()
     {
-        Ghost ghost = new Ghost(spawnLocation);
+        (GameWorld.Find("enemies") as GameObjectList).Add(new Ghost(spawnLocation));
     }
 }
 

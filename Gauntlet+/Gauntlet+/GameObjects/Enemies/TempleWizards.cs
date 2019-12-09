@@ -21,7 +21,7 @@ class TempleWizards : SpawnObject
 
     public override void Spawn()
     {
-        Wizard wizard = new Wizard(spawnLocation);
+        (GameWorld.Find("enemies") as GameObjectList).Add(new Wizard(spawnLocation));
     }
 }
 
