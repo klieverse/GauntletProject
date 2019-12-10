@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 class Ghost : EnemyObject
 {
     float counts = 0f;
-    public Ghost(Vector2 startPosition) : base(2, "Ghost", false, false, false, false, true, false, false)
+    public Ghost(Vector2 startPosition) : base(2, "Ghost")
     {
         this.position = startPosition;
         strength = 30;

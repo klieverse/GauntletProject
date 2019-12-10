@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 class Troll : EnemyObject
 {
     float timer = 0f;
-    public Troll(Vector2 startPosition) : base(2, "Troll", false, false, true, false, false, false, false)
+    public Troll(Vector2 startPosition) : base(2, "Troll")
     {
         this.position = startPosition;
         strength = 10;

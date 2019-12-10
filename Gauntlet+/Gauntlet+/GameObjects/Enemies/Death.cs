@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 class Death : EnemyObject  
 {
     float timer = 0f;
-    public Death(Vector2 startPosition) : base(2, "Death", false, false, false, true, false, false, false)
+    public Death(Vector2 startPosition) : base(2, "Death")
     {
         this.position = startPosition;
         strength = 4;

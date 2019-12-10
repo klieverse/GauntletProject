@@ -9,7 +9,7 @@ class Gnome : EnemyObject
 {
     float timer = 0f;
 
-    public Gnome(Vector2 startPosition) : base(2, "Gnome", false, true, false, false, false, false, false)
+    public Gnome(Vector2 startPosition) : base(2, "Gnome")
     {
         this.position = startPosition;
         strength = 3;

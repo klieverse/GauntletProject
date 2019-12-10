@@ -9,48 +9,35 @@ public class EnemyObject : AnimatedGameObject
 {
     protected float speedVert;
     protected float speedHori;
-    protected bool isHellhound;
-    protected bool isGnome;
-    protected bool isTroll;
-    protected bool isDeath;
-    protected bool isGhost;
-    protected bool isWizard;
-    protected bool isThief;
     protected int health = 30;
     protected int strength;
     protected int speed = 250;
     TileField tileField;
     
-    public EnemyObject(int layer, string id, bool isHellhound, bool isGnome, bool isTroll, bool isDeath, bool isGhost, bool isWizard, bool isThief) : base(layer, id)
+    public EnemyObject(int layer, string id) : base(layer, id)
     {
         LoadAnimation(id, id, true);
         PlayAnimation(id);
-
-        this.isHellhound = isHellhound;
-        this.isGnome = isGnome;
-        this.isTroll = isTroll;
-        this.isDeath = isDeath;
-        this.isGhost = isGhost;
-        this.isWizard = isWizard;
-        this.isThief = isThief;
         
+       
     }
 
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-
-//        Player player = GameWorld.Find("Player") as Player;
-
-        float opposite = Player.playerPosition.Y  - position.Y + 55;
-        float adjacent = Player.playerPosition.X  - position.X + 30;
-        float vertical = (float)Math.Atan2(opposite, adjacent);
-        float horizontal = (float)Math.Atan2(adjacent, opposite);
-        speedVert = (float)Math.Sin(vertical) * speed;
-        speedHori = (float)Math.Sin(horizontal) * speed;
-        velocity.Y = speedVert;
-        velocity.X = speedHori;
-
+        tileField = GameWorld.Find("tiles") as TileField;
+        Player player = GameWorld.Find("Player") as Player;
+        if (player != null)
+        {
+            float opposite = player.Position.Y - position.Y + 55;
+            float adjacent = player.Position.X - position.X + 30;
+            float vertical = (float)Math.Atan2(opposite, adjacent);
+            float horizontal = (float)Math.Atan2(adjacent, opposite);
+            speedVert = (float)Math.Sin(vertical) * speed;
+            speedHori = (float)Math.Sin(horizontal) * speed;
+            velocity.Y = speedVert;
+            velocity.X = speedHori;
+        }
     }
 
     public bool CollidesWithObject()

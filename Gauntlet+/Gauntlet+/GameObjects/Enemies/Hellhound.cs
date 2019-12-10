@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 class Hellhound : EnemyObject
 {
     float timer = 0f;
-    public Hellhound(Vector2 startPosition) : base(2, "Hellhound", true, false, false, false, false, false, false)
+    public Hellhound(Vector2 startPosition) : base(2, "Hellhound")
     {
         position = startPosition;
         strength = 10;
