@@ -69,6 +69,11 @@ public class EnemyObject : AnimatedGameObject
 
         return false;
     }
+
+    public void HitByPlayer(float damage)
+    {
+        health -= (int)damage;
+    }
     
 
 }

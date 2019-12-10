@@ -32,7 +32,7 @@ class Death : EnemyObject
         Player player = GameWorld.Find("player") as Player;
         if(CollidesWith(player))
         {
-            player.health -= strength;
+            player.HitByEnemy(strength);
         }
     }
 }
