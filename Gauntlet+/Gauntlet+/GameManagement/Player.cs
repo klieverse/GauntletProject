@@ -11,7 +11,6 @@ class Player : AnimatedGameObject
 {
     protected Vector2 startPosition;
     protected Level level;
-    protected TileField tileField;
     protected bool isAlive;
     protected float walkingSpeed;
     public int health = 600;
@@ -22,7 +21,6 @@ class Player : AnimatedGameObject
     protected float melee;
     protected PlayerShot playerShot;
     protected Vector2 previousPosition;
-    public static  Vector2 Playerposition;
 
     //protected List<Item> inventory;
 
@@ -65,7 +63,6 @@ class Player : AnimatedGameObject
 
     public override void HandleInput(InputHelper inputHelper)
     {
-        previousPosition = position;
 
         if (!isAlive)
         {
@@ -122,15 +119,17 @@ class Player : AnimatedGameObject
         previousPosition= position;
         
         base.Update(gameTime);
-        Playerposition = Position;
 
         if (isAlive)
         {
             HandleAnimations();
             CheckEnemyMelee();
             HandleCollisions();
+            if (CollidesWithObject())
+            {
+                position = previousPosition;
+            }
         }
-    
 
         if (health <= 0)
         {
@@ -144,10 +143,10 @@ class Player : AnimatedGameObject
     {
         //check enemycollision
         List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
-        foreach (SpriteGameObject enemy in enemies)
+        foreach (EnemyObject enemy in enemies)
             if (CollidesWith(enemy))
             {
-                //enemy.HitByPlayer(melee);
+                enemy.HitByPlayer(melee);
             }
 
     }
@@ -210,7 +209,10 @@ class Player : AnimatedGameObject
 
     public bool CollidesWithObject()
     {
+        TileField tileField = GameWorld.Find("tiles") as TileField;
+
         //check wall collision
+
         Tile tile = tileField.Get(1, 1) as Tile;
         int Left = (int)(position.X / tile.Width);
         int Right = (int)((position.X + Width) / tile.Width);
@@ -245,7 +247,7 @@ class Player : AnimatedGameObject
         }
     }
 
-    public void HitByEnemy(float EnemyStrength)//, EnemyObject)
+    public void HitByEnemy(float EnemyStrength)
     {
         float Damage = (0.5f * EnemyStrength) + (0.5f * EnemyStrength * (1 - ((armor / 100) / (armor / 100 + 1))));
         health -= (int)Damage;
@@ -261,5 +263,6 @@ class Player : AnimatedGameObject
     {
         get { return isAlive; }
     }
+    
 }
     

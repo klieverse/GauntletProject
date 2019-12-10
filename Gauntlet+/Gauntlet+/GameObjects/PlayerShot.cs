@@ -10,7 +10,6 @@ using System.Threading.Tasks;
     {
         float shotSpeed;
         float shotStrength;
-        protected Level level;
         protected TileField tileField;
 
 
@@ -106,11 +105,11 @@ using System.Threading.Tasks;
 
             //check enemycollision
             List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
-            foreach (SpriteGameObject enemy in enemies)
+            foreach (EnemyObject enemy in enemies)
                 if (CollidesWith(enemy))
                 {
                     visible = false;
-                    //enemy.HitByPlayer(shotStrength);
+                    enemy.HitByPlayer(shotStrength);
                 }
                     
         }
