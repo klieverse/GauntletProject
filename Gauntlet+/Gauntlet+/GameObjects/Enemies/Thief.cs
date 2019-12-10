@@ -18,10 +18,10 @@ class Thief : EnemyObject
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-        Thieving();
+        Attack();
     }
 
-    private void Thieving()
+    private void Attack()
     {
         Player player = GameWorld.Find("player") as Player;
         if (CollidesWith(player))

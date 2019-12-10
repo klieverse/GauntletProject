@@ -27,7 +27,7 @@ class Hellhound : EnemyObject
         }
         if (timer == 0f)
         {
-            Hellhounding();
+            Attack();
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
         }
         else if (timer > 500f)
@@ -36,7 +36,7 @@ class Hellhound : EnemyObject
         }
     }
 
-    private void Hellhounding()
+    private void Attack()
     {
         HellhoundShoot hellhoundShoot = new HellhoundShoot(this.position, this.velocity, strength);
     }

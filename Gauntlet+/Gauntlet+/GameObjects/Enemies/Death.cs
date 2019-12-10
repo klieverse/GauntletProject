@@ -19,7 +19,7 @@ class Death : EnemyObject
         base.Update(gameTime);
         if (timer == 0f)
         {
-            Deathing();
+            Attack();
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
         }
         else if (timer > 50f)
@@ -27,7 +27,7 @@ class Death : EnemyObject
             timer = 0f;
         }
     }
-    private void Deathing()
+    private void Attack()
     {
         Player player = GameWorld.Find("player") as Player;
         if(CollidesWith(player))

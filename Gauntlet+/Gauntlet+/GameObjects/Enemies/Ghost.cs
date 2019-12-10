@@ -25,10 +25,10 @@ class Ghost : EnemyObject
         {
             //Delete instance
         }
-        Ghosting();
+        Attack();
     }
 
-    private void Ghosting()
+    private void Attack()
     {
         Player player = GameWorld.Find("player") as Player;
         if (CollidesWith(player))

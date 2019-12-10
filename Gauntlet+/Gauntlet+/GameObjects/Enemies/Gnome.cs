@@ -21,12 +21,12 @@ class Gnome : EnemyObject
         timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
         if (timer > 1f)
         {
-            Gnoming();
+            Attack();
             timer = 0f;
         }
     }
 
-    private void Gnoming()
+    private void Attack()
     {
         GnomeShoot gnomeShoot = new GnomeShoot(this.position, this.velocity, strength);
         GameWorld.Add(gnomeShoot);

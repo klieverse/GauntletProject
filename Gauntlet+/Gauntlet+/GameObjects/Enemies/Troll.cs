@@ -27,7 +27,7 @@ class Troll : EnemyObject
         }
         if (timer == 0f)
         {
-            Trolling();
+            Attack();
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
         }
         else if (timer > 500f)
@@ -37,7 +37,7 @@ class Troll : EnemyObject
         
     }
 
-    private void Trolling()
+    private void Attack()
     {
         Player player = GameWorld.Find("player") as Player;
         if (CollidesWith(player))
