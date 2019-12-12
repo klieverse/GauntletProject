@@ -12,7 +12,7 @@ class Player : AnimatedGameObject
     protected Vector2 startPosition, previousPosition;
     protected Level level;
     protected bool isAlive, isYou;
-    protected float walkingSpeed, armor, magic, shotStrength, shotSpeed, melee;
+    protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
     protected int health = 600, keys, potions;
     float timer = 1f;
 
@@ -22,7 +22,7 @@ class Player : AnimatedGameObject
     {
         this.isYou = isYou;
         this.level = level;
-        walkingSpeed = speed;
+        speedHelper = speed;
         this.armor = armor;
         this.magic = magic;
         this.shotStrength = shotStrength;
@@ -111,7 +111,7 @@ class Player : AnimatedGameObject
     public override void Update(GameTime gameTime)
     {
         previousPosition= position;
-
+        walkingSpeed = (float)Math.Sqrt(speedHelper);
         base.Update(gameTime);
         HandleCamera();
 
@@ -269,6 +269,11 @@ class Player : AnimatedGameObject
     public void ArmorUp()
     {
         armor += 10f;
+    }
+
+    public void SpeedUp()
+    {
+        speedHelper += 30f;
     }
     
     public bool IsAlive

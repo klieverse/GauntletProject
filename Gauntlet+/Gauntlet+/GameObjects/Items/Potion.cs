@@ -31,8 +31,6 @@ class Potion : Item
             foreach (Player player in players)
                 if (CollidesWith(player))
                 {
-                    player.AddKey();
-                    visible = false;
                 }
     }
 }
