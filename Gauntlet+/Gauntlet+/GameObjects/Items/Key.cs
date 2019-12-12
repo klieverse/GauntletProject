@@ -1,23 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-enum PotionType
+
+class Key : Item
 {
-    Normal,
-    Orange,
-    Armor,
-    Magic,
-    ShotPower,
-    ShotSpeed,
-    Speed,
-    Melee
-}
-
-class Potion : Item
-{
-
-    public Potion(PotionType pot, int layer, string id, Vector2 position)
-        : base(layer, id, position)
+    public Key(int layer, string id, Vector2 position)
+        : base(layer: 0, id, position)
     {
     }
 
@@ -36,3 +28,4 @@ class Potion : Item
                 }
     }
 }
+

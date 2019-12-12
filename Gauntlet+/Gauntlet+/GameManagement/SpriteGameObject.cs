@@ -35,7 +35,7 @@ public class SpriteGameObject : GameObject
         }
         if (GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("playingState"))
         {
-            sprite.Draw(spriteBatch, this.GlobalPosition - GameEnvironment.Camera.cameraPosition, rotation, origin);
+            sprite.Draw(spriteBatch, this.GlobalPosition - Camera.Position, rotation, origin);
         }
         else
         {

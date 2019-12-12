@@ -13,13 +13,14 @@ public class EnemyObject : AnimatedGameObject
     protected int strength;
     protected int speed = 250;
     TileField tileField;
-    
+    float meleeTimer = 1;
+
+    public bool canBeMeleed = true;
+
     public EnemyObject(int layer, string id) : base(layer, id)
     {
         LoadAnimation(id, id, true);
         PlayAnimation(id);
-        
-       
     }
 
     public override void Update(GameTime gameTime)
@@ -37,6 +38,12 @@ public class EnemyObject : AnimatedGameObject
             speedHori = (float)Math.Sin(horizontal) * speed;
             velocity.Y = speedVert;
             velocity.X = speedHori;
+        }
+
+        meleeTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds; // makes sure a specific enemy can only be melee'd once a second;
+        if (meleeTimer <= 0)
+        {
+            canBeMeleed = true;
         }
     }
 

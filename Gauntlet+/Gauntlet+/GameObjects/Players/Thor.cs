@@ -7,10 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-    class Warrior : Player
+    class Thor : Player
     {
-        public Warrior(int layer, string id, Vector2 start, Level level)
-        : base(layer, id, start, level, speed: 350f, armor: 20f, magic: 2f, shotStrength: 1f, shotSpeed: 3f, melee: 2.5f)
+        public Thor(int layer, string id, Vector2 start, Level level, bool isYou)
+        : base(layer, id, start, level, speed: 350f, armor: 20f, magic: 2f, shotStrength: 1f, shotSpeed: 3f, melee: 2.5f, isYou)
         {
             Reset();
         }
