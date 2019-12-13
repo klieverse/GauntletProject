@@ -83,7 +83,7 @@
     <Compile Include="GameObjects\Players\Valkyrie.cs" />
     <Compile Include="GameObjects\Players\Wizard.cs" />
     <Compile Include="GameObjects\Items\Potion.cs" />
-    <Compile Include="GameObjects\Players\Elf.cs" />
+    <Compile Include="GameObjects\Players\Questor.cs" />
     <Compile Include="GameObjects\Players\Thyra.cs" />
     <Compile Include="GameObjects\Players\Thor.cs" />
     <Compile Include="GameObjects\Players\Merlin.cs" />
