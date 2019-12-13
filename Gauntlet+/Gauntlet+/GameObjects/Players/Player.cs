@@ -13,7 +13,7 @@ class Player : AnimatedGameObject
     protected Level level;
     protected bool isAlive, isYou;
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
-    protected int health = 600, keys, potions;
+    protected int health = 600, keys, bluePotions, orangePotions;
     float timer = 1f;
 
     public Player(int layer, string id, Vector2 start, Level level, float speed, float armor,
@@ -104,6 +104,15 @@ class Player : AnimatedGameObject
         if (inputHelper.IsKeyDown(Keys.Space))
         {
             PlayerShot playerShot = new PlayerShot(id, shotSpeed, shotStrength, velocity);
+        }
+
+        if (inputHelper.IsKeyDown(Keys.LeftAlt))
+        {
+            if (bluePotions > 0)
+            {
+                bluePotions -= 1;
+                KillEnemiesOnScreen();
+            }
         }
     }
 
@@ -217,11 +226,29 @@ class Player : AnimatedGameObject
             float offsetX = GameEnvironment.Screen.X / 2;
             float offsetY = GameEnvironment.Screen.Y / 2;
 
-            float camX = MathHelper.Clamp(Position.X - offsetX, 0, level.LevelWidth - GameEnvironment.Screen.X); // makes sure camera does not go out of bounds w/ a clamp;
+            // makes sure camera does not go out of bounds w/ a clamp;
+            float camX = MathHelper.Clamp(Position.X - offsetX, 0, level.LevelWidth - GameEnvironment.Screen.X); 
             float camY = MathHelper.Clamp(Position.Y - offsetY, 0, level.LevelHeight - GameEnvironment.Screen.Y);
 
             Camera.Position = new Vector2(camX, camY);
         }
+    }
+
+    void KillEnemiesOnScreen()
+    {
+        List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
+        foreach (SpriteGameObject enemy in enemies)
+        {
+            // checks if the enemy in question has a position somewhere on the screen;
+            float onScreenEnemyX = MathHelper.Clamp(enemy.Position.X, Camera.Position.X, Camera.Position.X + GameEnvironment.Screen.X);
+            float onScreenEnemyY = MathHelper.Clamp(enemy.Position.Y, Camera.Position.Y, Camera.Position.Y + GameEnvironment.Screen.Y); 
+            if (enemy.Position.X == onScreenEnemyX && enemy.Position.Y == onScreenEnemyY) 
+            {
+                //enemy.Die();
+            }
+
+        }
+            
     }
 
     public bool CollidesWithObject()
@@ -264,6 +291,21 @@ class Player : AnimatedGameObject
     public void AddKey()
     {
         keys+= 1;
+    }
+
+    public void AddPotion(PotionType pot)
+    {
+        switch (pot)
+        {
+            case PotionType.Normal:
+                bluePotions += 1;
+                break;
+            case PotionType.Orange:
+                orangePotions += 1;
+                break;
+            default:
+                break;
+        }
     }
 
     public void ArmorUp()

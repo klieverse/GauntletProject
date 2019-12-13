@@ -24,6 +24,7 @@ class Key : Item
                 if (CollidesWith(player))
                 {
                     player.AddKey();
+                    //KeyIcon.AddKey(player);
                     visible = false;
                 }
     }
