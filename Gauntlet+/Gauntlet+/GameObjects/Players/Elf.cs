@@ -7,14 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-    class Elf : PlayerObject
+    class Elf : Player
     {
 
 
         public Elf(int layer, string id, Vector2 start, Level level)
-        : base(layer, id, start, level, speed: 500f, armor: 10f, magic: 3f, shotStrength: 1f, shotSpeed: 3.5f, melee: 1.5f)
+        : base(layer, id, start, level, speed:500f, armor:10f, magic: 3f, shotStrength:1f, shotSpeed:3.5f, melee:1.5f)
         {
-            Reset();
+           Reset();
         }
 
         public override void Reset()
@@ -27,8 +27,8 @@ using System.Threading.Tasks;
             base.Update(gameTime);
         }
 
+        
 
-
-
+        
     }
 

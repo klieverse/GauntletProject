@@ -16,7 +16,7 @@ partial class Level : GameObjectList
         Add(new GameObjectList(2, "players"));
         Add(new GameObjectList(2, "enemies"));
         Add(new GameObjectList(1, "items"));
-        Add(new Player(new Vector2(300, 300)));
+        Add(new Elf(2,"player",new Vector2(300, 300),this));
 
         LoadTiles("Content/Levels/" + levelIndex + ".txt");
     }

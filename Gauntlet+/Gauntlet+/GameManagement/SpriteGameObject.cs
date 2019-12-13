@@ -5,7 +5,7 @@ using System;
 public class SpriteGameObject : GameObject
 {
     protected SpriteSheet sprite;
-    protected Vector2 origin;
+    protected Vector2 origin, scale;
     public bool PerPixelCollisionDetection = true;
     protected float rotation = 0;
 
@@ -35,11 +35,11 @@ public class SpriteGameObject : GameObject
         }
         if (GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("playingState"))
         {
-            sprite.Draw(spriteBatch, this.GlobalPosition - GameEnvironment.Camera.cameraPosition, origin);
+            sprite.Draw(spriteBatch, this.GlobalPosition - GameEnvironment.Camera.cameraPosition, rotation, origin);
         }
         else
         {
-            sprite.Draw(spriteBatch, this.GlobalPosition, origin);
+            sprite.Draw(spriteBatch, this.GlobalPosition, rotation, origin);
         }
     }
 

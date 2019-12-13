@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-    class Merlin : Player
+namespace Gauntlet_.GameObjects.Players
+{
+    class Valkyrie : Player
     {
-        public Merlin(int layer, string id, Vector2 start, Level level)
-        : base(layer, id, start, level, speed: 300f, armor: 0f, magic: 3f, shotStrength: 1.5f, shotSpeed: 3.5f, melee: 1f)
+        public Valkyrie(int layer, string id, Vector2 start, Level level)
+        : base(layer, id, start, level, speed: 350f, armor: 30f, magic: 1.5f, shotStrength: 1f, shotSpeed: 3f, melee: 2f)
         {
-
             Reset();
         }
 
@@ -26,8 +26,5 @@ using System.Threading.Tasks;
             base.Update(gameTime);
 
         }
-
-
-
     }
-
+}

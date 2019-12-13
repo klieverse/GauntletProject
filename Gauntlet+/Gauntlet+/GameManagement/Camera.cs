@@ -10,14 +10,15 @@ public class Camera
     {
         cameraField = new Rectangle(0, 0, 0, 0);
         cameraPosition = Vector2.Zero;
+
     }
 
     public void Update()
     {
         if (GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("playingState"))
         {
-            cameraPosition.X = Player.PlayerPosition.X - 55 - cameraField.Width / 2;
-            cameraPosition.Y = Player.PlayerPosition.Y - 55 - cameraField.Height / 2;
+            cameraPosition.X = Player.Position.X - 55 - cameraField.Width / 2;
+            cameraPosition.Y = Player.Position.Y - 55 - cameraField.Height / 2;
             if (cameraPosition.X < 0)
             {
                 cameraPosition.X = 0;

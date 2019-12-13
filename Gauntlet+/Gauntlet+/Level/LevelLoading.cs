@@ -36,14 +36,17 @@ partial class Level : GameObjectList
     {
         switch (tileType)
         {
+            //Tiles
             case '.':
                 return LoadBasicTile("Background", TileType.Background);
             case '+':
                 return LoadBasicTile("Wall", TileType.Wall, 1);
-            case '-':
-               return LoadBasicTile("BreakableWall", TileType.BreakableWall, 1);
             case '/':
-                return LoadBasicTile("Door", TileType.Door, 1);
+               return LoadBasicTile("BreakableWall", TileType.BreakableWall, 1);
+            case '-':
+                return LoadBasicTile("HorizontalDoor", TileType.HorizontalDoor, 1);
+            case '|':
+                return LoadBasicTile("VerticalDoor", TileType.VerticalDoor, 1);
             case 'O':
                 return LoadBasicTile("Teleport", TileType.Teleporter, 1);
             case 'x':
@@ -66,6 +69,8 @@ partial class Level : GameObjectList
                 return LoadElf(x, y);
             case 'M':
                 return LoadMerlin(x, y);
+
+                //Items
             case 'P':
                 return LoadPotion(Color.Blue, x, y);
             case 'p':
@@ -74,6 +79,9 @@ partial class Level : GameObjectList
                 return LoadKey(x, y);
             case 'a':
                 return LoadExtraPotion(x, y);
+            case 't':
+                return LoadTreasure(x, y);
+
             default:
                 int t = (int)tileType;
                 return LoadExitTile("Exit", TileType.Exit, t);
@@ -158,6 +166,12 @@ partial class Level : GameObjectList
     }
 
     private Tile LoadExtraPotion(int x, int y)
+    {
+
+        return new Tile("Tiles/background", TileType.Background);
+    }
+
+    private Tile LoadTreasure(int x, int y)
     {
 
         return new Tile("Tiles/background", TileType.Background);

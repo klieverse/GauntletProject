@@ -48,8 +48,7 @@
     <Compile Include="GameManagement\Animation.cs" />
     <Compile Include="GameManagement\AssetManager.cs" />
     <Compile Include="GameManagement\Camera.cs" />
-    <Compile Include="GameManagement\PlayerObject.cs" />
-    <Compile Include="GameManagement\EnemyObject.cs" />
+    <Compile Include="GameObjects\Enemies\EnemyObject.cs" />
     <Compile Include="GameManagement\Collision.cs" />
     <Compile Include="GameManagement\DrawingHelper.cs" />
     <Compile Include="GameManagement\GameEnvironment.cs" />
@@ -70,7 +69,6 @@
     <Compile Include="GameObjects\Enemies\TempleWizards.cs" />
     <Compile Include="GameObjects\Enemies\GnomeShoot.cs" />
     <Compile Include="GameObjects\Enemies\HellhoundShoot.cs" />
-    <Compile Include="GameObjects\PlayerShot.cs" />
     <Compile Include="GameObjects\Enemies\Thief.cs" />
     <Compile Include="GameObjects\Enemies\Death.cs" />
     <Compile Include="GameObjects\Enemies\Gnome.cs" />
@@ -78,8 +76,11 @@
     <Compile Include="GameObjects\Enemies\Troll.cs" />
     <Compile Include="GameObjects\Enemies\Ghost.cs" />
     <Compile Include="GameObjects\Enemies\Wizard.cs" />
+    <Compile Include="GameObjects\Players\Player.cs" />
+    <Compile Include="GameObjects\PlayerShot.cs" />
+    <Compile Include="GameObjects\Players\Valkyrie.cs" />
+    <Compile Include="GameObjects\Players\Wizard.cs" />
     <Compile Include="GameObjects\Items\Potion.cs" />
-    <Compile Include="GameObjects\Player.cs" />
     <Compile Include="GameObjects\Players\Elf.cs" />
     <Compile Include="GameObjects\Players\Thyra.cs" />
     <Compile Include="GameObjects\Players\Warrior.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Level\Tile.cs" />
     <Compile Include="Level\TileField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GameObjects\Enemies\SpawnObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">

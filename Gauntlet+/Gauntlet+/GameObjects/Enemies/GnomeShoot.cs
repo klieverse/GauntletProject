@@ -14,13 +14,13 @@ public class GnomeShoot : AnimatedGameObject
         PlayAnimation("ghost");
         this.position = startPosition;
         this.velocity = velocity;
-        visible = true;
         this.strength = strength;
     }
 
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
+        //looks for players in game, if it collides with it, reduces player's health and then this instance gets removed
         Player player = GameWorld.Find("player") as Player;
         if (CollidesWith(player))
         {

@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 class Thief : EnemyObject
 {
-    int thiefSpeed = 500;
-    public Thief(Vector2 startPosition) : base(2, "Thief", false, false, false, false, false, false, true)
+    readonly int thiefSpeed = 500;
+
+    public Thief(Vector2 startPosition) : base(2, "Thief")
     {
         speed = thiefSpeed;
         position = startPosition;
@@ -18,10 +19,11 @@ class Thief : EnemyObject
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-        Thieving();
+        Attack();
     }
 
-    private void Thieving()
+    //executes attack when it collides with player.
+    private void Attack()
     {
         Player player = GameWorld.Find("player") as Player;
         if (CollidesWith(player))

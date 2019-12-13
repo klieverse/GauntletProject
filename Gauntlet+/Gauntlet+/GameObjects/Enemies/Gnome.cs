@@ -9,7 +9,7 @@ class Gnome : EnemyObject
 {
     float timer = 0f;
 
-    public Gnome(Vector2 startPosition) : base(2, "Gnome", false, true, false, false, false, false, false)
+    public Gnome(Vector2 startPosition) : base(2, "Gnome")
     {
         this.position = startPosition;
         strength = 3;
@@ -18,15 +18,17 @@ class Gnome : EnemyObject
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-        timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-        if (timer > 1f)
+        //cooldown in which the enemy attacks
+        timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+        if (timer > 1000f)
         {
-            Gnoming();
+            Attack();
             timer = 0f;
         }
     }
 
-    private void Gnoming()
+    //enemy creates shooting object that shoots in the direction in which the gnome is facing.
+    private void Attack()
     {
         GnomeShoot gnomeShoot = new GnomeShoot(this.position, this.velocity, strength);
         GameWorld.Add(gnomeShoot);

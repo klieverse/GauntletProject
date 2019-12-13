@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-    class Warrior : PlayerObject
+    class Warrior : Player
     {
         public Warrior(int layer, string id, Vector2 start, Level level)
         : base(layer, id, start, level, speed: 350f, armor: 20f, magic: 2f, shotStrength: 1f, shotSpeed: 3f, melee: 2.5f)
@@ -25,4 +25,3 @@ using System.Threading.Tasks;
             base.Update(gameTime);
         }
     }
-

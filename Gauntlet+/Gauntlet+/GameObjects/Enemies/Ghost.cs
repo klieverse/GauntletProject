@@ -7,28 +7,32 @@ using System.Threading.Tasks;
 
 class Ghost : EnemyObject
 {
-    float counts = 0f;
-    public Ghost(Vector2 startPosition) : base(2, "Ghost", false, false, false, false, true, false, false)
+    
+    public Ghost(Vector2 startPosition) : base(2, "Ghost")
     {
         this.position = startPosition;
+        //set strength of ghost
         strength = 30;
     }
 
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
+        //change its strength value based on the amount of health it has
         if (health < 21)
             strength = 20;
         if (health < 11)
             strength = 10;
         if (health < 1)
         {
-            //Delete instance
+            //removes the instance from game
+            GameWorld.Remove(this);
         }
-        Ghosting();
+        Attack();
     }
 
-    private void Ghosting()
+    //calculates attack and removes instance from game
+    private void Attack()
     {
         Player player = GameWorld.Find("player") as Player;
         if (CollidesWith(player))
