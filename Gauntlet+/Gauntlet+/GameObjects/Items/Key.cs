@@ -1,25 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-enum PotionType
-{
-    Normal,
-    Orange,
-    Armor,
-    Magic,
-    ShotPower,
-    ShotSpeed,
-    Speed,
-    Melee
-}
 
-class Potion : Item
+class Key : Item
 {
-    PotionType pot;
-    public Potion(PotionType pot, int layer, string id, Vector2 position)
-        : base(layer, id, position)
+    public Key(int layer, string id, Vector2 position)
+        : base(layer: 0, id, position)
     {
-        this.pot = pot;
     }
 
     public override void Update(GameTime gameTime)
@@ -32,7 +23,10 @@ class Potion : Item
             foreach (Player player in players)
                 if (CollidesWith(player))
                 {
-                    player.AddPotion(pot);
+                    player.AddKey();
+                    //KeyIcon.AddKey(player);
+                    visible = false;
                 }
     }
 }
+

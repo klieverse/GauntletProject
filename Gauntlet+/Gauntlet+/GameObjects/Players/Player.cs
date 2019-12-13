@@ -9,27 +9,33 @@ using System.Threading.Tasks;
 
 class Player : AnimatedGameObject
 {
-    protected Vector2 startPosition;
+    protected Vector2 startPosition, previousPosition;
     protected Level level;
-    protected bool isAlive;
-    protected float walkingSpeed;
-    public int health = 600;
-    protected float armor;
-    protected float magic;
-    protected float shotStrength;
-    protected float shotSpeed;
-    protected float melee;
-    protected PlayerShot playerShot;
-    protected Vector2 previousPosition;
-
-    //protected List<Item> inventory;
+    protected bool isAlive, isYou;
+    protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
+    protected int health = 600, keys, bluePotions, orangePotions;
+    float timer = 1f;
 
     public Player(int layer, string id, Vector2 start, Level level, float speed, float armor,
-                        float magic, float shotStrength, float shotSpeed, float melee)
-    : base(layer, id)
+                        float magic, float shotStrength, float shotSpeed, float melee, bool isYou)
+        : base(layer, id)
     {
+        this.isYou = isYou;
         this.level = level;
+        speedHelper = speed;
+        this.armor = armor;
+        this.magic = magic;
+        this.shotStrength = shotStrength;
+        this.shotSpeed = shotSpeed;
+        this.melee = melee;
+        this.id = id;
+        startPosition = start;
 
+        LoadAnimations();
+    }
+
+    void LoadAnimations()
+    {
         LoadAnimation("Sprites/Player/spr_" + id + "idle", id + "idle", true);
         LoadAnimation("Sprites/Player/spr_" + id + "runRight", id + "runRight", true);
         LoadAnimation("Sprites/Player/spr_" + id + "runDownRight", id + "runDownRight", true);
@@ -39,17 +45,6 @@ class Player : AnimatedGameObject
         LoadAnimation("Sprites/Player/spr_" + id + "runUpLeft", id + "runUpLeft", true);
         LoadAnimation("Sprites/Player/spr_" + id + "runUp", id + "runUp", true);
         LoadAnimation("Sprites/Player/spr_" + id + "die", id + "die", false);
-
-        walkingSpeed = speed;
-        this.armor = armor;
-        this.magic = magic;
-        this.shotStrength = shotStrength;
-        this.shotSpeed = shotSpeed;
-        this.melee = melee;
-        this.id = id;
-        startPosition = start;
-        //protected List<Item> invent = new List<Item>();
-        Reset();
     }
 
     public override void Reset()
@@ -58,7 +53,6 @@ class Player : AnimatedGameObject
         velocity = Vector2.Zero;
         isAlive = true;
         PlayAnimation(id + "idle");
-
     }
 
     public override void HandleInput(InputHelper inputHelper)
@@ -109,7 +103,16 @@ class Player : AnimatedGameObject
 
         if (inputHelper.IsKeyDown(Keys.Space))
         {
-            Shoot(velocity);
+            PlayerShot playerShot = new PlayerShot(id, shotSpeed, shotStrength, velocity);
+        }
+
+        if (inputHelper.IsKeyDown(Keys.LeftAlt))
+        {
+            if (bluePotions > 0)
+            {
+                bluePotions -= 1;
+                KillEnemiesOnScreen();
+            }
         }
     }
 
@@ -117,26 +120,32 @@ class Player : AnimatedGameObject
     public override void Update(GameTime gameTime)
     {
         previousPosition= position;
-        
+        walkingSpeed = (float)Math.Sqrt(speedHelper);
         base.Update(gameTime);
+        HandleCamera();
 
-        if (isAlive)
+        if (!isAlive)
         {
-            HandleAnimations();
-            CheckEnemyMelee();
-            HandleCollisions();
-            if (CollidesWithObject())
-            {
-                position = previousPosition;
-            }
+            return;
         }
+
+        timer -= (float)gameTime.ElapsedGameTime.TotalSeconds; //makes the timer count down;
+
+        if(timer <= 0)
+        {
+            health -= 1;
+            timer = 1f;
+        }
+
+        CheckEnemyMelee();
+        HandleCollisions();
+        HandleAnimations();
+
 
         if (health <= 0)
         {
             Die();
         }
-
-        
     }
 
     void CheckEnemyMelee()
@@ -144,11 +153,11 @@ class Player : AnimatedGameObject
         //check enemycollision
         List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
         foreach (EnemyObject enemy in enemies)
-            if (CollidesWith(enemy))
+            if (CollidesWith(enemy) && enemy.canBeMeleed == true)
             {
                 enemy.HitByPlayer(melee);
+                enemy.canBeMeleed = false;
             }
-
     }
 
     private void HandleAnimations()
@@ -187,11 +196,6 @@ class Player : AnimatedGameObject
         }
     }
 
-    private void Shoot(Vector2 direction)
-    {
-        playerShot = new PlayerShot(id, shotSpeed, shotStrength, velocity);
-    }
-
     public void Die()
     {
         if (!isAlive)
@@ -207,12 +211,51 @@ class Player : AnimatedGameObject
         PlayAnimation(id + "die");
     }
 
+    private void HandleCollisions()
+    {
+        if (CollidesWithObject() == true)
+        {
+            position = previousPosition;
+        }
+    }
+
+    void HandleCamera()
+    {
+        if (isYou)
+        {
+            float offsetX = GameEnvironment.Screen.X / 2;
+            float offsetY = GameEnvironment.Screen.Y / 2;
+
+            // makes sure camera does not go out of bounds w/ a clamp;
+            float camX = MathHelper.Clamp(Position.X - offsetX, 0, level.LevelWidth - GameEnvironment.Screen.X); 
+            float camY = MathHelper.Clamp(Position.Y - offsetY, 0, level.LevelHeight - GameEnvironment.Screen.Y);
+
+            Camera.Position = new Vector2(camX, camY);
+        }
+    }
+
+    void KillEnemiesOnScreen()
+    {
+        List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
+        foreach (SpriteGameObject enemy in enemies)
+        {
+            // checks if the enemy in question has a position somewhere on the screen;
+            float onScreenEnemyX = MathHelper.Clamp(enemy.Position.X, Camera.Position.X, Camera.Position.X + GameEnvironment.Screen.X);
+            float onScreenEnemyY = MathHelper.Clamp(enemy.Position.Y, Camera.Position.Y, Camera.Position.Y + GameEnvironment.Screen.Y); 
+            if (enemy.Position.X == onScreenEnemyX && enemy.Position.Y == onScreenEnemyY) 
+            {
+                //enemy.Die();
+            }
+
+        }
+            
+    }
+
     public bool CollidesWithObject()
     {
         TileField tileField = GameWorld.Find("tiles") as TileField;
 
         //check wall collision
-
         Tile tile = tileField.Get(1, 1) as Tile;
         int Left = (int)(position.X / tile.Width);
         int Right = (int)((position.X + Width) / tile.Width);
@@ -239,18 +282,30 @@ class Player : AnimatedGameObject
         return false;
     }
 
-    private void HandleCollisions()
-    {
-        if (CollidesWithObject() == true)
-        {
-            position = previousPosition;
-        }
-    }
-
     public void HitByEnemy(float EnemyStrength)
     {
         float Damage = (0.5f * EnemyStrength) + (0.5f * EnemyStrength * (1 - ((armor / 100) / (armor / 100 + 1))));
         health -= (int)Damage;
+    }
+
+    public void AddKey()
+    {
+        keys+= 1;
+    }
+
+    public void AddPotion(PotionType pot)
+    {
+        switch (pot)
+        {
+            case PotionType.Normal:
+                bluePotions += 1;
+                break;
+            case PotionType.Orange:
+                orangePotions += 1;
+                break;
+            default:
+                break;
+        }
     }
 
     public void ArmorUp()
@@ -258,11 +313,14 @@ class Player : AnimatedGameObject
         armor += 10f;
     }
 
-
+    public void SpeedUp()
+    {
+        speedHelper += 30f;
+    }
+    
     public bool IsAlive
     {
         get { return isAlive; }
     }
-    
 }
     

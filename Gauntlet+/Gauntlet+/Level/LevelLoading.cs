@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework;
 
 partial class Level : GameObjectList
 {
+    public int LevelWidth { get; protected set; }
+    public int LevelHeight { get; protected set; }
+
     public void LoadTiles(string path)
     {
         List<string> textLines = new List<string>();
@@ -30,6 +33,9 @@ partial class Level : GameObjectList
         }
         Add(background);
         Add(tiles);
+
+        LevelWidth = width * tiles.CellWidth;
+        LevelHeight = (textLines.Count - 0) * tiles.CellHeight;
     }
 
     private Tile LoadTile(char tileType, int x, int y)
@@ -116,7 +122,7 @@ partial class Level : GameObjectList
                 Ghost ghost = new Ghost(startPosition);
                 Add(ghost);
         */
-        return new Tile("Tiles/background", TileType.Background);
+        //return new Tile("Tiles/background", TileType.Background);
     }
 
     private Tile LoadGnome(int x, int y)

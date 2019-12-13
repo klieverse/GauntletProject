@@ -76,6 +76,8 @@
     <Compile Include="GameObjects\Enemies\Troll.cs" />
     <Compile Include="GameObjects\Enemies\Ghost.cs" />
     <Compile Include="GameObjects\Enemies\Wizard.cs" />
+    <Compile Include="GameObjects\Items\Item.cs" />
+    <Compile Include="GameObjects\Items\Key.cs" />
     <Compile Include="GameObjects\Players\Player.cs" />
     <Compile Include="GameObjects\PlayerShot.cs" />
     <Compile Include="GameObjects\Players\Valkyrie.cs" />
@@ -83,7 +85,7 @@
     <Compile Include="GameObjects\Items\Potion.cs" />
     <Compile Include="GameObjects\Players\Elf.cs" />
     <Compile Include="GameObjects\Players\Thyra.cs" />
-    <Compile Include="GameObjects\Players\Warrior.cs" />
+    <Compile Include="GameObjects\Players\Thor.cs" />
     <Compile Include="GameObjects\Players\Merlin.cs" />
     <Compile Include="GameStates\BetweenLevelState.cs" />
     <Compile Include="GameStates\GameOverState.cs" />
