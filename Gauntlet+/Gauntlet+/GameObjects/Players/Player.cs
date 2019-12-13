@@ -160,7 +160,7 @@ class Player : AnimatedGameObject
             }
     }
 
-    private void HandleAnimations()
+    private void HandleAnimations() // Makes sure the right animation is being played;
     {
         if (velocity == Vector2.Zero)
         {
@@ -211,7 +211,7 @@ class Player : AnimatedGameObject
         PlayAnimation(id + "die");
     }
 
-    private void HandleCollisions()
+    private void HandleCollisions() //sets the position back to the last known position was before the player walked en collided with an object;
     {
         if (CollidesWithObject() == true)
         {
@@ -283,8 +283,8 @@ class Player : AnimatedGameObject
     }
 
     public void HitByEnemy(float EnemyStrength)
-    {
-        float Damage = (0.5f * EnemyStrength) + (0.5f * EnemyStrength * (1 - ((armor / 100) / (armor / 100 + 1))));
+    {   // calculates the damage, where the more armor the player has, the closer the damage is to being only half the strength of the enemy;
+        float Damage = (0.5f * EnemyStrength) + (0.5f * EnemyStrength * (1 - ((armor / 100) / (armor / 100 + 1)))); 
         health -= (int)Damage;
     }
 
