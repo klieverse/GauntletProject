@@ -12,16 +12,19 @@ class SpawnObject : SpriteGameObject
     Random r;
     float timer = 0;
     TileField tileField;
+    readonly string spawnId = "";
 
-    public SpawnObject(Vector2 startPosition) : base("",2,"Skeleton")
+    public SpawnObject(Vector2 startPosition, string spawnId ) : base("",2,"Skeleton")
     {
         position = startPosition;
         r = new Random();
         tileField = GameWorld.Find("Tiles") as TileField;
+        this.spawnId = spawnId;
     }
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
+        //cooldown timer for when an enemy is getting spawned
         timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
         if (timer > 500)
         {
@@ -34,6 +37,7 @@ class SpawnObject : SpriteGameObject
 
     private void NewLocation()
     {
+        //gives a random number from 0-7, where each number has determines the location of spawn from the Spawner
         int spawnPlace = r.Next(8);
         switch (spawnPlace)
         {
@@ -118,10 +122,25 @@ class SpawnObject : SpriteGameObject
 
 
 
-
+    //spawn certain enemies according to the spawnId given in Levelloading.cs (not created in levelloading yet)
     public virtual void Spawn()
     {
-        
+        if (spawnId == "Wizard")
+        {
+            (GameWorld.Find("enemies") as GameObjectList).Add(new Wizard(spawnLocation));
+        }
+        else if(spawnId == "Troll")
+        {
+            (GameWorld.Find("enemies") as GameObjectList).Add(new Troll(spawnLocation));
+        }
+        else if (spawnId == "Hellhound")
+        {
+            (GameWorld.Find("enemies") as GameObjectList).Add(new Hellhound(spawnLocation));
+        }
+        else if (spawnId == "Ghost")
+        {
+            (GameWorld.Find("enemies") as GameObjectList).Add(new Ghost(spawnLocation));
+        }
     }
 }
 

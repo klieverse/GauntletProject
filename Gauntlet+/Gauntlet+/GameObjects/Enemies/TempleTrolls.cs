@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿/*
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,4 +24,4 @@ class TempleTrolls : SpawnObject
         (GameWorld.Find("enemies") as GameObjectList).Add(new Troll(spawnLocation));
     }
 }
-
+*/

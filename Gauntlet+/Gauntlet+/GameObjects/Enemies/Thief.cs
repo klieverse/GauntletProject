@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 class Thief : EnemyObject
 {
-    int thiefSpeed = 500;
+    readonly int thiefSpeed = 500;
+
     public Thief(Vector2 startPosition) : base(2, "Thief")
     {
         speed = thiefSpeed;
@@ -21,6 +22,7 @@ class Thief : EnemyObject
         Attack();
     }
 
+    //executes attack when it collides with player.
     private void Attack()
     {
         Player player = GameWorld.Find("player") as Player;

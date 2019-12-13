@@ -10,6 +10,7 @@ public class Camera
     {
         cameraField = new Rectangle(0, 0, 0, 0);
         cameraPosition = Vector2.Zero;
+
     }
 
     public void Update()

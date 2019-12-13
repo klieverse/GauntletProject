@@ -17,6 +17,7 @@ class Death : EnemyObject
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
+        //cooldown for when the enemy attacks
         if (timer == 0f)
         {
             Attack();
@@ -27,6 +28,8 @@ class Death : EnemyObject
             timer = 0f;
         }
     }
+
+    //how the enemy attacks
     private void Attack()
     {
         Player player = GameWorld.Find("player") as Player;

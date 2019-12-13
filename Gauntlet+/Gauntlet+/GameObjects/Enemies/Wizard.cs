@@ -18,21 +18,24 @@ class Wizard : EnemyObject
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
+        //strength based on current health
         if (this.health < 21)
             strength = 8;
         if (this.health < 11)
             strength = 5;
+        //removes this object when health is less than 1
         if (this.health < 1)
         {
-            //Delete instance
+            GameWorld.Remove(this);
         }
         visibilityTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-
+        //wizard can get invisible, timer which switches state of visibility
         if (visibilityTimer > 500)
         {
             visible = !visible;
             visibilityTimer = 0;
         }
+        //calculates when the enemy can attack
         if (timer == 0f)
         {
             Attack();
@@ -44,6 +47,7 @@ class Wizard : EnemyObject
         }
     }
 
+    //find player, if collides, then player loses health according to this' strength;
     private void Attack()
     {
         Player player = GameWorld.Find("player") as Player;

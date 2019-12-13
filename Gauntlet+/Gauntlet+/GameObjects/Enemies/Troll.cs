@@ -17,14 +17,17 @@ class Troll : EnemyObject
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
+        //strength is based on current health
         if (this.health < 21)
             strength = 8;
         if (this.health < 11)
             strength = 5;
+        //dies if health is less than 1
         if (this.health < 1)
         {
-            //Delete instance
+            GameWorld.Remove(this);
         }
+        //timer for when it can attack
         if (timer == 0f)
         {
             Attack();
@@ -37,6 +40,7 @@ class Troll : EnemyObject
         
     }
 
+    //finds player, if collides, then reduce player's health according to this' strength
     private void Attack()
     {
         Player player = GameWorld.Find("player") as Player;

@@ -10,6 +10,7 @@ class Hellhound : EnemyObject
     float timer = 0f;
     public Hellhound(Vector2 startPosition) : base(2, "Hellhound")
     {
+        //starting position equal to what is determined in SpawnObject.cs
         position = startPosition;
         strength = 10;
     }
@@ -17,14 +18,16 @@ class Hellhound : EnemyObject
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
+        //strength of enemy reduces with current health
         if (this.health < 21)
             strength = 8;
         if (this.health < 11)
             strength = 5;
         if (this.health < 1)
         {
-            //Delete instance
+            GameWorld.Remove(this);
         }
+        //cooldown for when the enemy attacks
         if (timer == 0f)
         {
             Attack();
@@ -36,6 +39,7 @@ class Hellhound : EnemyObject
         }
     }
 
+    //attacks by creating a shooting object, where the object shoots in the direction in which the enemy is moving
     private void Attack()
     {
         HellhoundShoot hellhoundShoot = new HellhoundShoot(this.position, this.velocity, strength);

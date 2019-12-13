@@ -18,14 +18,16 @@ class Gnome : EnemyObject
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-        timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-        if (timer > 1f)
+        //cooldown in which the enemy attacks
+        timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+        if (timer > 1000f)
         {
             Attack();
             timer = 0f;
         }
     }
 
+    //enemy creates shooting object that shoots in the direction in which the gnome is facing.
     private void Attack()
     {
         GnomeShoot gnomeShoot = new GnomeShoot(this.position, this.velocity, strength);
