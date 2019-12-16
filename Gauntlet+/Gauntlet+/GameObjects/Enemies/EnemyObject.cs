@@ -14,20 +14,30 @@ public class EnemyObject : AnimatedGameObject
     protected int speed = 250;
     TileField tileField;
     float meleeTimer = 1;
+    protected Vector2 previousPosition;
 
     public bool canBeMeleed = true;
 
     public EnemyObject(int layer, string id) : base(layer, id)
     {
-        LoadAnimation(id, id, true);
-        PlayAnimation(id);
+        LoadAnimations();
+        PlayAnimation(id + "idle");
     }
-
+    void LoadAnimations()
+    {
+        LoadAnimation("Sprites/Enemies/spr_" + id + "idle", id + "idle", true);
+        LoadAnimation("Sprites/Enemies/spr_" + id + "runRight@13", id + "runRight", true);
+        LoadAnimation("Sprites/Enemies/spr_" + id + "runLeft@13", id + "runLeft", true);
+    }
     public override void Update(GameTime gameTime)
     {
+        previousPosition = position;
         base.Update(gameTime);
+        
         tileField = GameWorld.Find("tiles") as TileField;
-        Player player = GameWorld.Find("Player") as Player;
+        if (CollidesWithObject())
+            position = previousPosition;
+        Player player = GameWorld.Find("Elf") as Player;
         if (player != null)
         {
             float opposite = player.Position.Y - position.Y + 55;
@@ -44,6 +54,60 @@ public class EnemyObject : AnimatedGameObject
         if (meleeTimer <= 0)
         {
             canBeMeleed = true;
+        }
+        HandleAnimations();
+    }
+
+    void HandleAnimations()
+    {
+        if (velocity == Vector2.Zero)
+        {
+            PlayAnimation(id + "idle");
+        }/*
+        else if (velocity.X > 0 && velocity.Y == 0)
+        {
+            PlayAnimation(id + "runRight");
+        }
+        else if (velocity.X > 0 && velocity.Y > 0)
+        {
+            PlayAnimation(id + "runDownRight");
+        }
+        else if (velocity.X == 0 && velocity.Y > 0)
+        {
+            PlayAnimation(id + "runDown");
+        }
+        else if (velocity.X < 0 && velocity.Y > 0)
+        {
+            PlayAnimation(id + "runDownLeft");
+        }
+        else if (velocity.X < 0 && velocity.Y == 0)
+        {
+            PlayAnimation(id + "runLeft");
+        }
+        else if (velocity.X < 0 && velocity.Y < 0)
+        {
+            PlayAnimation(id + "runUpLeft");
+        }
+        else if (velocity.X == 0 && velocity.Y < 0)
+        {
+            PlayAnimation(id + "runUp");
+        }
+        */ //tijdenlijk voor testen met i.v.m. berkte animaties
+        else if (velocity.X < 0)
+        {
+            PlayAnimation(id + "runLeft");
+        }
+        else if (velocity.X > 0)
+        {
+            PlayAnimation(id + "runRight");
+        }
+        else if (velocity.Y > 0)
+        {
+            PlayAnimation(id + "runRight");
+        }
+        else if (velocity.Y < 0)
+        {
+            PlayAnimation(id + "runLeft");
         }
     }
 

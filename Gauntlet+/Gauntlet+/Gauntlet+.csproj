@@ -80,8 +80,6 @@
     <Compile Include="GameObjects\Items\Key.cs" />
     <Compile Include="GameObjects\Players\Player.cs" />
     <Compile Include="GameObjects\PlayerShot.cs" />
-    <Compile Include="GameObjects\Players\Valkyrie.cs" />
-    <Compile Include="GameObjects\Players\Wizard.cs" />
     <Compile Include="GameObjects\Items\Potion.cs" />
     <Compile Include="GameObjects\Players\Questor.cs" />
     <Compile Include="GameObjects\Players\Thyra.cs" />

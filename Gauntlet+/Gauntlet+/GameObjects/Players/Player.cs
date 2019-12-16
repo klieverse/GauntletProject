@@ -13,7 +13,8 @@ class Player : AnimatedGameObject
     protected Level level;
     protected bool isAlive, isYou;
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
-    protected int health = 600, keys, bluePotions, orangePotions;
+    protected int  keys, bluePotions, orangePotions;
+    public int health = 600;
     float timer = 1f;
 
     public Player(int layer, string id, Vector2 start, Level level, float speed, float armor,
@@ -32,19 +33,21 @@ class Player : AnimatedGameObject
         startPosition = start;
 
         LoadAnimations();
+        Reset();
     }
 
     void LoadAnimations()
     {
+        ////er mist rightup
         LoadAnimation("Sprites/Player/spr_" + id + "idle", id + "idle", true);
-        LoadAnimation("Sprites/Player/spr_" + id + "runRight", id + "runRight", true);
-        LoadAnimation("Sprites/Player/spr_" + id + "runDownRight", id + "runDownRight", true);
-        LoadAnimation("Sprites/Player/spr_" + id + "runDown", id + "runDown", true);
-        LoadAnimation("Sprites/Player/spr_" + id + "runDownLeft", id + "runDownLeft", true);
-        LoadAnimation("Sprites/Player/spr_" + id + "runLeft", id + "runLeft", true);
-        LoadAnimation("Sprites/Player/spr_" + id + "runUpLeft", id + "runUpLeft", true);
-        LoadAnimation("Sprites/Player/spr_" + id + "runUp", id + "runUp", true);
-        LoadAnimation("Sprites/Player/spr_" + id + "die", id + "die", false);
+        LoadAnimation("Sprites/Player/spr_" + id + "runRight@13", id + "runRight", true);
+      //LoadAnimation("Sprites/Player/spr_" + id + "runDownRight", id + "runDownRight", true);
+      //LoadAnimation("Sprites/Player/spr_" + id + "runDown", id + "runDown", true);
+      //LoadAnimation("Sprites/Player/spr_" + id + "runDownLeft", id + "runDownLeft", true);
+        LoadAnimation("Sprites/Player/spr_" + id + "runLeft@13", id + "runLeft", true);
+      //LoadAnimation("Sprites/Player/spr_" + id + "runUpLeft", id + "runUpLeft", true);
+      //LoadAnimation("Sprites/Player/spr_" + id + "runUp", id + "runUp", true);
+      //LoadAnimation("Sprites/Player/spr_" + id + "die", id + "die", false);
     }
 
     public override void Reset()
@@ -63,6 +66,8 @@ class Player : AnimatedGameObject
             return;
         }
 
+        
+        
         if (inputHelper.IsKeyDown(Keys.Left))
         {
             velocity.X = -walkingSpeed;
@@ -71,15 +76,15 @@ class Player : AnimatedGameObject
         {
             velocity.X = walkingSpeed;
         }
-        else if (inputHelper.KeyPressed(Keys.Up))
+        else if (inputHelper.IsKeyDown(Keys.Up))
         {
             velocity.Y = -walkingSpeed;
         }
-        else if (inputHelper.KeyPressed(Keys.Down))
+        else if (inputHelper.IsKeyDown(Keys.Down))
         {
             velocity.Y = walkingSpeed;
         }
-
+        
         else if (inputHelper.IsKeyDown(Keys.Left) && inputHelper.IsKeyDown(Keys.Up))
         {
             velocity.Y = 0.71f * -walkingSpeed;
@@ -100,10 +105,14 @@ class Player : AnimatedGameObject
             velocity.Y = 0.71f * walkingSpeed;
             velocity.X = 0.71f * walkingSpeed;
         }
+        
+        
 
         if (inputHelper.IsKeyDown(Keys.Space))
         {
-            PlayerShot playerShot = new PlayerShot(id, shotSpeed, shotStrength, velocity);
+            
+                PlayerShot playerShot = new PlayerShot(id, shotSpeed, shotStrength, velocity);
+            
         }
 
         if (inputHelper.IsKeyDown(Keys.LeftAlt))
@@ -165,7 +174,7 @@ class Player : AnimatedGameObject
         if (velocity == Vector2.Zero)
         {
             PlayAnimation(id + "idle");
-        }
+        }/*
         else if (velocity.X > 0 && velocity.Y == 0)
         {
             PlayAnimation(id + "runRight");
@@ -194,6 +203,23 @@ class Player : AnimatedGameObject
         {
             PlayAnimation(id + "runUp");
         }
+        */ //tijdenlijk voor testen met i.v.m. berkte animaties
+        else if (velocity.X < 0)
+        {
+            PlayAnimation(id + "runLeft");
+        }
+        else if (velocity.X > 0)
+        {
+            PlayAnimation(id + "runRight");
+        }
+        else if (velocity.Y > 0)
+        {
+            PlayAnimation(id + "runRight");
+        }
+        else if (velocity.Y < 0)
+        {
+            PlayAnimation(id + "runLeft");
+        }
     }
 
     public void Die()
@@ -206,9 +232,9 @@ class Player : AnimatedGameObject
         isAlive = false;
         visible = false;
             velocity.Y = -900;
-        GameEnvironment.AssetManager.PlaySound("Sounds/snd_" + id + "_die");
+       // GameEnvironment.AssetManager.PlaySound("Sounds/snd_" + id + "_die");
 
-        PlayAnimation(id + "die");
+        //PlayAnimation(id + "die");
     }
 
     private void HandleCollisions() //sets the position back to the last known position was before the player walked en collided with an object;

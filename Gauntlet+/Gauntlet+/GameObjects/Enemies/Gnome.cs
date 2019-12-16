@@ -30,7 +30,7 @@ class Gnome : EnemyObject
     //enemy creates shooting object that shoots in the direction in which the gnome is facing.
     private void Attack()
     {
-        GnomeShoot gnomeShoot = new GnomeShoot(this.position, this.velocity, strength);
-        GameWorld.Add(gnomeShoot);
+       // GnomeShoot gnomeShoot = new GnomeShoot(this.position, this.velocity, strength);
+        (GameWorld.Find("enemieShot") as GameObjectList).Add(new GnomeShoot(this.position, this.velocity, strength));
     }
 }
