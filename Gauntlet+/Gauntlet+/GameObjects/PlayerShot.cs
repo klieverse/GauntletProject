@@ -25,46 +25,46 @@ class PlayerShot : SpriteGameObject
     {
         if (velocity.X > 0 && velocity.Y == 0) 
         {
-             velocity.X = shotSpeed * 75d + 200; 
+             velocity.X = shotSpeed * 75 + 200; 
              Rotate(90);
         }
         if (velocity.X > 0 && velocity.Y > 0)
         {
-             velocity.X = 0.71f * (shotSpeed * 50 + 200);
-             velocity.Y = 0.71f * (shotSpeed * 50 + 200);
+             velocity.X = 0.71f * (shotSpeed * 75 + 200);
+             velocity.Y = 0.71f * (shotSpeed * 75 + 200);
              Rotate(135);
         }
         if (velocity.X < 0 && velocity.Y < 0)
         {
-            velocity.X = -0.71f * (shotSpeed * 50 + 200);
-            velocity.Y = -0.71f * (shotSpeed * 50 + 200);
+            velocity.X = -0.71f * (shotSpeed * 75 + 200);
+            velocity.Y = -0.71f * (shotSpeed * 75 + 200);
             Rotate(315);
         }
         if (velocity.X == 0 && velocity.Y > 0)
         {
-            velocity.Y = (shotSpeed * 50 + 200);
+            velocity.Y = (shotSpeed * 75 + 200);
             Rotate(180);
         }
         if (velocity.X < 0 && velocity.Y == 0)
         {
-            velocity.X = -(shotSpeed * 50 + 200);
+            velocity.X = -(shotSpeed * 75 + 200);
             Rotate(270);
         }
         if (velocity.X == 0 && velocity.Y < 0)
         {
-            velocity.Y = -(shotSpeed * 50 + 200);
+            velocity.Y = -(shotSpeed *75 + 200);
             Rotate(0);
         }
         if (velocity.X > 0 && velocity.Y < 0)
         {
-            velocity.X = 0.71f * (shotSpeed * 50 + 200);
-            velocity.Y = -0.71f * (shotSpeed * 50 + 200);
+            velocity.X = 0.71f * (shotSpeed * 75 + 200);
+            velocity.Y = -0.71f * (shotSpeed * 75 + 200);
             Rotate(45);
         }
         if (velocity.X < 0 && velocity.Y > 0)
         {
-            velocity.X = -0.71f * (shotSpeed * 50 + 200);
-            velocity.Y = 0.71f * (shotSpeed * 50 + 200);
+            velocity.X = -0.71f * (shotSpeed * 75 + 200);
+            velocity.Y = 0.71f * (shotSpeed * 75 + 200);
             Rotate(225);
         }
     }
