@@ -10,7 +10,7 @@ public class GnomeShoot : AnimatedGameObject
     public int strength;
     public GnomeShoot(Vector2 startPosition, Vector2 velocity, int strength) : base(2, "GnomeShoot")
     {
-        LoadAnimation("Ghost", "ghost", true);
+        LoadAnimation("GnomeShoot", "ghost", true);
         PlayAnimation("ghost");
         this.position = startPosition;
         this.velocity = velocity;

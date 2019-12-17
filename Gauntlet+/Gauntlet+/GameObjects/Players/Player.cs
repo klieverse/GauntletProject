@@ -13,7 +13,7 @@ class Player : AnimatedGameObject
     protected Level level;
     protected bool isAlive, isYou;
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
-    protected int  keys, bluePotions, orangePotions;
+    protected int  keys, potions, orangePotions;
     public int health = 600;
     float timer = 1f;
 
@@ -60,66 +60,61 @@ class Player : AnimatedGameObject
 
     public override void HandleInput(InputHelper inputHelper)
     {
-
         if (!isAlive)
         {
             return;
         }
 
-        
-        
-        if (inputHelper.IsKeyDown(Keys.Left))
+        velocity = Vector2.Zero;
+
+        if (inputHelper.IsKeyDown(Keys.A) && inputHelper.IsKeyDown(Keys.W))
+        {
+            velocity.Y = 0.71f * -walkingSpeed;
+            velocity.X = 0.71f * -walkingSpeed;
+        }
+        else if (inputHelper.IsKeyDown(Keys.A) && inputHelper.IsKeyDown(Keys.S))
+        {
+            velocity.Y = 0.71f * walkingSpeed;
+            velocity.X = 0.71f * -walkingSpeed;
+        }
+        else if (inputHelper.IsKeyDown(Keys.D) && inputHelper.IsKeyDown(Keys.W))
+        {
+            velocity.Y = 0.71f * -walkingSpeed;
+            velocity.X = 0.71f * walkingSpeed;
+        }
+        else if (inputHelper.IsKeyDown(Keys.D) && inputHelper.IsKeyDown(Keys.S))
+        {
+            velocity.Y = 0.71f * walkingSpeed;
+            velocity.X = 0.71f * walkingSpeed;
+        }
+        else if (inputHelper.IsKeyDown(Keys.A))
         {
             velocity.X = -walkingSpeed;
         }
-        else if (inputHelper.IsKeyDown(Keys.Right))
+        else if (inputHelper.IsKeyDown(Keys.D))
         {
             velocity.X = walkingSpeed;
         }
-        else if (inputHelper.IsKeyDown(Keys.Up))
+        else if (inputHelper.IsKeyDown(Keys.W))
         {
             velocity.Y = -walkingSpeed;
         }
-        else if (inputHelper.IsKeyDown(Keys.Down))
+        else if (inputHelper.IsKeyDown(Keys.S))
         {
             velocity.Y = walkingSpeed;
         }
-        
-        else if (inputHelper.IsKeyDown(Keys.Left) && inputHelper.IsKeyDown(Keys.Up))
-        {
-            velocity.Y = 0.71f * -walkingSpeed;
-            velocity.X = 0.71f * -walkingSpeed;
-        }
-        else if (inputHelper.IsKeyDown(Keys.Left) && inputHelper.IsKeyDown(Keys.Down))
-        {
-            velocity.Y = 0.71f * walkingSpeed;
-            velocity.X = 0.71f * -walkingSpeed;
-        }
-        else if (inputHelper.IsKeyDown(Keys.Right) && inputHelper.IsKeyDown(Keys.Up))
-        {
-            velocity.Y = 0.71f * -walkingSpeed;
-            velocity.X = 0.71f * walkingSpeed;
-        }
-        else if (inputHelper.IsKeyDown(Keys.Right) && inputHelper.IsKeyDown(Keys.Down))
-        {
-            velocity.Y = 0.71f * walkingSpeed;
-            velocity.X = 0.71f * walkingSpeed;
-        }
-        
-        
 
         if (inputHelper.IsKeyDown(Keys.Space))
         {
-            
-                PlayerShot playerShot = new PlayerShot(id, shotSpeed, shotStrength, velocity);
-            
+            // PlayerShot shot = new PlayerShot(id, shotSpeed, shotStrength, velocity, position);
+            (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, velocity, position));
         }
 
         if (inputHelper.IsKeyDown(Keys.LeftAlt))
         {
-            if (bluePotions > 0)
+            if (potions > 0)
             {
-                bluePotions -= 1;
+                potions -= 1;
                 KillEnemiesOnScreen();
             }
         }
@@ -129,7 +124,7 @@ class Player : AnimatedGameObject
     public override void Update(GameTime gameTime)
     {
         previousPosition= position;
-        walkingSpeed = (float)Math.Sqrt(speedHelper);
+        walkingSpeed = (float)Math.Sqrt(speedHelper) * 10;
         base.Update(gameTime);
         HandleCamera();
 
@@ -280,7 +275,7 @@ class Player : AnimatedGameObject
     public bool CollidesWithObject()
     {
         TileField tileField = GameWorld.Find("tiles") as TileField;
-
+                      
         //check wall collision
         Tile tile = tileField.Get(1, 1) as Tile;
         int Left = (int)(position.X / tile.Width);
@@ -324,7 +319,7 @@ class Player : AnimatedGameObject
         switch (pot)
         {
             case PotionType.Normal:
-                bluePotions += 1;
+                potions += 1;
                 break;
             case PotionType.Orange:
                 orangePotions += 1;
