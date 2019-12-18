@@ -113,7 +113,7 @@ class PlayerShot : SpriteGameObject
         foreach (EnemyObject enemy in enemies)
             if (CollidesWith(enemy))
             {
-                //visible = false;
+                visible = false;
                 enemy.HitByPlayer(shotStrength);
             }
 

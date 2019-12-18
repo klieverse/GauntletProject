@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 class Player : AnimatedGameObject
 {
-    protected Vector2 startPosition, previousPosition;
+    protected Vector2 startPosition, previousPosition, direction = new Vector2(0,1);
     protected Level level;
     protected bool isAlive, isYou;
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
@@ -107,7 +107,7 @@ class Player : AnimatedGameObject
         if (inputHelper.IsKeyDown(Keys.Space))
         {
             // PlayerShot shot = new PlayerShot(id, shotSpeed, shotStrength, velocity, position);
-            (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, velocity, position));
+            (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position));
         }
 
         if (inputHelper.IsKeyDown(Keys.LeftAlt))
@@ -123,6 +123,10 @@ class Player : AnimatedGameObject
 
     public override void Update(GameTime gameTime)
     {
+        if (velocity != Vector2.Zero)
+        {
+            direction = velocity;
+        }
         previousPosition= position;
         walkingSpeed = (float)Math.Sqrt(speedHelper) * 10;
         base.Update(gameTime);
