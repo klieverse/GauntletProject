@@ -92,6 +92,7 @@
     <Compile Include="GameStates\HelpState.cs" />
     <Compile Include="GameStates\MultiPlayerState.cs" />
     <Compile Include="GameStates\PlayingState.cs" />
+    <Compile Include="GameStates\ChooseCharacterState.cs" />
     <Compile Include="GameStates\SinglePlayerState.cs" />
     <Compile Include="GameStates\TitleMenuState.cs" />
     <Compile Include="Level\Level.cs" />

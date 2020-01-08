@@ -32,6 +32,7 @@ class Player : AnimatedGameObject
         this.melee = melee;
         this.id = id;
         startPosition = start;
+        playerClass = id;
 
         LoadAnimations();
         Reset();

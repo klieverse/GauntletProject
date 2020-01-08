@@ -3,6 +3,7 @@
 partial class Level : GameObjectList
 {
     //protected Button quitButton;
+    protected Vector2 startPositionThyra, startPositionQuestor, startPositionThor, startPositionMerlin;
 
     public Level(int levelIndex)
     {
@@ -12,6 +13,7 @@ partial class Level : GameObjectList
         //quitButton = new Button("Sprites/spr_button_quit", 100);
         // quitButton.Position = new Vector2(GameEnvironment.Screen.X - quitButton.Width - 10, 10);
         //Add(quitButton);
+        
 
         Add(new GameObjectList(2, "players"));
         Add(new GameObjectList(4, "StatFields"));
@@ -20,8 +22,8 @@ partial class Level : GameObjectList
         Add(new GameObjectList(3,"playershot"));
         Add(new GameObjectList(3,"enemieShot"));
 
-        Add(new Questor(2, "Elf", new Vector2(150, 150), this, true));
-        Add(new PlayerStatField("Elf"));
+       // Add(new Questor(2, "Elf", new Vector2(150, 150), this, true));
+       // Add(new PlayerStatField("Elf"));
 
         LoadTiles("Content/Levels/" + levelIndex + ".txt");
     }

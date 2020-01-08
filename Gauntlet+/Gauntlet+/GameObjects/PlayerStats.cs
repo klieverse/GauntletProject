@@ -13,7 +13,7 @@ class PlayerStats : TextGameObject
     public PlayerStats(string playerClass, int layer = 6):base("StatFont",layer)
     {
         this.playerClass = playerClass;
-        staticPosition = new Vector2(GameEnvironment.Screen.X / 2+50, GameEnvironment.Screen.Y -140);
+        staticPosition = new Vector2(GameEnvironment.Screen.X / 2+20, GameEnvironment.Screen.Y -105);
         position = staticPosition;
         text = playerClass;
     }
@@ -26,7 +26,7 @@ class PlayerStats : TextGameObject
         int keys = player.keys;
 
 
-        text = playerClass + "\n \n " +
+        text = 
                "Score: " + score +
             "\n health:" + health +
             "\n Potions:" + potions +

@@ -9,7 +9,7 @@ class Wizard : EnemyObject
 {
     float timer = 0f;
     float visibilityTimer = 0f;
-    public Wizard(Vector2 startPosition) : base(2, "Wizard")
+    public Wizard(Vector2 startPosition) : base(2, "EnemyWizard")
     {
         this.position = startPosition;
         strength = 10;
@@ -50,11 +50,13 @@ class Wizard : EnemyObject
     //find player, if collides, then player loses health according to this' strength;
     private void Attack()
     {
-        Player player = GameWorld.Find("player") as Player;
-        if (CollidesWith(player) && visible)
-        {
-            player.health -= strength;
-        }
+        List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
+        if (players != null)
+            foreach (Player player in players)
+                if (CollidesWith(player) && visible)
+                {
+                    player.health -= strength;
+                }
     }
 }
 
