@@ -25,6 +25,7 @@ class HellhoundShoot : AnimatedGameObject
         if (CollidesWith(player))
         {
             player.health -= strength;
+            visible = false;
             GameWorld.Remove(this);
         }
     }

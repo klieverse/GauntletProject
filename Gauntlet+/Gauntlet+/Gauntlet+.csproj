@@ -78,6 +78,8 @@
     <Compile Include="GameObjects\Enemies\Wizard.cs" />
     <Compile Include="GameObjects\Items\Item.cs" />
     <Compile Include="GameObjects\Items\Key.cs" />
+    <Compile Include="GameObjects\PlayerStatField.cs" />
+    <Compile Include="GameObjects\PlayerStats.cs" />
     <Compile Include="GameObjects\Players\Player.cs" />
     <Compile Include="GameObjects\PlayerShot.cs" />
     <Compile Include="GameObjects\Items\Potion.cs" />

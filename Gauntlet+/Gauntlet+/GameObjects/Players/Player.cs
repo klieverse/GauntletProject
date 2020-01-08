@@ -13,9 +13,10 @@ class Player : AnimatedGameObject
     protected Level level;
     protected bool isAlive, isYou;
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
-    protected int  keys, potions, orangePotions;
-    public int health = 600;
+    protected int orangePotions;
+    public int health = 600, keys, potions;
     float timer = 1f;
+    public string playerClass;
 
     public Player(int layer, string id, Vector2 start, Level level, float speed, float armor,
                         float magic, float shotStrength, float shotSpeed, float melee, bool isYou)
@@ -154,6 +155,7 @@ class Player : AnimatedGameObject
         {
             Die();
         }
+       // stats.Update(100, health, potions,keys,position);
     }
 
     void CheckEnemyMelee()
@@ -279,13 +281,12 @@ class Player : AnimatedGameObject
     public bool CollidesWithObject()
     {
         TileField tileField = GameWorld.Find("tiles") as TileField;
-                      
         //check wall collision
         Tile tile = tileField.Get(1, 1) as Tile;
-        int Left = (int)(position.X / tile.Width);
-        int Right = (int)((position.X + Width) / tile.Width);
-        int Top = (int)(position.Y / tile.Height);
-        int Bottom = (int)((position.Y + Height) / tile.Height);
+        int Left = (int)((position.X - Width / 2) / tile.Width);
+        int Right = (int)((position.X + Width / 2) / tile.Width);
+        int Top = (int)((position.Y - Height) / tile.Height);
+        int Bottom = (int)((position.Y) / tile.Height);
 
         for (int x = Left; x <= Right; x++)
             for (int y = Top; y <= Bottom; y++)
