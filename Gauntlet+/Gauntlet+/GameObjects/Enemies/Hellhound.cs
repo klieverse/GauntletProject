@@ -42,7 +42,8 @@ class Hellhound : EnemyObject
     //attacks by creating a shooting object, where the object shoots in the direction in which the enemy is moving
     private void Attack()
     {
-        HellhoundShoot hellhoundShoot = new HellhoundShoot(this.position, this.velocity, strength);
+        //HellhoundShoot hellhoundShoot = new HellhoundShoot(this.position, this.velocity, strength);
+        (GameWorld.Find("enemieshot") as GameObjectList).Add(new HellhoundShoot(this.position, this.velocity, strength));
     }
 }
 

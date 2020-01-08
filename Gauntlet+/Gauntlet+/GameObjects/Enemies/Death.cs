@@ -32,7 +32,7 @@ class Death : EnemyObject
     //how the enemy attacks
     private void Attack()
     {
-        Player player = GameWorld.Find("player") as Player;
+        Player player = GameWorld.GameWorld.Find("Elf") as Player;
         if(CollidesWith(player))
         {
             player.HitByEnemy(strength);
