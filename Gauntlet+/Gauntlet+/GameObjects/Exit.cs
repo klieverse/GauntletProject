@@ -10,7 +10,7 @@ class Exit : SpriteGameObject
 {
 
     public Exit(int layer, string id, Vector2 position)
-    : base("", layer, id)
+    : base("Exit", layer, id)
     {
         this.position = position;
     }

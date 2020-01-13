@@ -78,9 +78,9 @@ class PlayingState : IGameLoopObject
         CurrentLevel.Reset();
         if (maxLevelReached || currentLevelIndex >= levels.Count - 1)
         {
-            Random r = new Random();            CurrentLevelIndex = r.Next(9);
+            Random r = new Random();
+            CurrentLevelIndex = r.Next(9);
             maxLevelReached = true;
-            
         }
 
         else

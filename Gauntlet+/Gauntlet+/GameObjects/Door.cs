@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
-
+//Moeten nog even kijken voor de sprites of we twee losse classes nodig hebben of niet
     class Door : SpriteGameObject
     {
     public Door(int layer, string id, Vector2 position)
@@ -22,15 +22,15 @@ using Microsoft.Xna.Framework;
         List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
         if (players != null)
             foreach (Player player in players)
+
+                //Als de player de deur raakt en een sleutel heeft moet de deur verdwijnen + eventuele deuren ernaast of erboven
+
                 if (CollidesWith(player))
                 {
+                    
                     player.UseKey();
-                    visible = false;
-                    /*if ( TileField.Door(x,y+1) == this.door)
-                    {
-                        this.visible = false; 
-                    } 
-                    */
+                    this.visible = false;
+                    
                 }
     }
 }

@@ -8,8 +8,8 @@
     "\\Gauntlet+\\Gauntlet+\\GameObjects\\Enemies",
     "\\Gauntlet+\\Gauntlet+\\GameObjects\\InteractiveTiles",
     "\\Gauntlet+\\Gauntlet+\\GameObjects\\Items",
-    "\\Gauntlet+\\Gauntlet+\\GameStates",
-    "\\Gauntlet+\\Gauntlet+\\Level"
+    "\\Gauntlet+\\Gauntlet+\\GameObjects\\Players",
+    "\\Gauntlet+\\Gauntlet+\\GameStates"
   ],
   "SelectedNode": "\\Gauntlet+\\Gauntlet+.sln",
   "PreviewInSolutionExplorer": false

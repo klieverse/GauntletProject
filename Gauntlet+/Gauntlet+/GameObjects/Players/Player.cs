@@ -14,7 +14,7 @@ class Player : AnimatedGameObject
     protected bool isAlive, isYou;
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
     protected int orangePotions;
-    public int health = 600, keys, potions;
+    public int health = 600, keys = 1, potions;
     float timer = 1f;
     public string playerClass;
 
@@ -321,7 +321,9 @@ class Player : AnimatedGameObject
 
     public void UseKey()
     {
+        if (keys >= 1)
         keys -= 1;
+        return;
     }
 
     public void AddPotion(PotionType pot)

@@ -44,7 +44,7 @@ partial class Level : GameObjectList
     {
         switch (tileType)
         {
-            //Tiles
+                //Tiles
             case '.':
                 return LoadBasicTile("Background", TileType.Background);
             case '+':
@@ -59,6 +59,8 @@ partial class Level : GameObjectList
                 return LoadBasicTile("Teleport", TileType.Teleporter, 1);
             case 'x':
                 return LoadBasicTile("Trap", TileType.Trap, 1);
+            
+                //Enemies
             case 'S':
                 return LoadSkeleton(x, y);
             case 'G':
@@ -93,9 +95,7 @@ partial class Level : GameObjectList
             default:
                 int t = (int)tileType;
                 return LoadExitTile("Exit", TileType.Exit, t);
-            }
-        
-        
+            }        
     }
 
     private Tile LoadBasicTile(string name, TileType tileType, int layer = 0)

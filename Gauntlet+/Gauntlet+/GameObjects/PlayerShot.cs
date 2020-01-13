@@ -10,7 +10,7 @@ class PlayerShot : SpriteGameObject
 {
     float shotSpeed;
     float shotStrength;
-    int WallCounter = 3;
+    public int WallCounter = 3;
 
 
     public PlayerShot(string id, float shotSpeed, float shotStrength, Vector2 direction, Vector2 position) : base(assetName: "arrow", layer: 0, id, sheetIndex: 0)
@@ -107,7 +107,7 @@ class PlayerShot : SpriteGameObject
                 {
                     visible = false;
                     WallCounter -= 1;
-                    WallBreaker();
+                    //BreakableWall.WallBreaker();
 
                 }
 
@@ -119,22 +119,6 @@ class PlayerShot : SpriteGameObject
                 visible = false;
                 enemy.HitByPlayer(shotStrength);
             }
-
-
-
-    }
-    public void WallBreaker()
-        {
-        if (WallCounter <= 0)
-        {
-            //Lukt me nog niet om dit werkende te krijgen
-            //TileType.BreakableWall != visible;
-
-            return;
-        }
-        return;
-
-        }
-        
+    }     
 }
 

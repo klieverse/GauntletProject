@@ -48,6 +48,7 @@
     <Compile Include="GameManagement\Animation.cs" />
     <Compile Include="GameManagement\AssetManager.cs" />
     <Compile Include="GameManagement\Camera.cs" />
+    <Compile Include="GameObjects\BreakableWall.cs" />
     <Compile Include="GameObjects\Door.cs" />
     <Compile Include="GameObjects\Enemies\EnemyObject.cs" />
     <Compile Include="GameManagement\Collision.cs" />

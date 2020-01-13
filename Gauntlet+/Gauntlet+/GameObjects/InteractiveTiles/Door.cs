@@ -18,8 +18,8 @@ class Door : InteractiveTile
             foreach (Player player in players)
                 if (CollidesWith(player) && Player.keys > 0)
                 {
-                    this.visible = false;
                     player.keys -= 1;
+                    this.visible = false;
                 }
     }
 }
