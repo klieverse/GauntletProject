@@ -6,12 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gauntlet_.GameObjects.Players
-{
-    class Valkyrie : Player
+
+    class Thor : Player
     {
-        public Valkyrie(int layer, string id, Vector2 start, Level level)
-        : base(layer, id, start, level, speed: 350f, armor: 30f, magic: 1.5f, shotStrength: 1f, shotSpeed: 3f, melee: 2f)
+        public Thor(int layer, string id, Vector2 start, Level level, bool isYou)
+        : base(layer, id, start, level, speed: 350f, armor: 20f, magic: 2f, shotStrength: 1f, shotSpeed: 3f, melee: 2.5f, isYou)
         {
             Reset();
         }
@@ -24,7 +23,5 @@ namespace Gauntlet_.GameObjects.Players
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
         }
     }
-}

@@ -34,11 +34,11 @@ class Ghost : EnemyObject
     //calculates attack and removes instance from game
     private void Attack()
     {
-        Player player = GameWorld.Find("player") as Player;
+        Player player = GameWorld.Find("Elf") as Player;
         if (CollidesWith(player))
         {
             player.health -= strength;
-            GameWorld.Remove(this);
+            this.visible = false;
         } 
         
 //        if (CollidesWithObject())

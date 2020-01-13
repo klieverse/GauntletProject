@@ -9,10 +9,9 @@ using System.Threading.Tasks;
 
     class Merlin : Player
     {
-        public Merlin(int layer, string id, Vector2 start, Level level)
-        : base(layer, id, start, level, speed: 300f, armor: 0f, magic: 3f, shotStrength: 1.5f, shotSpeed: 3.5f, melee: 1f)
+        public Merlin(int layer, string id, Vector2 start, Level level, bool isyou)
+        : base(layer, id, start, level, speed: 300f, armor: 0f, magic: 3f, shotStrength: 1.5f, shotSpeed: 3.5f, melee: 1f, isyou)
         {
-
             Reset();
         }
 

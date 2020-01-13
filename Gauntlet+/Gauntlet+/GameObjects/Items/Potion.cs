@@ -1,5 +1,5 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 enum PotionType
 {
@@ -13,11 +13,26 @@ enum PotionType
     Melee
 }
 
-class Potion: SpriteGameObject
+class Potion : Item
 {
-    public Potion(PotionType pt, string assetname = "", int layer = 2, string id = "")
-        : base(assetname, layer, id)
+    PotionType pot;
+    public Potion(PotionType pot, int layer, string id, Vector2 position)
+        : base(layer, id, position)
     {
+        this.pot = pot;
+    }
 
+    public override void Update(GameTime gameTime)
+    {
+        base.Update(gameTime);
+
+        //check playercollision
+        List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
+        if (players != null)
+            foreach (Player player in players)
+                if (CollidesWith(player))
+                {
+                    player.AddPotion(pot);
+                }
     }
 }

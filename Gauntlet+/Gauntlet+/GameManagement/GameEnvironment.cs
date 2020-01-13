@@ -15,7 +15,6 @@ public class GameEnvironment : Game
     protected static GameStateManager gameStateManager;
     protected static Random random;
     protected static AssetManager assetManager;
-    protected static Camera camera;
 
     public GameEnvironment()
     {
@@ -26,18 +25,12 @@ public class GameEnvironment : Game
         spriteScale = Matrix.CreateScale(1, 1, 1);
         random = new Random();
         assetManager = new AssetManager(Content);
-        camera = new Camera();
     }
 
     public static Point Screen
     {
         get { return screen; }
         set { screen = value; }
-    }
-
-    public static Camera Camera
-    {
-        get { return camera; }
     }
 
     public static Random Random
@@ -80,9 +73,6 @@ public class GameEnvironment : Game
             graphics.IsFullScreen = true;
             graphics.ApplyChanges();
         }
-
-        camera.cameraField.Width = graphics.GraphicsDevice.Viewport.Width - 505;
-        camera.cameraField.Height = graphics.GraphicsDevice.Viewport.Height;
 
         float targetAspectRatio = (float)screen.X / (float)screen.Y;
         int width = graphics.PreferredBackBufferWidth;
@@ -129,7 +119,6 @@ public class GameEnvironment : Game
     protected override void Update(GameTime gameTime)
     {
         HandleInput();
-        camera.Update();
         gameStateManager.Update(gameTime);
     }
 

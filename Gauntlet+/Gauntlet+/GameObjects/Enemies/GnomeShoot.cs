@@ -10,7 +10,7 @@ public class GnomeShoot : AnimatedGameObject
     public int strength;
     public GnomeShoot(Vector2 startPosition, Vector2 velocity, int strength) : base(2, "GnomeShoot")
     {
-        LoadAnimation("Ghost", "ghost", true);
+        LoadAnimation("GnomeShoot", "ghost", true);
         PlayAnimation("ghost");
         this.position = startPosition;
         this.velocity = velocity;
@@ -21,10 +21,11 @@ public class GnomeShoot : AnimatedGameObject
     {
         base.Update(gameTime);
         //looks for players in game, if it collides with it, reduces player's health and then this instance gets removed
-        Player player = GameWorld.Find("player") as Player;
+        Player player = GameWorld.Find("Elf") as Player;
         if (CollidesWith(player))
         {
             player.health -= strength;
+            visible = false;
             GameWorld.Remove(this);
         }
     }

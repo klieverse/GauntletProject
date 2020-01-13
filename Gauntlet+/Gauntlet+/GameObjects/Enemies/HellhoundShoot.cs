@@ -21,10 +21,11 @@ class HellhoundShoot : AnimatedGameObject
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-        Player player = GameWorld.Find("player") as Player;
+        Player player = GameWorld.Find("Elf") as Player;
         if (CollidesWith(player))
         {
             player.health -= strength;
+            visible = false;
             GameWorld.Remove(this);
         }
     }

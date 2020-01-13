@@ -6,11 +6,10 @@
     "\\Gauntlet+\\Gauntlet+\\Content",
     "\\Gauntlet+\\Gauntlet+\\GameManagement",
     "\\Gauntlet+\\Gauntlet+\\GameObjects",
-    "\\Gauntlet+\\Gauntlet+\\GameObjects\\Enemies",
     "\\Gauntlet+\\Gauntlet+\\GameObjects\\Players",
     "\\Gauntlet+\\Gauntlet+\\GameStates",
     "\\Gauntlet+\\Gauntlet+\\Level"
   ],
-  "SelectedNode": "\\Gauntlet+\\Gauntlet+\\GameObjects\\Enemies\\Death.cs",
+  "SelectedNode": "\\GauntletProject",
   "PreviewInSolutionExplorer": false
 }
