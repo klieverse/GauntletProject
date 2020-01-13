@@ -21,47 +21,47 @@ class PlayerShot : SpriteGameObject
         HandleDirection();
     }
 
-    void HandleDirection()
+    void HandleDirection() // rotates the sprite to the right direction, based on the direction it is going
     {
-        if (velocity.X > 0 && velocity.Y == 0) 
+        if (velocity.X > 0 && velocity.Y == 0) // facing right
         {
              velocity.X = shotSpeed * 75 + 200; 
              Rotate(90);
         }
-        if (velocity.X > 0 && velocity.Y > 0)
+        if (velocity.X > 0 && velocity.Y > 0) // facing down right
         {
              velocity.X = 0.71f * (shotSpeed * 75 + 200);
              velocity.Y = 0.71f * (shotSpeed * 75 + 200);
              Rotate(135);
         }
-        if (velocity.X < 0 && velocity.Y < 0)
+        if (velocity.X < 0 && velocity.Y < 0) // facing up left
         {
             velocity.X = -0.71f * (shotSpeed * 75 + 200);
             velocity.Y = -0.71f * (shotSpeed * 75 + 200);
             Rotate(315);
         }
-        if (velocity.X == 0 && velocity.Y > 0)
+        if (velocity.X == 0 && velocity.Y > 0) // facing down
         {
             velocity.Y = (shotSpeed * 75 + 200);
             Rotate(180);
         }
-        if (velocity.X < 0 && velocity.Y == 0)
+        if (velocity.X < 0 && velocity.Y == 0) // facing left
         {
             velocity.X = -(shotSpeed * 75 + 200);
             Rotate(270);
         }
-        if (velocity.X == 0 && velocity.Y < 0)
+        if (velocity.X == 0 && velocity.Y < 0) // facing up
         {
             velocity.Y = -(shotSpeed *75 + 200);
             Rotate(0);
         }
-        if (velocity.X > 0 && velocity.Y < 0)
+        if (velocity.X > 0 && velocity.Y < 0) // facing up right
         {
             velocity.X = 0.71f * (shotSpeed * 75 + 200);
             velocity.Y = -0.71f * (shotSpeed * 75 + 200);
             Rotate(45);
         }
-        if (velocity.X < 0 && velocity.Y > 0)
+        if (velocity.X < 0 && velocity.Y > 0) // facing down left
         {
             velocity.X = -0.71f * (shotSpeed * 75 + 200);
             velocity.Y = 0.71f * (shotSpeed * 75 + 200);

@@ -319,7 +319,7 @@ class Player : AnimatedGameObject
     {   // calculates the damage, where the more armor the player has, the closer the damage is to being only half the strength of the enemy;
         float Damage = (0.5f * EnemyStrength) + (0.5f * EnemyStrength * (1 - ((armor / 100) / (armor / 100 + 1)))); 
         health -= (int)Damage;
-    }
+    } 
 
     public void AddKey()
     {
