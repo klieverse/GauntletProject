@@ -11,6 +11,7 @@ class Gnome : EnemyObject
 
     public Gnome(Vector2 startPosition) : base(2, "Gnome")
     {
+        //position equal to position given in LevelLoading.cs
         this.position = startPosition;
         strength = 3;
     }

@@ -109,10 +109,11 @@ partial class Level : GameObjectList
                 Teleport t = new Teleport(startPosition);
                 teleports.Add(t);
                 return new Tile(); */
-        TileField tiles = Find("tiles") as TileField;
-        Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
+        GameObjectList teleports = Find("teleport") as GameObjectList;
+        //TileField tiles = Find("tiles") as TileField;
+        Vector2 startPosition = new Vector2((float)x * 55, y * 55);
         Teleport teleport = new Teleport(startPosition);
-        Add(teleport);
+        teleports.Add(teleport);
         return new Tile();
     }
 
@@ -126,7 +127,7 @@ partial class Level : GameObjectList
     private Tile LoadSkeleton(int x, int y)
     {
         GameObjectList enemies = Find("enemies") as GameObjectList;
-        TileField tiles = Find("tiles") as TileField;
+        //TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
         Ghost enemy = new Ghost(startPosition);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
