@@ -25,6 +25,7 @@ class Player : AnimatedGameObject
         this.isYou = isYou;
         this.level = level;
         speedHelper = speed;
+        walkingSpeed = (float)Math.Sqrt(speedHelper) * 10;
         this.armor = armor;
         this.magic = magic;
         this.shotStrength = shotStrength;
@@ -129,8 +130,8 @@ class Player : AnimatedGameObject
         {
             direction = velocity;
         }
-        previousPosition= position;
-        walkingSpeed = (float)Math.Sqrt(speedHelper) * 10;
+        previousPosition = position;
+
         base.Update(gameTime);
         HandleCamera();
 
@@ -139,13 +140,7 @@ class Player : AnimatedGameObject
             return;
         }
 
-        timer -= (float)gameTime.ElapsedGameTime.TotalSeconds; //makes the timer count down;
-
-        if(timer <= 0)
-        {
-            health -= 1;
-            timer = 1f;
-        }
+        HandleTimer(gameTime);
 
         CheckEnemyMelee();
         HandleCollisions();
@@ -156,7 +151,18 @@ class Player : AnimatedGameObject
         {
             Die();
         }
-       // stats.Update(100, health, potions,keys,position);
+        // stats.Update(100, health, potions,keys,position);
+    }
+
+    private void HandleTimer(GameTime gameTime)
+    {
+        timer -= (float)gameTime.ElapsedGameTime.TotalSeconds; //makes the timer count down;
+
+        if (timer <= 0)
+        {
+            health -= 1;
+            timer = 1f;
+        }
     }
 
     void CheckEnemyMelee()
@@ -333,6 +339,13 @@ class Player : AnimatedGameObject
             default:
                 break;
         }
+    }
+
+    bool isMoving()
+    {
+        if (velocity != Vector2.Zero)
+            return true;
+        return false;
     }
 
     public void ArmorUp()
