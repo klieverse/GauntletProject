@@ -34,6 +34,7 @@ class Teleport : SpriteGameObject
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
+        //check
         List<GameObject> portals = (GameWorld.Find("teleport") as GameObjectList).Children;
         foreach (Teleport portal in portals)
         {
