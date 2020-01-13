@@ -11,7 +11,7 @@ class Player : AnimatedGameObject
 {
     protected Vector2 startPosition, previousPosition, direction = new Vector2(0,1);
     protected Level level;
-    protected bool isAlive, isYou;
+    protected bool isAlive, isYou, lastLookedLeft = false;
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
     protected int orangePotions;
     public int health = 600, keys, potions;
@@ -39,16 +39,10 @@ class Player : AnimatedGameObject
 
     void LoadAnimations()
     {
-        ////er mist rightup
-        LoadAnimation("Sprites/Player/spr_" + id + "idle", id + "idle", true);
-        LoadAnimation("Sprites/Player/spr_" + id + "runRight@13", id + "runRight", true);
-      //LoadAnimation("Sprites/Player/spr_" + id + "runDownRight", id + "runDownRight", true);
-      //LoadAnimation("Sprites/Player/spr_" + id + "runDown", id + "runDown", true);
-      //LoadAnimation("Sprites/Player/spr_" + id + "runDownLeft", id + "runDownLeft", true);
-        LoadAnimation("Sprites/Player/spr_" + id + "runLeft@13", id + "runLeft", true);
-      //LoadAnimation("Sprites/Player/spr_" + id + "runUpLeft", id + "runUpLeft", true);
-      //LoadAnimation("Sprites/Player/spr_" + id + "runUp", id + "runUp", true);
-      //LoadAnimation("Sprites/Player/spr_" + id + "die", id + "die", false);
+        LoadAnimation("Sprites/Player/spr_" + id + "idle@4","idle", true);
+        LoadAnimation("Sprites/Player/spr_" + id + "run@4","run", true);
+        LoadAnimation("Sprites/Player/spr_" + id + "shoot@3", "shoot", true);
+        //LoadAnimation("Sprites/Player/spr_" + id + "die", id + "die", false);
     }
 
     public override void Reset()
@@ -56,7 +50,7 @@ class Player : AnimatedGameObject
         position = startPosition;
         velocity = Vector2.Zero;
         isAlive = true;
-        PlayAnimation(id + "idle");
+        PlayAnimation("idle");
     }
 
     public override void HandleInput(InputHelper inputHelper)
@@ -111,6 +105,7 @@ class Player : AnimatedGameObject
             {
                 // PlayerShot shot = new PlayerShot(id, shotSpeed, shotStrength, velocity, position);
                 (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position));
+                PlayAnimation("shoot");
             }
            
         }
@@ -181,47 +176,27 @@ class Player : AnimatedGameObject
 
     private void HandleAnimations() // Makes sure the right animation is being played;
     {
+        
         if (velocity == Vector2.Zero)
         {
-            PlayAnimation(id + "idle");
-        }/*
-        else if (velocity.X > 0 && velocity.Y == 0)
-        {
-            PlayAnimation(id + "runRight");
+            PlayAnimation("idle");
         }
-        else if (velocity.X > 0 && velocity.Y > 0)
+        else PlayAnimation("run");
+
+        if (velocity.X < 0)
         {
-            PlayAnimation(id + "runDownRight");
-        }
-        else if (velocity.X == 0 && velocity.Y > 0)
-        {
-            PlayAnimation(id + "runDown");
-        }
-        else if (velocity.X < 0 && velocity.Y > 0)
-        {
-            PlayAnimation(id + "runDownLeft");
-        }
-        else if (velocity.X < 0 && velocity.Y == 0)
-        {
-            PlayAnimation(id + "runLeft");
-        }
-        else if (velocity.X < 0 && velocity.Y < 0)
-        {
-            PlayAnimation(id + "runUpLeft");
-        }
-        else if (velocity.X == 0 && velocity.Y < 0)
-        {
-            PlayAnimation(id + "runUp");
-        }
-        */ //tijdenlijk voor testen met i.v.m. berkte animaties
-        else if (velocity.X < 0)
-        {
-            PlayAnimation(id + "runLeft");
+            lastLookedLeft = true;
         }
         else if (velocity.X > 0)
         {
-            PlayAnimation(id + "runRight");
+            lastLookedLeft = false;
         }
+
+        if (velocity.X < 0 || lastLookedLeft)
+        {
+            Mirror = true;
+        }
+        else Mirror = false;
     }
 
     public void Die()
@@ -234,7 +209,7 @@ class Player : AnimatedGameObject
         isAlive = false;
         visible = false;
             velocity.Y = -900;
-       // GameEnvironment.AssetManager.PlaySound("Sounds/snd_" + id + "_die");
+        //GameEnvironment.AssetManager.PlaySound("Sounds/snd_" + id + "_die");
 
         //PlayAnimation(id + "die");
     }
@@ -328,7 +303,7 @@ class Player : AnimatedGameObject
                 potions += 1;
                 break;
             case PotionType.Orange:
-                orangePotions += 1;
+                potions += 1;
                 break;
             default:
                 break;
@@ -350,6 +325,7 @@ class Player : AnimatedGameObject
     public void SpeedUp()
     {
         speedHelper += 30f;
+        walkingSpeed = (float)Math.Sqrt(speedHelper) * 10;
     }
 
     public string playerClass
