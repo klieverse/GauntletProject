@@ -54,7 +54,7 @@ partial class Level : GameObjectList
             case '|':
                 return LoadBasicTile("VerticalDoor", TileType.VerticalDoor, 1);
             case 'O':
-                return LoadBasicTile("Teleport", TileType.Teleporter, 1);
+                return LoadTeleport(x, y);
             case 'x':
                 return LoadBasicTile("Trap", TileType.Trap, 1);
             case 'S':
@@ -99,6 +99,21 @@ partial class Level : GameObjectList
     private Tile LoadBasicTile(string name, TileType tileType, int layer = 0)
     {
         return new Tile("Tiles/" + name, tileType, layer);
+    }
+
+    private Tile LoadTeleport(int x, int y)
+    {
+        /*        GameObjectList teleports = Find("tiles") as GameObjectList;
+                TileField tiles = Find("tiles") as TileField;
+                Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
+                Teleport t = new Teleport(startPosition);
+                teleports.Add(t);
+                return new Tile(); */
+        TileField tiles = Find("tiles") as TileField;
+        Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
+        Teleport teleport = new Teleport(startPosition);
+        Add(teleport);
+        return new Tile();
     }
 
     private Tile LoadExitTile(string name, TileType tileType, int levelExit)
