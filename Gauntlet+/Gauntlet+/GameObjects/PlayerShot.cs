@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 class PlayerShot : SpriteGameObject
 {
     float shotSpeed;
-    float shotStrength;   
+    float shotStrength;
+    int WallCounter = 3;
 
 
     public PlayerShot(string id, float shotSpeed, float shotStrength, Vector2 direction, Vector2 position) : base(assetName: "arrow", layer: 0, id, sheetIndex: 0)
@@ -23,16 +24,16 @@ class PlayerShot : SpriteGameObject
 
     void HandleDirection()
     {
-        if (velocity.X > 0 && velocity.Y == 0) 
+        if (velocity.X > 0 && velocity.Y == 0)
         {
-             velocity.X = shotSpeed * 75 + 200; 
-             Rotate(90);
+            velocity.X = shotSpeed * 75 + 200;
+            Rotate(90);
         }
         if (velocity.X > 0 && velocity.Y > 0)
         {
-             velocity.X = 0.71f * (shotSpeed * 75 + 200);
-             velocity.Y = 0.71f * (shotSpeed * 75 + 200);
-             Rotate(135);
+            velocity.X = 0.71f * (shotSpeed * 75 + 200);
+            velocity.Y = 0.71f * (shotSpeed * 75 + 200);
+            Rotate(135);
         }
         if (velocity.X < 0 && velocity.Y < 0)
         {
@@ -52,7 +53,7 @@ class PlayerShot : SpriteGameObject
         }
         if (velocity.X == 0 && velocity.Y < 0)
         {
-            velocity.Y = -(shotSpeed *75 + 200);
+            velocity.Y = -(shotSpeed * 75 + 200);
             Rotate(0);
         }
         if (velocity.X > 0 && velocity.Y < 0)
@@ -95,7 +96,7 @@ class PlayerShot : SpriteGameObject
             for (int y = Top; y <= Bottom; y++)
                 if (tileField.GetTileType(x, y) == TileType.Wall)
                 {
-                    //visible = false;
+                    visible = false;
                 }
 
         //check breakable wall collision
@@ -104,8 +105,10 @@ class PlayerShot : SpriteGameObject
             for (int y = Top; y <= Bottom; y++)
                 if (tileField.GetTileType(x, y) == TileType.BreakableWall)
                 {
-                    //visible = false;
-                    //iets met muur;
+                    visible = false;
+                    WallCounter -= 1;
+                    WallBreaker();
+
                 }
 
         //check enemycollision
@@ -117,6 +120,21 @@ class PlayerShot : SpriteGameObject
                 enemy.HitByPlayer(shotStrength);
             }
 
+
+
     }
+    public void WallBreaker()
+        {
+        if (WallCounter <= 0)
+        {
+            //Lukt me nog niet om dit werkende te krijgen
+            //TileType.BreakableWall != visible;
+
+            return;
+        }
+        return;
+
+        }
+        
 }
 

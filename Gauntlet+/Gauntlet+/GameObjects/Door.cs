@@ -1,17 +1,17 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
 
-class Key : Item
-{
-    public Key(int layer, string id, Vector2 position)
-        : base(layer: 0, id, position)
+    class Door : SpriteGameObject
     {
-        visible = true;
+    public Door(int layer, string id, Vector2 position)
+    : base("", layer, id)
+    {
+        this.position = position;
     }
 
     public override void Update(GameTime gameTime)
@@ -24,9 +24,13 @@ class Key : Item
             foreach (Player player in players)
                 if (CollidesWith(player))
                 {
-                    player.AddKey();
-                    //KeyIcon.AddKey(player);
+                    player.UseKey();
                     visible = false;
+                    /*if ( TileField.Door(x,y+1) == this.door)
+                    {
+                        this.visible = false; 
+                    } 
+                    */
                 }
     }
 }

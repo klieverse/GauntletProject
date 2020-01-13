@@ -3,13 +3,14 @@
     "",
     "\\Gauntlet+",
     "\\Gauntlet+\\Gauntlet+",
-    "\\Gauntlet+\\Gauntlet+\\Content",
     "\\Gauntlet+\\Gauntlet+\\GameManagement",
     "\\Gauntlet+\\Gauntlet+\\GameObjects",
-    "\\Gauntlet+\\Gauntlet+\\GameObjects\\Players",
+    "\\Gauntlet+\\Gauntlet+\\GameObjects\\Enemies",
+    "\\Gauntlet+\\Gauntlet+\\GameObjects\\InteractiveTiles",
+    "\\Gauntlet+\\Gauntlet+\\GameObjects\\Items",
     "\\Gauntlet+\\Gauntlet+\\GameStates",
     "\\Gauntlet+\\Gauntlet+\\Level"
   ],
-  "SelectedNode": "\\GauntletProject",
+  "SelectedNode": "\\Gauntlet+\\Gauntlet+.sln",
   "PreviewInSolutionExplorer": false
 }

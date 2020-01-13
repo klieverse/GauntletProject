@@ -7,6 +7,8 @@ partial class Level : GameObjectList
     public int LevelWidth { get; protected set; }
     public int LevelHeight { get; protected set; }
 
+
+
     public void LoadTiles(string path)
     {
         List<string> textLines = new List<string>();
@@ -101,12 +103,13 @@ partial class Level : GameObjectList
         return new Tile("Tiles/" + name, tileType, layer);
     }
 
-    private Tile LoadExitTile(string name, TileType tileType, int levelExit)
+    private Tile LoadExitTile(string name, TileType tileType, int levelExit, int layer = 1)
     {
         //nog een lijstje met de integers
 
-        return new Tile("Tiles/" + name, tileType);
-    }
+        return new Tile("Tiles/" + name, tileType, layer);
+    } 
+    
 
     private Tile LoadSkeleton(int x, int y)
     {

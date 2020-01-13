@@ -5,14 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-class Key : Item
+class Door : InteractiveTile
 {
-    public Key(int layer, string id, Vector2 position)
-        : base(layer: 0, id, position)
-    {
-        visible = true;
-    }
 
     public override void Update(GameTime gameTime)
     {
@@ -22,12 +16,12 @@ class Key : Item
         List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
         if (players != null)
             foreach (Player player in players)
-                if (CollidesWith(player))
+                if (CollidesWith(player) && Player.keys > 0)
                 {
-                    player.AddKey();
-                    //KeyIcon.AddKey(player);
-                    visible = false;
+                    this.visible = false;
+                    player.keys -= 1;
                 }
     }
 }
+
 

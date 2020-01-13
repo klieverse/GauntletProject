@@ -319,6 +319,11 @@ class Player : AnimatedGameObject
         keys+= 1;
     }
 
+    public void UseKey()
+    {
+        keys -= 1;
+    }
+
     public void AddPotion(PotionType pot)
     {
         switch (pot)
