@@ -16,7 +16,6 @@ class Player : AnimatedGameObject
     protected int orangePotions;
     public int health = 600, keys, potions;
     float timer = 1f;
-    public string playerClass;
 
     public Player(int layer, string id, Vector2 start, Level level, float speed, float armor,
                         float magic, float shotStrength, float shotSpeed, float melee, bool isYou)
@@ -33,7 +32,6 @@ class Player : AnimatedGameObject
         this.melee = melee;
         this.id = id;
         startPosition = start;
-        playerClass = id;
 
         LoadAnimations();
         Reset();
@@ -109,8 +107,12 @@ class Player : AnimatedGameObject
 
         if (inputHelper.IsKeyDown(Keys.Space))
         {
-            // PlayerShot shot = new PlayerShot(id, shotSpeed, shotStrength, velocity, position);
-            (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position));
+            if (!isMoving())
+            {
+                // PlayerShot shot = new PlayerShot(id, shotSpeed, shotStrength, velocity, position);
+                (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position));
+            }
+           
         }
 
         if (inputHelper.IsKeyDown(Keys.LeftAlt))
@@ -219,14 +221,6 @@ class Player : AnimatedGameObject
         else if (velocity.X > 0)
         {
             PlayAnimation(id + "runRight");
-        }
-        else if (velocity.Y > 0)
-        {
-            PlayAnimation(id + "runRight");
-        }
-        else if (velocity.Y < 0)
-        {
-            PlayAnimation(id + "runLeft");
         }
     }
 
@@ -356,6 +350,11 @@ class Player : AnimatedGameObject
     public void SpeedUp()
     {
         speedHelper += 30f;
+    }
+
+    public string playerClass
+    {
+        get { return id; }
     }
     
     public bool IsAlive

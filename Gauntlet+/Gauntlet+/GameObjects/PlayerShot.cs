@@ -12,7 +12,7 @@ class PlayerShot : SpriteGameObject
     float shotStrength;   
 
 
-    public PlayerShot(string id, float shotSpeed, float shotStrength, Vector2 direction, Vector2 position) : base(assetName: "arrow", layer: 0, id, sheetIndex: 0)
+    public PlayerShot(string id, float shotSpeed, float shotStrength, Vector2 direction, Vector2 position) : base(assetName: id + "Shot", layer: 0, id, sheetIndex: 0)
     {
         velocity = direction;
         this.position = position;
@@ -95,7 +95,7 @@ class PlayerShot : SpriteGameObject
             for (int y = Top; y <= Bottom; y++)
                 if (tileField.GetTileType(x, y) == TileType.Wall)
                 {
-                    //visible = false;
+                    visible = false;
                 }
 
         //check breakable wall collision
@@ -104,7 +104,7 @@ class PlayerShot : SpriteGameObject
             for (int y = Top; y <= Bottom; y++)
                 if (tileField.GetTileType(x, y) == TileType.BreakableWall)
                 {
-                    //visible = false;
+                    visible = false;
                     //iets met muur;
                 }
 
