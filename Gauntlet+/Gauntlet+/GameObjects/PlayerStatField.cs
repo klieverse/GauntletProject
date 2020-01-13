@@ -9,22 +9,22 @@ using System.Threading.Tasks;
 class PlayerStatField : SpriteGameObject
 {
     PlayerStats Stats;
-    Vector2 StaticPosition;
     public PlayerStatField(string playerClass,int layer = 5) :base("statSprites/" + playerClass + "Stats",layer,"StatField")
     {
-        id = playerClass + "Stats";
-        Stats = new PlayerStats(playerClass);
-        StaticPosition = new Vector2(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y - Height);
-        position = StaticPosition;
+        id = playerClass + "Stats"; //set the id based on the playerclass
+        position = new Vector2(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y - Height); //set position
+        Stats = new PlayerStats(position,playerClass); // create the statlist for in the field
+        
     }
 
     public void Update(Player player)
     {
-        Stats.Update(player);
+        Stats.Update(player); //update the statlist based op the given player
     }
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
+        //draw the object without ajusting to the camera
         if (!visible || sprite == null)
         {
             return;
@@ -37,6 +37,7 @@ class PlayerStatField : SpriteGameObject
         {
             sprite.Draw(spriteBatch, this.GlobalPosition, rotation, origin);
         }
+        //draw the stats into the field
         Stats.Draw(gameTime, spriteBatch);
     }
 }

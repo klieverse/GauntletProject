@@ -144,32 +144,26 @@ partial class Level : GameObjectList
 
     private Tile LoadThyra(int x, int y)
     {
-        startPositionThyra = new Vector2(x, y);
-        return new Tile("Tiles/background", TileType.Background);
+        startPositionThyra = new Vector2(x, y);  // set the startposition for this class
+        return new Tile("Tiles/background", TileType.Background); //return background tile
     }
 
     private Tile LoadWarrior(int x, int y)
     {
         startPositionThor = new Vector2(x, y);
-        
-        
-        
         return new Tile("Tiles/background", TileType.Background);
     }
 
     private Tile LoadElf(int x, int y)
     {
         startPositionQuestor = new Vector2(x, y);
-        
-       
         return new Tile("Tiles/background", TileType.Background);
     }
 
     private Tile LoadMerlin(int x, int y)
     { 
         startPositionMerlin = new Vector2(x, y);
-
-        return new Tile("Tiles/background", TileType.Background);
+return new Tile("Tiles/background", TileType.Background);
     }
 
     private Tile LoadPotion(Color color, int x, int y)

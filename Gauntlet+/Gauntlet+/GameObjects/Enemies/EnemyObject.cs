@@ -37,16 +37,19 @@ public class EnemyObject : AnimatedGameObject
         tileField = GameWorld.Find("tiles") as TileField;
         if (CollidesWithObject())
             position = previousPosition;
-        Player player = GameWorld.Find("Elf") as Player;
-        if (player != null)
+        GameObjectList players = GameWorld.Find("players") as GameObjectList;
+        Player player;
+        if (players.Children.Count != 0)
         {
+            player = players.Children[0] as Player;
+        
             float opposite = player.Position.Y - position.Y + 55;
             float adjacent = player.Position.X - position.X + 30;
             float vertical = (float)Math.Atan2(opposite, adjacent);
             float horizontal = (float)Math.Atan2(adjacent, opposite);
             speedVert = (float)Math.Sin(vertical) * speed;
             speedHori = (float)Math.Sin(horizontal) * speed;
-            velocity.Y = speedVert;
+            velocity.Y = speedVert;    
             velocity.X = speedHori;
         }
 

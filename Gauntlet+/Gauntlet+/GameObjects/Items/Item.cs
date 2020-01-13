@@ -13,5 +13,7 @@ class Item : SpriteGameObject
     {
         this.position = position;
     }
+
+    
 }
 

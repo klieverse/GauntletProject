@@ -25,29 +25,31 @@ partial class Level : GameObjectList
        
         // check if we ran out of time
 
+        //for each existing player update the fitting statfield with the data of said player
         foreach (Player player in (Find("players") as GameObjectList).Children)
         {
-            
                 (Find(player.playerClass + "Stats") as PlayerStatField).Update(player);
-           
         }
         
         
-        //(Find("ElfStats") as PlayerStatField).Update(Find("Elf") as Player);
+        
     }
 
     public void LoadPlayer()
     {
-        string playerClass= GameEnvironment.SelectedClass;
+        string playerClass= GameEnvironment.SelectedClass; //Get the selected class
+        // Check if the selected class is loaded, if not load the right player into the level
         if (Find(playerClass) == null)
         {
+
             if (playerClass == "Elf" )
             {
+                //get the startPosition for the player
                 Vector2 startPosition = new Vector2(((float)startPositionQuestor.X + 0.5f) * 55, (startPositionQuestor.Y + 1) * 55);
-                Questor questor = new Questor(2, "Elf", startPosition, this, true);
-                (Find("players") as GameObjectList).Add(questor);
-                PlayerStatField questorStats = new PlayerStatField("Elf");
-                (Find("StatFields") as GameObjectList).Add(questorStats);
+                Questor questor = new Questor(2, "Elf", startPosition, this, true); //create the player
+                (Find("players") as GameObjectList).Add(questor); //add player to level
+                PlayerStatField questorStats = new PlayerStatField("Elf"); //create the players Statfield
+                (Find("StatFields") as GameObjectList).Add(questorStats); //add the statfield to the level
             }
             if(playerClass == "wizard")
             {
