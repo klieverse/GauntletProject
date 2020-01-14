@@ -15,7 +15,7 @@ class Player : AnimatedGameObject
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
     protected int orangePotions;
     public int health = 600, keys, potions;
-    float healthTimer = 1f, shootTimer = 0.333f;
+    float healthTimer = 1f, shootTimer = 0.2f;
 
     public Player(int layer, string id, Vector2 start, Level level, float speed, float armor,
                         float magic, float shotStrength, float shotSpeed, float melee, bool isYou)
@@ -108,7 +108,7 @@ class Player : AnimatedGameObject
 
             if (canShoot)
             {
-                shootTimer = 0.333f;
+                shootTimer = 0.2f;
                 canShoot = false;
                 PlayAnimation("shoot");
                 (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position));
@@ -118,7 +118,6 @@ class Player : AnimatedGameObject
         if (inputHelper.keyReleased(Keys.Space))
         {
             canMove = true;
-            canShoot = true;
         }
 
         if (inputHelper.IsKeyDown(Keys.LeftAlt))
@@ -178,7 +177,7 @@ class Player : AnimatedGameObject
         if(shootTimer <= 0)
         {
             canShoot = true;
-            shootTimer = 0.333f;
+            shootTimer = 0.2f;
         }
     }
 
@@ -314,8 +313,14 @@ class Player : AnimatedGameObject
                     position.Y += depth.Y;
                 }
             }
-
-        position = new Vector2((float)Math.Floor(position.X), (float)Math.Floor(position.Y));
+        if(velocity.X >= 0 && velocity.Y >= 0)
+            position = new Vector2((float)Math.Ceiling(position.X), (float)Math.Ceiling(position.Y));
+        if (velocity.X >= 0 && velocity.Y <= 0)
+            position = new Vector2((float)Math.Ceiling(position.X), (float)Math.Floor(position.Y));
+        if (velocity.X <= 0 && velocity.Y >= 0)
+            position = new Vector2((float)Math.Floor(position.X), (float)Math.Ceiling(position.Y));
+        if (velocity.X <= 0 && velocity.Y <= 0)
+            position = new Vector2((float)Math.Floor(position.X), (float)Math.Floor(position.Y));
     }
 
     public bool CollidesWithEntity()
