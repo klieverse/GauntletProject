@@ -25,9 +25,9 @@ class PlayerStats : TextGameObject
     {
         //get the date from the player
         int score = 100;
-        int health = player.health;
-        int potions = player.potions;
-        int keys = player.keys;
+        int health = player.Health;
+        int potions = player.Potions;
+        int keys = player.Key;
 
         //set data into a text format
         text = 

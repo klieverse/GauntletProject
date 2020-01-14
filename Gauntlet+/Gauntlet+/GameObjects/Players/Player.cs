@@ -13,7 +13,6 @@ class Player : AnimatedGameObject
     protected Level level;
     protected bool isAlive, isYou, lastLookedLeft = false, canMove = true, canShoot = true;
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
-    protected int orangePotions;
     public int health = 600, keys, potions;
     float healthTimer = 1f, shootTimer = 0.2f;
 
@@ -367,6 +366,11 @@ class Player : AnimatedGameObject
         }
     }
 
+    public void EatFood()
+    {
+        health += 100;
+    }
+
     public void ArmorUp()
     {
         armor += 10f;
@@ -386,6 +390,21 @@ class Player : AnimatedGameObject
     public bool IsAlive
     {
         get { return isAlive; }
+    }
+
+    public int Health
+    {
+        get { return health; }
+    }
+
+    public int Potions
+    {
+        get { return potions; }
+    }
+
+    public int Key
+    {
+        get { return keys; }
     }
 }
     
