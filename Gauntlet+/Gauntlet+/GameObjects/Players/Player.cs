@@ -14,7 +14,7 @@ class Player : AnimatedGameObject
     protected bool isAlive, isYou, lastLookedLeft = false, canMove = true, canShoot = true;
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
     public int health = 600, keys, potions;
-    float healthTimer = 1f, shootTimer = 0.2f;
+    float healthTimer = 1f, shootTimer = 0.225f;
 
     public Player(int layer, string id, Vector2 start, Level level, float speed, float armor,
                         float magic, float shotStrength, float shotSpeed, float melee, bool isYou)
@@ -40,7 +40,7 @@ class Player : AnimatedGameObject
     {
         LoadAnimation("Sprites/Player/spr_" + id + "idle@4","idle", true);
         LoadAnimation("Sprites/Player/spr_" + id + "run@4","run", true);
-        LoadAnimation("Sprites/Player/spr_" + id + "shoot@3", "shoot", false);
+        LoadAnimation("Sprites/Player/spr_" + id + "shoot@3", "shoot", true);
         //LoadAnimation("Sprites/Player/spr_" + id + "die", id + "die", false);
     }
 
@@ -107,7 +107,7 @@ class Player : AnimatedGameObject
 
             if (canShoot)
             {
-                shootTimer = 0.2f;
+                shootTimer = 0.225f;
                 canShoot = false;
                 PlayAnimation("shoot");
                 (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position));
@@ -176,7 +176,7 @@ class Player : AnimatedGameObject
         if(shootTimer <= 0)
         {
             canShoot = true;
-            shootTimer = 0.2f;
+            shootTimer = 0.225f;
         }
     }
 
@@ -194,12 +194,15 @@ class Player : AnimatedGameObject
 
     private void HandleAnimations() // Makes sure the right animation is being played;
     {
-        
-        if (velocity == Vector2.Zero)
+        if (canMove)
         {
-            PlayAnimation("idle");
+            if (velocity == Vector2.Zero)
+            {
+                PlayAnimation("idle");
+            }
+            else PlayAnimation("run");
         }
-        else PlayAnimation("run");
+
 
         if (velocity.X < 0)
         {
