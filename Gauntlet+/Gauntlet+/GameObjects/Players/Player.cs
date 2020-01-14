@@ -11,11 +11,11 @@ class Player : AnimatedGameObject
 {
     protected Vector2 startPosition, previousPosition, direction = new Vector2(0,1);
     protected Level level;
-    protected bool isAlive, isYou, lastLookedLeft = false;
+    protected bool isAlive, isYou, lastLookedLeft = false, canMove = true, canShoot = true;
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
     protected int orangePotions;
     public int health = 600, keys, potions;
-    float timer = 1f;
+    float healthTimer = 1f, shootTimer = 0.333f;
 
     public Player(int layer, string id, Vector2 start, Level level, float speed, float armor,
                         float magic, float shotStrength, float shotSpeed, float melee, bool isYou)
@@ -41,7 +41,7 @@ class Player : AnimatedGameObject
     {
         LoadAnimation("Sprites/Player/spr_" + id + "idle@4","idle", true);
         LoadAnimation("Sprites/Player/spr_" + id + "run@4","run", true);
-        LoadAnimation("Sprites/Player/spr_" + id + "shoot@3", "shoot", true);
+        LoadAnimation("Sprites/Player/spr_" + id + "shoot@3", "shoot", false);
         //LoadAnimation("Sprites/Player/spr_" + id + "die", id + "die", false);
     }
 
@@ -62,52 +62,63 @@ class Player : AnimatedGameObject
 
         velocity = Vector2.Zero;
 
-        if (inputHelper.IsKeyDown(Keys.A) && inputHelper.IsKeyDown(Keys.W))
+        if (canMove)
         {
-            velocity.Y = 0.71f * -walkingSpeed;
-            velocity.X = 0.71f * -walkingSpeed;
-        }
-        else if (inputHelper.IsKeyDown(Keys.A) && inputHelper.IsKeyDown(Keys.S))
-        {
-            velocity.Y = 0.71f * walkingSpeed;
-            velocity.X = 0.71f * -walkingSpeed;
-        }
-        else if (inputHelper.IsKeyDown(Keys.D) && inputHelper.IsKeyDown(Keys.W))
-        {
-            velocity.Y = 0.71f * -walkingSpeed;
-            velocity.X = 0.71f * walkingSpeed;
-        }
-        else if (inputHelper.IsKeyDown(Keys.D) && inputHelper.IsKeyDown(Keys.S))
-        {
-            velocity.Y = 0.71f * walkingSpeed;
-            velocity.X = 0.71f * walkingSpeed;
-        }
-        else if (inputHelper.IsKeyDown(Keys.A))
-        {
-            velocity.X = -walkingSpeed;
-        }
-        else if (inputHelper.IsKeyDown(Keys.D))
-        {
-            velocity.X = walkingSpeed;
-        }
-        else if (inputHelper.IsKeyDown(Keys.W))
-        {
-            velocity.Y = -walkingSpeed;
-        }
-        else if (inputHelper.IsKeyDown(Keys.S))
-        {
-            velocity.Y = walkingSpeed;
+            if (inputHelper.IsKeyDown(Keys.A) && inputHelper.IsKeyDown(Keys.W))
+            {
+                velocity.Y = 0.71f * -walkingSpeed;
+                velocity.X = 0.71f * -walkingSpeed;
+            }
+            else if (inputHelper.IsKeyDown(Keys.A) && inputHelper.IsKeyDown(Keys.S))
+            {
+                velocity.Y = 0.71f * walkingSpeed;
+                velocity.X = 0.71f * -walkingSpeed;
+            }
+            else if (inputHelper.IsKeyDown(Keys.D) && inputHelper.IsKeyDown(Keys.W))
+            {
+                velocity.Y = 0.71f * -walkingSpeed;
+                velocity.X = 0.71f * walkingSpeed;
+            }
+            else if (inputHelper.IsKeyDown(Keys.D) && inputHelper.IsKeyDown(Keys.S))
+            {
+                velocity.Y = 0.71f * walkingSpeed;
+                velocity.X = 0.71f * walkingSpeed;
+            }
+            else if (inputHelper.IsKeyDown(Keys.A))
+            {
+                velocity.X = -walkingSpeed;
+            }
+            else if (inputHelper.IsKeyDown(Keys.D))
+            {
+                velocity.X = walkingSpeed;
+            }
+            else if (inputHelper.IsKeyDown(Keys.W))
+            {
+                velocity.Y = -walkingSpeed;
+            }
+            else if (inputHelper.IsKeyDown(Keys.S))
+            {
+                velocity.Y = walkingSpeed;
+            }
         }
 
         if (inputHelper.IsKeyDown(Keys.Space))
         {
-            if (!isMoving())
+            canMove = false;
+
+            if (canShoot)
             {
-                // PlayerShot shot = new PlayerShot(id, shotSpeed, shotStrength, velocity, position);
-                (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position));
+                shootTimer = 0.333f;
+                canShoot = false;
                 PlayAnimation("shoot");
+                (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position));
             }
-           
+        }
+
+        if (inputHelper.keyReleased(Keys.Space))
+        {
+            canMove = true;
+            canShoot = true;
         }
 
         if (inputHelper.IsKeyDown(Keys.LeftAlt))
@@ -127,6 +138,7 @@ class Player : AnimatedGameObject
         {
             direction = velocity;
         }
+
         previousPosition = position;
 
         base.Update(gameTime);
@@ -141,6 +153,7 @@ class Player : AnimatedGameObject
 
         CheckEnemyMelee();
         HandleCollisions();
+        HandleCollision();
         HandleAnimations();
 
 
@@ -153,12 +166,19 @@ class Player : AnimatedGameObject
 
     private void HandleTimer(GameTime gameTime)
     {
-        timer -= (float)gameTime.ElapsedGameTime.TotalSeconds; //makes the timer count down;
+        healthTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds; //makes the timer count down;
+        shootTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-        if (timer <= 0)
+        if (healthTimer <= 0)
         {
             health -= 1;
-            timer = 1f;
+            healthTimer = 1f;
+        }
+
+        if(shootTimer <= 0)
+        {
+            canShoot = true;
+            shootTimer = 0.333f;
         }
     }
 
@@ -216,7 +236,7 @@ class Player : AnimatedGameObject
 
     private void HandleCollisions() //sets the position back to the last known position was before the player walked en collided with an object;
     {
-        if (CollidesWithObject() == true)
+        if (CollidesWithEntity() == true)
         {
             position = previousPosition;
         }
@@ -253,12 +273,11 @@ class Player : AnimatedGameObject
         }
             
     }
-
-    public bool CollidesWithObject()
+    void HandleCollision()
     {
-        TileField tileField = GameWorld.Find("tiles") as TileField;
+        TileField tiles = GameWorld.Find("tiles") as TileField;
         //check wall collision
-        Tile tile = tileField.Get(1, 1) as Tile;
+        Tile tile = tiles.Get(1, 1) as Tile;
         int Left = (int)((position.X - Width / 2) / tile.Width);
         int Right = (int)((position.X + Width / 2) / tile.Width);
         int Top = (int)((position.Y - Height) / tile.Height);
@@ -266,8 +285,41 @@ class Player : AnimatedGameObject
 
         for (int x = Left; x <= Right; x++)
             for (int y = Top; y <= Bottom; y++)
-                if (tileField.GetTileType(x, y) == TileType.Wall || tileField.GetTileType(x, y) == TileType.BreakableWall)
-                    return true;
+            {
+                if ((tiles.GetTileType(x, y) == TileType.Wall || tiles.GetTileType(x, y) == TileType.BreakableWall))
+                {
+
+                }
+
+                TileType tileType = tiles.GetTileType(x, y);
+                if (tileType == TileType.Background)
+                {
+                    continue;
+                }
+                Rectangle tileBounds = new Rectangle(x * tiles.CellWidth, y * tiles.CellHeight,
+                                                        tiles.CellWidth, tiles.CellHeight);
+                Rectangle boundingBox = this.BoundingBox;
+                boundingBox.Height += 1;
+                Vector2 depth = Collision.CalculateIntersectionDepth(boundingBox, tileBounds);
+                if (Math.Abs(depth.X) < Math.Abs(depth.Y))
+                {
+                    if (tileType == TileType.Wall || tileType == TileType.BreakableWall)
+                    {
+                        position.X += depth.X;
+                    }
+                    continue;
+                }
+                if (tileType == TileType.Wall || tileType == TileType.BreakableWall)
+                {
+                    position.Y += depth.Y;
+                }
+            }
+
+        position = new Vector2((float)Math.Floor(position.X), (float)Math.Floor(position.Y));
+    }
+
+    public bool CollidesWithEntity()
+    {
         //check playercollision
         List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
         if (players != null)
@@ -308,13 +360,6 @@ class Player : AnimatedGameObject
             default:
                 break;
         }
-    }
-
-    bool isMoving()
-    {
-        if (velocity != Vector2.Zero)
-            return true;
-        return false;
     }
 
     public void ArmorUp()

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 class PlayerShot : SpriteGameObject
 {
-    float shotSpeed;
+    float shotSpeed, baseShotSpeed = 250;
     float shotStrength;   
 
 
@@ -25,46 +25,46 @@ class PlayerShot : SpriteGameObject
     {
         if (velocity.X > 0 && velocity.Y == 0) // facing right
         {
-             velocity.X = shotSpeed * 75 + 200; 
+             velocity.X = shotSpeed * 75 + baseShotSpeed; 
              Rotate(90);
         }
         if (velocity.X > 0 && velocity.Y > 0) // facing down right
         {
-             velocity.X = 0.71f * (shotSpeed * 75 + 200);
-             velocity.Y = 0.71f * (shotSpeed * 75 + 200);
+             velocity.X = 0.71f * (shotSpeed * 75 + baseShotSpeed);
+             velocity.Y = 0.71f * (shotSpeed * 75 + baseShotSpeed);
              Rotate(135);
         }
         if (velocity.X < 0 && velocity.Y < 0) // facing up left
         {
-            velocity.X = -0.71f * (shotSpeed * 75 + 200);
-            velocity.Y = -0.71f * (shotSpeed * 75 + 200);
+            velocity.X = -0.71f * (shotSpeed * 75 + baseShotSpeed);
+            velocity.Y = -0.71f * (shotSpeed * 75 + baseShotSpeed);
             Rotate(315);
         }
         if (velocity.X == 0 && velocity.Y > 0) // facing down
         {
-            velocity.Y = (shotSpeed * 75 + 200);
+            velocity.Y = (shotSpeed * 75 + baseShotSpeed);
             Rotate(180);
         }
         if (velocity.X < 0 && velocity.Y == 0) // facing left
         {
-            velocity.X = -(shotSpeed * 75 + 200);
+            velocity.X = -(shotSpeed * 75 + baseShotSpeed);
             Rotate(270);
         }
         if (velocity.X == 0 && velocity.Y < 0) // facing up
         {
-            velocity.Y = -(shotSpeed *75 + 200);
+            velocity.Y = -(shotSpeed *75 + baseShotSpeed);
             Rotate(0);
         }
         if (velocity.X > 0 && velocity.Y < 0) // facing up right
         {
-            velocity.X = 0.71f * (shotSpeed * 75 + 200);
-            velocity.Y = -0.71f * (shotSpeed * 75 + 200);
+            velocity.X = 0.71f * (shotSpeed * 75 + baseShotSpeed);
+            velocity.Y = -0.71f * (shotSpeed * 75 + baseShotSpeed);
             Rotate(45);
         }
         if (velocity.X < 0 && velocity.Y > 0) // facing down left
         {
-            velocity.X = -0.71f * (shotSpeed * 75 + 200);
-            velocity.Y = 0.71f * (shotSpeed * 75 + 200);
+            velocity.X = -0.71f * (shotSpeed * 75 + baseShotSpeed);
+            velocity.Y = 0.71f * (shotSpeed * 75 + baseShotSpeed);
             Rotate(225);
         }
     }
