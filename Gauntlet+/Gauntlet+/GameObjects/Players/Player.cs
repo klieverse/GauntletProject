@@ -25,10 +25,10 @@ class Player : AnimatedGameObject
         speedHelper = speed;
         walkingSpeed = (float)Math.Sqrt(speedHelper) * 10;
         this.armor = armor;
-        this.magic = magic;
-        this.shotStrength = shotStrength;
+        this.magic = magic*10;
+        this.shotStrength = shotStrength * 10;
         this.shotSpeed = shotSpeed;
-        this.melee = melee;
+        this.melee = melee*10;
         this.id = id;
         startPosition = start;
 
