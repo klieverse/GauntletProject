@@ -21,12 +21,15 @@ public class GnomeShoot : AnimatedGameObject
     {
         base.Update(gameTime);
         //looks for players in game, if it collides with it, reduces player's health and then this instance gets removed
-        Player player = GameWorld.Find("Elf") as Player;
-        if (CollidesWith(player))
-        {
-            player.health -= strength;
-            GameWorld.Remove(this);
-        }
+        List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
+        if (players != null)
+            foreach (Player player in players)
+                if (CollidesWith(player))
+                {
+                    player.health -= strength;
+                    visible = false;
+                    GameWorld.Remove(this);
+                }
     }
 }
 

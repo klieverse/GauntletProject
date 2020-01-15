@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 class PlayerShot : SpriteGameObject
 {
-    float shotSpeed;
+    float shotSpeed, baseShotSpeed = 250;
     float shotStrength;   
 
 
-    public PlayerShot(string id, float shotSpeed, float shotStrength, Vector2 direction, Vector2 position) : base(assetName: "arrow", layer: 0, id, sheetIndex: 0)
+    public PlayerShot(string id, float shotSpeed, float shotStrength, Vector2 direction, Vector2 position) : base(assetName: id + "Shot", layer: 0, id, sheetIndex: 0)
     {
         velocity = direction;
         this.position = position;
@@ -21,50 +21,50 @@ class PlayerShot : SpriteGameObject
         HandleDirection();
     }
 
-    void HandleDirection()
+    void HandleDirection() // rotates the sprite to the right direction, based on the direction it is going
     {
-        if (velocity.X > 0 && velocity.Y == 0) 
+        if (velocity.X > 0 && velocity.Y == 0) // facing right
         {
-             velocity.X = shotSpeed * 75 + 200; 
+             velocity.X = shotSpeed * 75 + baseShotSpeed; 
              Rotate(90);
         }
-        if (velocity.X > 0 && velocity.Y > 0)
+        if (velocity.X > 0 && velocity.Y > 0) // facing down right
         {
-             velocity.X = 0.71f * (shotSpeed * 75 + 200);
-             velocity.Y = 0.71f * (shotSpeed * 75 + 200);
+             velocity.X = 0.71f * (shotSpeed * 75 + baseShotSpeed);
+             velocity.Y = 0.71f * (shotSpeed * 75 + baseShotSpeed);
              Rotate(135);
         }
-        if (velocity.X < 0 && velocity.Y < 0)
+        if (velocity.X < 0 && velocity.Y < 0) // facing up left
         {
-            velocity.X = -0.71f * (shotSpeed * 75 + 200);
-            velocity.Y = -0.71f * (shotSpeed * 75 + 200);
+            velocity.X = -0.71f * (shotSpeed * 75 + baseShotSpeed);
+            velocity.Y = -0.71f * (shotSpeed * 75 + baseShotSpeed);
             Rotate(315);
         }
-        if (velocity.X == 0 && velocity.Y > 0)
+        if (velocity.X == 0 && velocity.Y > 0) // facing down
         {
-            velocity.Y = (shotSpeed * 75 + 200);
+            velocity.Y = (shotSpeed * 75 + baseShotSpeed);
             Rotate(180);
         }
-        if (velocity.X < 0 && velocity.Y == 0)
+        if (velocity.X < 0 && velocity.Y == 0) // facing left
         {
-            velocity.X = -(shotSpeed * 75 + 200);
+            velocity.X = -(shotSpeed * 75 + baseShotSpeed);
             Rotate(270);
         }
-        if (velocity.X == 0 && velocity.Y < 0)
+        if (velocity.X == 0 && velocity.Y < 0) // facing up
         {
-            velocity.Y = -(shotSpeed *75 + 200);
+            velocity.Y = -(shotSpeed *75 + baseShotSpeed);
             Rotate(0);
         }
-        if (velocity.X > 0 && velocity.Y < 0)
+        if (velocity.X > 0 && velocity.Y < 0) // facing up right
         {
-            velocity.X = 0.71f * (shotSpeed * 75 + 200);
-            velocity.Y = -0.71f * (shotSpeed * 75 + 200);
+            velocity.X = 0.71f * (shotSpeed * 75 + baseShotSpeed);
+            velocity.Y = -0.71f * (shotSpeed * 75 + baseShotSpeed);
             Rotate(45);
         }
-        if (velocity.X < 0 && velocity.Y > 0)
+        if (velocity.X < 0 && velocity.Y > 0) // facing down left
         {
-            velocity.X = -0.71f * (shotSpeed * 75 + 200);
-            velocity.Y = 0.71f * (shotSpeed * 75 + 200);
+            velocity.X = -0.71f * (shotSpeed * 75 + baseShotSpeed);
+            velocity.Y = 0.71f * (shotSpeed * 75 + baseShotSpeed);
             Rotate(225);
         }
     }
@@ -95,7 +95,7 @@ class PlayerShot : SpriteGameObject
             for (int y = Top; y <= Bottom; y++)
                 if (tileField.GetTileType(x, y) == TileType.Wall)
                 {
-                    //visible = false;
+                    visible = false;
                 }
 
         //check breakable wall collision
@@ -104,7 +104,7 @@ class PlayerShot : SpriteGameObject
             for (int y = Top; y <= Bottom; y++)
                 if (tileField.GetTileType(x, y) == TileType.BreakableWall)
                 {
-                    //visible = false;
+                    visible = false;
                     //iets met muur;
                 }
 

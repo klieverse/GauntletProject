@@ -37,16 +37,19 @@ public class EnemyObject : AnimatedGameObject
         tileField = GameWorld.Find("tiles") as TileField;
         if (CollidesWithObject())
             position = previousPosition;
-        Player player = GameWorld.Find("Elf") as Player;
-        if (player != null)
+        GameObjectList players = GameWorld.Find("players") as GameObjectList;
+        Player player;
+        if (players.Children.Count != 0)
         {
+            player = players.Children[0] as Player;
+        
             float opposite = player.Position.Y - position.Y + 55;
             float adjacent = player.Position.X - position.X + 30;
             float vertical = (float)Math.Atan2(opposite, adjacent);
             float horizontal = (float)Math.Atan2(adjacent, opposite);
             speedVert = (float)Math.Sin(vertical) * speed;
             speedHori = (float)Math.Sin(horizontal) * speed;
-            velocity.Y = speedVert;
+            velocity.Y = speedVert;    
             velocity.X = speedHori;
         }
 
@@ -116,14 +119,15 @@ public class EnemyObject : AnimatedGameObject
  
         //check wall collision
         Tile tile = tileField.Get(1, 1) as Tile;
-        int Left = (int)(position.X / tile.Width);
-        int Right = (int)((position.X + Width) / tile.Width);
-        int Top = (int)(position.Y / tile.Height);
-        int Bottom = (int)((position.Y + Height) / tile.Height);
+        int Left = (int)((position.X -Width /2)/ tile.Width);
+        int Right = (int)((position.X + Width /2) / tile.Width);
+        int Top = (int)((position.Y-Height) / tile.Height);
+        int Bottom = (int)((position.Y ) / tile.Height);
 
         for (int x = Left; x <= Right; x++)
             for (int y = Top; y <= Bottom; y++)
-                if (tileField.GetTileType(x, y) == TileType.Wall || tileField.GetTileType(x, y) == TileType.BreakableWall)
+                if (tileField.GetTileType(x, y) == TileType.Wall || tileField.GetTileType(x, y) == TileType.BreakableWall 
+                    || tileField.GetTileType(x, y) == TileType.HorizontalDoor || tileField.GetTileType(x, y) == TileType.VerticalDoor)
                     return true;
         //check playercollision
         List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
@@ -135,8 +139,9 @@ public class EnemyObject : AnimatedGameObject
         //check enemycollision
         List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
         foreach (SpriteGameObject enemy in enemies)
-            if (CollidesWith(enemy))
-                return true;
+            if (enemy !=this)
+                if (CollidesWith(enemy))
+                    return true;
 
         return false;
     }

@@ -25,13 +25,15 @@ class Thief : EnemyObject
     //executes attack when it collides with player.
     private void Attack()
     {
-        Player player = GameWorld.Find("player") as Player;
-        if (CollidesWith(player))
-        {
-            player.health -= strength;
-            //steal item, run away
+        List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
+        if (players != null)
+            foreach (Player player in players) 
+                if (CollidesWith(player))
+                {
+                    player.health -= strength;
+                    //steal item, run away
      
-        }
+                }
     }
 }
 

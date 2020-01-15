@@ -77,8 +77,11 @@
     <Compile Include="GameObjects\Enemies\Troll.cs" />
     <Compile Include="GameObjects\Enemies\Ghost.cs" />
     <Compile Include="GameObjects\Enemies\Wizard.cs" />
+    <Compile Include="GameObjects\Items\Food.cs" />
     <Compile Include="GameObjects\Items\Item.cs" />
     <Compile Include="GameObjects\Items\Key.cs" />
+    <Compile Include="GameObjects\PlayerStatField.cs" />
+    <Compile Include="GameObjects\PlayerStats.cs" />
     <Compile Include="GameObjects\Players\Player.cs" />
     <Compile Include="GameObjects\PlayerShot.cs" />
     <Compile Include="GameObjects\Items\Potion.cs" />
@@ -91,6 +94,7 @@
     <Compile Include="GameStates\HelpState.cs" />
     <Compile Include="GameStates\MultiPlayerState.cs" />
     <Compile Include="GameStates\PlayingState.cs" />
+    <Compile Include="GameStates\ChooseCharacterState.cs" />
     <Compile Include="GameStates\SinglePlayerState.cs" />
     <Compile Include="GameStates\TitleMenuState.cs" />
     <Compile Include="Level\Level.cs" />
