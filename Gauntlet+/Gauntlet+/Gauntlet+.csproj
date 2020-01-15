@@ -13,7 +13,7 @@
     <AssemblyName>Gauntlet+</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -26,6 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>7.3</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -35,6 +36,7 @@
     <DefineConstants>TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>
@@ -89,6 +91,7 @@
     <Compile Include="GameObjects\Players\Thyra.cs" />
     <Compile Include="GameObjects\Players\Thor.cs" />
     <Compile Include="GameObjects\Players\Merlin.cs" />
+    <Compile Include="GameObjects\Teleporter.cs" />
     <Compile Include="GameStates\BetweenLevelState.cs" />
     <Compile Include="GameStates\GameOverState.cs" />
     <Compile Include="GameStates\HelpState.cs" />

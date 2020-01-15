@@ -114,7 +114,7 @@ class PlayerShot : SpriteGameObject
             if (CollidesWith(enemy))
             {
                 visible = false;
-                enemy.(shotStrength);
+                enemy.HitByPlayer(shotStrength);
             }
 
     }
