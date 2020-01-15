@@ -105,6 +105,39 @@ class Player : AnimatedGameObject
         {
             canMove = false;
 
+            if (inputHelper.IsKeyDown(Keys.A) && inputHelper.IsKeyDown(Keys.W))
+            {
+                direction = new Vector2(-1, -1);
+            }
+            else if (inputHelper.IsKeyDown(Keys.A) && inputHelper.IsKeyDown(Keys.S))
+            {
+                direction = new Vector2(-1, 1);
+            }
+            else if (inputHelper.IsKeyDown(Keys.D) && inputHelper.IsKeyDown(Keys.W))
+            {
+                direction = new Vector2(1, -1);
+            }
+            else if (inputHelper.IsKeyDown(Keys.D) && inputHelper.IsKeyDown(Keys.S))
+            {
+                direction = new Vector2(1, 1);
+            }
+            else if (inputHelper.IsKeyDown(Keys.A))
+            {
+                direction = new Vector2(-1, 0);
+            }
+            else if (inputHelper.IsKeyDown(Keys.D))
+            {
+                direction = new Vector2(1, 0);
+            }
+            else if (inputHelper.IsKeyDown(Keys.W))
+            {
+                direction = new Vector2(0, -1);
+            }
+            else if (inputHelper.IsKeyDown(Keys.S))
+            {
+                direction = new Vector2(0, 1);
+            }
+
             if (canShoot)
             {
                 shootTimer = 0.225f;
