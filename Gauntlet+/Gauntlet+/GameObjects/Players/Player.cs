@@ -300,7 +300,8 @@ class Player : AnimatedGameObject
                 Rectangle tileBounds = new Rectangle(x * tiles.CellWidth, y * tiles.CellHeight,
                                                         tiles.CellWidth, tiles.CellHeight);
                 Rectangle boundingBox = this.BoundingBox;
-                boundingBox.Height += 1;
+                //boundingBox.Height+=1;
+                boundingBox.Width +=1;
                 Vector2 depth = Collision.CalculateIntersectionDepth(boundingBox, tileBounds);
                 if (Math.Abs(depth.X) < Math.Abs(depth.Y))
                 {

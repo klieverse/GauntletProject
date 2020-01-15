@@ -43,8 +43,8 @@ public class EnemyObject : AnimatedGameObject
         {
             player = players.Children[0] as Player;
         
-            float opposite = player.Position.Y - position.Y + 55;
-            float adjacent = player.Position.X - position.X + 30;
+            float opposite = player.Position.Y - position.Y;
+            float adjacent = player.Position.X - position.X;
             float vertical = (float)Math.Atan2(opposite, adjacent);
             float horizontal = (float)Math.Atan2(adjacent, opposite);
             speedVert = (float)Math.Sin(vertical) * speed;
