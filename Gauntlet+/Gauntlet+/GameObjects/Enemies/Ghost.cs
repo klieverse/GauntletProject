@@ -26,7 +26,7 @@ class Ghost : EnemyObject
         if (health < 1)
         {
             //removes the instance from game
-            GameWorld.Remove(this);
+            visible = false;
         }
         Attack();
     }
