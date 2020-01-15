@@ -21,6 +21,7 @@ partial class Level : GameObjectList
         Add(new GameObjectList(1, "items"));
         Add(new GameObjectList(3,"playershot"));
         Add(new GameObjectList(3,"enemieShot"));
+        Add(new GameObjectList(2, "teleport"));
 
        // Add(new Questor(2, "Elf", new Vector2(150, 150), this, true));
        // Add(new PlayerStatField("Elf"));
