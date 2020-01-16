@@ -22,6 +22,7 @@ public class EnemyObject : AnimatedGameObject
     public EnemyObject(int layer, string id) : base(layer, id)
     {
         LoadAnimations();
+        PlayAnimation("idle");
     }
     void LoadAnimations()
     {

@@ -15,6 +15,7 @@ public class GnomeShoot : AnimatedGameObject
         this.position = startPosition;
         this.velocity = velocity;
         this.strength = strength;
+        scale = 0.25f;
     }
 
     public override void Update(GameTime gameTime)
