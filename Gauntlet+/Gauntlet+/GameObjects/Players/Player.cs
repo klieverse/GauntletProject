@@ -107,26 +107,32 @@ class Player : AnimatedGameObject
             if (inputHelper.IsKeyDown(Keys.A) && inputHelper.IsKeyDown(Keys.W))
             {
                 direction = new Vector2(-1, -1);
+                lastLookedLeft = true;
             }
             else if (inputHelper.IsKeyDown(Keys.A) && inputHelper.IsKeyDown(Keys.S))
             {
                 direction = new Vector2(-1, 1);
+                lastLookedLeft = true;
             }
             else if (inputHelper.IsKeyDown(Keys.D) && inputHelper.IsKeyDown(Keys.W))
             {
                 direction = new Vector2(1, -1);
+                lastLookedLeft = false;
             }
             else if (inputHelper.IsKeyDown(Keys.D) && inputHelper.IsKeyDown(Keys.S))
             {
                 direction = new Vector2(1, 1);
+                lastLookedLeft = false;
             }
             else if (inputHelper.IsKeyDown(Keys.A))
             {
                 direction = new Vector2(-1, 0);
+                lastLookedLeft = true;
             }
             else if (inputHelper.IsKeyDown(Keys.D))
             {
                 direction = new Vector2(1, 0);
+                lastLookedLeft = false;
             }
             else if (inputHelper.IsKeyDown(Keys.W))
             {
@@ -142,7 +148,7 @@ class Player : AnimatedGameObject
                 shootTimer = 0.225f;
                 canShoot = false;
                 PlayAnimation("shoot");
-                (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position));
+                (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position, this));
             }
         }
 
@@ -151,7 +157,7 @@ class Player : AnimatedGameObject
             canMove = true;
         }
 
-        if (inputHelper.IsKeyDown(Keys.LeftAlt))
+        if (inputHelper.IsKeyDown(Keys.E))
         {
             if (potions > 0)
             {
@@ -311,7 +317,7 @@ class Player : AnimatedGameObject
         TileField tiles = GameWorld.Find("tiles") as TileField;
         //check wall collision
         Tile tile = tiles.Get(1, 1) as Tile;
-        int Left = (int)((position.X - Width /2) / 64);
+        int Left = (int)((position.X - Width /2) /64);
         int Right = (int)((position.X + Width /2) / 64);
         int Top = (int)((position.Y - Height) / 64);
         int Bottom = (int)((position.Y) / 64);
