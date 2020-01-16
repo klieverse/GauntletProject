@@ -18,6 +18,8 @@ class Tile : SpriteGameObject
 {
     protected TileType type;
 
+    public new int Width = 64;
+    public new int Height = 64;
     public Tile(string assetname = "", TileType tp = TileType.Background, int layer = 0, string id = "")
         : base(assetname, layer, id)
     {

@@ -112,7 +112,7 @@ partial class Level : GameObjectList
     {
         GameObjectList enemies = Find("enemies") as GameObjectList;
         TileField tiles = Find("tiles") as TileField;
-        Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
+        Vector2 startPosition = new Vector2(((float)x + 0.5f) * 64, (y + 1) * 64);
         Ghost enemy = new Ghost(startPosition);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
@@ -135,7 +135,7 @@ partial class Level : GameObjectList
                 return new Tile(); */
         GameObjectList teleports = Find("teleport") as GameObjectList;
         //TileField tiles = Find("tiles") as TileField;
-        Vector2 startPosition = new Vector2((float)x * 55, y * 55);
+        Vector2 startPosition = new Vector2((float)x * 64, y * 64);
         Teleport teleport = new Teleport(startPosition);
         teleports.Add(teleport);
         return new Tile();
@@ -145,7 +145,7 @@ partial class Level : GameObjectList
     {
         GameObjectList enemies = Find("enemies") as GameObjectList;
         TileField tiles = Find("tiles") as TileField;
-        Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
+        Vector2 startPosition = new Vector2(((float)x + 0.5f) * 64, (y + 1) * 64);
         Gnome enemy = new Gnome(startPosition);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
