@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 public class GameObjectGrid : GameObject
 {
     protected GameObject[,] grid;
-    protected const int cellWidth = 32, cellHeight = 32;
+    protected const int cellWidth = 64 , cellHeight = 64 ;
 
     public GameObjectGrid(int rows = 64, int columns = 64, int layer = 0, string id = "")
         : base(layer, id)
