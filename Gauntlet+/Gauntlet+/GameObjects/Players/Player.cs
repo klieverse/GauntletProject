@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 class Player : AnimatedGameObject
 {
-    protected Vector2 startPosition, previousPosition, direction = new Vector2(0,1);
+    protected Vector2 startPosition, previousPosition, direction = new Vector2(1,0);
     protected Level level;
     protected bool isAlive, isYou, lastLookedLeft = false, canMove = true, canShoot = true;
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
@@ -29,7 +29,7 @@ class Player : AnimatedGameObject
         this.shotStrength = shotStrength * 10;
         this.shotSpeed = shotSpeed;
         this.melee = melee*10;
-        startPosition = start;
+        startPosition = new Vector2(start.X,start.Y + 20);
 
         LoadAnimations();
         Reset();
@@ -311,44 +311,48 @@ class Player : AnimatedGameObject
         TileField tiles = GameWorld.Find("tiles") as TileField;
         //check wall collision
         Tile tile = tiles.Get(1, 1) as Tile;
-        int Left = (int)((position.X - Width / 2) / tile.Width);
-        int Right = (int)((position.X + Width / 2) / tile.Width);
-        int Top = (int)((position.Y - Height) / tile.Height);
-        int Bottom = (int)((position.Y) / tile.Height);
+        int Left = (int)((position.X - Width /2) / 64);
+        int Right = (int)((position.X + Width /2) / 64);
+        int Top = (int)((position.Y - Height) / 64);
+        int Bottom = (int)((position.Y) / 64);
 
         for (int x = Left; x <= Right; x++)
             for (int y = Top; y <= Bottom; y++)
             {
-                if ((tiles.GetTileType(x, y) == TileType.Wall || tiles.GetTileType(x, y) == TileType.BreakableWall))
-                {
-
-                }
-
                 TileType tileType = tiles.GetTileType(x, y);
                 if (tileType == TileType.Background)
                 {
                     continue;
                 }
+                Tile currentTile = tiles.Get(x, y) as Tile;
                 Rectangle tileBounds = new Rectangle(x * tiles.CellWidth, y * tiles.CellHeight,
                                                         tiles.CellWidth, tiles.CellHeight);
                 Rectangle boundingBox = this.BoundingBox;
-                //boundingBox.Height+=1;
-                boundingBox.Width +=1;
+                //boundingBox.Height-=1;
+                //boundingBox.Width -=1;
+                if (((currentTile != null && !currentTile.CollidesWith(this)) || currentTile == null) && !tileBounds.Intersects(boundingBox))
+                {
+                    continue;
+                }
                 Vector2 depth = Collision.CalculateIntersectionDepth(boundingBox, tileBounds);
                 if (Math.Abs(depth.X) < Math.Abs(depth.Y))
                 {
                     if (tileType == TileType.Wall || tileType == TileType.BreakableWall)
                     {
-                        position.X += depth.X;
+                        if (tiles.GetTileType(x + 1, y) == TileType.Background)
+                            position.X += depth.X;
+                        else position.X += depth.X - 1;
                     }
                     continue;
                 }
                 if (tileType == TileType.Wall || tileType == TileType.BreakableWall)
                 {
-                    position.Y += depth.Y;
+                    if (tiles.GetTileType(x + 1, y) == TileType.Background)
+                        position.Y += depth.Y - 1;
+                    else position.Y += depth.Y;
                 }
             }
-        if(velocity.X >= 0 && velocity.Y >= 0)
+        if (velocity.X >= 0 && velocity.Y >= 0)
             position = new Vector2((float)Math.Ceiling(position.X), (float)Math.Ceiling(position.Y));
         if (velocity.X >= 0 && velocity.Y <= 0)
             position = new Vector2((float)Math.Ceiling(position.X), (float)Math.Floor(position.Y));
@@ -356,6 +360,7 @@ class Player : AnimatedGameObject
             position = new Vector2((float)Math.Floor(position.X), (float)Math.Ceiling(position.Y));
         if (velocity.X <= 0 && velocity.Y <= 0)
             position = new Vector2((float)Math.Floor(position.X), (float)Math.Floor(position.Y));
+
     }
 
     public bool CollidesWithEntity()
