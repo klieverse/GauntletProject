@@ -145,7 +145,7 @@ partial class Level : GameObjectList
     {
         GameObjectList enemies = Find("enemies") as GameObjectList;
         TileField tiles = Find("tiles") as TileField;
-        Vector2 startPosition = new Vector2(((float)x + 0.5f) * 64, (y + 1) * 64);
+        Vector2 startPosition = new Vector2(((float)x + 0.5f) * Tile.Size, (y + 1) * Tile.Size);
         Gnome enemy = new Gnome(startPosition);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
