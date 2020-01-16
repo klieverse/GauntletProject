@@ -314,8 +314,8 @@ class Player : AnimatedGameObject
     }
     void HandleCollision()
     {
-        TileField tiles = GameWorld.Find("tiles") as TileField;
         //check wall collision
+        TileField tiles = GameWorld.Find("tiles") as TileField;
         Tile tile = tiles.Get(1, 1) as Tile;
         int Left = (int)((position.X - Width /2) /tile.Width);
         int Right = (int)((position.X + Width /2) / tile.Width);

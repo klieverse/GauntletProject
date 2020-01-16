@@ -18,13 +18,14 @@ class Tile : SpriteGameObject
 {
     protected TileType type;
 
-    public new int Width = 64;
-    public new int Height = 64;
+    public new int Width = 48;
+    public new int Height = 48;
+    public static int Size = 48;
     public Tile(string assetname = "", TileType tp = TileType.Background, int layer = 0, string id = "")
         : base(assetname, layer, id)
     {
         type = tp;
-        scale = 2f;
+        scale = 1.5f;
     }
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

@@ -16,7 +16,7 @@ class Teleport : SpriteGameObject
     {
         //position is equal to given position in LevelLoading.cs
         this.position = startPosition;
-        scale = 2f;
+        scale = 1.5f;
     }
 
     public override void Update(GameTime gameTime)
