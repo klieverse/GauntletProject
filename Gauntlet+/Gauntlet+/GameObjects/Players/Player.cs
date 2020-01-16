@@ -29,7 +29,6 @@ class Player : AnimatedGameObject
         this.shotStrength = shotStrength * 10;
         this.shotSpeed = shotSpeed;
         this.melee = melee*10;
-        this.id = id;
         startPosition = start;
 
         LoadAnimations();
