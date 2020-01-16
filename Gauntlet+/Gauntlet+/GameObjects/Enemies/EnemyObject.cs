@@ -43,14 +43,14 @@ public class EnemyObject : AnimatedGameObject
         {
             player = players.Children[0] as Player;
         
-            float opposite = player.Position.Y - position.Y;
+            float opposite = (player.Position.Y+player.Height/4) - position.Y;
             float adjacent = player.Position.X - position.X;
             float vertical = (float)Math.Atan2(opposite, adjacent);
             float horizontal = (float)Math.Atan2(adjacent, opposite);
             speedVert = (float)Math.Sin(vertical) * speed;
             speedHori = (float)Math.Sin(horizontal) * speed;
-            velocity.Y = speedVert;    
-            velocity.X = speedHori;
+            velocity.Y = speedVert/2;    
+            velocity.X = speedHori/2;
         }
 
         meleeTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds; // makes sure a specific enemy can only be melee'd once a second;

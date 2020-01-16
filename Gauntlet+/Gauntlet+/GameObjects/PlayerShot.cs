@@ -59,6 +59,7 @@ class PlayerShot : SpriteGameObject
             velocity.X = -(shotSpeed * 75 + baseShotSpeed);
             Rotate(270);
             position.X -= Width / 2;
+            position.Y -= Height / 2;
         }
         if (velocity.X == 0 && velocity.Y < 0) // facing up
         {
