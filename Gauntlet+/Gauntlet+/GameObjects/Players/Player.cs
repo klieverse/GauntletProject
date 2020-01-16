@@ -317,10 +317,10 @@ class Player : AnimatedGameObject
         TileField tiles = GameWorld.Find("tiles") as TileField;
         //check wall collision
         Tile tile = tiles.Get(1, 1) as Tile;
-        int Left = (int)((position.X - Width /2) /64);
-        int Right = (int)((position.X + Width /2) / 64);
-        int Top = (int)((position.Y - Height) / 64);
-        int Bottom = (int)((position.Y) / 64);
+        int Left = (int)((position.X - Width /2) /tile.Width);
+        int Right = (int)((position.X + Width /2) / tile.Width);
+        int Top = (int)((position.Y - Height) / tile.Height);
+        int Bottom = (int)((position.Y) / tile.Height);
 
         for (int x = Left; x <= Right; x++)
             for (int y = Top; y <= Bottom; y++)
