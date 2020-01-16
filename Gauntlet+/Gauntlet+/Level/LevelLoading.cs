@@ -18,7 +18,7 @@ partial class Level : GameObjectList
             textLines.Add(line);
             line = fileReader.ReadLine();
         }
-        TileField background = new TileField(textLines.Count, width, 0, "background");
+        TileField background = new TileField(textLines.Count, width, 0, "floors/floor 1");
         TileField tiles = new TileField(textLines.Count, width, 1, "tiles");
         
         for (int x = 0; x < width; ++x)
@@ -26,7 +26,7 @@ partial class Level : GameObjectList
             for (int y = 0; y < textLines.Count; ++y)
             {
                 Tile t = LoadTile(textLines[y][x], x, y);
-                Tile b = LoadBasicTile("Background", TileType.Background);
+                Tile b = LoadBasicTile("floors/floor 1", TileType.Background);
                 tiles.Add(t, x, y);
                 background.Add(b, x, y);
             }
@@ -44,9 +44,9 @@ partial class Level : GameObjectList
         {
             //Tiles
             case '.':
-                return LoadBasicTile("Background", TileType.Background);
+                return LoadBasicTile("floors/floor 1", TileType.Background);
             case '+':
-                return LoadBasicTile("Wall", TileType.Wall, 1);
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
             case '/':
                return LoadBasicTile("BreakableWall", TileType.BreakableWall, 1);
             case '-':
@@ -161,48 +161,48 @@ partial class Level : GameObjectList
     private Tile LoadThyra(int x, int y)
     {
         startPositionThyra = new Vector2(x, y);  // set the startposition for this class
-        return new Tile("Tiles/background", TileType.Background); //return background tile
+        return new Tile("Tiles/floors/floor 1", TileType.Background); //return background tile
     }
 
     private Tile LoadWarrior(int x, int y)
     {
         startPositionThor = new Vector2(x, y);
-        return new Tile("Tiles/background", TileType.Background);
+        return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
 
     private Tile LoadElf(int x, int y)
     {
         startPositionQuestor = new Vector2(x, y);
-        return new Tile("Tiles/background", TileType.Background);
+        return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
 
     private Tile LoadMerlin(int x, int y)
     { 
         startPositionMerlin = new Vector2(x, y);
-return new Tile("Tiles/background", TileType.Background);
+return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
 
     private Tile LoadPotion(Color color, int x, int y)
     {
 
-        return new Tile("Tiles/background", TileType.Background);
+        return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
 
     private Tile LoadExtraPotion(int x, int y)
     {
 
-        return new Tile("Tiles/background", TileType.Background);
+        return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
 
     private Tile LoadTreasure(int x, int y)
     {
 
-        return new Tile("Tiles/background", TileType.Background);
+        return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
 
     private Tile LoadKey(int x, int y)
     {
 
-        return new Tile("Tiles/background", TileType.Background);
+        return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
 }

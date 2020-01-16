@@ -9,7 +9,7 @@ class Wizard : EnemyObject
 {
     float timer = 0f;
     float visibilityTimer = 0f;
-    public Wizard(Vector2 startPosition) : base(2, "EnemyWizard")
+    public Wizard(Vector2 startPosition) : base(2, "Wizard")
     {
         this.position = startPosition;
         strength = 10;

@@ -15,19 +15,18 @@ public class EnemyObject : AnimatedGameObject
     TileField tileField;
     float meleeTimer = 1;
     protected Vector2 previousPosition;
+    protected bool lastLookedLeft = false;
 
     public bool canBeMeleed = true;
 
     public EnemyObject(int layer, string id) : base(layer, id)
     {
         LoadAnimations();
-        PlayAnimation(id + "idle");
     }
     void LoadAnimations()
     {
-        LoadAnimation("Sprites/Enemies/spr_" + id + "idle", id + "idle", true);
-        LoadAnimation("Sprites/Enemies/spr_" + id + "runRight@13", id + "runRight", true);
-        LoadAnimation("Sprites/Enemies/spr_" + id + "runLeft@13", id + "runLeft", true);
+        LoadAnimation("Sprites/Enemies/spr_" + id + "idle@4", "idle", true);
+        LoadAnimation("Sprites/Enemies/spr_" + id + "run@4", "run", true);
     }
     public override void Update(GameTime gameTime)
     {
@@ -65,53 +64,26 @@ public class EnemyObject : AnimatedGameObject
     {
         if (velocity == Vector2.Zero)
         {
-            PlayAnimation(id + "idle");
-        }/*
-        else if (velocity.X > 0 && velocity.Y == 0)
-        {
-            PlayAnimation(id + "runRight");
+            PlayAnimation("idle");
         }
-        else if (velocity.X > 0 && velocity.Y > 0)
+        else PlayAnimation("run");
+        
+
+
+        if (velocity.X < 0)
         {
-            PlayAnimation(id + "runDownRight");
-        }
-        else if (velocity.X == 0 && velocity.Y > 0)
-        {
-            PlayAnimation(id + "runDown");
-        }
-        else if (velocity.X < 0 && velocity.Y > 0)
-        {
-            PlayAnimation(id + "runDownLeft");
-        }
-        else if (velocity.X < 0 && velocity.Y == 0)
-        {
-            PlayAnimation(id + "runLeft");
-        }
-        else if (velocity.X < 0 && velocity.Y < 0)
-        {
-            PlayAnimation(id + "runUpLeft");
-        }
-        else if (velocity.X == 0 && velocity.Y < 0)
-        {
-            PlayAnimation(id + "runUp");
-        }
-        */ //tijdenlijk voor testen met i.v.m. berkte animaties
-        else if (velocity.X < 0)
-        {
-            PlayAnimation(id + "runLeft");
+            lastLookedLeft = true;
         }
         else if (velocity.X > 0)
         {
-            PlayAnimation(id + "runRight");
+            lastLookedLeft = false;
         }
-        else if (velocity.Y > 0)
+
+        if (velocity.X < 0 || lastLookedLeft)
         {
-            PlayAnimation(id + "runRight");
+            Mirror = true;
         }
-        else if (velocity.Y < 0)
-        {
-            PlayAnimation(id + "runLeft");
-        }
+        else Mirror = false;
     }
 
     public bool CollidesWithObject()
@@ -119,8 +91,8 @@ public class EnemyObject : AnimatedGameObject
  
         //check wall collision
         Tile tile = tileField.Get(1, 1) as Tile;
-        int Left = (int)((position.X -Width /2)/ tile.Width);
-        int Right = (int)((position.X + Width /2) / tile.Width);
+        int Left = (int)((position.X -this.Width /2)/ tile.Width);
+        int Right = (int)((position.X + this.Width /2) / tile.Width);
         int Top = (int)((position.Y-Height) / tile.Height);
         int Bottom = (int)((position.Y ) / tile.Height);
 

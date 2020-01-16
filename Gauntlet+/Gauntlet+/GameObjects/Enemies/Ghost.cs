@@ -38,10 +38,10 @@ class Ghost : EnemyObject
         if (players != null)
             foreach (Player player in players)
                 if (CollidesWith(player))
-            {
-                player.health -= strength;
-                GameWorld.Remove(this);
-            } 
+                {
+                    player.health -= strength;
+                    visible = false;
+                } 
         
 //        if (CollidesWithObject())
 //        {
