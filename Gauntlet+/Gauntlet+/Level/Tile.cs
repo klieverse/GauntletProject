@@ -22,6 +22,7 @@ class Tile : SpriteGameObject
         : base(assetname, layer, id)
     {
         type = tp;
+        scale = 2f;
     }
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
