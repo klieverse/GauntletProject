@@ -23,7 +23,7 @@ class PlayerStats : TextGameObject
 
     public void Update(Player player)
     {
-        //get the date from the player
+        //get the data from the player
         int score = 100;
         int health = player.Health;
         int potions = player.Potions;

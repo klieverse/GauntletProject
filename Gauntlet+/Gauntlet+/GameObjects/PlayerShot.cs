@@ -139,6 +139,17 @@ class PlayerShot : SpriteGameObject
                 visible = false;
                 food.Visible = false;
             }
+        //check potion collision
+        foreach (Potion potion in Items)
+            if (CollidesWith(potion))
+            {
+                visible = false;
+                if (potion.PotType == PotionType.Normal)
+                {
+                    potion.Visible = false;
+                    player.KillEnemiesOnScreen();
+                } 
+            }
     }
 }
 

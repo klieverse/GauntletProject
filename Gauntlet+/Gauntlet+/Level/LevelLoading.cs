@@ -78,9 +78,9 @@ partial class Level : GameObjectList
 
                 //Items
             case 'P':
-                return LoadPotion(Color.Blue, x, y);
+                return LoadPotion(PotionType.Normal, x, y);
             case 'p':
-                return LoadPotion(Color.Orange, x, y);
+                return LoadPotion(PotionType.Orange, x, y);
             case 'K':
                 return LoadKey(x, y);
             case 'a':
@@ -182,9 +182,12 @@ partial class Level : GameObjectList
         return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
 
-    private Tile LoadPotion(Color color, int x, int y)
+    private Tile LoadPotion(PotionType type, int x, int y)
     {
-
+        GameObjectList Items = Find("items") as GameObjectList;
+        Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
+        Potion item = new Potion(type, 2, type + "Potion", position);
+        Items.Add(item);
         return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
 
@@ -196,13 +199,27 @@ partial class Level : GameObjectList
 
     private Tile LoadTreasure(int x, int y)
     {
-
+        GameObjectList Items = Find("items") as GameObjectList;
+        Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
+        Treasure item = new Treasure(2, "Treasure", position);
+        Items.Add(item);
         return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
 
     private Tile LoadKey(int x, int y)
     {
-
+        GameObjectList Items = Find("items") as GameObjectList;
+        Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
+        Key item = new Key(2, "Key", position);
+        Items.Add(item);
+        return new Tile("Tiles/floors/floor 1", TileType.Background);
+    }
+    private Tile LoadFood(int x, int y)
+    {
+        GameObjectList Items = Find("items") as GameObjectList;
+        Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
+        Food item = new Food(2, "Food", position);
+        Items.Add(item);
         return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
 }

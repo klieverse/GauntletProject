@@ -10,7 +10,8 @@ class Player : AnimatedGameObject
     protected Level level;
     protected bool isAlive, isYou, lastLookedLeft = false, canMove = true, canShoot = true;
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
-    public int health = 600, keys, potions;
+    protected float baseSpeedHelper, baseArmor, baseMagic, baseShotStrength, baseShotSpeed, baseMelee;
+    public int health = 100, keys, potions, score;
     float healthTimer = 1f, shootTimer = 0.225f;
 
     public Player(int layer, string id, Vector2 start, Level level, float speed, float armor,
@@ -20,12 +21,17 @@ class Player : AnimatedGameObject
         this.isYou = isYou;
         this.level = level;
         speedHelper = speed;
-        walkingSpeed = (float)Math.Sqrt(speedHelper) * 10;
+        baseSpeedHelper = speed;
         this.armor = armor;
+        baseArmor = armor;
         this.magic = magic * 10;
+        baseMagic = magic * 10;
         this.shotStrength = shotStrength * 10;
+        baseShotStrength = shotStrength * 10;
         this.shotSpeed = shotSpeed;
+        baseShotSpeed = shotSpeed;
         this.melee = melee * 10;
+        baseMelee = melee * 10;
         startPosition = new Vector2(start.X, start.Y + 20);
 
         LoadAnimations();
@@ -46,6 +52,16 @@ class Player : AnimatedGameObject
         velocity = Vector2.Zero;
         isAlive = true;
         PlayAnimation("idle");
+        score = potions = keys = 0;
+        health = 600;
+        speedHelper = baseSpeedHelper;
+        armor = baseArmor;
+        magic = baseMagic;
+        shotStrength = baseShotStrength;
+        shotSpeed = baseShotSpeed;
+        melee = baseMelee;
+        lastLookedLeft = false;
+        canMove = canShoot = true;
     }
 
     public override void HandleInput(InputHelper inputHelper)
@@ -56,6 +72,8 @@ class Player : AnimatedGameObject
         }
 
         velocity = Vector2.Zero;
+
+        walkingSpeed = (float)Math.Sqrt(speedHelper) * 10;
 
         if (canMove)
         {
@@ -295,7 +313,7 @@ class Player : AnimatedGameObject
         }
     }
 
-    void KillEnemiesOnScreen()
+    public void KillEnemiesOnScreen()
     {
         List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
         foreach (SpriteGameObject enemy in enemies)
@@ -395,6 +413,7 @@ class Player : AnimatedGameObject
     public void AddKey()
     {
         keys += 1;
+        ScoreUp(100);
     }
 
     public void AddPotion(PotionType pot)
@@ -426,6 +445,10 @@ class Player : AnimatedGameObject
     {
         speedHelper += 30f;
         walkingSpeed = (float)Math.Sqrt(speedHelper) * 10;
+    }
+    public void ScoreUp(int score)
+    {
+        this.score += score;
     }
 
     public string playerClass

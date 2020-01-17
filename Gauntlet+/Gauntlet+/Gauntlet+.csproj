@@ -82,6 +82,7 @@
     <Compile Include="GameObjects\Items\Food.cs" />
     <Compile Include="GameObjects\Items\Item.cs" />
     <Compile Include="GameObjects\Items\Key.cs" />
+    <Compile Include="GameObjects\Items\Treasure.cs" />
     <Compile Include="GameObjects\PlayerStatField.cs" />
     <Compile Include="GameObjects\PlayerStats.cs" />
     <Compile Include="GameObjects\Players\Player.cs" />
