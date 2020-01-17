@@ -25,7 +25,8 @@ class Tile : SpriteGameObject
         : base(assetname, layer, id)
     {
         type = tp;
-        scale = 1.5f;
+        if(TileType != TileType.HorizontalDoor && TileType != TileType.VerticalDoor)
+            scale = 1.5f;
     }
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
