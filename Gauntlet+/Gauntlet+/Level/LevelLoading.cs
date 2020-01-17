@@ -186,7 +186,7 @@ partial class Level : GameObjectList
     {
         GameObjectList Items = Find("items") as GameObjectList;
         Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
-        Potion item = new Potion(type, 2, type + "Potion", position);
+        Potion item = new Potion(type, 2, type.ToString() + "Potion", position);
         Items.Add(item);
         return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
@@ -218,7 +218,7 @@ partial class Level : GameObjectList
     {
         GameObjectList Items = Find("items") as GameObjectList;
         Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
-        Food item = new Food(2, "Food", position);
+        Food item = new Food(2, "food", position);
         Items.Add(item);
         return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
