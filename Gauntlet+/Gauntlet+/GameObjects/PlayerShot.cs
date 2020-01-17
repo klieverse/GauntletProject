@@ -132,15 +132,16 @@ class PlayerShot : SpriteGameObject
             }
 
         //check food collision
-        List<GameObject> Items = (GameWorld.Find("items") as GameObjectList).Children;
-        foreach (Food food in Items)
+        List<GameObject> foods = (GameWorld.Find("food") as GameObjectList).Children;
+        foreach (Food food in foods)
             if (CollidesWith(food))
             {
                 visible = false;
                 food.Visible = false;
             }
         //check potion collision
-        foreach (Potion potion in Items)
+        List<GameObject> potions = (GameWorld.Find("potions") as GameObjectList).Children;
+        foreach (Potion potion in potions)
             if (CollidesWith(potion))
             {
                 visible = false;

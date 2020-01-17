@@ -184,7 +184,7 @@ partial class Level : GameObjectList
 
     private Tile LoadPotion(PotionType type, int x, int y)
     {
-        GameObjectList Items = Find("items") as GameObjectList;
+        GameObjectList Items = Find("potions") as GameObjectList;
         Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
         Potion item = new Potion(type, 2, type.ToString() + "Potion", position);
         Items.Add(item);
@@ -199,7 +199,7 @@ partial class Level : GameObjectList
 
     private Tile LoadTreasure(int x, int y)
     {
-        GameObjectList Items = Find("items") as GameObjectList;
+        GameObjectList Items = Find("treasures") as GameObjectList;
         Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
         Treasure item = new Treasure(2, "treasure", position);
         Items.Add(item);
@@ -208,7 +208,7 @@ partial class Level : GameObjectList
 
     private Tile LoadKey(int x, int y)
     {
-        GameObjectList Items = Find("items") as GameObjectList;
+        GameObjectList Items = Find("keys") as GameObjectList;
         Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
         Key item = new Key(2, "Key", position);
         Items.Add(item);
@@ -216,7 +216,7 @@ partial class Level : GameObjectList
     }
     private Tile LoadFood(int x, int y)
     {
-        GameObjectList Items = Find("items") as GameObjectList;
+        GameObjectList Items = Find("food") as GameObjectList;
         Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
         Food item = new Food(2, "food", position);
         Items.Add(item);

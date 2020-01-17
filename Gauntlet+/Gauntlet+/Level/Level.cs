@@ -18,7 +18,10 @@ partial class Level : GameObjectList
         Add(new GameObjectList(2, "players"));
         Add(new GameObjectList(4, "StatFields"));
         Add(new GameObjectList(2, "enemies"));
-        Add(new GameObjectList(2, "items"));
+        Add(new GameObjectList(2, "food"));
+        Add(new GameObjectList(2, "keys"));
+        Add(new GameObjectList(2, "treasures"));
+        Add(new GameObjectList(2, "potions"));
         Add(new GameObjectList(3,"playershot"));
         Add(new GameObjectList(3,"enemieShot"));
         Add(new GameObjectList(1, "teleport"));

@@ -24,7 +24,7 @@ class PlayerStats : TextGameObject
     public void Update(Player player)
     {
         //get the data from the player
-        int score = 100;
+        int score = player.Score;
         int health = player.Health;
         int potions = player.Potions;
         int keys = player.Key;

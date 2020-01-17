@@ -475,5 +475,9 @@ class Player : AnimatedGameObject
     {
         get { return keys; }
     }
+    public int Score
+    {
+        get { return score; }
+    }
 }
 
