@@ -131,6 +131,15 @@ class PlayerShot : SpriteGameObject
                 enemy.HitByPlayer(shotStrength);
             }
 
+        //check food collision
+        List<GameObject> Items = (GameWorld.Find("items") as GameObjectList).Children;
+        foreach (Item food in Items)
+            if (CollidesWith(food))
+            {
+                visible = false;
+                food.Shot();
+            }
+
     }
 }
 

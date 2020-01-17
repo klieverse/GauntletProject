@@ -79,7 +79,6 @@
     <Compile Include="GameObjects\Enemies\Troll.cs" />
     <Compile Include="GameObjects\Enemies\Ghost.cs" />
     <Compile Include="GameObjects\Enemies\Wizard.cs" />
-    <Compile Include="GameObjects\Items\Food.cs" />
     <Compile Include="GameObjects\Items\Item.cs" />
     <Compile Include="GameObjects\Items\Key.cs" />
     <Compile Include="GameObjects\PlayerStatField.cs" />

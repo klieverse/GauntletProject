@@ -2,14 +2,11 @@
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 class Player : AnimatedGameObject
 {
-    protected Vector2 startPosition, previousPosition, direction = new Vector2(1,0);
+    protected Vector2 startPosition, previousPosition, direction = new Vector2(1, 0);
     protected Level level;
     protected bool isAlive, isYou, lastLookedLeft = false, canMove = true, canShoot = true;
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
@@ -25,11 +22,11 @@ class Player : AnimatedGameObject
         speedHelper = speed;
         walkingSpeed = (float)Math.Sqrt(speedHelper) * 10;
         this.armor = armor;
-        this.magic = magic*10;
+        this.magic = magic * 10;
         this.shotStrength = shotStrength * 10;
         this.shotSpeed = shotSpeed;
-        this.melee = melee*10;
-        startPosition = new Vector2(start.X,start.Y + 20);
+        this.melee = melee * 10;
+        startPosition = new Vector2(start.X, start.Y + 20);
 
         LoadAnimations();
         Reset();
@@ -37,10 +34,10 @@ class Player : AnimatedGameObject
 
     void LoadAnimations()
     {
-        LoadAnimation("Sprites/Player/spr_" + id + "idle@4","idle", true);
-        LoadAnimation("Sprites/Player/spr_" + id + "run@4","run", true);
+        LoadAnimation("Sprites/Player/spr_" + id + "idle@4", "idle", true);
+        LoadAnimation("Sprites/Player/spr_" + id + "run@4", "run", true);
         LoadAnimation("Sprites/Player/spr_" + id + "shoot@3", "shoot", true);
-        LoadAnimation("Sprites/Player/spr_" + id + "die@3","die", false);
+        LoadAnimation("Sprites/Player/spr_" + id + "die@3", "die", false);
     }
 
     public override void Reset()
@@ -196,6 +193,7 @@ class Player : AnimatedGameObject
         if (health <= 0)
         {
             health = 0;
+            velocity = Vector2.Zero;
             Die();
         }
         // stats.Update(100, health, potions,keys,position);
@@ -212,7 +210,7 @@ class Player : AnimatedGameObject
             healthTimer = 1f;
         }
 
-        if(shootTimer <= 0)
+        if (shootTimer <= 0)
         {
             canShoot = true;
             shootTimer = 0.225f;
@@ -290,7 +288,7 @@ class Player : AnimatedGameObject
             float offsetY = GameEnvironment.Screen.Y / 2;
 
             // makes sure camera does not go out of bounds w/ a clamp;
-            float camX = MathHelper.Clamp(Position.X - offsetX, 0, level.LevelWidth - GameEnvironment.Screen.X); 
+            float camX = MathHelper.Clamp(Position.X - offsetX, 0, level.LevelWidth - GameEnvironment.Screen.X);
             float camY = MathHelper.Clamp(Position.Y - offsetY, 0, level.LevelHeight - GameEnvironment.Screen.Y);
 
             Camera.Position = new Vector2(camX, camY);
@@ -304,22 +302,22 @@ class Player : AnimatedGameObject
         {
             // checks if the enemy in question has a position somewhere on the screen;
             float onScreenEnemyX = MathHelper.Clamp(enemy.Position.X, Camera.Position.X, Camera.Position.X + GameEnvironment.Screen.X);
-            float onScreenEnemyY = MathHelper.Clamp(enemy.Position.Y, Camera.Position.Y, Camera.Position.Y + GameEnvironment.Screen.Y); 
-            if (enemy.Position.X == onScreenEnemyX && enemy.Position.Y == onScreenEnemyY) 
+            float onScreenEnemyY = MathHelper.Clamp(enemy.Position.Y, Camera.Position.Y, Camera.Position.Y + GameEnvironment.Screen.Y);
+            if (enemy.Position.X == onScreenEnemyX && enemy.Position.Y == onScreenEnemyY)
             {
                 //enemy.Die();
             }
 
         }
-            
+
     }
     void HandleCollision()
     {
         //check wall collision
         TileField tiles = GameWorld.Find("tiles") as TileField;
         Tile tile = tiles.Get(1, 1) as Tile;
-        int Left = (int)((position.X - Width /2) /tile.Width);
-        int Right = (int)((position.X + Width /2) / tile.Width);
+        int Left = (int)((position.X - Width / 2) / tile.Width);
+        int Right = (int)((position.X + Width / 2) / tile.Width);
         int Top = (int)((position.Y - Height) / tile.Height);
         int Bottom = (int)((position.Y) / tile.Height);
 
@@ -390,13 +388,13 @@ class Player : AnimatedGameObject
 
     public void HitByEnemy(float EnemyStrength)
     {   // calculates the damage, where the more armor the player has, the closer the damage is to being only half the strength of the enemy;
-        float Damage = (0.5f * EnemyStrength) + (0.5f * EnemyStrength * (1 - ((armor / 100) / (armor / 100 + 1)))); 
+        float Damage = (0.5f * EnemyStrength) + (0.5f * EnemyStrength * (1 - ((armor / 100) / (armor / 100 + 1))));
         health -= (int)Damage;
-    } 
+    }
 
     public void AddKey()
     {
-        keys+= 1;
+        keys += 1;
     }
 
     public void AddPotion(PotionType pot)
@@ -434,7 +432,7 @@ class Player : AnimatedGameObject
     {
         get { return id; }
     }
-    
+
     public bool IsAlive
     {
         get { return isAlive; }
@@ -455,4 +453,4 @@ class Player : AnimatedGameObject
         get { return keys; }
     }
 }
-    
+
