@@ -45,32 +45,32 @@ partial class Level : GameObjectList
             if (playerClass == "Elf" )
             {
                 //get the startPosition for the player
-                Vector2 startPosition = new Vector2(((float)startPositionQuestor.X + 0.5f) * 64, (startPositionQuestor.Y + 1) * 64);
-                Questor questor = new Questor(2, "Elf", startPosition, this, true); //create the player
+                Vector2 startPosition = new Vector2(((float)startPositionQuestor.X + 0.5f) * Tile.Size, (startPositionQuestor.Y + 1) * Tile.Size);
+                Questor questor = new Questor(4, "Elf", startPosition, this, true); //create the player
                 (Find("players") as GameObjectList).Add(questor); //add player to level
                 PlayerStatField questorStats = new PlayerStatField("Elf"); //create the players Statfield
                 (Find("StatFields") as GameObjectList).Add(questorStats); //add the statfield to the level
             }
             if(playerClass == "wizard")
             {
-                Vector2 startPosition = new Vector2(((float)startPositionMerlin.X + 0.5f) * 64, (startPositionMerlin.Y + 1) * 64);
-                Merlin merlin = new Merlin(2, "Wizard", startPosition, this, true);
+                Vector2 startPosition = new Vector2(((float)startPositionMerlin.X + 0.5f) * Tile.Size, (startPositionMerlin.Y + 1) * Tile.Size);
+                Merlin merlin = new Merlin(4, "Wizard", startPosition, this, true);
                 (Find("players") as GameObjectList).Add(merlin);
                 PlayerStatField wizardStats = new PlayerStatField("Wizard");
                 (Find("StatFields") as GameObjectList).Add(wizardStats);
             }
             if(playerClass =="Warrior")
             {
-                Vector2 startPosition = new Vector2(((float)startPositionThor.X + 0.5f) * 64, (startPositionThor.Y + 1) * 64);
-                Thor thor = new Thor(2, "Warrior", startPosition, this, true);
+                Vector2 startPosition = new Vector2(((float)startPositionThor.X) * Tile.Size, (startPositionThor.Y) * Tile.Size);
+                Thor thor = new Thor(4, "Warrior", startPosition, this, true);
                 (Find("players") as GameObjectList).Add(thor);
                 PlayerStatField warriorStats = new PlayerStatField("Warrior");
                 (Find("StatFields") as GameObjectList).Add(warriorStats);
             }
             if(playerClass == "Valkery")
             {
-                Vector2 startPosition = new Vector2(((float)startPositionThyra.X + 0.5f) * 64, (startPositionThyra.Y + 1) * 64);
-                Thyra thyra = new Thyra(2, "Valkery", startPosition, this, true);
+                Vector2 startPosition = new Vector2(((float)startPositionThyra.X + 0.5f) * Tile.Size, (startPositionThyra.Y + 1) * Tile.Size);
+                Thyra thyra = new Thyra(4, "Valkery", startPosition, this, true);
                 (Find("players") as GameObjectList).Add(thyra);
                 PlayerStatField valkeryStats = new PlayerStatField("Valkery");
                 (Find("StatFields") as GameObjectList).Add(valkeryStats);

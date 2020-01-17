@@ -55,7 +55,7 @@ class Teleport : SpriteGameObject
                     {
                         //if the player teleported, this boolean prevents it from immediately teleporting again
                         closestPortal.teleportAllowed = false;
-                        player.Position = new Vector2(closestPortal.Position.X + 23, closestPortal.Position.Y + 54);
+                        player.Position = new Vector2(closestPortal.Position.X + Tile.Size/2, closestPortal.Position.Y + Tile.Size);
 
                     }
                 }
