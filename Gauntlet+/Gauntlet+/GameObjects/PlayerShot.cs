@@ -133,13 +133,12 @@ class PlayerShot : SpriteGameObject
 
         //check food collision
         List<GameObject> Items = (GameWorld.Find("items") as GameObjectList).Children;
-        foreach (Item food in Items)
+        foreach (Food food in Items)
             if (CollidesWith(food))
             {
                 visible = false;
-                food.Shot();
+                food.Visible = false;
             }
-
     }
 }
 
