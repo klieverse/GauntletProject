@@ -53,7 +53,7 @@ partial class Level : GameObjectList
             }
             if(playerClass == "wizard")
             {
-                Vector2 startPosition = new Vector2(((float)startPositionMerlin.X) * Tile.Size, (startPositionMerlin.Y) * Tile.Size);
+                Vector2 startPosition = new Vector2(((float)startPositionMerlin.X + 0.5f) * Tile.Size, (startPositionMerlin.Y + 1f) * Tile.Size);
                 Merlin merlin = new Merlin(4, "Wizard", startPosition, this, true);
                 (Find("players") as GameObjectList).Add(merlin);
                 PlayerStatField wizardStats = new PlayerStatField("Wizard");
@@ -69,7 +69,7 @@ partial class Level : GameObjectList
             }
             if(playerClass == "Valkery")
             {
-                Vector2 startPosition = new Vector2(((float)startPositionThyra.X + 0.5f) * Tile.Size, (startPositionThyra.Y + 1) * Tile.Size);
+                Vector2 startPosition = new Vector2((startPositionThyra.X + 2) * Tile.Size, (startPositionThyra.Y + 2) * Tile.Size);
                 Thyra thyra = new Thyra(4, "Valkery", startPosition, this, true);
                 (Find("players") as GameObjectList).Add(thyra);
                 PlayerStatField valkeryStats = new PlayerStatField("Valkery");
