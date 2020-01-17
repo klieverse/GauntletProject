@@ -53,7 +53,7 @@ partial class Level : GameObjectList
             }
             if(playerClass == "wizard")
             {
-                Vector2 startPosition = new Vector2(((float)startPositionMerlin.X + 0.5f) * Tile.Size, (startPositionMerlin.Y + 1) * Tile.Size);
+                Vector2 startPosition = new Vector2(((float)startPositionMerlin.X) * Tile.Size, (startPositionMerlin.Y) * Tile.Size);
                 Merlin merlin = new Merlin(4, "Wizard", startPosition, this, true);
                 (Find("players") as GameObjectList).Add(merlin);
                 PlayerStatField wizardStats = new PlayerStatField("Wizard");

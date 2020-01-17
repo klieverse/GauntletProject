@@ -179,7 +179,7 @@ partial class Level : GameObjectList
     private Tile LoadMerlin(int x, int y)
     { 
         startPositionMerlin = new Vector2(x, y);
-return new Tile("Tiles/floors/floor 1", TileType.Background);
+        return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
 
     private Tile LoadPotion(Color color, int x, int y)

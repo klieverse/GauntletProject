@@ -16,7 +16,7 @@ public class GameEnvironment : Game
     protected static Random random;
     protected static AssetManager assetManager;
 
-    public static String SelectedClass;
+    public static string SelectedClass;
 
     public GameEnvironment()
     {
