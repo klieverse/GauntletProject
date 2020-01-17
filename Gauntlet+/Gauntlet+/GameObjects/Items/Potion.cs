@@ -15,11 +15,10 @@ enum PotionType
 
 class Potion : Item
 {
-    PotionType pot;
     public Potion(PotionType pot, int layer, string id, Vector2 position)
         : base(layer, id, position)
     {
-        this.pot = pot;
+        PotType = pot;
     }
 
     public override void Update(GameTime gameTime)
@@ -32,11 +31,9 @@ class Potion : Item
             foreach (Player player in players)
                 if (CollidesWith(player))
                 {
-                    player.AddPotion(pot);
+                    visible = false;
+                    player.AddPotion(PotType);
                 }
     }
-    public PotionType PotType
-    {
-        get { return pot; }
-    }
+    public PotionType PotType { get; }
 }

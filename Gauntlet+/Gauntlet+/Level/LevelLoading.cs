@@ -112,7 +112,7 @@ partial class Level : GameObjectList
     {
         GameObjectList enemies = Find("enemies") as GameObjectList;
         TileField tiles = Find("tiles") as TileField;
-        Vector2 startPosition = new Vector2(((float)x + 0.5f) * 64, (y + 1) * 64);
+        Vector2 startPosition = new Vector2(((float)x + 0.5f) * Tile.Size, (y + 1) * Tile.Size);
         Ghost enemy = new Ghost(startPosition);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
@@ -201,7 +201,7 @@ partial class Level : GameObjectList
     {
         GameObjectList Items = Find("items") as GameObjectList;
         Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
-        Treasure item = new Treasure(2, "Treasure", position);
+        Treasure item = new Treasure(2, "treasure", position);
         Items.Add(item);
         return new Tile("Tiles/floors/floor 1", TileType.Background);
     }

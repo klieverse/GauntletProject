@@ -13,6 +13,7 @@ class Item : SpriteGameObject
         : base(assetName:"Sprites/Items/"+ id, layer, id)
     {
         this.position = position;
+        scale = 1.5f;
     }
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
