@@ -40,7 +40,7 @@ class Player : AnimatedGameObject
         LoadAnimation("Sprites/Player/spr_" + id + "idle@4","idle", true);
         LoadAnimation("Sprites/Player/spr_" + id + "run@4","run", true);
         LoadAnimation("Sprites/Player/spr_" + id + "shoot@3", "shoot", true);
-        //LoadAnimation("Sprites/Player/spr_" + id + "die", id + "die", false);
+        LoadAnimation("Sprites/Player/spr_" + id + "die@3","die", false);
     }
 
     public override void Reset()
@@ -195,6 +195,7 @@ class Player : AnimatedGameObject
 
         if (health <= 0)
         {
+            health = 0;
             Die();
         }
         // stats.Update(100, health, potions,keys,position);
@@ -232,6 +233,8 @@ class Player : AnimatedGameObject
 
     private void HandleAnimations() // Makes sure the right animation is being played;
     {
+        if (!isAlive)
+            return;
         if (canMove)
         {
             if (velocity == Vector2.Zero)
@@ -266,11 +269,9 @@ class Player : AnimatedGameObject
         }
 
         isAlive = false;
-        visible = false;
-            velocity.Y = -900;
         //GameEnvironment.AssetManager.PlaySound("Sounds/snd_" + id + "_die");
 
-        //PlayAnimation(id + "die");
+        PlayAnimation("die");
     }
 
     private void HandleCollisions() //sets the position back to the last known position was before the player walked en collided with an object;
@@ -374,9 +375,9 @@ class Player : AnimatedGameObject
         //check playercollision
         List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
         if (players != null)
-            foreach (SpriteGameObject player in players)
+            foreach (Player player in players)
                 if (player != this)
-                    if (CollidesWith(player))
+                    if (CollidesWith(player) && player.isAlive)
                         return true;
         //check enemycollision
         List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
