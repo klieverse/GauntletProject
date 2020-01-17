@@ -34,6 +34,6 @@ class PlayerStats : TextGameObject
               " Score: " + score +
             "\n Health:" + health +
             "\n Potions:" + potions +
-            "\n Keys"+ keys;
+            "\n Keys:"+ keys;
     }
 }

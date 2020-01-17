@@ -7,6 +7,8 @@ partial class Level : GameObjectList
     public int LevelWidth { get; protected set; }
     public int LevelHeight { get; protected set; }
 
+
+
     public void LoadTiles(string path)
     {
         List<string> textLines = new List<string>();
@@ -42,7 +44,7 @@ partial class Level : GameObjectList
     {
         switch (tileType)
         {
-            //Tiles
+                //Tiles
             case '.':
                 return LoadBasicTile("floors/floor 1", TileType.Background);
             case '+':
@@ -57,6 +59,8 @@ partial class Level : GameObjectList
                 return LoadTeleport(x, y);
             case 'x':
                 return LoadBasicTile("Trap", TileType.Trap, 1);
+            
+                //Enemies
             case 'S':
                 return LoadSkeleton(x, y);
             case 'G':
@@ -91,9 +95,7 @@ partial class Level : GameObjectList
             default:
                 int t = (int)tileType;
                 return LoadExitTile("Exit", TileType.Exit, t);
-            }
-        
-        
+            }        
     }
 
     private Tile LoadBasicTile(string name, TileType tileType, int layer = 0)
@@ -101,12 +103,13 @@ partial class Level : GameObjectList
         return new Tile("Tiles/" + name, tileType, layer);
     }
 
-    private Tile LoadExitTile(string name, TileType tileType, int levelExit)
+    private Tile LoadExitTile(string name, TileType tileType, int levelExit, int layer = 1)
     {
         //nog een lijstje met de integers
 
-        return new Tile("Tiles/" + name, tileType);
-    }
+        return new Tile("Tiles/" + name, tileType, layer);
+    } 
+    
 
     private Tile LoadSkeleton(int x, int y)
     {

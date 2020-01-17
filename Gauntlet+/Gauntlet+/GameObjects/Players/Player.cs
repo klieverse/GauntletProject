@@ -416,6 +416,13 @@ class Player : AnimatedGameObject
         ScoreUp(100);
     }
 
+    public void UseKey()
+    {
+        if (keys >= 1)
+        keys -= 1;
+        return;
+    }
+
     public void AddPotion(PotionType pot)
     {
         switch (pot)

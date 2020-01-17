@@ -1,15 +1,19 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
 
-class Key : Item
+class Exit : SpriteGameObject
 {
-    public Key(int layer, string id, Vector2 position)
-        : base(layer: 0, id, position)
-    {
-        visible = true;
-    }
 
+    public Exit(int layer, string id, Vector2 position)
+    : base("Exit", layer, id)
+    {
+        this.position = position;
+    }
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
@@ -20,9 +24,9 @@ class Key : Item
             foreach (Player player in players)
                 if (CollidesWith(player))
                 {
-                    player.AddKey();
-                    visible = false;
+                    PlayingState.NextLevel();
                 }
     }
-}
 
+
+}
