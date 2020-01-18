@@ -97,7 +97,6 @@ class PlayerShot : SpriteGameObject
     void HandleCollisions()
     {
         TileField tileField = GameWorld.Find("tiles") as TileField;
-
         //check wall collision
         Tile tile = tileField.Get(1, 1) as Tile;
         int Left = (int)(position.X / tile.Width);
@@ -107,20 +106,13 @@ class PlayerShot : SpriteGameObject
 
         for (int x = Left; x <= Right; x++)
             for (int y = Top; y <= Bottom; y++)
-                if (tileField.GetTileType(x, y) == TileType.Wall)
+            {
+                TileType type = tileField.GetTileType(x, y);
+                if (type == TileType.Wall || type == TileType.BreakableWall || type == TileType.VerticalDoor || type == TileType.HorizontalDoor)
                 {
                     visible = false;
                 }
-
-        //check breakable wall collision
-
-        for (int x = Left; x <= Right; x++)
-            for (int y = Top; y <= Bottom; y++)
-                if (tileField.GetTileType(x, y) == TileType.BreakableWall)
-                {
-                    visible = false;
-                    //iets met muur;
-                }
+            }
 
         //check enemycollision
         List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;

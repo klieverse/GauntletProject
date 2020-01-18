@@ -185,10 +185,7 @@ class Player : AnimatedGameObject
 
     public override void Update(GameTime gameTime)
     {
-        if (velocity != Vector2.Zero)
-        {
-            direction = velocity;
-        }
+        SetDirection();
 
         previousPosition = position;
 
@@ -201,20 +198,30 @@ class Player : AnimatedGameObject
         }
 
         HandleTimer(gameTime);
-
         CheckEnemyMelee();
-        HandleCollisions();
+        HandleEntityCollisions();
         HandleCollision();
         HandleAnimations();
+        CheckIfDead();
+        // stats.Update(100, health, potions,keys,position);
+    }
 
-
+    private void CheckIfDead()
+    {
         if (health <= 0)
         {
             health = 0;
             velocity = Vector2.Zero;
             Die();
         }
-        // stats.Update(100, health, potions,keys,position);
+    }
+
+    private void SetDirection()
+    {
+        if (velocity != Vector2.Zero)
+        {
+            direction = velocity;
+        }
     }
 
     private void HandleTimer(GameTime gameTime)
@@ -290,7 +297,7 @@ class Player : AnimatedGameObject
         PlayAnimation("die");
     }
 
-    private void HandleCollisions() //sets the position back to the last known position was before the player walked en collided with an object;
+    private void HandleEntityCollisions() //sets the position back to the last known position was before the player walked en collided with an object;
     {
         if (CollidesWithEntity() == true)
         {
@@ -360,7 +367,7 @@ class Player : AnimatedGameObject
                 Vector2 depth = Collision.CalculateIntersectionDepth(boundingBox, tileBounds);
                 if (Math.Abs(depth.X) < Math.Abs(depth.Y))
                 {
-                    if (tileType == TileType.Wall || tileType == TileType.BreakableWall)
+                    if (tileType == TileType.Wall || tileType == TileType.BreakableWall || tileType == TileType.HorizontalDoor || tileType == TileType.VerticalDoor || tileType == TileType.Teleporter)
                     {
                         if (tiles.GetTileType(x + 1, y) == TileType.Background)
                             position.X += depth.X;

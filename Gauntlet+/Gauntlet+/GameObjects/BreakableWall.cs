@@ -7,9 +7,9 @@ using Microsoft.Xna.Framework;
    
 class BreakableWall : Tile
 {
-    public int howBroken = 3;
+    public int howBroken = 2;
     public BreakableWall(int layer, string id, Vector2 position)
-    : base("BreakableWall", TileType.BreakableWall, layer, id)
+    : base(assetname: "Tiles/BreakableWall", TileType.BreakableWall, layer, id)
     {
         this.position = position;
     }
@@ -18,21 +18,19 @@ class BreakableWall : Tile
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
+        CheckBreak();
     }
-    /*
-    public void WallBreaker()
+
+    private void HitByShot()
     {
-        if (WallCounter <= 0)
-        {
-            invisibility = true;
-
-            return;
-        }
-        return;
-
+        howBroken -= 1;
     }
 
-    */
-
-
+    private void CheckBreak()
+    {
+        if (howBroken <= 0)
+        {
+            visible = false;
+        }
+    }
 }

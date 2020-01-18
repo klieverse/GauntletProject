@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 class Door : Tile
 {
     public Door(int layer, string id, Vector2 position, TileType type)
-    : base(type.ToString(), type, layer, id)
+    : base("Tiles/" + id, type, layer, id)
     {
         this.position = position;
     }
@@ -17,7 +17,11 @@ class Door : Tile
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
+        CheckCollision();
+    }
 
+    private void CheckCollision()
+    {
         //check playercollision
         List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
         if (players != null)
@@ -31,11 +35,13 @@ class Door : Tile
 
                     int x = (int)position.X / Size;
                     int y = (int)position.Y / Size;
-                    DeleteDoors(x, y);
+                    DeleteDoors1(x, y);
+                    DeleteDoors2(x, y);
                 }
             }
     }
-    void DeleteDoors(int x,int y)
+
+    void DeleteDoors1(int x, int y)// deletes doors right and down
     {
         TileField tiles = GameWorld.Find("tiles") as TileField;
         TileType type = tiles.GetTileType(x, y);
@@ -44,15 +50,41 @@ class Door : Tile
         {
             return;
         }
-        if(this.type == TileType.HorizontalDoor)
+        else
         {
-            DeleteDoors(x, y);
-            if(doors != null)
+            if (doors != null)
                 foreach (Door door in doors)
                 {
-
+                    if (door.position.X / Size == x && door.position.Y / Size == y)
+                        door.visible = false;
                 }
-            visible = false;
+            if (this.type == TileType.HorizontalDoor)
+                DeleteDoors1(x + 1, y);
+            if (this.type == TileType.VerticalDoor)
+                DeleteDoors1(x, y + 1);
+        }
+    }
+    void DeleteDoors2(int x, int y) // deletes doors left and up
+    {
+        TileField tiles = GameWorld.Find("tiles") as TileField;
+        TileType type = tiles.GetTileType(x, y);
+        List<GameObject> doors = (GameWorld.Find("Doors") as GameObjectList).Children;
+        if (type != this.type)
+        {
+            return;
+        }
+        else
+        {
+            if (doors != null)
+                foreach (Door door in doors)
+                {
+                    if (door.position.X / Size == x && door.position.Y / Size == y)
+                        door.visible = false;
+                }
+            if (this.type == TileType.HorizontalDoor)
+                DeleteDoors2(x - 1, y);
+            if (this.type == TileType.VerticalDoor)
+                DeleteDoors2(x, y - 1);
         }
     }
 }

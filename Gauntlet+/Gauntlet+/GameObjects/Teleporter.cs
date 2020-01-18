@@ -21,6 +21,12 @@ class Teleport : Tile
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
+        FindClosestPortal();
+        Teleporting();
+    }
+
+    private void FindClosestPortal()
+    {
         //check for all the portals in the level
         List<GameObject> portals = (GameWorld.Find("teleport") as GameObjectList).Children;
         foreach (Teleport portal in portals)
@@ -39,7 +45,6 @@ class Teleport : Tile
             }
 
         }
-        Teleporting();
     }
 
     private void Teleporting()
