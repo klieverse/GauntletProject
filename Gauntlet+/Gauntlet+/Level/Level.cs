@@ -22,12 +22,14 @@ partial class Level : GameObjectList
         Add(new GameObjectList(2, "keys"));
         Add(new GameObjectList(2, "treasures"));
         Add(new GameObjectList(2, "potions"));
-        Add(new GameObjectList(3,"playershot"));
-        Add(new GameObjectList(3,"enemieShot"));
+        Add(new GameObjectList(3, "playershot"));
+        Add(new GameObjectList(3, "enemieShot"));
         Add(new GameObjectList(1, "teleport"));
-
-       // Add(new Questor(2, "Elf", new Vector2(150, 150), this, true));
-       // Add(new PlayerStatField("Elf"));
+        Add(new GameObjectList(1, "BreakableWalls"));
+        Add(new GameObjectList(1, "Doors"));
+        Add(new GameObjectList(1, "Exits"));
+        // Add(new Questor(2, "Elf", new Vector2(150, 150), this, true));
+        // Add(new PlayerStatField("Elf"));
 
         LoadTiles("Content/Levels/" + levelIndex + ".txt");
     }

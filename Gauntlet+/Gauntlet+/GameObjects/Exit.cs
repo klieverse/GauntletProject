@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
 
-class Exit : SpriteGameObject
+class Exit : Tile
 {
 
     public Exit(int layer, string id, Vector2 position)
-    : base("Exit", layer, id)
+    : base("Exit", TileType.Exit, layer, id)
     {
         this.position = position;
     }

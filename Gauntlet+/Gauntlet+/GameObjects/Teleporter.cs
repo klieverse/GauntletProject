@@ -6,17 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-class Teleport : SpriteGameObject
+class Teleport : Tile
 {
     Teleport closestPortal;
     float distance = 9999999999f;
     bool teleportAllowed = true;
 
-    public Teleport(Vector2 startPosition, int layer = 0) : base(assetName: "Tiles/Teleport", layer, id: "teleport", sheetIndex: 0)
+    public Teleport(Vector2 startPosition, int layer = 0) : base("Tiles/Teleport", TileType.Teleporter, layer, id: "teleport")
     {
         //position is equal to given position in LevelLoading.cs
         this.position = startPosition;
-        scale = 1.5f;
     }
 
     public override void Update(GameTime gameTime)
