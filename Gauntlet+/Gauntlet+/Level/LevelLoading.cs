@@ -44,11 +44,109 @@ partial class Level : GameObjectList
     {
         switch (tileType)
         {
-                //Tiles
+            //Tiles
+
+                //Vloer
             case '.':
                 return LoadBasicTile("floors/floor 1", TileType.Background);
+                //enkele muur
+            case ',':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //complete muur
+            case 'D':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //verticale muur
+            case 'l':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //verticale boven massief
+            case '`':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //verticale onder massief
+            case ';':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //linkereinde muur
+            case '[':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //rechtereinde muur
+            case ']':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1); 
+                //ondereindemuur
+            case 'u':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //boveneindemuur
+            case 'n':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //linkeronderhoek
+            case 'b':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //rechteronderhoek
+            case 'd':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //rechterbovenhoek
+            case 'q':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //linkerbovenhoek
+            case 'r':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //kruisende muur
             case '+':
                 return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //T splitsing muur
+            case 'T':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //Omgekeerde t muur
+            case 'v':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //links t muur
+            case '2':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //rechts t muur
+            case 's':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //linkermuur
+            case '{':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //rechtermuur
+            case '}':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //f
+            case 'f':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //
+            case 'w':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //linkerbovenhoek massief
+            case '7':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //rechterbovenhoek massief
+            case '8':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //linkeronderhoek massief
+            case '9':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //rechteronderhoek massief
+            case '0':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+            //t rechts massief onder
+
+            //t links massief onder
+
+            //t rechts massief boven
+
+            //t links massief boven
+
+            //linkermuur massief G
+            //rechtermuur massief B
+            //linkeronderhoek massief rechtsonder Q
+            //rechteronderhoek massief linksonder P
+
+            //linksonderhoekmuur <
+            //rechtsonderhoekmuur >
+            //T links massief rechts A
+            //t rechts massief links Y
+
+
+
             case '/':
                return LoadBasicTile("BreakableWall", TileType.BreakableWall, 1);
             case '-':
@@ -63,9 +161,9 @@ partial class Level : GameObjectList
                 //Enemies
             case 'S':
                 return LoadSkeleton(x, y);
-            case 'G':
+            case 'g':
                 return LoadGnome(x, y);
-//            case 'T':
+//            case '':
 //                return LoadTempleTroll(x, y);
 //            case 'H':
 //                return LoadTempleHellhound(x, y);
