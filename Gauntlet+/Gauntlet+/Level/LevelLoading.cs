@@ -446,139 +446,139 @@ partial class Level : GameObjectList
         {
             assetName = "Tiles/Walls/good wall 13"; /////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && down != '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 14"; //////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (above != '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 15"; ///////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (aboveLeft == '+' && above == '+' && right != '+' && downLeft == '+' && down == '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 16"; ////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && left != '+')
         {
             assetName = "Tiles/Walls/good wall 17"; /////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (aboveLeft != '+' && above == '+' && aboveRight != '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 18"; //////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (aboveLeft != '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 19"; ///////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (aboveLeft == '+' && above == '+' && aboveRight != '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 20"; ////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (aboveLeft != '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft != '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 21"; /////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft != '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 22"; //////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (aboveLeft == '+' && above == '+' && aboveRight != '+' && right == '+' && downRight != '+' && down == '+' && downLeft == '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 23"; ///////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight != '+' && down == '+' && downLeft == '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 24"; ////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight != '+' && down == '+' && downLeft != '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 25"; /////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (aboveLeft != '+' && above == '+' && aboveRight == '+' && right == '+' && downRight != '+' && down == '+' && downLeft == '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 26"; //////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (aboveLeft == '+' && above == '+' && aboveRight != '+' && right == '+' && downRight == '+' && down == '+' && downLeft != '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 27"; ///////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (above == '+' && right != '+' && down == '+' && left != '+')
         {
             assetName = "Tiles/Walls/good wall 28"; ////////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (above == '+' && right != '+' && down != '+' && left != '+')
         {
             assetName = "Tiles/Walls/good wall 29"; /////////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (above != '+' && right != '+' && down == '+' && left != '+')
         {
             assetName = "Tiles/Walls/good wall 30"; //////////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (above != '+' && right != '+' && down != '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 31"; ///////////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (above == '+' && aboveRight != '+' && right == '+' && downRight != '+' && down == '+' && left != '+')
         {
             assetName = "Tiles/Walls/good wall 32"; ////////////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (above != '+' && right == '+' && downRight != '+' && down == '+' && downLeft != '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 33"; /////////////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (aboveLeft != '+' && above == '+' && right != '+' && down == '+' && downLeft != '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 34"; //////////////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (aboveLeft != '+' && above == '+' && aboveRight != '+' && right == '+' && down != '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 35"; ///////////////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (aboveLeft != '+' && above == '+' && right != '+' && down != '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 36"; ////////////////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (above == '+' && aboveRight != '+' && right == '+' && down != '+' && left != '+')
         {
             assetName = "Tiles/Walls/good wall 37"; /////////////////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (above != '+' && right == '+' && downRight != '+' && down == '+' && left != '+')
         {
             assetName = "Tiles/Walls/good wall 38"; //////////////////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if ( above != '+' && right != '+' && down == '+' && downLeft == '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 39"; ///////////////////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (aboveLeft == '+' && above == '+' && aboveRight != '+' && right == '+' && down != '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 40"; ////////////////////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (aboveLeft != '+' && above == '+' && aboveRight == '+' && right == '+' && down != '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 41"; /////////////////////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (above == '+' && aboveRight == '+' && right == '+' && downRight != '+' && down == '+' && left != '+')
         {
             assetName = "Tiles/Walls/good wall 42"; //////////////////////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (above == '+' && aboveRight != '+' && right == '+' && downRight == '+' && down == '+' && left != '+')
         {
             assetName = "Tiles/Walls/good wall 43"; ///////////////////////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (above != '+' && right == '+' && downRight == '+' && down == '+' && downLeft != '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 44"; ////////////////////////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (above != '+' && right == '+' && downRight != '+' && down == '+' && downLeft == '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 45"; /////////////////////////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (aboveLeft != '+' && above == '+' && right != '+' && down == '+' && downLeft == '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 46"; //////////////////////////////////////////////
         }
-        else if (aboveLeft == '+' && above == '+' && aboveRight == '+' && right == '+' && downRight == '+' && down == '+' && downLeft == '+' && left == '+')
+        else if (aboveLeft == '+' && above == '+' && right != '+' && down == '+' && downLeft != '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 47"; ///////////////////////////////////////////////
         }
