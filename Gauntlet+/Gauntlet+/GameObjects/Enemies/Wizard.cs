@@ -50,11 +50,13 @@ class Wizard : EnemyObject
     //find player, if collides, then player loses health according to this' strength;
     private void Attack()
     {
-        Player player = GameWorld.Find("player") as Player;
-        if (CollidesWith(player) && visible)
-        {
-            player.health -= strength;
-        }
+        List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
+        if (players != null)
+            foreach (Player player in players)
+                if (CollidesWith(player) && visible)
+                {
+                    player.health -= strength;
+                }
     }
 }
 

@@ -15,8 +15,8 @@ public class GameEnvironment : Game
     protected static GameStateManager gameStateManager;
     protected static Random random;
     protected static AssetManager assetManager;
-    protected static Server server;
-    protected static Client client;
+
+    public static string SelectedClass;
 
     public GameEnvironment()
     {
@@ -27,15 +27,7 @@ public class GameEnvironment : Game
         spriteScale = Matrix.CreateScale(1, 1, 1);
         random = new Random();
         assetManager = new AssetManager(Content);
-        try
-        {
-            server = new Server();
-        }
-        catch
-        {
-        }
-        client = new Client();
-        
+
     }
 
     public static Point Screen
@@ -57,16 +49,6 @@ public class GameEnvironment : Game
     public static GameStateManager GameStateManager
     {
         get { return gameStateManager; }
-    }
-
-    public static Server Server
-    {
-        get { return server;  }
-    }
-
-    public static Client Client
-    {
-        get { return client;  }
     }
 
     public bool FullScreen

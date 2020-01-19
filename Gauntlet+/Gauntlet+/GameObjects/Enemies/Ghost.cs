@@ -26,7 +26,7 @@ class Ghost : EnemyObject
         if (health < 1)
         {
             //removes the instance from game
-            GameWorld.Remove(this);
+            visible = false;
         }
         Attack();
     }
@@ -34,12 +34,14 @@ class Ghost : EnemyObject
     //calculates attack and removes instance from game
     private void Attack()
     {
-        Player player = GameWorld.GameWorld.Find("Elf") as Player;
-        if (CollidesWith(player))
-        {
-            player.health -= strength;
-            GameWorld.Remove(this);
-        } 
+        List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
+        if (players != null)
+            foreach (Player player in players)
+                if (CollidesWith(player))
+                {
+                    player.health -= strength;
+                    visible = false;
+                } 
         
 //        if (CollidesWithObject())
 //        {

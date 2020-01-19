@@ -33,7 +33,7 @@ class TitleMenuState : GameObjectList
         base.HandleInput(inputHelper);
         if (singlePlayerButton.Pressed)
         {
-            GameEnvironment.GameStateManager.SwitchTo("playingState");
+            GameEnvironment.GameStateManager.SwitchTo("chooseCharacterState");
         }
         else if(multiPlayerButton.Pressed)
         {

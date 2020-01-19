@@ -6,9 +6,12 @@ partial class Level : GameObjectList
 {
     public int LevelWidth { get; protected set; }
     public int LevelHeight { get; protected set; }
+    string path;
+
 
     public void LoadTiles(string path)
     {
+        this.path = path;
         List<string> textLines = new List<string>();
         StreamReader fileReader = new StreamReader(path);
         string line = fileReader.ReadLine();
@@ -18,7 +21,7 @@ partial class Level : GameObjectList
             textLines.Add(line);
             line = fileReader.ReadLine();
         }
-        TileField background = new TileField(textLines.Count, width, 0, "background");
+        TileField background = new TileField(textLines.Count, width, 0, "floors/floor 1");
         TileField tiles = new TileField(textLines.Count, width, 1, "tiles");
         
         for (int x = 0; x < width; ++x)
@@ -26,7 +29,7 @@ partial class Level : GameObjectList
             for (int y = 0; y < textLines.Count; ++y)
             {
                 Tile t = LoadTile(textLines[y][x], x, y);
-                Tile b = LoadBasicTile("Background", TileType.Background);
+                Tile b = LoadBasicTile("floors/floor 1", TileType.Background);
                 tiles.Add(t, x, y);
                 background.Add(b, x, y);
             }
@@ -43,10 +46,109 @@ partial class Level : GameObjectList
         switch (tileType)
         {
             //Tiles
+
+                //Vloer
             case '.':
-                return LoadBasicTile("Background", TileType.Background);
+                return LoadBasicTile("floors/floor 1", TileType.Background);
+            //enkele muur
+            /*case ',':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //complete muur
+            case 'D':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //verticale muur
+            case 'l':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //verticale boven massief
+            case '`':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //verticale onder massief
+            case ';':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //linkereinde muur
+            case '[':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //rechtereinde muur
+            case ']':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1); 
+                //ondereindemuur
+            case 'u':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //boveneindemuur
+            case 'n':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //linkeronderhoek
+            case 'b':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //rechteronderhoek
+            case 'd':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //rechterbovenhoek
+            case 'q':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //linkerbovenhoek
+            case 'r':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //kruisende muur
             case '+':
-                return LoadBasicTile("Wall", TileType.Wall, 1);
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //T splitsing muur
+            case 'T':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //Omgekeerde t muur
+            case 'v':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //links t muur
+            case '2':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //rechts t muur
+            case 's':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //linkermuur
+            case '{':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //rechtermuur
+            case '}':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //f
+            case 'f':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //
+            case 'w':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //linkerbovenhoek massief
+            case '7':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //rechterbovenhoek massief
+            case '8':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //linkeronderhoek massief
+            case '9':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                //rechteronderhoek massief
+            case '0':
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);*/
+            //t rechts massief onder
+
+            //t links massief onder
+
+            //t rechts massief boven
+
+            //t links massief boven
+
+            //linkermuur massief G
+            //rechtermuur massief B
+            //linkeronderhoek massief rechtsonder Q
+            //rechteronderhoek massief linksonder P
+
+            //linksonderhoekmuur <
+            //rechtsonderhoekmuur >
+            //T links massief rechts A
+            //t rechts massief links Y
+
+
+            case '+':
+                return LoadWallTile(x, y);
             case '/':
                return LoadBasicTile("BreakableWall", TileType.BreakableWall, 1);
             case '-':
@@ -54,14 +156,16 @@ partial class Level : GameObjectList
             case '|':
                 return LoadBasicTile("VerticalDoor", TileType.VerticalDoor, 1);
             case 'O':
-                return LoadBasicTile("Teleport", TileType.Teleporter, 1);
+                return LoadTeleport(x, y);
             case 'x':
                 return LoadBasicTile("Trap", TileType.Trap, 1);
+            
+                //Enemies
             case 'S':
                 return LoadSkeleton(x, y);
-            case 'G':
+            case 'g':
                 return LoadGnome(x, y);
-//            case 'T':
+//            case '':
 //                return LoadTempleTroll(x, y);
 //            case 'H':
 //                return LoadTempleHellhound(x, y);
@@ -78,9 +182,9 @@ partial class Level : GameObjectList
 
                 //Items
             case 'P':
-                return LoadPotion(Color.Blue, x, y);
+                return LoadPotion(PotionType.Normal, x, y);
             case 'p':
-                return LoadPotion(Color.Orange, x, y);
+                return LoadPotion(PotionType.Orange, x, y);
             case 'K':
                 return LoadKey(x, y);
             case 'a':
@@ -91,9 +195,7 @@ partial class Level : GameObjectList
             default:
                 int t = (int)tileType;
                 return LoadExitTile("Exit", TileType.Exit, t);
-            }
-        
-        
+            }        
     }
 
     private Tile LoadBasicTile(string name, TileType tileType, int layer = 0)
@@ -101,18 +203,19 @@ partial class Level : GameObjectList
         return new Tile("Tiles/" + name, tileType, layer);
     }
 
-    private Tile LoadExitTile(string name, TileType tileType, int levelExit)
+    private Tile LoadExitTile(string name, TileType tileType, int levelExit, int layer = 1)
     {
         //nog een lijstje met de integers
 
-        return new Tile("Tiles/" + name, tileType);
-    }
+        return new Tile("Tiles/" + name, tileType, layer);
+    } 
+    
 
     private Tile LoadSkeleton(int x, int y)
     {
         GameObjectList enemies = Find("enemies") as GameObjectList;
         TileField tiles = Find("tiles") as TileField;
-        Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
+        Vector2 startPosition = new Vector2(((float)x + 0.5f) * Tile.Size, (y + 1) * Tile.Size);
         Ghost enemy = new Ghost(startPosition);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
@@ -124,12 +227,28 @@ partial class Level : GameObjectList
         */
         //return new Tile("Tiles/background", TileType.Background);
     }
+    
+    private Tile LoadTeleport(int x, int y)
+    {
+        /*        GameObjectList teleports = Find("tiles") as GameObjectList;
+                TileField tiles = Find("tiles") as TileField;
+                Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
+                Teleport t = new Teleport(startPosition);
+                teleports.Add(t);
+                return new Tile(); */
+        GameObjectList teleports = Find("teleport") as GameObjectList;
+        //TileField tiles = Find("tiles") as TileField;
+        Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
+        Teleport teleport = new Teleport(startPosition);
+        teleports.Add(teleport);
+        return new Tile();
+    }
 
     private Tile LoadGnome(int x, int y)
     {
         GameObjectList enemies = Find("enemies") as GameObjectList;
         TileField tiles = Find("tiles") as TileField;
-        Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
+        Vector2 startPosition = new Vector2(((float)x + 0.5f) * Tile.Size, (y + 1) * Tile.Size);
         Gnome enemy = new Gnome(startPosition);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
@@ -144,48 +263,81 @@ partial class Level : GameObjectList
 
     private Tile LoadThyra(int x, int y)
     {
-        return new Tile("Tiles/background", TileType.Background);
+        startPositionThyra = new Vector2(x, y);  // set the startposition for this class
+        return new Tile("Tiles/floors/floor 1", TileType.Background); //return background tile
     }
 
     private Tile LoadWarrior(int x, int y)
     {
-
-        return new Tile("Tiles/background", TileType.Background);
+        startPositionThor = new Vector2(x, y);
+        return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
 
     private Tile LoadElf(int x, int y)
     {
-
-        return new Tile("Tiles/background", TileType.Background);
+        startPositionQuestor = new Vector2(x, y);
+        return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
 
     private Tile LoadMerlin(int x, int y)
-    {
-
-        return new Tile("Tiles/background", TileType.Background);
+    { 
+        startPositionMerlin = new Vector2(x, y);
+        return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
 
-    private Tile LoadPotion(Color color, int x, int y)
+    private Tile LoadPotion(PotionType type, int x, int y)
     {
-
-        return new Tile("Tiles/background", TileType.Background);
+        GameObjectList Items = Find("potions") as GameObjectList;
+        Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
+        Potion item = new Potion(type, 2, type.ToString() + "Potion", position);
+        Items.Add(item);
+        return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
 
     private Tile LoadExtraPotion(int x, int y)
     {
 
-        return new Tile("Tiles/background", TileType.Background);
+        return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
 
     private Tile LoadTreasure(int x, int y)
     {
-
-        return new Tile("Tiles/background", TileType.Background);
+        GameObjectList Items = Find("treasures") as GameObjectList;
+        Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
+        Treasure item = new Treasure(2, "treasure", position);
+        Items.Add(item);
+        return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
 
     private Tile LoadKey(int x, int y)
     {
+        GameObjectList Items = Find("keys") as GameObjectList;
+        Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
+        Key item = new Key(2, "Key", position);
+        Items.Add(item);
+        return new Tile("Tiles/floors/floor 1", TileType.Background);
+    }
+    private Tile LoadFood(int x, int y)
+    {
+        GameObjectList Items = Find("food") as GameObjectList;
+        Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
+        Food item = new Food(2, "food", position);
+        Items.Add(item);
+        return new Tile("Tiles/floors/floor 1", TileType.Background);
+    }
 
-        return new Tile("Tiles/background", TileType.Background);
+    private Tile LoadWallTile(int x, int y)
+    {
+        List<string> textLines = new List<string>();
+        StreamReader fileReader = new StreamReader(path);
+        string line = fileReader.ReadLine();
+        while (line != null)
+        {
+            textLines.Add(line);
+            line = fileReader.ReadLine();
+        }
+        //if (textLines[x][y-1] == '+' && textLines[x+1][y-1]=='+' && textLines[x + 1][y] == '+' && textLines[x + 1][y + 1] == '+' && textLines[x ][y + 1] == '+' && textLines[x - 1][y + 1] == '+' && textLines[x - 1][y] == '+' && textLines[x - 1][y - 1] == '+')
+            return new Tile();
+        //return new Tile();
     }
 }
