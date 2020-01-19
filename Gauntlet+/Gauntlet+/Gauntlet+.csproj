@@ -51,8 +51,8 @@
     <Compile Include="GameManagement\Animation.cs" />
     <Compile Include="GameManagement\AssetManager.cs" />
     <Compile Include="GameManagement\Camera.cs" />
-    <Compile Include="GameObjects\BreakableWall.cs" />
-    <Compile Include="GameObjects\Door.cs" />
+    <Compile Include="GameObjects\Tiles\BreakableWall.cs" />
+    <Compile Include="GameObjects\Tiles\Door.cs" />
     <Compile Include="GameObjects\Enemies\EnemyObject.cs" />
     <Compile Include="GameManagement\Collision.cs" />
     <Compile Include="GameManagement\DrawingHelper.cs" />
@@ -82,7 +82,7 @@
     <Compile Include="GameObjects\Enemies\Ghost.cs" />
     <Compile Include="GameObjects\Enemies\Wizard.cs" />
     <Compile Include="GameObjects\Items\Food.cs" />
-    <Compile Include="GameObjects\Exit.cs" />
+    <Compile Include="GameObjects\Tiles\Exit.cs" />
     <Compile Include="GameObjects\Items\Item.cs" />
     <Compile Include="GameObjects\Items\Key.cs" />
     <Compile Include="GameObjects\Items\Treasure.cs" />
@@ -95,7 +95,8 @@
     <Compile Include="GameObjects\Players\Thyra.cs" />
     <Compile Include="GameObjects\Players\Thor.cs" />
     <Compile Include="GameObjects\Players\Merlin.cs" />
-    <Compile Include="GameObjects\Teleporter.cs" />
+    <Compile Include="GameObjects\Tiles\Teleporter.cs" />
+    <Compile Include="GameObjects\Tiles\Wall.cs" />
     <Compile Include="GameStates\BetweenLevelState.cs" />
     <Compile Include="GameStates\GameOverState.cs" />
     <Compile Include="GameStates\HelpState.cs" />

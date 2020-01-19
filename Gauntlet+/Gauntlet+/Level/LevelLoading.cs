@@ -6,11 +6,12 @@ partial class Level : GameObjectList
 {
     public int LevelWidth { get; protected set; }
     public int LevelHeight { get; protected set; }
-
+    string path;
 
 
     public void LoadTiles(string path)
     {
+        this.path = path;
         List<string> textLines = new List<string>();
         StreamReader fileReader = new StreamReader(path);
         string line = fileReader.ReadLine();
@@ -49,8 +50,8 @@ partial class Level : GameObjectList
                 //Vloer
             case '.':
                 return LoadBasicTile("floors/floor 1", TileType.Background);
-                //enkele muur
-            case ',':
+            //enkele muur
+            /*case ',':
                 return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
                 //complete muur
             case 'D':
@@ -126,7 +127,7 @@ partial class Level : GameObjectList
                 return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
                 //rechteronderhoek massief
             case '0':
-                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);
+                return LoadBasicTile("Walls/Good Wall 1", TileType.Wall, 1);*/
             //t rechts massief onder
 
             //t links massief onder
@@ -146,7 +147,8 @@ partial class Level : GameObjectList
             //t rechts massief links Y
 
 
-
+            case '+':
+                return LoadWallTile(x, y);
             case '/':
                return LoadBasicTile("BreakableWall", TileType.BreakableWall, 1);
             case '-':
@@ -322,5 +324,20 @@ partial class Level : GameObjectList
         Food item = new Food(2, "food", position);
         Items.Add(item);
         return new Tile("Tiles/floors/floor 1", TileType.Background);
+    }
+
+    private Tile LoadWallTile(int x, int y)
+    {
+        List<string> textLines = new List<string>();
+        StreamReader fileReader = new StreamReader(path);
+        string line = fileReader.ReadLine();
+        while (line != null)
+        {
+            textLines.Add(line);
+            line = fileReader.ReadLine();
+        }
+        //if (textLines[x][y-1] == '+' && textLines[x+1][y-1]=='+' && textLines[x + 1][y] == '+' && textLines[x + 1][y + 1] == '+' && textLines[x ][y + 1] == '+' && textLines[x - 1][y + 1] == '+' && textLines[x - 1][y] == '+' && textLines[x - 1][y - 1] == '+')
+            return new Tile();
+        //return new Tile();
     }
 }
