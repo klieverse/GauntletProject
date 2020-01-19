@@ -375,7 +375,7 @@ class Player : AnimatedGameObject
                     }
                     continue;
                 }
-                if (tileType == TileType.Wall || tileType == TileType.BreakableWall)
+                if (tileType == TileType.Wall || tileType == TileType.BreakableWall || tileType == TileType.HorizontalDoor || tileType == TileType.VerticalDoor || tileType == TileType.Teleporter)
                 {
                     if (tiles.GetTileType(x + 1, y) == TileType.Background)
                         position.Y += depth.Y - 1;
