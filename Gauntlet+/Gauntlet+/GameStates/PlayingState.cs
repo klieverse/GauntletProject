@@ -22,7 +22,7 @@ class PlayingState : IGameLoopObject
 
     static public Level CurrentLevel
     {
-        get { return levels[currentLevelIndex]; }
+        get { return levels[currentLevelIndex]; } 
     }
 
     static public int CurrentLevelIndex
