@@ -215,9 +215,13 @@ public class EnemyObject : AnimatedGameObject
 
                     if (Math.Abs(playerDepth.X) < Math.Abs(playerDepth.Y))
                     {
-                        position.X = previousPosition.X;
+                        if((velocity.X > 0 && player.Velocity.X < 0) || (velocity.X<0 && player.Velocity.X>0))
+                            position.X += playerDepth.X * (Math.Abs(velocity.X)/(Math.Abs(velocity.X) + Math.Abs(player.Velocity.X)));
+
+                        if ((velocity.X > 0 && player.Velocity.X < 0) || (velocity.X < 0 && player.Velocity.X > 0))
+                            position.X += playerDepth.X * (Math.Abs(velocity.X) / (Math.Abs(velocity.X) + Math.Abs(player.Velocity.X)));
                     }
-                    else position.Y = previousPosition.Y;
+                    else position.Y += playerDepth.Y * (Math.Abs(velocity.Y) / (Math.Abs(velocity.Y) + Math.Abs(player.Velocity.Y)));
                 }
             }
         }

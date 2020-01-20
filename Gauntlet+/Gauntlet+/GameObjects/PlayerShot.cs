@@ -97,7 +97,7 @@ class PlayerShot : SpriteGameObject
     void HandleCollisions()
     {
         TileField tileField = GameWorld.Find("tiles") as TileField;
-        //check wall collision
+        //check wall/door collision
         Tile tile = tileField.Get(1, 1) as Tile;
         int Left = (int)(position.X / tile.Width);
         int Right = (int)((position.X + Width) / tile.Width);
@@ -114,6 +114,7 @@ class PlayerShot : SpriteGameObject
                 }
             }
 
+        //checks BreakableWalls collision
         List<GameObject> bWalls = (GameWorld.Find("BreakableWalls") as GameObjectList).Children;
         foreach (BreakableWall bWall in bWalls)
             if (CollidesWith(bWall))

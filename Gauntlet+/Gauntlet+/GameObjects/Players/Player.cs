@@ -425,9 +425,9 @@ class Player : AnimatedGameObject
 
                     if (Math.Abs(enemyDepth.X) < Math.Abs(enemyDepth.Y))
                     {
-                        position.X = previousPosition.X;
+                        position.X += enemyDepth.X * (Math.Abs(velocity.X) / (Math.Abs(velocity.X) + Math.Abs(enemy.Velocity.X)));
                     }
-                    else position.Y = previousPosition.Y;
+                    else position.Y += enemyDepth.Y * (Math.Abs(velocity.Y) / (Math.Abs(velocity.Y) + Math.Abs(enemy.Velocity.Y)));
                 }
                     
             }
