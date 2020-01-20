@@ -427,18 +427,14 @@ class Player : AnimatedGameObject
 
                     if (Math.Abs(enemyDepth.X) < Math.Abs(enemyDepth.Y))
                     {
-                        if ((velocity.X > 0 && enemy.Velocity.X < 0) || (velocity.X < 0 && enemy.Velocity.X > 0))
-                            position.X = previousPosition.X;
-
-                        if ((velocity.X > 0 && enemy.Velocity.X >= 0 && position.X < enemy.Position.X) || (velocity.X <= 0 && enemy.Velocity.X < 0 && position.X > enemy.Position.X))
+                        if ((velocity.X > 0 && enemy.Velocity.X < 0) || (velocity.X < 0 && enemy.Velocity.X > 0) || (velocity.X > 0 && enemy.Velocity.X >= 0 && position.X < enemy.Position.X) 
+                            || (velocity.X <= 0 && enemy.Velocity.X < 0 && position.X > enemy.Position.X))
                             position.X = previousPosition.X;
                     }
                     else
                     {
-                        if ((velocity.Y > 0 && enemy.Velocity.Y < 0) || (velocity.Y < 0 && enemy.Velocity.Y > 0))
-                            position.Y = previousPosition.Y;
-
-                        if ((velocity.Y > 0 && enemy.Velocity.Y > 0 && position.Y < enemy.Position.Y) || (velocity.Y < 0 && enemy.Velocity.Y < 0 && position.Y > enemy.Position.Y))
+                        if ((velocity.Y > 0 && enemy.Velocity.Y < 0) || (velocity.Y < 0 && enemy.Velocity.Y > 0) || (velocity.Y > 0 && enemy.Velocity.Y > 0 && position.Y < enemy.Position.Y) 
+                            || (velocity.Y < 0 && enemy.Velocity.Y < 0 && position.Y > enemy.Position.Y))
                             position.Y = previousPosition.Y;
                     }
                 }

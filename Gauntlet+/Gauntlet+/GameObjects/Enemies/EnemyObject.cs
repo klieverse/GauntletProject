@@ -35,8 +35,7 @@ public class EnemyObject : AnimatedGameObject
         base.Update(gameTime);
         
         tileField = GameWorld.Find("tiles") as TileField;
-        //if (CollidesWithObject())
-        //    position = previousPosition;
+        
         GameObjectList players = GameWorld.Find("players") as GameObjectList;
         Player player;
         if (players.Children.Count != 0)
@@ -89,38 +88,6 @@ public class EnemyObject : AnimatedGameObject
             Mirror = true;
         }
         else Mirror = false;
-    }
-
-    public bool CollidesWithObject()
-    {
- 
-        //check wall collision
-        Tile tile = tileField.Get(1, 1) as Tile;
-        int Left = (int)((position.X -this.Width /2)/ tile.Width);
-        int Right = (int)((position.X + this.Width /2) / tile.Width);
-        int Top = (int)((position.Y-Height) / tile.Height);
-        int Bottom = (int)((position.Y ) / tile.Height);
-
-        for (int x = Left; x <= Right; x++)
-            for (int y = Top; y <= Bottom; y++)
-                if (tileField.GetTileType(x, y) == TileType.Wall || tileField.GetTileType(x, y) == TileType.BreakableWall 
-                    || tileField.GetTileType(x, y) == TileType.HorizontalDoor || tileField.GetTileType(x, y) == TileType.VerticalDoor)
-                    return true;
-        //check playercollision
-        List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
-        if (players != null)
-            foreach (SpriteGameObject player in players)
-                if (player != this)
-                    if (CollidesWith(player))
-                        return true;
-        //check enemycollision
-        List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
-        foreach (SpriteGameObject enemy in enemies)
-            if (enemy !=this)
-                if (CollidesWith(enemy))
-                    return true;
-
-        return false;
     }
 
     void HandleCollision()
@@ -193,18 +160,14 @@ public class EnemyObject : AnimatedGameObject
 
                         if (Math.Abs(enemyDepth.X) < Math.Abs(enemyDepth.Y))
                         {
-                            if ((velocity.X > 0 && enemy.Velocity.X < 0) || (velocity.X < 0 && enemy.Velocity.X > 0))
-                                position.X = previousPosition.X;
-
-                            if ((velocity.X > 0 && enemy.Velocity.X >= 0 && position.X < enemy.Position.X) || (velocity.X <= 0 && enemy.Velocity.X < 0 && position.X > enemy.Position.X))
+                            if ((velocity.X > 0 && enemy.Velocity.X < 0) || (velocity.X < 0 && enemy.Velocity.X > 0) || (velocity.X > 0 && enemy.Velocity.X >= 0 && position.X < enemy.Position.X) 
+                                || (velocity.X <= 0 && enemy.Velocity.X < 0 && position.X > enemy.Position.X))
                                 position.X = previousPosition.X;
                         }
                         else
                         {
-                            if ((velocity.Y > 0 && enemy.Velocity.Y < 0) || (velocity.Y < 0 && enemy.Velocity.Y > 0))
-                                position.Y = previousPosition.Y;
-
-                            if ((velocity.Y > 0 && enemy.Velocity.Y > 0 && position.Y < enemy.Position.Y) || (velocity.Y < 0 && enemy.Velocity.Y < 0 && position.Y > enemy.Position.Y))
+                            if ((velocity.Y > 0 && enemy.Velocity.Y < 0) || (velocity.Y < 0 && enemy.Velocity.Y > 0) || (velocity.Y > 0 && enemy.Velocity.Y > 0 && position.Y < enemy.Position.Y) 
+                                || (velocity.Y < 0 && enemy.Velocity.Y < 0 && position.Y > enemy.Position.Y))
                                 position.Y = previousPosition.Y;
                         }
                     }
@@ -229,18 +192,14 @@ public class EnemyObject : AnimatedGameObject
 
                     if (Math.Abs(playerDepth.X) < Math.Abs(playerDepth.Y))
                     {
-                        if ((velocity.X > 0 && player.Velocity.X < 0) || (velocity.X < 0 && player.Velocity.X > 0))
-                            position.X = previousPosition.X;
-
-                        if ((velocity.X > 0 && player.Velocity.X >= 0 && position.X < player.Position.X) || (velocity.X < 0 && player.Velocity.X <= 0 && previousPosition.X > player.Position.X))
+                        if ((velocity.X > 0 && player.Velocity.X < 0) || (velocity.X < 0 && player.Velocity.X > 0) || (velocity.X > 0 && player.Velocity.X >= 0 && position.X < player.Position.X) 
+                            || (velocity.X < 0 && player.Velocity.X <= 0 && previousPosition.X > player.Position.X))
                             position.X = previousPosition.X;
                     }
                     else 
                     {
-                        if ((velocity.Y > 0 && player.Velocity.Y < 0) || (velocity.Y < 0 && player.Velocity.Y > 0))
-                            position.Y = previousPosition.Y;
-
-                        if ((velocity.Y > 0 && player.Velocity.Y >= 0 && position.Y < player.Position.Y) || (velocity.Y < 0 && player.Velocity.Y <= 0 && position.Y > player.Position.Y))
+                        if ((velocity.Y > 0 && player.Velocity.Y < 0) || (velocity.Y < 0 && player.Velocity.Y > 0) || (velocity.Y > 0 && player.Velocity.Y >= 0 && position.Y < player.Position.Y) 
+                            || (velocity.Y < 0 && player.Velocity.Y <= 0 && position.Y > player.Position.Y))
                             position.Y = previousPosition.Y;
                     }
                 }
