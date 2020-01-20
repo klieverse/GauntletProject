@@ -199,7 +199,6 @@ class Player : AnimatedGameObject
 
         HandleTimer(gameTime);
         CheckEnemyMelee();
-        //HandleEntityCollisions();
         HandleCollision();
         HandleAnimations();
         CheckIfDead();
@@ -296,14 +295,6 @@ class Player : AnimatedGameObject
 
         PlayAnimation("die");
     }
-
-    /*private void HandleEntityCollisions() //sets the position back to the last known position was before the player walked en collided with an object;
-    {
-        if (CollidesWithEntity() == true)
-        {
-            position = previousPosition;
-        }
-    }*/
 
     void HandleCamera()
     {
@@ -484,24 +475,6 @@ class Player : AnimatedGameObject
         if (velocity.X <= 0 && velocity.Y <= 0)
             position = new Vector2((float)Math.Floor(position.X), (float)Math.Floor(position.Y));
 
-    }
-
-    public bool CollidesWithEntity()
-    {
-        //check playercollision
-        List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
-        if (players != null)
-            foreach (Player player in players)
-                if (player != this)
-                    if (CollidesWith(player) && player.isAlive)
-                        return true;
-        //check enemycollision
-        List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
-        foreach (SpriteGameObject enemy in enemies)
-            if (CollidesWith(enemy))
-                return true;
-
-        return false;
     }
 
     public void HitByEnemy(float EnemyStrength)
