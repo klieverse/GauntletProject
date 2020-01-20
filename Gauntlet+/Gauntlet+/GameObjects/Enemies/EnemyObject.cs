@@ -186,14 +186,15 @@ public class EnemyObject : AnimatedGameObject
                 {
                     if (CollidesWith(enemy))
                     {
-                        Rectangle enemieBox = enemy.BoundingBox;
-                        Vector2 enemyDepth = Collision.CalculateIntersectionDepth(BoundingBox, enemieBox);
+                        Rectangle enemyBox = enemy.BoundingBox;
+                        enemyBox.Width += 1;
+                        Vector2 enemyDepth = Collision.CalculateIntersectionDepth(BoundingBox, enemyBox);
 
                         if (Math.Abs(enemyDepth.X) < Math.Abs(enemyDepth.Y))
                         {
-                            position.X = previousPosition.X;
+                            position.X += enemyDepth.X / 2;
                         }
-                        else position.Y = previousPosition.Y;
+                        else position.Y += enemyDepth.Y / 2;
                     }
                 }
 
@@ -214,9 +215,9 @@ public class EnemyObject : AnimatedGameObject
 
                     if (Math.Abs(playerDepth.X) < Math.Abs(playerDepth.Y))
                     {
-                        position.X += playerDepth.X * (Math.Abs(velocity.X)/(Math.Abs(velocity.X) + Math.Abs(player.Velocity.X)));
+                        position.X = previousPosition.X;
                     }
-                    else position.Y += playerDepth.Y * (Math.Abs(velocity.Y) / (Math.Abs(velocity.Y) + Math.Abs(player.Velocity.Y)));
+                    else position.Y = previousPosition.Y;
                 }
             }
         }

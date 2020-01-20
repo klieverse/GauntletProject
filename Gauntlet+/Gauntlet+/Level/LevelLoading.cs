@@ -150,7 +150,7 @@ partial class Level : GameObjectList
             case '+':
                 return LoadWallTile(x, y);
             case '/':
-               return LoadBasicTile("BreakableWall", TileType.BreakableWall, 1);
+                return LoadBreakableWall(x, y);
             case '-':
                 return LoadHorizontalDoor(x, y);
             case '|':
@@ -226,6 +226,15 @@ partial class Level : GameObjectList
         Door door = new Door(1, "HorizontalDoor", position, TileType.HorizontalDoor);
         doors.Add(door);
         return door;
+    }
+
+    private Tile LoadBreakableWall(int x, int y)
+    {
+        GameObjectList breakwalls = Find("BreakableWalls") as GameObjectList;
+        Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
+        BreakableWall breakWall = new BreakableWall(1, "BreakableWall", position);
+        breakwalls.Add(breakWall);
+        return breakWall;
     }
 
     private Tile LoadSkeleton(int x, int y)

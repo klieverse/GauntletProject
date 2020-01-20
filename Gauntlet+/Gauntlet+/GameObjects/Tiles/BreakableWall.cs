@@ -21,7 +21,7 @@ class BreakableWall : Tile
         CheckBreak();
     }
 
-    private void HitByShot()
+    public void HitByShot()
     {
         howBroken -= 1;
     }
@@ -31,6 +31,7 @@ class BreakableWall : Tile
         if (howBroken <= 0)
         {
             visible = false;
+            type = TileType.Background;
         }
     }
 }

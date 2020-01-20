@@ -108,10 +108,18 @@ class PlayerShot : SpriteGameObject
             for (int y = Top; y <= Bottom; y++)
             {
                 TileType type = tileField.GetTileType(x, y);
-                if (type == TileType.Wall || type == TileType.BreakableWall || type == TileType.VerticalDoor || type == TileType.HorizontalDoor)
+                if (type == TileType.Wall || type == TileType.VerticalDoor || type == TileType.HorizontalDoor)
                 {
                     visible = false;
                 }
+            }
+
+        List<GameObject> bWalls = (GameWorld.Find("BreakableWalls") as GameObjectList).Children;
+        foreach (BreakableWall bWall in bWalls)
+            if (CollidesWith(bWall))
+            {
+                visible = false;
+                bWall.HitByShot();
             }
 
         //check enemycollision
