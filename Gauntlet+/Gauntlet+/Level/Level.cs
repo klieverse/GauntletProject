@@ -15,19 +15,19 @@ partial class Level : GameObjectList
         //Add(quitButton);
         
 
-        Add(new GameObjectList(2, "players"));
-        Add(new GameObjectList(4, "StatFields"));
-        Add(new GameObjectList(2, "enemies"));
-        Add(new GameObjectList(2, "food"));
-        Add(new GameObjectList(2, "keys"));
-        Add(new GameObjectList(2, "treasures"));
-        Add(new GameObjectList(2, "potions"));
-        Add(new GameObjectList(3, "playershot"));
-        Add(new GameObjectList(3, "enemieShot"));
-        Add(new GameObjectList(1, "teleport"));
-        Add(new GameObjectList(1, "BreakableWalls"));
-        Add(new GameObjectList(1, "Doors"));
-        Add(new GameObjectList(1, "Exits"));
+        Add(new GameObjectList(3, "players"));
+        Add(new GameObjectList(5, "StatFields"));
+        Add(new GameObjectList(3, "enemies"));
+        Add(new GameObjectList(3, "food"));
+        Add(new GameObjectList(3, "keys"));
+        Add(new GameObjectList(3, "treasures"));
+        Add(new GameObjectList(3, "potions"));
+        Add(new GameObjectList(4, "playershot"));
+        Add(new GameObjectList(4, "enemieShot"));
+        Add(new GameObjectList(2, "teleport"));
+        Add(new GameObjectList(2, "BreakableWalls"));
+        Add(new GameObjectList(2, "Doors"));
+        Add(new GameObjectList(2, "Exits"));
         // Add(new Questor(2, "Elf", new Vector2(150, 150), this, true));
         // Add(new PlayerStatField("Elf"));
 

@@ -152,9 +152,9 @@ partial class Level : GameObjectList
             case '/':
                return LoadBasicTile("BreakableWall", TileType.BreakableWall, 1);
             case '-':
-                return LoadBasicTile("HorizontalDoor", TileType.HorizontalDoor, 1);
+                return LoadHorizontalDoor(x, y);
             case '|':
-                return LoadBasicTile("VerticalDoor", TileType.VerticalDoor, 1);
+                return LoadVerticalDoor(x,y);
             case 'O':
                 return LoadTeleport(x, y);
             case 'x':
@@ -209,7 +209,24 @@ partial class Level : GameObjectList
 
         return new Tile("Tiles/" + name, tileType, layer);
     } 
-    
+
+    private Tile LoadVerticalDoor(int x, int y)
+    {
+        GameObjectList doors = Find("Doors") as GameObjectList;
+        Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
+        Door door = new Door(1, "VerticalDoor", position, TileType.VerticalDoor);
+        doors.Add(door);
+        return door;
+    }
+
+    private Tile LoadHorizontalDoor(int x, int y)
+    {
+        GameObjectList doors = Find("Doors") as GameObjectList;
+        Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
+        Door door = new Door(1, "HorizontalDoor", position, TileType.HorizontalDoor);
+        doors.Add(door);
+        return door;
+    }
 
     private Tile LoadSkeleton(int x, int y)
     {
@@ -584,6 +601,6 @@ partial class Level : GameObjectList
         }
         else assetName = "Tiles/Walls/good wall 1";
 
-        return new Tile(assetName, TileType.Wall, 1, "Wall");
+        return new Tile(assetName, TileType.Wall, 0, "Wall");
     }
 }

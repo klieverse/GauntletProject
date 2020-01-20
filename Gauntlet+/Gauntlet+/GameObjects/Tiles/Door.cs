@@ -17,28 +17,16 @@ class Door : Tile
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-        CheckCollision();
     }
 
-    private void CheckCollision()
+    public void DeleteDoors()
     {
-        //check playercollision
-        List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
-        if (players != null)
-            foreach (Player player in players)
-            {
-                //Als de player de deur raakt en een sleutel heeft moet de deur verdwijnen + eventuele deuren ernaast of erboven
-
-                if (CollidesWith(player) && player.Key > 0)
-                {
-                    player.UseKey();
-
-                    int x = (int)position.X / Size;
-                    int y = (int)position.Y / Size;
-                    DeleteDoors1(x, y);
-                    DeleteDoors2(x, y);
-                }
-            }
+        int x = (int)position.X / Size;
+        int y = (int)position.Y / Size;
+        DeleteDoors1(x, y);
+        DeleteDoors2(x, y);
+        visible = false;
+        type = TileType.Background;
     }
 
     void DeleteDoors1(int x, int y)// deletes doors right and down
@@ -52,16 +40,20 @@ class Door : Tile
         }
         else
         {
-            if (doors != null)
-                foreach (Door door in doors)
-                {
-                    if (door.position.X / Size == x && door.position.Y / Size == y)
-                        door.visible = false;
-                }
             if (this.type == TileType.HorizontalDoor)
                 DeleteDoors1(x + 1, y);
             if (this.type == TileType.VerticalDoor)
                 DeleteDoors1(x, y + 1);
+            if (doors != null)
+                foreach (Door door in doors)
+                {
+                    if(door != this)
+                        if (door.position.X / Size == x && door.position.Y / Size == y)
+                        {
+                            door.visible = false;
+                            door.type = TileType.Background;
+                        }
+                }
         }
     }
     void DeleteDoors2(int x, int y) // deletes doors left and up
@@ -75,16 +67,20 @@ class Door : Tile
         }
         else
         {
-            if (doors != null)
-                foreach (Door door in doors)
-                {
-                    if (door.position.X / Size == x && door.position.Y / Size == y)
-                        door.visible = false;
-                }
             if (this.type == TileType.HorizontalDoor)
                 DeleteDoors2(x - 1, y);
             if (this.type == TileType.VerticalDoor)
                 DeleteDoors2(x, y - 1);
+            if (doors != null)
+                foreach (Door door in doors)
+                {
+                    if(door != this)
+                        if (door.position.X / Size == x && door.position.Y / Size == y)
+                        {
+                            door.visible = false;
+                            door.type = TileType.Background;
+                        }
+                }
         }
     }
 }

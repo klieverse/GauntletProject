@@ -365,18 +365,43 @@ class Player : AnimatedGameObject
                     continue;
                 }
                 Vector2 depth = Collision.CalculateIntersectionDepth(boundingBox, tileBounds);
+
+                List<GameObject> doors = (GameWorld.Find("Doors") as GameObjectList).Children;
+
                 if (Math.Abs(depth.X) < Math.Abs(depth.Y))
                 {
                     if (tileType == TileType.Wall || tileType == TileType.BreakableWall || tileType == TileType.HorizontalDoor || tileType == TileType.VerticalDoor || tileType == TileType.Teleporter)
                     {
+                        if (doors != null)
+                        {
+                            foreach (Door door in doors)
+                            {
+                                if (CollidesWith(door) && keys > 0)
+                                {
+                                    door.DeleteDoors();
+                                    keys -= 1;
+                                }
+                            }
+                        }
                         if (tiles.GetTileType(x + 1, y) == TileType.Background)
                             position.X += depth.X;
                         else position.X += depth.X - 1;
                     }
                     continue;
                 }
-                if (tileType == TileType.Wall || tileType == TileType.BreakableWall || tileType == TileType.HorizontalDoor || tileType == TileType.VerticalDoor || tileType == TileType.Teleporter)
+                if (tileType == TileType.Wall || tileType == TileType.BreakableWall || tileType == TileType.Teleporter || tileType == TileType.HorizontalDoor || tileType == TileType.VerticalDoor)
                 {
+                    if (doors != null)
+                    {
+                        foreach (Door door in doors)
+                        {
+                            if (CollidesWith(door) && keys > 0)
+                            {
+                                door.DeleteDoors();
+                                keys -= 1;
+                            }
+                        }
+                    }
                     if (tiles.GetTileType(x + 1, y) == TileType.Background)
                         position.Y += depth.Y - 1;
                     else position.Y += depth.Y;
