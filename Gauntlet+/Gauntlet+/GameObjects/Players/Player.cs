@@ -199,7 +199,7 @@ class Player : AnimatedGameObject
 
         HandleTimer(gameTime);
         CheckEnemyMelee();
-        HandleEntityCollisions();
+        //HandleEntityCollisions();
         HandleCollision();
         HandleAnimations();
         CheckIfDead();
@@ -297,13 +297,13 @@ class Player : AnimatedGameObject
         PlayAnimation("die");
     }
 
-    private void HandleEntityCollisions() //sets the position back to the last known position was before the player walked en collided with an object;
+    /*private void HandleEntityCollisions() //sets the position back to the last known position was before the player walked en collided with an object;
     {
         if (CollidesWithEntity() == true)
         {
             position = previousPosition;
         }
-    }
+    }*/
 
     void HandleCamera()
     {
@@ -338,7 +338,7 @@ class Player : AnimatedGameObject
     }
     void HandleCollision()
     {
-        //check wall collision
+        //check Tile collision
         TileField tiles = GameWorld.Find("tiles") as TileField;
         Tile tile = tiles.Get(1, 1) as Tile;
         int Left = (int)((position.X - Width / 2) / tile.Width);
@@ -364,13 +364,14 @@ class Player : AnimatedGameObject
                 {
                     continue;
                 }
-                Vector2 depth = Collision.CalculateIntersectionDepth(boundingBox, tileBounds);
+                Vector2 tileDepth = Collision.CalculateIntersectionDepth(boundingBox, tileBounds);
 
                 List<GameObject> doors = (GameWorld.Find("Doors") as GameObjectList).Children;
 
-                if (Math.Abs(depth.X) < Math.Abs(depth.Y))
+                if (Math.Abs(tileDepth.X) < Math.Abs(tileDepth.Y))
                 {
-                    if (tileType == TileType.Wall || tileType == TileType.BreakableWall || tileType == TileType.HorizontalDoor || tileType == TileType.VerticalDoor || tileType == TileType.Teleporter)
+                    if (tileType == TileType.Wall || tileType == TileType.BreakableWall || tileType == TileType.HorizontalDoor
+                        || tileType == TileType.VerticalDoor || tileType == TileType.Teleporter)
                     {
                         if (doors != null)
                         {
@@ -384,12 +385,14 @@ class Player : AnimatedGameObject
                             }
                         }
                         if (tiles.GetTileType(x + 1, y) == TileType.Background)
-                            position.X += depth.X;
-                        else position.X += depth.X - 1;
+                            position.X += tileDepth.X;
+                        else position.X += tileDepth.X - 1;
                     }
                     continue;
                 }
-                if (tileType == TileType.Wall || tileType == TileType.BreakableWall || tileType == TileType.Teleporter || tileType == TileType.HorizontalDoor || tileType == TileType.VerticalDoor)
+
+                if (tileType == TileType.Wall || tileType == TileType.BreakableWall || tileType == TileType.Teleporter
+                    || tileType == TileType.HorizontalDoor || tileType == TileType.VerticalDoor)
                 {
                     if (doors != null)
                     {
@@ -403,10 +406,57 @@ class Player : AnimatedGameObject
                         }
                     }
                     if (tiles.GetTileType(x + 1, y) == TileType.Background)
-                        position.Y += depth.Y - 1;
-                    else position.Y += depth.Y;
+                        position.Y += tileDepth.Y - 1;
+                    else position.Y += tileDepth.Y;
                 }
             }
+        
+        // checks collision w/ enemies
+        List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
+
+        if (enemies != null)
+        {
+            foreach (EnemyObject enemy in enemies)
+            {
+                if (CollidesWith(enemy))
+                {
+                    Rectangle enemieBox = enemy.BoundingBox;
+                    Vector2 enemyDepth = Collision.CalculateIntersectionDepth(BoundingBox, enemieBox);
+
+                    if (Math.Abs(enemyDepth.X) < Math.Abs(enemyDepth.Y))
+                    {
+                        position.X += enemyDepth.X * (Math.Abs(velocity.X) / (Math.Abs(velocity.X) + Math.Abs(enemy.Velocity.X)));
+                    }
+                    else position.Y += enemyDepth.Y * (Math.Abs(velocity.Y) / (Math.Abs(velocity.Y) + Math.Abs(enemy.Velocity.Y)));
+                }
+                    
+            }
+        }
+
+        // checks collision w/ players
+        List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
+
+        if (players != null)
+        {
+            foreach (Player player in players)
+            {
+                if (player != this)
+                    if (CollidesWith(player))
+                    {
+                        Rectangle playerBox = player.BoundingBox;
+                        Vector2 playerDepth = Collision.CalculateIntersectionDepth(BoundingBox, playerBox);
+
+                        if (Math.Abs(playerDepth.X) < Math.Abs(playerDepth.Y))
+                        {
+                            position.X += playerDepth.X * (player.velocity.X / velocity.X);
+                        }
+                        else position.Y += playerDepth.Y * (player.velocity.Y / velocity.Y);
+                    }
+            }
+        }
+
+        
+
         if (velocity.X >= 0 && velocity.Y >= 0)
             position = new Vector2((float)Math.Ceiling(position.X), (float)Math.Ceiling(position.Y));
         if (velocity.X >= 0 && velocity.Y <= 0)

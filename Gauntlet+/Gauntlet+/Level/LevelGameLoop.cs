@@ -45,7 +45,7 @@ partial class Level : GameObjectList
             if (playerClass == "Elf" )
             {
                 //get the startPosition for the player
-                Vector2 startPosition = new Vector2(((float)startPositionQuestor.X + 0.5f) * Tile.Size, (startPositionQuestor.Y + 1) * Tile.Size);
+                Vector2 startPosition = new Vector2(((float)startPositionQuestor.X + 0.5f) * Tile.Size, (startPositionQuestor.Y + 5) * Tile.Size);
                 Questor questor = new Questor(4, "Elf", startPosition, this, true); //create the player
                 (Find("players") as GameObjectList).Add(questor); //add player to level
                 PlayerStatField questorStats = new PlayerStatField("Elf"); //create the players Statfield
