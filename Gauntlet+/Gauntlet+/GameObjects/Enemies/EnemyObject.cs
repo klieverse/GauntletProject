@@ -186,15 +186,27 @@ public class EnemyObject : AnimatedGameObject
                 {
                     if (CollidesWith(enemy))
                     {
-                        Rectangle enemyBox = enemy.BoundingBox;
-                        enemyBox.Width += 1;
-                        Vector2 enemyDepth = Collision.CalculateIntersectionDepth(BoundingBox, enemyBox);
+                        Rectangle enemieBox = enemy.BoundingBox;
+                        Rectangle boundingBox = this.BoundingBox;
+                        boundingBox.X += 1;
+                        Vector2 enemyDepth = Collision.CalculateIntersectionDepth(boundingBox, enemieBox);
 
                         if (Math.Abs(enemyDepth.X) < Math.Abs(enemyDepth.Y))
                         {
-                            position.X += enemyDepth.X / 2;
+                            if ((velocity.X > 0 && enemy.Velocity.X < 0) || (velocity.X < 0 && enemy.Velocity.X > 0))
+                                position.X = previousPosition.X;
+
+                            if ((velocity.X > 0 && enemy.Velocity.X >= 0 && position.X < enemy.Position.X) || (velocity.X <= 0 && enemy.Velocity.X < 0 && position.X > enemy.Position.X))
+                                position.X = previousPosition.X;
                         }
-                        else position.Y += enemyDepth.Y / 2;
+                        else
+                        {
+                            if ((velocity.Y > 0 && enemy.Velocity.Y < 0) || (velocity.Y < 0 && enemy.Velocity.Y > 0))
+                                position.Y = previousPosition.Y;
+
+                            if ((velocity.Y > 0 && enemy.Velocity.Y > 0 && position.Y < enemy.Position.Y) || (velocity.Y < 0 && enemy.Velocity.Y < 0 && position.Y > enemy.Position.Y))
+                                position.Y = previousPosition.Y;
+                        }
                     }
                 }
 
@@ -210,18 +222,27 @@ public class EnemyObject : AnimatedGameObject
             {
                 if (CollidesWith(player))
                 {
-                    Rectangle playerBox = player.BoundingBox;
-                    Vector2 playerDepth = Collision.CalculateIntersectionDepth(BoundingBox, playerBox);
+                    Rectangle playerBox = player.BoundingBox; 
+                    Rectangle boundingBox = this.BoundingBox;
+                    boundingBox.X += 1;
+                    Vector2 playerDepth = Collision.CalculateIntersectionDepth(boundingBox, playerBox);
 
                     if (Math.Abs(playerDepth.X) < Math.Abs(playerDepth.Y))
                     {
-                        if((velocity.X > 0 && player.Velocity.X < 0) || (velocity.X<0 && player.Velocity.X>0))
-                            position.X += playerDepth.X * (Math.Abs(velocity.X)/(Math.Abs(velocity.X) + Math.Abs(player.Velocity.X)));
-
                         if ((velocity.X > 0 && player.Velocity.X < 0) || (velocity.X < 0 && player.Velocity.X > 0))
-                            position.X += playerDepth.X * (Math.Abs(velocity.X) / (Math.Abs(velocity.X) + Math.Abs(player.Velocity.X)));
+                            position.X = previousPosition.X;
+
+                        if ((velocity.X > 0 && player.Velocity.X >= 0 && position.X < player.Position.X) || (velocity.X < 0 && player.Velocity.X <= 0 && previousPosition.X > player.Position.X))
+                            position.X = previousPosition.X;
                     }
-                    else position.Y += playerDepth.Y * (Math.Abs(velocity.Y) / (Math.Abs(velocity.Y) + Math.Abs(player.Velocity.Y)));
+                    else 
+                    {
+                        if ((velocity.Y > 0 && player.Velocity.Y < 0) || (velocity.Y < 0 && player.Velocity.Y > 0))
+                            position.Y = previousPosition.Y;
+
+                        if ((velocity.Y > 0 && player.Velocity.Y >= 0 && position.Y < player.Position.Y) || (velocity.Y < 0 && player.Velocity.Y <= 0 && position.Y > player.Position.Y))
+                            position.Y = previousPosition.Y;
+                    }
                 }
             }
         }

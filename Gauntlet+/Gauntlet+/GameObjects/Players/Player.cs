@@ -421,13 +421,26 @@ class Player : AnimatedGameObject
                 if (CollidesWith(enemy))
                 {
                     Rectangle enemieBox = enemy.BoundingBox;
-                    Vector2 enemyDepth = Collision.CalculateIntersectionDepth(BoundingBox, enemieBox);
+                    Rectangle boundingBox = this.BoundingBox;
+                    boundingBox.X += 1;
+                    Vector2 enemyDepth = Collision.CalculateIntersectionDepth(boundingBox, enemieBox);
 
                     if (Math.Abs(enemyDepth.X) < Math.Abs(enemyDepth.Y))
                     {
-                        position.X += enemyDepth.X * (Math.Abs(velocity.X) / (Math.Abs(velocity.X) + Math.Abs(enemy.Velocity.X)));
+                        if ((velocity.X > 0 && enemy.Velocity.X < 0) || (velocity.X < 0 && enemy.Velocity.X > 0))
+                            position.X = previousPosition.X;
+
+                        if ((velocity.X > 0 && enemy.Velocity.X >= 0 && position.X < enemy.Position.X) || (velocity.X <= 0 && enemy.Velocity.X < 0 && position.X > enemy.Position.X))
+                            position.X = previousPosition.X;
                     }
-                    else position.Y += enemyDepth.Y * (Math.Abs(velocity.Y) / (Math.Abs(velocity.Y) + Math.Abs(enemy.Velocity.Y)));
+                    else
+                    {
+                        if ((velocity.Y > 0 && enemy.Velocity.Y < 0) || (velocity.Y < 0 && enemy.Velocity.Y > 0))
+                            position.Y = previousPosition.Y;
+
+                        if ((velocity.Y > 0 && enemy.Velocity.Y > 0 && position.Y < enemy.Position.Y) || (velocity.Y < 0 && enemy.Velocity.Y < 0 && position.Y > enemy.Position.Y))
+                            position.Y = previousPosition.Y;
+                    }
                 }
 
             }
@@ -444,13 +457,26 @@ class Player : AnimatedGameObject
                     if (CollidesWith(player))
                     {
                         Rectangle playerBox = player.BoundingBox;
-                        Vector2 playerDepth = Collision.CalculateIntersectionDepth(BoundingBox, playerBox);
+                        Rectangle boundingBox = this.BoundingBox;
+                        boundingBox.X += 1;
+                        Vector2 playerDepth = Collision.CalculateIntersectionDepth(boundingBox, playerBox);
 
                         if (Math.Abs(playerDepth.X) < Math.Abs(playerDepth.Y))
                         {
-                            position.X += playerDepth.X * (player.velocity.X / velocity.X);
+                            if ((velocity.X > 0 && player.Velocity.X < 0) || (velocity.X < 0 && player.Velocity.X > 0))
+                                position.X = previousPosition.X;
+
+                            if ((velocity.X > 0 && player.Velocity.X >= 0 && position.X < player.Position.X) || (velocity.X < 0 && player.Velocity.X <= 0 && previousPosition.X > player.Position.X))
+                                position.X = previousPosition.X;
                         }
-                        else position.Y += playerDepth.Y * (player.velocity.Y / velocity.Y);
+                        else
+                        {
+                            if ((velocity.Y > 0 && player.Velocity.Y < 0) || (velocity.Y < 0 && player.Velocity.Y > 0))
+                                position.Y = previousPosition.Y;
+
+                            if ((velocity.Y > 0 && player.Velocity.Y >= 0 && position.Y < player.Position.Y) || (velocity.Y < 0 && player.Velocity.Y <= 0 && position.Y > player.Position.Y))
+                                position.Y = previousPosition.Y;
+                        }
                     }
             }
         }
