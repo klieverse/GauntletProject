@@ -410,7 +410,7 @@ class Player : AnimatedGameObject
                     else position.Y += tileDepth.Y;
                 }
             }
-        
+
         // checks collision w/ enemies
         List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
 
@@ -425,11 +425,11 @@ class Player : AnimatedGameObject
 
                     if (Math.Abs(enemyDepth.X) < Math.Abs(enemyDepth.Y))
                     {
-                        position.X = previousPosition.X;
+                        position.X += enemyDepth.X * (Math.Abs(velocity.X) / (Math.Abs(velocity.X) + Math.Abs(enemy.Velocity.X)));
                     }
-                    else position.Y = previousPosition.Y;
+                    else position.Y += enemyDepth.Y * (Math.Abs(velocity.Y) / (Math.Abs(velocity.Y) + Math.Abs(enemy.Velocity.Y)));
                 }
-                    
+
             }
         }
 
@@ -455,7 +455,7 @@ class Player : AnimatedGameObject
             }
         }
 
-        
+
 
         if (velocity.X >= 0 && velocity.Y >= 0)
             position = new Vector2((float)Math.Ceiling(position.X), (float)Math.Ceiling(position.Y));
@@ -501,7 +501,7 @@ class Player : AnimatedGameObject
     public void UseKey()
     {
         if (keys >= 1)
-        keys -= 1;
+            keys -= 1;
         return;
     }
 
