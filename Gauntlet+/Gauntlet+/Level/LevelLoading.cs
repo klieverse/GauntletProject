@@ -572,7 +572,7 @@ partial class Level : GameObjectList
         {
             assetName = "Tiles/Walls/good wall 38"; //////////////////////////////////////
         }
-        else if ( above != '+' && right != '+' && down == '+' && downLeft == '+' && left == '+')
+        else if ( above != '+' && right != '+' && down == '+' && downLeft != '+' && left == '+')
         {
             assetName = "Tiles/Walls/good wall 39"; ///////////////////////////////////////
         }

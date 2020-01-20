@@ -61,6 +61,18 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Buttons/SinglePlayerButton.png
 
+#begin Tiles/BreakableWall.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Tiles/BreakableWall.png
+
 #begin Backgrounds/Scoreboard.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1148,6 +1160,18 @@
 /processorParam:TextureFormat=Color
 /build:Tiles/Walls/good wall 4.png
 
+#begin Tiles/Walls/good wall 1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Tiles/Walls/good wall 1.png
+
 #begin Sprites/Player/spr_Valkeryshoot@3.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1316,7 +1340,7 @@
 /processorParam:TextureFormat=Color
 /build:Key.png
 
-#begin Tiles/Walls/good wall 3.png
+#begin ../../../../../../Desktop/sprites gauntlert/Players/merlin/spr_Wizarddie@3.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -1326,41 +1350,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/Walls/good wall 3.png
-
-#begin Tiles/Walls/good wall 1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Tiles/Walls/good wall 1.png
-
-#begin Sprites/Player/spr_Wizarddie@3.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Sprites/Player/spr_Wizarddie@3.png
-
-#begin Tiles/BreakableWall.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Tiles/BreakableWall.png
+/build:../../../../../../Desktop/sprites gauntlert/Players/merlin/spr_Wizarddie@3.png
 
