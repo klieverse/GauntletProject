@@ -459,18 +459,14 @@ class Player : AnimatedGameObject
 
                         if (Math.Abs(playerDepth.X) < Math.Abs(playerDepth.Y))
                         {
-                            if ((velocity.X > 0 && player.Velocity.X < 0) || (velocity.X < 0 && player.Velocity.X > 0))
-                                position.X = previousPosition.X;
-
-                            if ((velocity.X > 0 && player.Velocity.X >= 0 && position.X < player.Position.X) || (velocity.X < 0 && player.Velocity.X <= 0 && previousPosition.X > player.Position.X))
+                            if ((velocity.X > 0 && player.Velocity.X < 0) || (velocity.X < 0 && player.Velocity.X > 0) || (velocity.X > 0 && player.Velocity.X >= 0 && position.X < player.Position.X)
+                                || (velocity.X < 0 && player.Velocity.X <= 0 && previousPosition.X > player.Position.X))
                                 position.X = previousPosition.X;
                         }
                         else
                         {
-                            if ((velocity.Y > 0 && player.Velocity.Y < 0) || (velocity.Y < 0 && player.Velocity.Y > 0))
-                                position.Y = previousPosition.Y;
-
-                            if ((velocity.Y > 0 && player.Velocity.Y >= 0 && position.Y < player.Position.Y) || (velocity.Y < 0 && player.Velocity.Y <= 0 && position.Y > player.Position.Y))
+                            if ((velocity.Y > 0 && player.Velocity.Y < 0) || (velocity.Y < 0 && player.Velocity.Y > 0) || (velocity.Y > 0 && player.Velocity.Y >= 0 && position.Y < player.Position.Y)
+                                || (velocity.Y < 0 && player.Velocity.Y <= 0 && position.Y > player.Position.Y))
                                 position.Y = previousPosition.Y;
                         }
                     }
