@@ -30,9 +30,6 @@ partial class Level : GameObjectList
         {
                 (Find(player.playerClass + "Stats") as PlayerStatField).Update(player);
         }
-        
-        
-        
     }
 
     public void LoadPlayer()
@@ -51,7 +48,7 @@ partial class Level : GameObjectList
                 PlayerStatField questorStats = new PlayerStatField("Elf"); //create the players Statfield
                 (Find("StatFields") as GameObjectList).Add(questorStats); //add the statfield to the level
             }
-            if(playerClass == "wizard")
+            if(playerClass == "Wizard")
             {
                 Vector2 startPosition = new Vector2(((float)startPositionMerlin.X + 0.5f) * Tile.Size, (startPositionMerlin.Y + 1f) * Tile.Size);
                 Merlin merlin = new Merlin(4, "Wizard", startPosition, this, true);

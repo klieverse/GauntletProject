@@ -334,7 +334,7 @@ class Player : AnimatedGameObject
         Tile tile = tiles.Get(1, 1) as Tile;
         int Left = (int)((position.X - Width / 2) / tile.Width);
         int Right = (int)((position.X + Width / 2) / tile.Width);
-        int Top = (int)((position.Y - Height) / tile.Height);
+        int Top = (int)((position.Y - Height / 2) / tile.Height);
         int Bottom = (int)((position.Y) / tile.Height);
 
         for (int x = Left; x <= Right; x++)
@@ -348,9 +348,8 @@ class Player : AnimatedGameObject
                 Tile currentTile = tiles.Get(x, y) as Tile;
                 Rectangle tileBounds = new Rectangle(x * tiles.CellWidth, y * tiles.CellHeight,
                                                         tiles.CellWidth, tiles.CellHeight);
-                Rectangle boundingBox = this.BoundingBox;
-                //boundingBox.Height-=1;
-                //boundingBox.Width -=1;
+                Rectangle boundingBox = new Rectangle((int)position.X - Width/2, (int)position.Y - Height / 2, Width, Height/2 );
+                 
                 if (((currentTile != null && !currentTile.CollidesWith(this)) || currentTile == null) && !tileBounds.Intersects(boundingBox))
                 {
                     continue;
