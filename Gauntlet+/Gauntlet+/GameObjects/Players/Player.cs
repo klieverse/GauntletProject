@@ -38,7 +38,7 @@ class Player : AnimatedGameObject
         Reset();
     }
 
-    void LoadAnimations()
+    public virtual void LoadAnimations()
     {
         LoadAnimation("Sprites/Player/spr_" + id + "idle@4", "idle", true);
         LoadAnimation("Sprites/Player/spr_" + id + "run@4", "run", true);

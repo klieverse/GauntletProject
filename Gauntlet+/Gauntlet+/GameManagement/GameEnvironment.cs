@@ -15,6 +15,7 @@ public class GameEnvironment : Game
     protected static GameStateManager gameStateManager;
     protected static Random random;
     protected static AssetManager assetManager;
+    protected static Connection connection;
 
     public static string SelectedClass;
 
@@ -27,6 +28,7 @@ public class GameEnvironment : Game
         spriteScale = Matrix.CreateScale(1, 1, 1);
         random = new Random();
         assetManager = new AssetManager(Content);
+        connection = new Connection();
 
     }
 
@@ -49,6 +51,11 @@ public class GameEnvironment : Game
     public static GameStateManager GameStateManager
     {
         get { return gameStateManager; }
+    }
+
+    public static Connection Connection
+    {
+        get { return connection; }
     }
 
     public bool FullScreen

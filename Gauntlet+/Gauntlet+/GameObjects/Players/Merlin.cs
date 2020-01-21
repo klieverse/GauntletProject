@@ -20,13 +20,21 @@ using System.Threading.Tasks;
             base.Reset();
         }
 
+        
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
         }
 
-
-
+    public override void LoadAnimations()
+    {
+        LoadAnimation("Sprites/Player/spr_" + id + "idle@4", "idle", true);
+        LoadAnimation("Sprites/Player/spr_" + id + "run@4", "run", true);
+        LoadAnimation("Sprites/Player/spr_" + id + "shoot@3", "shoot", true);
+        LoadAnimation("Sprites/Player/spr_" + id + "die@4", "die", false);
     }
+
+}
 

@@ -13,7 +13,7 @@
     <AssemblyName>Gauntlet+</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -51,6 +51,7 @@
     <Compile Include="GameManagement\Animation.cs" />
     <Compile Include="GameManagement\AssetManager.cs" />
     <Compile Include="GameManagement\Camera.cs" />
+    <Compile Include="GameManagement\Connection.cs" />
     <Compile Include="GameObjects\Tiles\BreakableWall.cs" />
     <Compile Include="GameObjects\Tiles\Door.cs" />
     <Compile Include="GameObjects\Enemies\EnemyObject.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="GameStates\BetweenLevelState.cs" />
     <Compile Include="GameStates\GameOverState.cs" />
     <Compile Include="GameStates\HelpState.cs" />
+    <Compile Include="GameStates\multiplayerCharacterState.cs" />
     <Compile Include="GameStates\MultiPlayerState.cs" />
     <Compile Include="GameStates\PlayingState.cs" />
     <Compile Include="GameStates\ChooseCharacterState.cs" />

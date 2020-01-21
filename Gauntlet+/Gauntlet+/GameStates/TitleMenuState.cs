@@ -37,7 +37,7 @@ class TitleMenuState : GameObjectList
         }
         else if(multiPlayerButton.Pressed)
         {
-            GameEnvironment.GameStateManager.SwitchTo("multiPlayerState");
+            GameEnvironment.GameStateManager.SwitchTo("multiplayerCharacterState");
         }
         else if (helpButton.Pressed)
         {
