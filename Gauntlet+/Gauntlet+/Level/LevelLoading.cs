@@ -62,8 +62,19 @@ partial class Level : GameObjectList
                 return LoadTeleport(x, y);
             case 'x':
                 return LoadBasicTile("Trap", TileType.Trap, 1);
-            
-                //Enemies
+            case '0':
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+                return LoadExitTile(tileType, x, y);
+
+            //Enemies
             case 'S':
                 return LoadSkeleton(x, y);
             case 'g':
@@ -106,11 +117,13 @@ partial class Level : GameObjectList
         return new Tile("Tiles/" + name, tileType, layer);
     }
 
-    private Tile LoadExitTile(string name, TileType tileType, int levelExit, int layer = 1)
+    private Tile LoadExitTile(int levelExit, int x, int y)
     {
-        //nog een lijstje met de integers
-
-        return new Tile("Tiles/" + name, tileType, layer);
+        GameObjectList exits = Find("Exits") as GameObjectList;
+        Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
+        Exit e = new Exit(layer, "Exit", position, levelExit);
+        exits.Add(e);
+        return e;
     } 
 
     private Tile LoadVerticalDoor(int x, int y)
