@@ -11,7 +11,7 @@ class Exit : Tile
     int lvlIndex;
 
     public Exit(int layer, string id, Vector2 position, int lvlIndex)
-    : base("Exit", TileType.Exit, layer, id)
+    : base("Tiles/Exit", TileType.Exit, layer, id)
     {
         this.lvlIndex = lvlIndex;
 

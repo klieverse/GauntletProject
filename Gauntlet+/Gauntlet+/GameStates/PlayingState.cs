@@ -7,7 +7,7 @@ using System;
 class PlayingState : IGameLoopObject
 {
     static protected List<Level> levels;
-    static protected int currentLevelIndex;
+    static protected int currentLevelIndex = 1;
     protected ContentManager content;
     protected int maxLevelIndex = 9;
     static protected bool maxLevelReached = false;
