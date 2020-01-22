@@ -107,7 +107,6 @@ partial class Level : GameObjectList
                 return LoadTreasure(x, y);
 
             default:
-                int t = (int)tileType;
                 return LoadFloorTile(x, y);
         }        
     }

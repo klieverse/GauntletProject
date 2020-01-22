@@ -73,8 +73,6 @@ class Player : AnimatedGameObject
 
         velocity = Vector2.Zero;
 
-        walkingSpeed = (float)Math.Sqrt(speedHelper) * 10;
-
         if (canMove)
         {
             if (inputHelper.IsKeyDown(Keys.A) && inputHelper.IsKeyDown(Keys.W))
@@ -160,7 +158,7 @@ class Player : AnimatedGameObject
 
             if (canShoot)
             {
-                shootTimer = 0.225f;
+                shootTimer = 0.2f;
                 canShoot = false;
                 PlayAnimation("shoot");
                 (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position, this));
@@ -188,6 +186,8 @@ class Player : AnimatedGameObject
         SetDirection();
 
         previousPosition = position;
+
+        walkingSpeed = (float)Math.Sqrt(speedHelper) * 10;
 
         base.Update(gameTime);
         HandleCamera();
@@ -520,10 +520,29 @@ class Player : AnimatedGameObject
         armor += 10f;
     }
 
+    public void MagicUp()
+    {
+        magic += 10f;
+    }
+
+    public void MeleeUp()
+    {
+        melee += 10f;
+    }
+
+    public void ShotPowerUp()
+    {
+        shotStrength += 10f;
+    }
+
+    public void ShotSpeedUP()
+    {
+        shotSpeed += 10f;
+    }
+
     public void SpeedUp()
     {
         speedHelper += 30f;
-        walkingSpeed = (float)Math.Sqrt(speedHelper) * 10;
     }
     public void ScoreUp(int score)
     {
