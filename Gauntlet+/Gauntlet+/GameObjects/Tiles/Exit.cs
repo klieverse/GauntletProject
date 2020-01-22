@@ -14,9 +14,9 @@ class Exit : Tile
     : base("Tiles/Exit", TileType.Exit, layer, id)
     {
         this.lvlIndex = lvlIndex;
-
         this.position = position;
     }
+
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);

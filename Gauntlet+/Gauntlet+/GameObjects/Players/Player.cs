@@ -172,7 +172,7 @@ class Player : AnimatedGameObject
             canMove = true;
         }
 
-        if (inputHelper.IsKeyDown(Keys.E))
+        if (inputHelper.KeyPressed(Keys.E))
         {
             if (potions > 0)
             {
@@ -314,14 +314,14 @@ class Player : AnimatedGameObject
     public void KillEnemiesOnScreen()
     {
         List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
-        foreach (SpriteGameObject enemy in enemies)
+        foreach (EnemyObject enemy in enemies)
         {
             // checks if the enemy in question has a position somewhere on the screen;
             float onScreenEnemyX = MathHelper.Clamp(enemy.Position.X, Camera.Position.X, Camera.Position.X + GameEnvironment.Screen.X);
             float onScreenEnemyY = MathHelper.Clamp(enemy.Position.Y, Camera.Position.Y, Camera.Position.Y + GameEnvironment.Screen.Y);
             if (enemy.Position.X == onScreenEnemyX && enemy.Position.Y == onScreenEnemyY)
             {
-                //enemy.Die();
+                enemy.HitByPlayer(magic);
             }
 
         }
