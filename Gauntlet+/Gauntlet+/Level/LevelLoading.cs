@@ -97,8 +97,8 @@ partial class Level : GameObjectList
 
             default:
                 int t = (int)tileType;
-                return LoadExitTile("Exit", TileType.Exit, t);
-            }        
+                return LoadFloorTile(x, y);
+        }        
     }
 
     private Tile LoadBasicTile(string name, TileType tileType, int layer = 0)

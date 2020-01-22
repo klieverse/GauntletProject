@@ -40,7 +40,7 @@ class Player : AnimatedGameObject
 
     void LoadAnimations()
     {
-        LoadAnimation("Sprites/Player/spr_" + id + "idle@4", "idle", true);
+        LoadAnimation("Sprites/Player/spr_" + id + "idle@4", "idle", true, 0.15f);
         LoadAnimation("Sprites/Player/spr_" + id + "run@4", "run", true);
         LoadAnimation("Sprites/Player/spr_" + id + "shoot@3", "shoot", true);
         LoadAnimation("Sprites/Player/spr_" + id + "die@3", "die", false);

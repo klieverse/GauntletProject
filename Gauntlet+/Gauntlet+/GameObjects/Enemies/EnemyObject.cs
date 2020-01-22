@@ -26,7 +26,7 @@ public class EnemyObject : AnimatedGameObject
     }
     void LoadAnimations()
     {
-        LoadAnimation("Sprites/Enemies/spr_" + id + "idle@4", "idle", true);
+        LoadAnimation("Sprites/Enemies/spr_" + id + "idle@4", "idle", true, 0.15f);
         LoadAnimation("Sprites/Enemies/spr_" + id + "run@4", "run", true);
     }
     public override void Update(GameTime gameTime)
