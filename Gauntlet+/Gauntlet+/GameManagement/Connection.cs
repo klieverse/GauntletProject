@@ -10,8 +10,8 @@ public class Connection
 
     public Connection()
     {
-        string serverIP = "127.0.0.1";
-        int port = 8080;
+        string serverIP = "192.168.0.122";
+        int port = 25565;
         try
         {
             client = new TcpClient(serverIP, port);
@@ -35,7 +35,6 @@ public class Connection
             string receivedMSG = Encoding.ASCII.GetString(bytes, 0, bytes.Length);
             
             receivedMessages.Add(receivedMSG);
-            Console.WriteLine("Tot Hier");
         
         
     }
@@ -49,7 +48,6 @@ public class Connection
         sendData = Encoding.ASCII.GetBytes(msg);
 
         stream.Write(sendData, 0, sendData.Length);
-        Console.WriteLine("verzonden bericht");
     }
 
     public List<string> receivedMessages

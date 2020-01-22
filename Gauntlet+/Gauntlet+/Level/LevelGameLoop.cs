@@ -90,12 +90,12 @@ partial class Level : GameObjectList
     }
     
     public void SendInformation()
-    {
+    {   
         //sends the player class
         GameObjectList players = GameWorld.Find("players") as GameObjectList;
         Player player = players.Find(GameEnvironment.SelectedClass) as Player;
         //Console.WriteLine(player.ToString());
-        string jplayer = JsonConvert.SerializeObject(player);
+        string jplayer = JsonConvert.SerializeObject(player, Formatting.Indented, new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.All });
         Console.WriteLine(player.ToString());
         GameEnvironment.Connection.Send(jplayer);
 
@@ -103,6 +103,7 @@ partial class Level : GameObjectList
         GameObjectList stats = GameWorld.Find("StatFields") as GameObjectList;
         PlayerStatField statField = stats.Find(GameEnvironment.SelectedClass) as PlayerStatField;
         string jstats = JsonConvert.SerializeObject(statField);
+        Console.WriteLine(jstats);
         GameEnvironment.Connection.Send(jstats);
 
         /*
@@ -145,14 +146,14 @@ partial class Level : GameObjectList
             string jpotion = JsonConvert.SerializeObject(potion);
             GameEnvironment.Connection.Send(jpotion);
         }*/
-
+        /*
         //sends all in game player shots
         GameObjectList playershots = GameWorld.Find("playershot") as GameObjectList;
         foreach (PlayerShot playerShot in playershots.Children)
         {
             string jplayershot = JsonConvert.SerializeObject(playerShot);
             GameEnvironment.Connection.Send(jplayershot);
-        }
+        }*/
 
         //sends all in game player shots
         /*GameObjectList enemieShots = GameWorld.Find("enemieShot") as GameObjectList;

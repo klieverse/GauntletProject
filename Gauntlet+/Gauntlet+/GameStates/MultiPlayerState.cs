@@ -17,15 +17,11 @@ class MultiPlayerState : PlayingState
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-
-        Console.WriteLine("0");
         
         //sends current data to the server
         CurrentLevel.SendInformation();
-        Console.WriteLine("1");
         //client retreives data from the server
         GameEnvironment.Connection.Update();
-        Console.WriteLine("2");
         //Console.WriteLine("tot hier");
         //client changes data in game according to what is retreived from the server
         for(int i = 0;  i < GameEnvironment.Connection.receivedMessages.Count;  i++)
