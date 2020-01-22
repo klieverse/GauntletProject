@@ -6,10 +6,11 @@ partial class Level : GameObjectList
     public override void HandleInput(InputHelper inputHelper)
     {
         base.HandleInput(inputHelper);
-        /*if (quitButton.Pressed)
+        /*
+        if (quitButton.Pressed)
         {
             Reset();
-            GameEnvironment.GameStateManager.SwitchTo("levelMenu");
+            GameEnvironment.GameStateManager.SwitchTo("titleMenu");
         }*/
     }
 
