@@ -31,7 +31,7 @@ class Exit : Tile
             foreach (Player player in players)
                 if (CollidesWith(player))
                 {
-                    PlayingState.NextLevel();
+                    PlayingState.NextLevel(lvlIndex);
                 }
     }
 }
