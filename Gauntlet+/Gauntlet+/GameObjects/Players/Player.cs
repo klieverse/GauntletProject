@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -7,7 +8,12 @@ using System.Collections.Generic;
 class Player : AnimatedGameObject
 {
     protected Vector2 startPosition, previousPosition, direction = new Vector2(1, 0);
-    protected Level level;
+    [JsonIgnore]
+    protected Level level
+    {
+        get;
+        set;
+    }
     protected bool isAlive, isYou, lastLookedLeft = false, canMove = true, canShoot = true;
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
     protected float baseSpeedHelper, baseArmor, baseMagic, baseShotStrength, baseShotSpeed, baseMelee;
@@ -38,7 +44,7 @@ class Player : AnimatedGameObject
         Reset();
     }
 
-    void LoadAnimations()
+    public virtual void LoadAnimations()
     {
         LoadAnimation("Sprites/Player/spr_" + id + "idle@4", "idle", true, 0.15f);
         LoadAnimation("Sprites/Player/spr_" + id + "run@4", "run", true);
@@ -184,7 +190,6 @@ class Player : AnimatedGameObject
     public override void Update(GameTime gameTime)
     {
         SetDirection();
-
         previousPosition = position;
 
         walkingSpeed = (float)Math.Sqrt(speedHelper) * 10;
@@ -300,6 +305,7 @@ class Player : AnimatedGameObject
     {
         if (isYou)
         {
+            Console.WriteLine(Id);
             float offsetX = GameEnvironment.Screen.X / 2;
             float offsetY = GameEnvironment.Screen.Y / 2;
 

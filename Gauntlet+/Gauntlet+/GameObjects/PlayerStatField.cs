@@ -9,17 +9,21 @@ using System.Threading.Tasks;
 class PlayerStatField : SpriteGameObject
 {
     PlayerStats Stats;
-    public PlayerStatField(string playerClass,int layer = 5) :base("statSprites/" + playerClass + "Stats",layer,"StatField")
+    public PlayerStatField(string playerClass, int pos, int layer = 5) :base("statSprites/" + playerClass + "Stats",layer,"StatField")
     {
         id = playerClass + "Stats"; //set the id based on the playerclass
-        position = new Vector2(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y - Height); //set position
+        position = new Vector2(pos, GameEnvironment.Screen.Y - Height); //set position
         Stats = new PlayerStats(position,playerClass); // create the statlist for in the field
         
     }
 
     public void Update(Player player)
     {
-        Stats.Update(player); //update the statlist based op the given player
+        if(player.Id == GameEnvironment.SelectedClass)
+        {
+            Stats.Update(player); //update the statlist based op the given player
+        }
+        
     }
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

@@ -29,7 +29,8 @@ class Gauntlet : GameEnvironment
         //gameStateManager.AddGameState("helpState", new HelpState());
         gameStateManager.AddGameState("chooseCharacterState", new ChooseCharacterState());
         gameStateManager.AddGameState("playingState", new PlayingState(Content));
-        //gameStateManager.AddGameState("multiPlayerState", new MultiPlayerState(Content));
+        gameStateManager.AddGameState("multiPlayerState", new MultiPlayerState(Content));
+        gameStateManager.AddGameState("multiplayerCharacterState", new MultiplayerCharacterState());
         //gameStateManager.AddGameState("gameOverState", new GameOverState());
         //gameStateManager.AddGameState("BetweenLevelState", new BetweenLevelState());
         gameStateManager.SwitchTo("titleMenu");

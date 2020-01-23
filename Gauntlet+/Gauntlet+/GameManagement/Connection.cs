@@ -1,55 +1,74 @@
 ﻿using System;
+using System.Threading;
 using System.Net.Sockets;
 using System.Text;
+using System.Net;
 using System.Collections.Generic;
 
 public class Connection
 {
     TcpClient client;
-    NetworkStream stream;
+    NetworkStream networkStream;
 
     public Connection()
     {
-        string serverIP = "25.62.226.197";
-        int port = 80;
         try
         {
+            string serverIP = "localhost";
+            int port = 8080;
             client = new TcpClient(serverIP, port);
-            stream = client.GetStream();
+            networkStream = client.GetStream();
+
+            Console.WriteLine(" >> " + "Client Started");
+            multiplayerAllowed = true;
+            //receivedMessages = new List<string>();
         }
         catch
         {
             Console.WriteLine("Could not connect to server. Multiplayer is not available");
+            multiplayerAllowed = false;
         }
-
-        receivedMessages = new List<string>();
+        
+        
     }
 
     public void Update()
     {
-        
-            byte[] bytes = new byte[client.ReceiveBufferSize];
+        //get received messages
+        try
+        {
+            networkStream = client.GetStream();
+            byte[] bytesFrom = new byte[client.ReceiveBufferSize];
+            networkStream.Read(bytesFrom, 0, (int)client.ReceiveBufferSize);
+            string dataFromServer = System.Text.Encoding.ASCII.GetString(bytesFrom);
+            dataFromServer = dataFromServer.Substring(0, dataFromServer.IndexOf("$"));
+            if(dataFromServer.Contains("CurrentSelected = "))
+            {
+                MultiplayerCharacterState.receiveMessage(dataFromServer);
+            }
+            else
+            {
+                MultiPlayerState.currentLevel.UpdateMultiplayer(dataFromServer);
+            }
             
-            //stream.Read(bytes, 0, (int)client.ReceiveBufferSize);
-            
-            string receivedMSG = Encoding.ASCII.GetString(bytes, 0, bytes.Length);
-            
-            receivedMessages.Add(receivedMSG);
-            Console.WriteLine("Tot Hier");
-        
-        
+            //receivedMessages.Add(dataFromServer);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(" >> " + ex.ToString());
+        }
+
     }
 
     public void Send(string msg)
     {
-        int byteCount = Encoding.ASCII.GetByteCount(msg);
+        //send string msg
+        Byte[] sendBytes = null;
+        string clientResponse = msg;
+        sendBytes = Encoding.ASCII.GetBytes(clientResponse);
+        networkStream.Write(sendBytes, 0, sendBytes.Length);
+        networkStream.Flush();
 
-        byte[] sendData = new byte[byteCount];
-
-        sendData = Encoding.ASCII.GetBytes(msg);
-
-        stream.Write(sendData, 0, sendData.Length);
-        Console.WriteLine("verzonden bericht");
     }
 
     public List<string> receivedMessages
@@ -58,5 +77,11 @@ public class Connection
         set;
     }
 
-    
+    public bool multiplayerAllowed
+    {
+        get;
+        set;
+    }
 }
+
+

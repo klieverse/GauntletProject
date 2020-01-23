@@ -1,10 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json;
 using System;
 
 public class SpriteGameObject : GameObject
 {
+    [JsonIgnore]
     protected SpriteSheet sprite;
+
     protected Vector2 origin;
     public bool PerPixelCollisionDetection = true;
     protected float rotation = 0, scale = 1f;
@@ -27,13 +30,15 @@ public class SpriteGameObject : GameObject
         rotation = (float)MathHelper.ToRadians(degrees);
     }
 
+    
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         if (!visible || sprite == null)
         {
             return;
         }
-        if (GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("playingState"))
+        if (GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("playingState") || 
+            GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiPlayerState"))
         {
             sprite.Draw(spriteBatch, this.GlobalPosition - Camera.Position, rotation, origin, scale);
         }
@@ -43,7 +48,8 @@ public class SpriteGameObject : GameObject
         }
     }
 
-    public SpriteSheet Sprite
+    [JsonIgnore]
+    public virtual SpriteSheet Sprite
     {
         get { return sprite; }
     }
@@ -57,7 +63,15 @@ public class SpriteGameObject : GameObject
     {
         get
         {
-            return sprite.Width;
+            if(sprite != null)
+            {
+                return sprite.Width;
+            }
+            else
+            {
+                return 0;
+            }
+            
         }
     }
 
@@ -65,13 +79,30 @@ public class SpriteGameObject : GameObject
     {
         get
         {
-            return sprite.Height;
+            if (sprite != null)
+            {
+                return sprite.Height;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 
     public bool Mirror
     {
-        get { return sprite.Mirror; }
+        get
+        {
+            if (sprite != null)
+            {
+                return sprite.Mirror;
+            }
+            else
+            {
+                return true;
+            }
+        }
         set { sprite.Mirror = value; }
     }
 
@@ -117,5 +148,12 @@ public class SpriteGameObject : GameObject
             }
         }
         return false;
+    }
+
+
+    public void SetSprite(SpriteSheet sprite)
+    {
+        this.sprite = sprite;
+
     }
 }

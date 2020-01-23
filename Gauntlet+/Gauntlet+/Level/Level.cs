@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 
 partial class Level : GameObjectList
 {
@@ -30,6 +31,8 @@ partial class Level : GameObjectList
         Add(new GameObjectList(2, "Exits"));
         // Add(new Questor(2, "Elf", new Vector2(150, 150), this, true));
         // Add(new PlayerStatField("Elf"));
+        
+        
 
         LoadTiles("Content/Levels/" + levelIndex + ".txt");
     }
