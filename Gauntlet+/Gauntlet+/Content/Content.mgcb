@@ -1376,12 +1376,6 @@
 /processorParam:TextureFormat=Color
 /build:WizardShot.png
 
-#begin sounds/Archer shot.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:sounds/Archer shot.wav
-
 #begin sounds/Death 2.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -1466,12 +1460,6 @@
 /processorParam:Quality=Best
 /build:sounds/Key.wav
 
-#begin sounds/Mage shot.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:sounds/Mage shot.wav
-
 #begin sounds/Stage_Exit.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -1502,12 +1490,6 @@
 /processorParam:Quality=Best
 /build:sounds/Treasure.wav
 
-#begin sounds/Valkyrie shot.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:sounds/Valkyrie shot.wav
-
 #begin sounds/Warrior shot.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -1531,4 +1513,22 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/Exit.png
+
+#begin sounds/Elf shot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/Elf shot.wav
+
+#begin sounds/Wizard shot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/Wizard shot.wav
+
+#begin sounds/Valkery shot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/Valkery shot.wav
 

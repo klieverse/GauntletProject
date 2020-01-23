@@ -20,7 +20,7 @@ class Player : AnimatedGameObject
     public int health = 100, keys, potions, score;
     float healthTimer = 1f, shootTimer = 0.225f;
     InputHelper inputHelper;
-    float multiplier = 1f;
+    float multiplier;
 
     public Player(int layer, string id, Vector2 start, Level level, float speed, float armor,
                         float magic, float shotStrength, float shotSpeed, float melee, bool isYou)
@@ -547,6 +547,7 @@ class Player : AnimatedGameObject
                 shootTimer = 0.225f;
                 canShoot = false;
                 PlayAnimation("shoot");
+                GameEnvironment.AssetManager.PlaySound(id + " shot");
                 (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position, this, inputHelper));
             }
         }
@@ -582,6 +583,7 @@ class Player : AnimatedGameObject
             shootTimer = 0.225f;
             canShoot = false;
             PlayAnimation("shoot");
+            GameEnvironment.AssetManager.PlaySound(id +" shot");
             (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position, this, inputHelper));
         }
 
