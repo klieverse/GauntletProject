@@ -149,14 +149,12 @@ partial class Level : GameObjectList
         string jplayer = JsonConvert.SerializeObject(player);
         GameEnvironment.Connection.Send(jplayer);
         player.SetSprite(sprite);
-        Console.WriteLine(jplayer);
 
         //sends the statistics of the current player
         GameObjectList stats = GameWorld.Find("StatFields") as GameObjectList;
         PlayerStatField statField = stats.Find(GameEnvironment.SelectedClass) as PlayerStatField;
         string jstats = JsonConvert.SerializeObject(statField);
         GameEnvironment.Connection.Send(jstats);
-        Console.WriteLine("stat found" + jstats);
 
         //sends all in game enemies
         GameObjectList enemies = GameWorld.Find("enemies") as GameObjectList;
@@ -167,7 +165,6 @@ partial class Level : GameObjectList
             string jenemy = JsonConvert.SerializeObject(enemy);
             GameEnvironment.Connection.Send(jenemy);
             enemy.SetSprite(sprite);
-            Console.WriteLine(jenemy);
         }
         
 
@@ -180,7 +177,6 @@ partial class Level : GameObjectList
             string jfood = JsonConvert.SerializeObject(food);
             GameEnvironment.Connection.Send(jfood);
             food.SetSprite(sprite);
-            Console.WriteLine(jfood);
         }
         
 
@@ -193,7 +189,6 @@ partial class Level : GameObjectList
             string jkey = JsonConvert.SerializeObject(key);
             GameEnvironment.Connection.Send(jkey);
             key.SetSprite(sprite);
-            Console.WriteLine(jkey);
         }
         
         //sends all in game treasures
@@ -205,7 +200,6 @@ partial class Level : GameObjectList
             string jtreasure = JsonConvert.SerializeObject(treasure);
             GameEnvironment.Connection.Send(jtreasure);
             treasure.SetSprite(sprite);
-            Console.WriteLine(jtreasure);
         }
         
         //sends all in game potions
@@ -217,7 +211,6 @@ partial class Level : GameObjectList
             string jpotion = JsonConvert.SerializeObject(potion);
             GameEnvironment.Connection.Send(jpotion);
             potion.SetSprite(sprite);
-            Console.WriteLine(jpotion);
         }
         
         //sends all in game player shots
@@ -229,7 +222,6 @@ partial class Level : GameObjectList
             string jplayershot = JsonConvert.SerializeObject(playerShot);
             GameEnvironment.Connection.Send(jplayershot);
             playerShot.SetSprite(sprite);
-            Console.WriteLine(jplayershot);
         }
 
         //sends all in game enemy shots
@@ -250,7 +242,6 @@ partial class Level : GameObjectList
             string jdoor = JsonConvert.SerializeObject(door);
             GameEnvironment.Connection.Send(jdoor);
             door.SetSprite(sprite);
-            Console.WriteLine("door found: " + jdoor);
         }
 
         //sends current states of the breakable walls
@@ -262,7 +253,6 @@ partial class Level : GameObjectList
             string jwall = JsonConvert.SerializeObject(breakableWall);
             GameEnvironment.Connection.Send(jwall);
             breakableWall.SetSprite(sprite);
-            Console.WriteLine(jwall);
         }
     }
 

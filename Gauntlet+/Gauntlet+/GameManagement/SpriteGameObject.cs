@@ -37,7 +37,8 @@ public class SpriteGameObject : GameObject
         {
             return;
         }
-        if (GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("playingState"))
+        if (GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("playingState") || 
+            GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiPlayerState"))
         {
             sprite.Draw(spriteBatch, this.GlobalPosition - Camera.Position, rotation, origin, scale);
         }

@@ -192,7 +192,6 @@ class Player : AnimatedGameObject
     public override void Update(GameTime gameTime)
     {
         SetDirection();
-        isYou = (Id == GameEnvironment.SelectedClass);
         previousPosition = position;
 
         base.Update(gameTime);
@@ -315,6 +314,7 @@ class Player : AnimatedGameObject
     {
         if (isYou)
         {
+            Console.WriteLine(Id);
             float offsetX = GameEnvironment.Screen.X / 2;
             float offsetY = GameEnvironment.Screen.Y / 2;
 
