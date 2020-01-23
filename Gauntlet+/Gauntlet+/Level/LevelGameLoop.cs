@@ -90,9 +90,10 @@ partial class Level : GameObjectList
         string playerClass= GameEnvironment.SelectedClass; //Get the selected class
         // Check if the selected class is loaded, if not load the right player into the level
         //if multiplayer is chosen, all characters will be loaded
-        if (Find(playerClass) == null)
+        GameObjectList list = Find("players") as GameObjectList;
+        if (list.Find(playerClass) == null)
         {
-
+            Console.WriteLine("Hij komt hier");
             if (playerClass == "Elf" || GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiPlayerState"))
             {
                 //get the startPosition for the player
@@ -136,7 +137,14 @@ partial class Level : GameObjectList
 
     public override void Reset()
     {
-        base.Reset();
+        foreach (GameObject obj in children)
+        {
+            if(obj.Id != "players" && obj.Id != "StatFields" )
+            {
+                obj.Reset();
+            }
+            
+        }
     }
     
     public void SendInformation()

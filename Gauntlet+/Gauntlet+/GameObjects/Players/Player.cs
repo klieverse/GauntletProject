@@ -54,6 +54,7 @@ class Player : AnimatedGameObject
 
     public override void Reset()
     {
+        Console.WriteLine("hier reset ie");
         position = startPosition;
         velocity = Vector2.Zero;
         isAlive = true;
@@ -305,7 +306,6 @@ class Player : AnimatedGameObject
     {
         if (isYou)
         {
-            Console.WriteLine(Id);
             float offsetX = GameEnvironment.Screen.X / 2;
             float offsetY = GameEnvironment.Screen.Y / 2;
 
