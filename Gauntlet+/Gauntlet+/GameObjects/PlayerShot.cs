@@ -77,14 +77,15 @@ class PlayerShot : SpriteGameObject
         else
         {
             int degrees = 0;
-            if (velocity.X > 0 && velocity.Y < 0)
-                degrees = (int)Math.Atan(velocity.X / Math.Abs(velocity.Y));// calculates the rotation using the velocity vector
-            else if (velocity.X > 0 && velocity.Y > 0)
-                degrees = (int)Math.Atan(velocity.Y/velocity.X) + 90;
-            else if (velocity.X < 0 && velocity.Y > 0)
-                degrees = (int)Math.Atan(Math.Abs(velocity.X) / velocity.Y) + 180;
-            else if (velocity.X < 0 && velocity.Y < 0)
-                degrees = (int)Math.Atan(velocity.Y / velocity.X) + 270;
+            if (velocity.X >= 0 && velocity.Y < 0)
+                degrees = (int)MathHelper.ToDegrees((float)Math.Atan(velocity.X / Math.Abs(velocity.Y)));// calculates the rotation using the velocity vector
+            else if (velocity.X > 0 && velocity.Y >= 0)
+                degrees = (int)MathHelper.ToDegrees((float)Math.Atan(velocity.Y/ velocity.X)) + 90;
+            else if (velocity.X <= 0 && velocity.Y > 0)
+                degrees = (int)MathHelper.ToDegrees((float)Math.Atan(Math.Abs(velocity.X) / velocity.Y)) + 180;
+            else if (velocity.X < 0 && velocity.Y <= 0)
+                degrees = (int)MathHelper.ToDegrees((float)(Math.Atan(velocity.Y / velocity.X))) + 270;
+
 
             Rotate(degrees);
 

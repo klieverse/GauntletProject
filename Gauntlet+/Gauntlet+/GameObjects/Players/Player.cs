@@ -551,7 +551,7 @@ class Player : AnimatedGameObject
         direction.X = inputHelper.JoyStickRight.X;
         direction.Y = -inputHelper.JoyStickRight.Y;
 
-        if (canShoot && inputHelper.JoyStickRight != Vector2.Zero)
+        if (canShoot && (inputHelper.JoyStickRight.X > 0.2f || inputHelper.JoyStickRight.X < -0.2f || inputHelper.JoyStickRight.Y > 0.2f || inputHelper.JoyStickRight.Y < -0.2f))
         {
             shootTimer = 0.225f;
             canShoot = false;

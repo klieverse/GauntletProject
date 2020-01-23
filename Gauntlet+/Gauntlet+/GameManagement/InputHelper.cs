@@ -21,7 +21,7 @@ public class InputHelper
         previousGamePadState = currentGamePadState;
         currentMouseState = Mouse.GetState();
         currentKeyboardState = Keyboard.GetState();
-        currentGamePadState = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.Circular);
+        currentGamePadState = GamePad.GetState(PlayerIndex.One);
         capabilities = GamePad.GetCapabilities(PlayerIndex.One);
     }
 
