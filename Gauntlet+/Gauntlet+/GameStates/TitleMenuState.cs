@@ -37,7 +37,15 @@ class TitleMenuState : GameObjectList
         }
         else if(multiPlayerButton.Pressed)
         {
-            GameEnvironment.GameStateManager.SwitchTo("multiPlayerState");
+            if(GameEnvironment.Connection.multiplayerAllowed)
+            {
+                GameEnvironment.GameStateManager.SwitchTo("multiplayerCharacterState");
+            }
+            else
+            {
+                Console.WriteLine("Connection is not available");
+            }
+            
         }
         else if (helpButton.Pressed)
         {

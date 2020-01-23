@@ -7,7 +7,7 @@ using System;
 class PlayingState : IGameLoopObject
 {
     static protected List<Level> levels;
-    static protected int currentLevelIndex;
+    static protected int currentLevelIndex = 1;
     protected ContentManager content;
     protected int maxLevelIndex = 9;
     static protected bool maxLevelReached = false;
@@ -73,24 +73,25 @@ class PlayingState : IGameLoopObject
 
    
 
-    static public void NextLevel()
+    static public void NextLevel(int index)
     {
         CurrentLevel.Reset();
         if (maxLevelReached || currentLevelIndex >= levels.Count - 1)
         {
-            CurrentLevelIndex = GameEnvironment.Random.Next(1,9);
+            CurrentLevelIndex = GameEnvironment.Random.Next(1,5);
             maxLevelReached = true;
         }
 
         else
         {
-            CurrentLevelIndex++;
+            CurrentLevelIndex = index;
         }
     }
 
 
     public void LoadLevels()
     {
-            levels.Add(new Level(1));
+        for(int i = 0; i < 2; i++)
+            levels.Add(new Level(i));
     }
 }

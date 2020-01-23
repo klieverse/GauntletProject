@@ -33,9 +33,22 @@ public class EnemyObject : AnimatedGameObject
     {
         previousPosition = position;
         base.Update(gameTime);
-        
+
         tileField = GameWorld.Find("tiles") as TileField;
-        
+
+        Algorithm();
+
+        meleeTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds; // makes sure a specific enemy can only be melee'd once a second;
+        if (meleeTimer <= 0)
+        {
+            canBeMeleed = true;
+        }
+        HandleCollision();
+        HandleAnimations();
+    }
+
+    private void Algorithm()
+    {
         GameObjectList players = GameWorld.Find("players") as GameObjectList;
         Player player;
         if (players.Children.Count != 0)
@@ -52,16 +65,8 @@ public class EnemyObject : AnimatedGameObject
                 velocity.Y = speedVert / 2;
                 velocity.X = speedHori / 2;
             }
-            
-        }
 
-        meleeTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds; // makes sure a specific enemy can only be melee'd once a second;
-        if (meleeTimer <= 0)
-        {
-            canBeMeleed = true;
         }
-        HandleCollision();
-        HandleAnimations();
     }
 
     void HandleAnimations()
