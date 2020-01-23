@@ -5,7 +5,7 @@ class MultiplayerCharacterState: GameObjectList
     protected Button elfButton, valkeryButton, wizardButton, warriorButton, startButton;
     protected PlayerStats elfStats, valkeryStats, wizardStats, warriorStats;
     string currentSelected, previousSelected;
-    bool elfChosen, valkeryChosen, wizardChosen, warriorChosen;
+    static bool elfChosen, valkeryChosen, wizardChosen, warriorChosen;
 
     public MultiplayerCharacterState()
     {
@@ -92,7 +92,7 @@ class MultiplayerCharacterState: GameObjectList
 
     }
 
-    public void receiveMessage(string msg)
+    public static void receiveMessage(string msg)
     {
         //CurrentSelected
         if (msg.Contains("CurrentSelected = Elf"))

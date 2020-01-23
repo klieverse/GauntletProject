@@ -42,7 +42,15 @@ public class Connection
             networkStream.Read(bytesFrom, 0, (int)client.ReceiveBufferSize);
             string dataFromServer = System.Text.Encoding.ASCII.GetString(bytesFrom);
             dataFromServer = dataFromServer.Substring(0, dataFromServer.IndexOf("$"));
-            MultiPlayerState.currentLevel.UpdateMultiplayer(dataFromServer);
+            if(dataFromServer.Contains("CurrentSelected = "))
+            {
+                MultiplayerCharacterState.receiveMessage(dataFromServer);
+            }
+            else
+            {
+                MultiPlayerState.currentLevel.UpdateMultiplayer(dataFromServer);
+            }
+            
             //receivedMessages.Add(dataFromServer);
         }
         catch (Exception ex)

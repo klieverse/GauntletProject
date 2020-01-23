@@ -192,7 +192,7 @@ class Player : AnimatedGameObject
     public override void Update(GameTime gameTime)
     {
         SetDirection();
-
+        isYou = (Id == GameEnvironment.SelectedClass);
         previousPosition = position;
 
         base.Update(gameTime);
