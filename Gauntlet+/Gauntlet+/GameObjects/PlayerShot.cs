@@ -13,7 +13,7 @@ class PlayerShot : SpriteGameObject
     Player player;
 
 
-    public PlayerShot(string id, float shotSpeed, float shotStrength, Vector2 direction, Vector2 position, Player player) : base(assetName: id + "Shot", layer: 0, id, sheetIndex: 0)
+    public PlayerShot(string id, float shotSpeed, float shotStrength, Vector2 direction, Vector2 position, Player player, InputHelper inputHelper) : base(assetName: id + "Shot", layer: 0, id, sheetIndex: 0)
     {
         velocity = direction;
         this.position.X = position.X;
@@ -21,56 +21,81 @@ class PlayerShot : SpriteGameObject
         this.shotSpeed = shotSpeed;
         this.shotStrength = shotStrength;
         this.player = player;
-        HandleDirection();
+        HandleDirection(inputHelper);
         origin = new Vector2(sprite.Width / 2, sprite.Height / 2);
     }
 
-    void HandleDirection() // rotates the sprite to the right direction, based on the direction it is going and giving it the right position and velocity;
+    void HandleDirection(InputHelper inputHelper) // rotates the sprite to the right direction, based on the direction it is going and giving it the right position and velocity;
     {
-        if (velocity.X > 0 && velocity.Y == 0) // facing right
+        if (!inputHelper.ControllerConnected())
         {
-             velocity.X = shotSpeed * 75 + baseShotSpeed; 
-             Rotate(90);
+            if (velocity.X > 0 && velocity.Y == 0) // facing right
+            {
+                velocity.X = shotSpeed * 75 + baseShotSpeed;
+                Rotate(90);
+            }
+            if (velocity.X > 0 && velocity.Y > 0) // facing down right
+            {
+                velocity.X = 0.71f * (shotSpeed * 75 + baseShotSpeed);
+                velocity.Y = 0.71f * (shotSpeed * 75 + baseShotSpeed);
+                Rotate(135);
+            }
+            if (velocity.X < 0 && velocity.Y < 0) // facing up left
+            {
+                velocity.X = -0.71f * (shotSpeed * 75 + baseShotSpeed);
+                velocity.Y = -0.71f * (shotSpeed * 75 + baseShotSpeed);
+                Rotate(315);
+            }
+            if (velocity.X == 0 && velocity.Y > 0) // facing down
+            {
+                velocity.Y = (shotSpeed * 75 + baseShotSpeed);
+                Rotate(180);
+            }
+            if (velocity.X < 0 && velocity.Y == 0) // facing left
+            {
+                velocity.X = -(shotSpeed * 75 + baseShotSpeed);
+                Rotate(270);
+            }
+            if (velocity.X == 0 && velocity.Y < 0) // facing up
+            {
+                velocity.Y = -(shotSpeed * 75 + baseShotSpeed);
+                Rotate(0);
+            }
+            if (velocity.X > 0 && velocity.Y < 0) // facing up right
+            {
+                velocity.X = 0.71f * (shotSpeed * 75 + baseShotSpeed);
+                velocity.Y = -0.71f * (shotSpeed * 75 + baseShotSpeed);
+                Rotate(45);
+            }
+            if (velocity.X < 0 && velocity.Y > 0) // facing down left
+            {
+                velocity.X = -0.71f * (shotSpeed * 75 + baseShotSpeed);
+                velocity.Y = 0.71f * (shotSpeed * 75 + baseShotSpeed);
+                Rotate(225);
+            }
         }
-        if (velocity.X > 0 && velocity.Y > 0) // facing down right
+        else // this means a controller is connected
         {
-             velocity.X = 0.71f * (shotSpeed * 75 + baseShotSpeed);
-             velocity.Y = 0.71f * (shotSpeed * 75 + baseShotSpeed);
-             Rotate(135);
+            int degrees = 0;
+            if (velocity.X >= 0 && velocity.Y < 0)
+                degrees = (int)MathHelper.ToDegrees((float)Math.Atan(velocity.X / Math.Abs(velocity.Y)));// calculates the rotation using the velocity vector
+            else if (velocity.X > 0 && velocity.Y >= 0)
+                degrees = (int)MathHelper.ToDegrees((float)Math.Atan(velocity.Y/ velocity.X)) + 90;
+            else if (velocity.X <= 0 && velocity.Y > 0)
+                degrees = (int)MathHelper.ToDegrees((float)Math.Atan(Math.Abs(velocity.X) / velocity.Y)) + 180;
+            else if (velocity.X < 0 && velocity.Y <= 0)
+                degrees = (int)MathHelper.ToDegrees((float)(Math.Atan(velocity.Y / velocity.X))) + 270;
+
+
+            Rotate(degrees);
+
+            float vectorLength = (float)Math.Sqrt(velocity.Y * velocity.Y + velocity.X * velocity.X);
+            float multiplier = 1 / vectorLength;
+
+            velocity.X = velocity.X * multiplier * (shotSpeed * 75 + baseShotSpeed);
+            velocity.Y = velocity.Y * multiplier * (shotSpeed * 75 + baseShotSpeed);
         }
-        if (velocity.X < 0 && velocity.Y < 0) // facing up left
-        {
-            velocity.X = -0.71f * (shotSpeed * 75 + baseShotSpeed);
-            velocity.Y = -0.71f * (shotSpeed * 75 + baseShotSpeed);
-            Rotate(315);
-        }
-        if (velocity.X == 0 && velocity.Y > 0) // facing down
-        {
-            velocity.Y = (shotSpeed * 75 + baseShotSpeed);
-            Rotate(180);
-        }
-        if (velocity.X < 0 && velocity.Y == 0) // facing left
-        {
-            velocity.X = -(shotSpeed * 75 + baseShotSpeed);
-            Rotate(270);
-        }
-        if (velocity.X == 0 && velocity.Y < 0) // facing up
-        {
-            velocity.Y = -(shotSpeed *75 + baseShotSpeed);
-            Rotate(0);
-        }
-        if (velocity.X > 0 && velocity.Y < 0) // facing up right
-        {
-            velocity.X = 0.71f * (shotSpeed * 75 + baseShotSpeed);
-            velocity.Y = -0.71f * (shotSpeed * 75 + baseShotSpeed);
-            Rotate(45);
-        }
-        if (velocity.X < 0 && velocity.Y > 0) // facing down left
-        {
-            velocity.X = -0.71f * (shotSpeed * 75 + baseShotSpeed);
-            velocity.Y = 0.71f * (shotSpeed * 75 + baseShotSpeed);
-            Rotate(225);
-        }
+
     }
 
     public override void Update(GameTime gameTime)
