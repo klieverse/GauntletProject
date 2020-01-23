@@ -74,7 +74,7 @@ class PlayerShot : SpriteGameObject
                 Rotate(225);
             }
         }
-        else
+        else // this means a controller is connected
         {
             int degrees = 0;
             if (velocity.X >= 0 && velocity.Y < 0)
