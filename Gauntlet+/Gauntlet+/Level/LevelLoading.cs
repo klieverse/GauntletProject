@@ -39,6 +39,7 @@ partial class Level : GameObjectList
 
         LevelWidth = width * tiles.CellWidth;
         LevelHeight = (textLines.Count - 0) * tiles.CellHeight;
+        //LoadPlayer();
     }
 
     private Tile LoadTile(char tileType, int x, int y)

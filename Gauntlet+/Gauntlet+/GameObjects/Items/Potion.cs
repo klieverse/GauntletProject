@@ -15,7 +15,7 @@ enum PotionType
 
 class Potion : Item
 {
-    public PotionType PotType { get; }
+    
 
     public Potion(PotionType pot, int layer, string id, Vector2 position)
         : base(layer, id, position)

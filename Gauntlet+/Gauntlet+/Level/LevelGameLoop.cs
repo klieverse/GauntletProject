@@ -33,7 +33,7 @@ partial class Level : GameObjectList
         if (quitButton.Pressed)
         {
             Reset();
-            Find(GameEnvironment.SelectedClass).Visible = false;
+            //Find(GameEnvironment.SelectedClass).Visible = false;
             GameEnvironment.GameStateManager.SwitchTo("titleMenu");
         }
     }
@@ -63,13 +63,14 @@ partial class Level : GameObjectList
         {
             base.Update(gameTime);
         }
-        
-
         LoadPlayer();
+
+
+
         //Player player = Find("player") as Player;
 
         // check if we died
-        
+
 
         //update the fitting statfield with the data of the current player
         foreach (Player player in (Find("players") as GameObjectList).Children)
@@ -142,10 +143,16 @@ partial class Level : GameObjectList
 
     public override void Reset()
     {
+        base.Reset();
+    }
+
+    public void ResetLevel()
+    {
         foreach (GameObject obj in children)
         {
             if(obj.Id != "players" && obj.Id != "StatFields" )
             {
+                Console.WriteLine(obj.Id);
                 obj.Reset();
             }
             
