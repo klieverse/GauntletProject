@@ -4,7 +4,7 @@ using System;
 partial class Level : GameObjectList
 {
     protected Button quitButton;
-    protected Vector2 startPositionThyra, startPositionQuestor, startPositionThor, startPositionMerlin;
+    public Vector2 startPositionThyra, startPositionQuestor, startPositionThor, startPositionMerlin;
 
     public Level(int levelIndex)
     {

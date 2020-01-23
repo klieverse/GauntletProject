@@ -39,7 +39,6 @@ partial class Level : GameObjectList
 
         LevelWidth = width * tiles.CellWidth;
         LevelHeight = (textLines.Count - 0) * tiles.CellHeight;
-        //LoadPlayer();
     }
 
     private Tile LoadTile(char tileType, int x, int y)
@@ -73,7 +72,7 @@ partial class Level : GameObjectList
             case '7':
             case '8':
             case '9':
-                return LoadExitTile(tileType-50, x, y);
+                return LoadExitTile(tileType, x, y);
 
             //Enemies
             case 'S':
@@ -121,7 +120,7 @@ partial class Level : GameObjectList
     {
         GameObjectList exits = Find("Exits") as GameObjectList;
         Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
-        Exit e = new Exit(layer, "Exit", position, levelExit);
+        Exit e = new Exit(layer, "Exit", position, levelExit-50);
         exits.Add(e);
         return e;
     } 

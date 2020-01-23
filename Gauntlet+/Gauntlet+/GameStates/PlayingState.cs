@@ -11,6 +11,7 @@ class PlayingState : IGameLoopObject
     protected ContentManager content;
     protected int maxLevelIndex = 9;
     static protected bool maxLevelReached = false;
+    bool justOpened;
 
     public PlayingState(ContentManager content)
     {
@@ -18,8 +19,9 @@ class PlayingState : IGameLoopObject
         currentLevelIndex = 0;
         levels = new List<Level>();
         LoadLevels();
+        justOpened = true;
     }
-
+    
     static public Level CurrentLevel
     {
         get { return levels[currentLevelIndex]; } 
@@ -50,6 +52,11 @@ class PlayingState : IGameLoopObject
 
     public virtual void Update(GameTime gameTime)
     {
+        if(justOpened)
+        {
+            LoadPlayers();
+            justOpened = false;
+        }
         CurrentLevel.Update(gameTime);
         if (CurrentLevel.GameOver)
         {
@@ -69,12 +76,16 @@ class PlayingState : IGameLoopObject
     public virtual void Reset()
     {
         CurrentLevel.Reset();
+        currentLevelIndex = 0;
+        justOpened = true;
     }
 
    
 
     static public void NextLevel(int index)
     {
+        GameObjectList players = CurrentLevel.Find("players") as GameObjectList;
+        GameObjectList statField = CurrentLevel.Find("StatFields") as GameObjectList;
         CurrentLevel.Reset();
         if (maxLevelReached || currentLevelIndex >= levels.Count - 1)
         {
@@ -86,12 +97,64 @@ class PlayingState : IGameLoopObject
         {
             CurrentLevelIndex = index;
         }
+        GameObjectList newStats = CurrentLevel.Find("StatFields") as GameObjectList;
+        newStats = statField;
+        GameObjectList newPlayers = CurrentLevel.Find("players") as GameObjectList;
+
+        foreach(GameObject newPlayer in newPlayers.Children)
+        {
+            GameObject player = players.Find(newPlayer.Id);
+            player.Position = newPlayer.Position;
+        }
+        newPlayers = players;
     }
 
 
     public void LoadLevels()
     {
-        for(int i = 0; i < 2; i++)
+        for(int i = 0; i < 5; i++)
             levels.Add(new Level(i));
+    }
+
+    public void LoadPlayers()
+    {
+        if (GameEnvironment.SelectedClass == "Elf" || GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiPlayerState"))
+        {
+            //get the startPosition for the player
+            Vector2 startPosition = new Vector2(((float)CurrentLevel.startPositionQuestor.X + 0.5f) * Tile.Size, (CurrentLevel.startPositionQuestor.Y + 1) * Tile.Size);
+            Questor questor = new Questor(4, "Elf", startPosition, CurrentLevel, true); //create the player
+            (CurrentLevel.Find("players") as GameObjectList).Add(questor); //add player to level
+            int statPosition = GameEnvironment.Screen.X / 2 + 272;//get position for the statfield
+            PlayerStatField questorStats = new PlayerStatField("Elf", statPosition); //create the players Statfield
+            (CurrentLevel.Find("StatFields") as GameObjectList).Add(questorStats); //add the statfield to the level
+        }
+        if (GameEnvironment.SelectedClass == "Wizard" || GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiPlayerState"))
+        {
+            Vector2 startPosition = new Vector2(((float)CurrentLevel.startPositionMerlin.X + 0.5f) * Tile.Size, (CurrentLevel.startPositionMerlin.Y + 1f) * Tile.Size);
+            Merlin merlin = new Merlin(4, "Wizard", startPosition, CurrentLevel, true);
+            (CurrentLevel.Find("players") as GameObjectList).Add(merlin);
+            int statPosition = GameEnvironment.Screen.X / 2;
+            PlayerStatField wizardStats = new PlayerStatField("Wizard", statPosition);
+            (CurrentLevel.Find("StatFields") as GameObjectList).Add(wizardStats);
+        }
+        if (GameEnvironment.SelectedClass == "Warrior" || GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiPlayerState"))
+        {
+            Vector2 startPosition = new Vector2(((float)CurrentLevel.startPositionThor.X) * Tile.Size, (CurrentLevel.startPositionThor.Y) * Tile.Size);
+            Thor thor = new Thor(4, "Warrior", startPosition, CurrentLevel, true);
+            (CurrentLevel.Find("players") as GameObjectList).Add(thor);
+            int statPosition = GameEnvironment.Screen.X / 2 - 2 * 272;
+            PlayerStatField warriorStats = new PlayerStatField("Warrior", statPosition);
+            (CurrentLevel.Find("StatFields") as GameObjectList).Add(warriorStats);
+        }
+        if (GameEnvironment.SelectedClass == "Valkery" || GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiPlayerState"))
+        {
+            Vector2 startPosition = new Vector2((CurrentLevel.startPositionThyra.X + 2) * Tile.Size, (CurrentLevel.startPositionThyra.Y + 2) * Tile.Size);
+            Thyra thyra = new Thyra(4, "Valkery", startPosition, CurrentLevel, true);
+            (CurrentLevel.Find("players") as GameObjectList).Add(thyra);
+            int statPosition = GameEnvironment.Screen.X / 2 - 272;
+            PlayerStatField valkeryStats = new PlayerStatField("Valkery", statPosition);
+            (CurrentLevel.Find("StatFields") as GameObjectList).Add(valkeryStats);
+
+        }
     }
 }
