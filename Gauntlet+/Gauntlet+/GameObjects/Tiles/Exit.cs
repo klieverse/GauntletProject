@@ -8,12 +8,15 @@ using Microsoft.Xna.Framework;
 
 class Exit : Tile
 {
+    int lvlIndex;
 
-    public Exit(int layer, string id, Vector2 position)
-    : base("Exit", TileType.Exit, layer, id)
+    public Exit(int layer, string id, Vector2 position, int lvlIndex)
+    : base("Tiles/Exit", TileType.Exit, layer, id)
     {
+        this.lvlIndex = lvlIndex;
         this.position = position;
     }
+
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
@@ -28,7 +31,7 @@ class Exit : Tile
             foreach (Player player in players)
                 if (CollidesWith(player))
                 {
-                    PlayingState.NextLevel();
+                    PlayingState.NextLevel(lvlIndex);
                 }
     }
 }

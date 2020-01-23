@@ -26,16 +26,29 @@ public class EnemyObject : AnimatedGameObject
     }
     void LoadAnimations()
     {
-        LoadAnimation("Sprites/Enemies/spr_" + id + "idle@4", "idle", true);
+        LoadAnimation("Sprites/Enemies/spr_" + id + "idle@4", "idle", true, 0.15f);
         LoadAnimation("Sprites/Enemies/spr_" + id + "run@4", "run", true);
     }
     public override void Update(GameTime gameTime)
     {
         previousPosition = position;
         base.Update(gameTime);
-        
+
         tileField = GameWorld.Find("tiles") as TileField;
-        
+
+        Algorithm();
+
+        meleeTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds; // makes sure a specific enemy can only be melee'd once a second;
+        if (meleeTimer <= 0)
+        {
+            canBeMeleed = true;
+        }
+        HandleCollision();
+        HandleAnimations();
+    }
+
+    private void Algorithm()
+    {
         GameObjectList players = GameWorld.Find("players") as GameObjectList;
         Player player;
         if (players.Children.Count != 0)
@@ -52,16 +65,8 @@ public class EnemyObject : AnimatedGameObject
                 velocity.Y = speedVert / 2;
                 velocity.X = speedHori / 2;
             }
-            
-        }
 
-        meleeTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds; // makes sure a specific enemy can only be melee'd once a second;
-        if (meleeTimer <= 0)
-        {
-            canBeMeleed = true;
         }
-        HandleCollision();
-        HandleAnimations();
     }
 
     void HandleAnimations()

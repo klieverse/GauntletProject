@@ -40,7 +40,7 @@ class Player : AnimatedGameObject
 
     void LoadAnimations()
     {
-        LoadAnimation("Sprites/Player/spr_" + id + "idle@4", "idle", true);
+        LoadAnimation("Sprites/Player/spr_" + id + "idle@4", "idle", true, 0.15f);
         LoadAnimation("Sprites/Player/spr_" + id + "run@4", "run", true);
         LoadAnimation("Sprites/Player/spr_" + id + "shoot@3", "shoot", true);
         LoadAnimation("Sprites/Player/spr_" + id + "die@3", "die", false);
@@ -72,8 +72,6 @@ class Player : AnimatedGameObject
         }
 
         velocity = Vector2.Zero;
-
-        walkingSpeed = (float)Math.Sqrt(speedHelper) * 10;
 
         if (canMove)
         {
@@ -160,7 +158,7 @@ class Player : AnimatedGameObject
 
             if (canShoot)
             {
-                shootTimer = 0.225f;
+                shootTimer = 0.2f;
                 canShoot = false;
                 PlayAnimation("shoot");
                 (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position, this));
@@ -172,7 +170,7 @@ class Player : AnimatedGameObject
             canMove = true;
         }
 
-        if (inputHelper.IsKeyDown(Keys.E))
+        if (inputHelper.KeyPressed(Keys.E))
         {
             if (potions > 0)
             {
@@ -188,6 +186,8 @@ class Player : AnimatedGameObject
         SetDirection();
 
         previousPosition = position;
+
+        walkingSpeed = (float)Math.Sqrt(speedHelper) * 10;
 
         base.Update(gameTime);
         HandleCamera();
@@ -314,14 +314,14 @@ class Player : AnimatedGameObject
     public void KillEnemiesOnScreen()
     {
         List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
-        foreach (SpriteGameObject enemy in enemies)
+        foreach (EnemyObject enemy in enemies)
         {
             // checks if the enemy in question has a position somewhere on the screen;
             float onScreenEnemyX = MathHelper.Clamp(enemy.Position.X, Camera.Position.X, Camera.Position.X + GameEnvironment.Screen.X);
             float onScreenEnemyY = MathHelper.Clamp(enemy.Position.Y, Camera.Position.Y, Camera.Position.Y + GameEnvironment.Screen.Y);
             if (enemy.Position.X == onScreenEnemyX && enemy.Position.Y == onScreenEnemyY)
             {
-                //enemy.Die();
+                enemy.HitByPlayer(magic);
             }
 
         }
@@ -520,10 +520,29 @@ class Player : AnimatedGameObject
         armor += 10f;
     }
 
+    public void MagicUp()
+    {
+        magic += 10f;
+    }
+
+    public void MeleeUp()
+    {
+        melee += 10f;
+    }
+
+    public void ShotPowerUp()
+    {
+        shotStrength += 10f;
+    }
+
+    public void ShotSpeedUP()
+    {
+        shotSpeed += 10f;
+    }
+
     public void SpeedUp()
     {
         speedHelper += 30f;
-        walkingSpeed = (float)Math.Sqrt(speedHelper) * 10;
     }
     public void ScoreUp(int score)
     {
