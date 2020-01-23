@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -7,7 +8,12 @@ using System.Collections.Generic;
 class Player : AnimatedGameObject
 {
     protected Vector2 startPosition, previousPosition, direction = new Vector2(1, 0);
-    protected Level level;
+    [JsonIgnore]
+    protected Level level
+    {
+        get;
+        set;
+    }
     protected bool isAlive, isYou, lastLookedLeft = false, canMove = true, canShoot = true;
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
     protected float baseSpeedHelper, baseArmor, baseMagic, baseShotStrength, baseShotSpeed, baseMelee;

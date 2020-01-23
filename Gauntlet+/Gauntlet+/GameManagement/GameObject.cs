@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json;
 
 public abstract class GameObject : IGameLoopObject
 {
@@ -26,7 +27,7 @@ public abstract class GameObject : IGameLoopObject
     {
         position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
     }
-
+    
     public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
     }
@@ -63,6 +64,7 @@ public abstract class GameObject : IGameLoopObject
         }
     }
 
+    [JsonIgnore]
     public GameObject Root
     {
         get
@@ -78,6 +80,7 @@ public abstract class GameObject : IGameLoopObject
         }
     }
 
+    [JsonIgnore]
     public GameObjectList GameWorld
     {
         get
@@ -92,6 +95,7 @@ public abstract class GameObject : IGameLoopObject
         set { layer = value; }
     }
 
+    [JsonIgnore]
     public virtual GameObject Parent
     {
         get { return parent; }

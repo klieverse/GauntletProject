@@ -4,7 +4,7 @@ class MultiplayerCharacterState: GameObjectList
 {
     protected Button elfButton, valkeryButton, wizardButton, warriorButton, startButton;
     protected PlayerStats elfStats, valkeryStats, wizardStats, warriorStats;
-    string currentSelected, message;
+    string currentSelected, previousSelected;
     bool elfChosen, valkeryChosen, wizardChosen, warriorChosen;
 
     public MultiplayerCharacterState()
@@ -36,11 +36,10 @@ class MultiplayerCharacterState: GameObjectList
         Add(warriorStats);
         Add(warriorButton);
 
-        startButton = new Button("Sprites/Buttons/HelpButton", 1);
-        startButton.BeginPosition = new Vector2((GameEnvironment.Screen.X - (startButton.Width / 2)), 750);
+        startButton = new Button("Sprites/Buttons/StartButton", 1);
+        startButton.BeginPosition = new Vector2((GameEnvironment.Screen.X / 2- (startButton.Width / 2)), 700);
         Add(startButton);
-
-        message = "0000";
+        
 
         elfChosen = false;
         valkeryChosen = false;
@@ -55,26 +54,23 @@ class MultiplayerCharacterState: GameObjectList
         //if a button is pressed set the fitting class and go to the level
         if (elfButton.Pressed && !elfChosen)
         {
+            previousSelected = currentSelected;
             currentSelected = "Elf";
-            message = "1000";
         }
 
         if (valkeryButton.Pressed && !valkeryChosen)
         {
             currentSelected = "Valkery";
-            message = "0100";
         }
 
         if (wizardButton.Pressed && !wizardChosen)
         {
             currentSelected = "Wizard";
-            message = "0010";
         }
 
         if (warriorButton.Pressed && !warriorChosen)
         {
             currentSelected = "Warrior";
-            message = "0001";
         }
 
         if (startButton.Pressed && currentSelected != null)
@@ -88,58 +84,51 @@ class MultiplayerCharacterState: GameObjectList
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-        //GameEnvironment.Connection.Send(message);
-        //GameEnvironment.Connection.Update();
-        /*
-        if(GameEnvironment.Connection.receivedMSG.Substring(0, 15) == "Selected class:")
-        {
-            if(GameEnvironment.Connection.receivedMSG.Substring(15)=="1111")
-            {
-                GameEnvironment.SelectedClass = currentSelected;
-                GameEnvironment.GameStateManager.SwitchTo("multiPlayerState");
-            }
-            else
-            {
-                if(GameEnvironment.Connection.receivedMSG.Substring(15)[0] == 1)
-                {
-                    elfChosen = true;
-                }
-                else
-                {
-                    elfChosen = false;
-                }
 
-                if (GameEnvironment.Connection.receivedMSG.Substring(15)[1] == 1)
-                {
-                    valkeryChosen = true;
-                }
-                else
-                {
-                    valkeryChosen = false;
-                }
-
-                if (GameEnvironment.Connection.receivedMSG.Substring(15)[2] == 1)
-                {
-                    wizardChosen = true;
-                }
-                else
-                {
-                    wizardChosen = false;
-                }
-
-                if (GameEnvironment.Connection.receivedMSG.Substring(15)[3] == 1)
-                {
-                    warriorChosen = true;
-                }
-                else
-                {
-                    warriorChosen = false;
-                }
-            }
-        }
-        */
+        GameEnvironment.Connection.Send("CurrentSelected = " + currentSelected + " PreviousSelected = " + previousSelected);
+        GameEnvironment.Connection.Update();
      
 
+
+    }
+
+    public void receiveMessage(string msg)
+    {
+        //CurrentSelected
+        if (msg.Contains("CurrentSelected = Elf"))
+        {
+            elfChosen = true;
+        }
+        else if (msg.Contains("CurrentSelected = Valkery"))
+        {
+            valkeryChosen = true;
+        }
+        else if (msg.Contains("CurrentSelected = Wizard"))
+        {
+            wizardChosen = true;
+        }
+        else if (msg.Contains("CurrentSelected = Warrior"))
+        {
+            warriorChosen = true;
+        }
+
+        //PreviousSelected
+        if (msg.Contains("PreviousSelected = Elf"))
+        {
+            elfChosen = false;
+        }
+        else if (msg.Contains("PreviousSelected = Valkery"))
+        {
+            valkeryChosen = false;
+        }
+        else if (msg.Contains("PreviousSelected = Wizard"))
+        {
+            wizardChosen = false;
+        }
+        else if (msg.Contains("PreviousSelected = Warrior"))
+        {
+            warriorChosen = false;
+        }
 
     }
 }

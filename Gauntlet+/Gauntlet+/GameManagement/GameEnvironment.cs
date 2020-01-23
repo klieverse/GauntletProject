@@ -2,9 +2,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Newtonsoft.Json;
 
 public class GameEnvironment : Game
 {
+    [JsonIgnore]
     protected GraphicsDeviceManager graphics;
     protected SpriteBatch spriteBatch;
     protected InputHelper inputHelper;
