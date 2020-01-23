@@ -98,7 +98,7 @@ class PlayerShot : SpriteGameObject
             for (int y = Top; y <= Bottom; y++)
             {
                 TileType type = tileField.GetTileType(x, y);
-                if (type == TileType.Wall || type == TileType.VerticalDoor || type == TileType.HorizontalDoor)
+                if ( type == TileType.Wall || type == TileType.VerticalDoor || type == TileType.HorizontalDoor)
                 {
                     visible = false;
                 }
@@ -111,6 +111,7 @@ class PlayerShot : SpriteGameObject
             {
                 visible = false;
                 bWall.HitByShot();
+                GameEnvironment.AssetManager.PlaySound("Ghost hit");
             }
 
         //check enemycollision
@@ -120,6 +121,7 @@ class PlayerShot : SpriteGameObject
             {
                 visible = false;
                 enemy.HitByPlayer(shotStrength);
+                GameEnvironment.AssetManager.PlaySound("Ghost hit");
             }
 
         //check food collision
@@ -129,6 +131,7 @@ class PlayerShot : SpriteGameObject
             {
                 visible = false;
                 food.Visible = false;
+                GameEnvironment.AssetManager.PlaySound("Ghost hit");
             }
         //check potion collision
         List<GameObject> potions = (GameWorld.Find("potions") as GameObjectList).Children;
@@ -136,10 +139,13 @@ class PlayerShot : SpriteGameObject
             if (CollidesWith(potion))
             {
                 visible = false;
+                GameEnvironment.AssetManager.PlaySound("Ghost hit");
                 if (potion.PotType == PotionType.Normal)
                 {
                     potion.Visible = false;
                     player.KillEnemiesOnScreen();
+                    GameEnvironment.AssetManager.PlaySound("Ghost hit");
+                    GameEnvironment.AssetManager.PlaySound("Explosion");
                 } 
             }
     }

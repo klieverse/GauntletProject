@@ -33,6 +33,7 @@ class Potion : Item
                 {
                     visible = false;
                     player.AddPotion(PotType);
+                    GameEnvironment.AssetManager.PlaySound("Key");
                 }
     }
     public PotionType PotType { get; }

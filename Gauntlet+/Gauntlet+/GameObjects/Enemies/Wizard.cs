@@ -56,6 +56,7 @@ class Wizard : EnemyObject
                 if (CollidesWith(player) && visible)
                 {
                     player.health -= strength;
+                    GameEnvironment.AssetManager.PlaySound("Wizard attack");
                 }
     }
 }

@@ -44,6 +44,7 @@ class Hellhound : EnemyObject
     {
         //HellhoundShoot hellhoundShoot = new HellhoundShoot(this.position, this.velocity, strength);
         (GameWorld.Find("enemieshot") as GameObjectList).Add(new HellhoundShoot(this.position, this.velocity, strength));
+        GameEnvironment.AssetManager.PlaySound("Mage shot");
     }
 }
 

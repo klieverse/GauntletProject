@@ -26,7 +26,13 @@ using System.Threading.Tasks;
 
         }
 
+        public override void Shoot()
+        {
+            base.Shoot();
+            GameEnvironment.AssetManager.PlaySound("Mage shot");
+        }
 
 
-    }
+
+}
 

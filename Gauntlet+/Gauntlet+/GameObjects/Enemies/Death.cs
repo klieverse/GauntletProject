@@ -37,6 +37,7 @@ class Death : EnemyObject
             foreach (Player player in players)
                 if (CollidesWith(player))
                 {
+                    GameEnvironment.AssetManager.PlaySound("Death");
                     player.HitByEnemy(strength);
                 }
     }

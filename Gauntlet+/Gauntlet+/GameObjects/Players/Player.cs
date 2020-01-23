@@ -160,12 +160,11 @@ class Player : AnimatedGameObject
 
             if (canShoot)
             {
-                shootTimer = 0.225f;
-                canShoot = false;
-                PlayAnimation("shoot");
-                (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position, this));
+                Shoot();
             }
         }
+
+       
 
         if (inputHelper.keyReleased(Keys.Space))
         {
@@ -182,6 +181,13 @@ class Player : AnimatedGameObject
         }
     }
 
+    public virtual void Shoot()
+    {
+        shootTimer = 0.225f;
+        canShoot = false;
+        PlayAnimation("shoot");
+        (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position, this));
+    }
 
     public override void Update(GameTime gameTime)
     {

@@ -29,6 +29,7 @@ class HellhoundShoot : AnimatedGameObject
                     player.health -= strength;
                     visible = false;
                     GameWorld.Remove(this);
+                    GameEnvironment.AssetManager.PlaySound("Ghost hit");
                 }
     }
 }

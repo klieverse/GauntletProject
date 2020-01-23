@@ -50,7 +50,8 @@ class Troll : EnemyObject
                     if (CollidesWith(player))
             {
                player.health -= strength;
-            }
+                    GameEnvironment.AssetManager.PlaySound("Ghoblin attack");
+                }
     }
 }
 

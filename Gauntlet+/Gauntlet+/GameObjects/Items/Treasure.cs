@@ -24,6 +24,7 @@ class Treasure : Item
                 {
                     player.ScoreUp(100);
                     visible = false;
+                    GameEnvironment.AssetManager.PlaySound("Treasure");
                 }
     }
 }

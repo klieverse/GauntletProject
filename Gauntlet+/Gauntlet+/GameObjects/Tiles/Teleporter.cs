@@ -50,6 +50,7 @@ class Teleport : Tile
     private void Teleporting()
     {
         //if the portal collides with the player, the position of the player becomes the same as the closest portal
+        
         List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
         if (players != null)
             foreach (SpriteGameObject player in players)
@@ -60,7 +61,7 @@ class Teleport : Tile
                         //if the player teleported, this boolean prevents it from immediately teleporting again
                         closestPortal.teleportAllowed = false;
                         player.Position = new Vector2(closestPortal.Position.X + Tile.Size/2, closestPortal.Position.Y + Tile.Size);
-
+                        GameEnvironment.AssetManager.PlaySound("Teleport");
                     }
                 }
         else

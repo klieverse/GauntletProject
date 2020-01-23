@@ -6,11 +6,12 @@ partial class Level : GameObjectList
     public override void HandleInput(InputHelper inputHelper)
     {
         base.HandleInput(inputHelper);
-        /*if (quitButton.Pressed)
+        if (quitButton.Pressed)
         {
             Reset();
-            GameEnvironment.GameStateManager.SwitchTo("levelMenu");
-        }*/
+            Find(GameEnvironment.SelectedClass).Visible = false;
+            GameEnvironment.GameStateManager.SwitchTo("titleMenu");
+        }
     }
 
     public override void Update(GameTime gameTime)
@@ -36,9 +37,10 @@ partial class Level : GameObjectList
     {
         string playerClass= GameEnvironment.SelectedClass; //Get the selected class
         // Check if the selected class is loaded, if not load the right player into the level
+        
         if (Find(playerClass) == null)
         {
-
+            
             if (playerClass == "Elf" )
             {
                 //get the startPosition for the player
@@ -72,6 +74,10 @@ partial class Level : GameObjectList
                 PlayerStatField valkeryStats = new PlayerStatField("Valkery");
                 (Find("StatFields") as GameObjectList).Add(valkeryStats);
 
+            }
+            else
+            {
+               (Find(playerClass) as Player).Visible = true;
             }
         }
     }

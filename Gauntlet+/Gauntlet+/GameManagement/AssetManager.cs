@@ -24,7 +24,7 @@ public class AssetManager
 
     public void PlaySound(string assetName)
     {
-        SoundEffect snd = contentManager.Load<SoundEffect>(assetName);
+        SoundEffect snd = contentManager.Load<SoundEffect>("sounds/"+assetName);
         snd.Play();
     }
 

@@ -41,6 +41,7 @@ class Ghost : EnemyObject
                 {
                     player.health -= strength;
                     visible = false;
+                    GameEnvironment.AssetManager.PlaySound("Ghost hit");
                 } 
         
 //        if (CollidesWithObject())

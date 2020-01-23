@@ -32,6 +32,7 @@ class BreakableWall : Tile
         {
             visible = false;
             type = TileType.Background;
+            GameEnvironment.AssetManager.PlaySound("Ghoblin attack");
         }
     }
 }

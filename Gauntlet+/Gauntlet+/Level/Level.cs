@@ -2,7 +2,7 @@
 
 partial class Level : GameObjectList
 {
-    //protected Button quitButton;
+    protected Button quitButton;
     protected Vector2 startPositionThyra, startPositionQuestor, startPositionThor, startPositionMerlin;
 
     public Level(int levelIndex)
@@ -10,9 +10,9 @@ partial class Level : GameObjectList
         // load the backgrounds
 
 
-        //quitButton = new Button("Sprites/spr_button_quit", 100);
+        quitButton = new Button("Sprites/Exit", 100);
         // quitButton.Position = new Vector2(GameEnvironment.Screen.X - quitButton.Width - 10, 10);
-        //Add(quitButton);
+        Add(quitButton);
         
 
         Add(new GameObjectList(3, "players"));

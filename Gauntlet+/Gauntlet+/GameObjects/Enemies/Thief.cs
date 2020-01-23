@@ -32,7 +32,7 @@ class Thief : EnemyObject
                 {
                     player.health -= strength;
                     //steal item, run away
-     
+                    GameEnvironment.AssetManager.PlaySound("Thief Laughter");
                 }
     }
 }

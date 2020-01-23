@@ -29,6 +29,7 @@ class Exit : Tile
                 if (CollidesWith(player))
                 {
                     PlayingState.NextLevel();
+                    GameEnvironment.AssetManager.PlaySound("Stage_Exit");
                 }
     }
 }

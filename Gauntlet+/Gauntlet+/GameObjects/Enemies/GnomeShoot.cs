@@ -30,6 +30,7 @@ public class GnomeShoot : AnimatedGameObject
                     player.health -= strength;
                     visible = false;
                     GameWorld.Remove(this);
+                    GameEnvironment.AssetManager.PlaySound("Demon gnome hit");
                 }
     }
 }

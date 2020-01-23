@@ -27,6 +27,7 @@ class Door : Tile
         DeleteDoors2(x, y);
         visible = false;
         type = TileType.Background;
+        GameEnvironment.AssetManager.PlaySound("Door open");
     }
 
     void DeleteDoors1(int x, int y)// deletes doors right and down

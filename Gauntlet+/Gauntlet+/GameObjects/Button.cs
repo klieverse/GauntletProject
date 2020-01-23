@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 class Button : SpriteGameObject
 {
@@ -41,5 +42,21 @@ class Button : SpriteGameObject
     {
         get { return beginPosition; }
         set { beginPosition = value; }
+    }
+
+    public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+    {
+        if (!visible || sprite == null)
+        {
+            return;
+        }
+        if (GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("playingState"))
+        {
+            sprite.Draw(spriteBatch, this.GlobalPosition , rotation, origin, scale);
+        }
+        else
+        {
+            sprite.Draw(spriteBatch, this.GlobalPosition, rotation, origin, scale);
+        }
     }
 }
