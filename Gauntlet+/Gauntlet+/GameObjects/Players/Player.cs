@@ -13,6 +13,8 @@ class Player : AnimatedGameObject
     protected float baseSpeedHelper, baseArmor, baseMagic, baseShotStrength, baseShotSpeed, baseMelee;
     public int health = 100, keys, potions, score;
     float healthTimer = 1f, shootTimer = 0.225f;
+    InputHelper inputHelper;
+    float multiplier = 1f;
 
     public Player(int layer, string id, Vector2 start, Level level, float speed, float armor,
                         float magic, float shotStrength, float shotSpeed, float melee, bool isYou)
@@ -66,127 +68,25 @@ class Player : AnimatedGameObject
 
     public override void HandleInput(InputHelper inputHelper)
     {
+        this.inputHelper = inputHelper;
         if (!isAlive)
         {
             return;
         }
 
         velocity = Vector2.Zero;
-
         walkingSpeed = (float)Math.Sqrt(speedHelper) * 10;
 
-        if (canMove)
-        {
-            if (inputHelper.IsKeyDown(Keys.A) && inputHelper.IsKeyDown(Keys.W))
-            {
-                velocity.Y = 0.71f * -walkingSpeed;
-                velocity.X = 0.71f * -walkingSpeed;
-            }
-            else if (inputHelper.IsKeyDown(Keys.A) && inputHelper.IsKeyDown(Keys.S))
-            {
-                velocity.Y = 0.71f * walkingSpeed;
-                velocity.X = 0.71f * -walkingSpeed;
-            }
-            else if (inputHelper.IsKeyDown(Keys.D) && inputHelper.IsKeyDown(Keys.W))
-            {
-                velocity.Y = 0.71f * -walkingSpeed;
-                velocity.X = 0.71f * walkingSpeed;
-            }
-            else if (inputHelper.IsKeyDown(Keys.D) && inputHelper.IsKeyDown(Keys.S))
-            {
-                velocity.Y = 0.71f * walkingSpeed;
-                velocity.X = 0.71f * walkingSpeed;
-            }
-            else if (inputHelper.IsKeyDown(Keys.A))
-            {
-                velocity.X = -walkingSpeed;
-            }
-            else if (inputHelper.IsKeyDown(Keys.D))
-            {
-                velocity.X = walkingSpeed;
-            }
-            else if (inputHelper.IsKeyDown(Keys.W))
-            {
-                velocity.Y = -walkingSpeed;
-            }
-            else if (inputHelper.IsKeyDown(Keys.S))
-            {
-                velocity.Y = walkingSpeed;
-            }
-        }
-
-        if (inputHelper.IsKeyDown(Keys.Space))
-        {
-            canMove = false;
-
-            if (inputHelper.IsKeyDown(Keys.A) && inputHelper.IsKeyDown(Keys.W))
-            {
-                direction = new Vector2(-1, -1);
-                lastLookedLeft = true;
-            }
-            else if (inputHelper.IsKeyDown(Keys.A) && inputHelper.IsKeyDown(Keys.S))
-            {
-                direction = new Vector2(-1, 1);
-                lastLookedLeft = true;
-            }
-            else if (inputHelper.IsKeyDown(Keys.D) && inputHelper.IsKeyDown(Keys.W))
-            {
-                direction = new Vector2(1, -1);
-                lastLookedLeft = false;
-            }
-            else if (inputHelper.IsKeyDown(Keys.D) && inputHelper.IsKeyDown(Keys.S))
-            {
-                direction = new Vector2(1, 1);
-                lastLookedLeft = false;
-            }
-            else if (inputHelper.IsKeyDown(Keys.A))
-            {
-                direction = new Vector2(-1, 0);
-                lastLookedLeft = true;
-            }
-            else if (inputHelper.IsKeyDown(Keys.D))
-            {
-                direction = new Vector2(1, 0);
-                lastLookedLeft = false;
-            }
-            else if (inputHelper.IsKeyDown(Keys.W))
-            {
-                direction = new Vector2(0, -1);
-            }
-            else if (inputHelper.IsKeyDown(Keys.S))
-            {
-                direction = new Vector2(0, 1);
-            }
-
-            if (canShoot)
-            {
-                shootTimer = 0.225f;
-                canShoot = false;
-                PlayAnimation("shoot");
-                (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position, this));
-            }
-        }
-
-        if (inputHelper.keyReleased(Keys.Space))
-        {
-            canMove = true;
-        }
-
-        if (inputHelper.IsKeyDown(Keys.E))
-        {
-            if (potions > 0)
-            {
-                potions -= 1;
-                KillEnemiesOnScreen();
-            }
-        }
+        if (inputHelper.ControllerConnected())
+            Xinput(inputHelper);
+        else KeyboardInput(inputHelper);
     }
 
+    
 
     public override void Update(GameTime gameTime)
     {
-        SetDirection();
-
+        VectorHelper();
         previousPosition = position;
 
         base.Update(gameTime);
@@ -198,7 +98,6 @@ class Player : AnimatedGameObject
         }
 
         HandleTimer(gameTime);
-        CheckEnemyMelee();
         HandleCollision();
         HandleAnimations();
         CheckIfDead();
@@ -215,11 +114,18 @@ class Player : AnimatedGameObject
         }
     }
 
-    private void SetDirection()
+    private void VectorHelper()
     {
-        if (velocity != Vector2.Zero)
+        if (velocity != Vector2.Zero && !inputHelper.ControllerConnected()) // sets direction foor when player is standing still and no controller is connected
         {
             direction = velocity;
+        }
+        else
+        {
+            float vectorLength = (float)Math.Sqrt((velocity.Y * velocity.Y) + (velocity.X * velocity.X));
+            if (vectorLength > 1f)
+                multiplier = 1f; /// vectorLength; // helps set the velocity to 1 * walkingspeed if it would otherwise succeed it
+            else multiplier = 1f;
         }
     }
 
@@ -239,18 +145,6 @@ class Player : AnimatedGameObject
             canShoot = true;
             shootTimer = 0.225f;
         }
-    }
-
-    void CheckEnemyMelee()
-    {
-        //check enemycollision
-        List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
-        foreach (EnemyObject enemy in enemies)
-            if (CollidesWith(enemy) && enemy.canBeMeleed == true)
-            {
-                enemy.HitByPlayer(melee);
-                enemy.canBeMeleed = false;
-            }
     }
 
     private void HandleAnimations() // Makes sure the right animation is being played;
@@ -427,6 +321,12 @@ class Player : AnimatedGameObject
                             || (velocity.Y < 0 && enemy.Velocity.Y < 0 && position.Y > enemy.Position.Y))
                             position.Y = previousPosition.Y;
                     }
+
+                    if (enemy.canBeMeleed)
+                    {
+                        enemy.HitByPlayer(melee);
+                        enemy.canBeMeleed = false;
+                    }
                 }
 
             }
@@ -528,6 +428,152 @@ class Player : AnimatedGameObject
     public void ScoreUp(int score)
     {
         this.score += score;
+    }
+
+    private void KeyboardInput(InputHelper inputHelper)
+    {
+
+        if (canMove)
+        {
+            if (inputHelper.IsKeyDown(Keys.A) && inputHelper.IsKeyDown(Keys.W))
+            {
+                velocity.Y = 0.71f * -walkingSpeed;
+                velocity.X = 0.71f * -walkingSpeed;
+            }
+            else if (inputHelper.IsKeyDown(Keys.A) && inputHelper.IsKeyDown(Keys.S))
+            {
+                velocity.Y = 0.71f * walkingSpeed;
+                velocity.X = 0.71f * -walkingSpeed;
+            }
+            else if (inputHelper.IsKeyDown(Keys.D) && inputHelper.IsKeyDown(Keys.W))
+            {
+                velocity.Y = 0.71f * -walkingSpeed;
+                velocity.X = 0.71f * walkingSpeed;
+            }
+            else if (inputHelper.IsKeyDown(Keys.D) && inputHelper.IsKeyDown(Keys.S))
+            {
+                velocity.Y = 0.71f * walkingSpeed;
+                velocity.X = 0.71f * walkingSpeed;
+            }
+            else if (inputHelper.IsKeyDown(Keys.A))
+            {
+                velocity.X = -walkingSpeed;
+            }
+            else if (inputHelper.IsKeyDown(Keys.D))
+            {
+                velocity.X = walkingSpeed;
+            }
+            else if (inputHelper.IsKeyDown(Keys.W))
+            {
+                velocity.Y = -walkingSpeed;
+            }
+            else if (inputHelper.IsKeyDown(Keys.S))
+            {
+                velocity.Y = walkingSpeed;
+            }
+        }
+
+        if (inputHelper.IsKeyDown(Keys.Space))
+        {
+            canMove = false;
+
+            if (inputHelper.IsKeyDown(Keys.A) && inputHelper.IsKeyDown(Keys.W))
+            {
+                direction = new Vector2(-1, -1);
+                lastLookedLeft = true;
+            }
+            else if (inputHelper.IsKeyDown(Keys.A) && inputHelper.IsKeyDown(Keys.S))
+            {
+                direction = new Vector2(-1, 1);
+                lastLookedLeft = true;
+            }
+            else if (inputHelper.IsKeyDown(Keys.D) && inputHelper.IsKeyDown(Keys.W))
+            {
+                direction = new Vector2(1, -1);
+                lastLookedLeft = false;
+            }
+            else if (inputHelper.IsKeyDown(Keys.D) && inputHelper.IsKeyDown(Keys.S))
+            {
+                direction = new Vector2(1, 1);
+                lastLookedLeft = false;
+            }
+            else if (inputHelper.IsKeyDown(Keys.A))
+            {
+                direction = new Vector2(-1, 0);
+                lastLookedLeft = true;
+            }
+            else if (inputHelper.IsKeyDown(Keys.D))
+            {
+                direction = new Vector2(1, 0);
+                lastLookedLeft = false;
+            }
+            else if (inputHelper.IsKeyDown(Keys.W))
+            {
+                direction = new Vector2(0, -1);
+            }
+            else if (inputHelper.IsKeyDown(Keys.S))
+            {
+                direction = new Vector2(0, 1);
+            }
+
+            if (canShoot)
+            {
+                shootTimer = 0.225f;
+                canShoot = false;
+                PlayAnimation("shoot");
+                (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position, this, inputHelper));
+            }
+        }
+
+        if (inputHelper.keyReleased(Keys.Space))
+        {
+            canMove = true;
+        }
+
+        if (inputHelper.IsKeyDown(Keys.E))
+        {
+            if (potions > 0)
+            {
+                potions -= 1;
+                KillEnemiesOnScreen();
+            }
+        }
+    }
+
+    void Xinput(InputHelper inputHelper)
+    {
+        if (canMove)
+        {
+            velocity.X = multiplier * walkingSpeed * inputHelper.JoyStickLeft.X;
+            velocity.Y = multiplier * walkingSpeed * -inputHelper.JoyStickLeft.Y;
+        }
+
+        direction.X = inputHelper.JoyStickRight.X;
+        direction.Y = -inputHelper.JoyStickRight.Y;
+
+        if (canShoot && inputHelper.JoyStickRight != Vector2.Zero)
+        {
+            shootTimer = 0.225f;
+            canShoot = false;
+            PlayAnimation("shoot");
+            (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position, this, inputHelper));
+        }
+
+        if (inputHelper.JoyStickRight == Vector2.Zero)
+        {
+            canShoot = true;
+            canMove = true;
+        }
+        else canMove = false;
+
+        if (inputHelper.ButtonPressed(Buttons.Y))
+        {
+            if (potions > 0)
+            {
+                potions -= 1;
+                KillEnemiesOnScreen();
+            }
+        }
     }
 
     public string playerClass

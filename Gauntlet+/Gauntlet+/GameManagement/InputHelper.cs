@@ -6,7 +6,8 @@ public class InputHelper
     protected MouseState currentMouseState, previousMouseState;
     protected KeyboardState currentKeyboardState, previousKeyboardState;
     protected Vector2 scale, offset;
-
+    protected GamePadState currentGamePadState, previousGamePadState;
+    protected GamePadCapabilities capabilities;
     public InputHelper()
     {
         scale = Vector2.One;
@@ -17,8 +18,11 @@ public class InputHelper
     {
         previousMouseState = currentMouseState;
         previousKeyboardState = currentKeyboardState;
+        previousGamePadState = currentGamePadState;
         currentMouseState = Mouse.GetState();
         currentKeyboardState = Keyboard.GetState();
+        currentGamePadState = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.Circular);
+        capabilities = GamePad.GetCapabilities(PlayerIndex.One);
     }
 
     public Vector2 Scale
@@ -66,5 +70,22 @@ public class InputHelper
     public bool AnyKeyPressed
     {
         get { return currentKeyboardState.GetPressedKeys().Length > 0 && previousKeyboardState.GetPressedKeys().Length == 0; }
+    }
+
+    public Vector2 JoyStickLeft
+    {
+        get { return currentGamePadState.ThumbSticks.Left; }
+    }
+    public Vector2 JoyStickRight
+    {
+        get { return currentGamePadState.ThumbSticks.Right; } 
+    }
+    public bool ButtonPressed(Buttons b)
+    {
+        return currentGamePadState.IsButtonDown(b) && previousGamePadState.IsButtonUp(b);
+    }
+    public bool ControllerConnected()
+    {
+        return capabilities.IsConnected;
     }
 }
