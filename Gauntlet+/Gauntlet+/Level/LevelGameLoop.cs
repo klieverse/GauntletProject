@@ -43,11 +43,12 @@ partial class Level : GameObjectList
         {
             foreach (GameObject obj in children)
             {
-                if(obj.Id != "players")
+                //if(obj.Id != "players")
                 {
                     obj.Update(gameTime);
                 }
             }
+            /*
             foreach (Player player in (Find("players") as GameObjectList).Children)
             {
                 if (player.Id == GameEnvironment.SelectedClass)
@@ -56,7 +57,7 @@ partial class Level : GameObjectList
                 }
 
 
-            }
+            }*/
         }
         else
         {
@@ -265,11 +266,9 @@ partial class Level : GameObjectList
             if(message.Contains("Elf"))
             {
                 Player player = players.Find("Elf") as Player;
-                players.Remove(player);
                 SpriteSheet sprite = player.Sprite;
-                Player newPlayer = JsonConvert.DeserializeObject<Player>(message);
-                newPlayer.SetSprite(sprite);
-                players.Add(newPlayer);
+                player = JsonConvert.DeserializeObject<Player>(message);
+                player.SetSprite(sprite);
                 Console.WriteLine("HIER KOMT ELF BINNEN: " + message);
             }
             else if (message.Contains("Wizard"))
@@ -289,11 +288,9 @@ partial class Level : GameObjectList
             else if (message.Contains("Valkery"))
             {
                 Player player = players.Find("Valkery") as Player;
-                players.Remove(player);
                 SpriteSheet sprite = player.Sprite;
-                Player newPlayer = JsonConvert.DeserializeObject<Player>(message);
-                newPlayer.SetSprite(sprite);
-                players.Add(newPlayer);
+                player = JsonConvert.DeserializeObject<Player>(message);
+                player.SetSprite(sprite);
                 Console.WriteLine("HIER KOMT VALKERY BINNEN: " + message);
             }
         }
