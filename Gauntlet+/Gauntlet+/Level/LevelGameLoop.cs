@@ -32,9 +32,10 @@ partial class Level : GameObjectList
         }
         if (quitButton.Pressed)
         {
+
             Reset();
-            Find(GameEnvironment.SelectedClass).Visible = false;
             GameEnvironment.GameStateManager.SwitchTo("titleMenu");
+            (Find("players") as GameObjectList).Children.Remove(Find(GameEnvironment.SelectedClass));
         }
     }
 

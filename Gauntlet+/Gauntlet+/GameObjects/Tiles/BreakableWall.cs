@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
    
 class BreakableWall : Tile
 {
+    
     public int howBroken = 2;
     public BreakableWall(int layer, string id, Vector2 position)
     : base(assetname: "Tiles/BreakableWall", TileType.BreakableWall, layer, id)
@@ -30,9 +31,15 @@ class BreakableWall : Tile
     {
         if (howBroken <= 0)
         {
+            if (visible)
+            {
+                GameEnvironment.AssetManager.PlaySound("Ghoblin attack");
+                (GameWorld as Level).secretValue2++;
+            }
             visible = false;
             type = TileType.Background;
-            GameEnvironment.AssetManager.PlaySound("Ghoblin attack");
+            
+           
         }
     }
 }

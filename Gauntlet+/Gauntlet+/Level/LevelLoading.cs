@@ -121,7 +121,7 @@ partial class Level : GameObjectList
         GameObjectList exits = Find("Exits") as GameObjectList;
         Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
         Exit e = new Exit(layer, "Exit", position, levelExit);
-        exits.Add(e);
+        (Find("Exits") as GameObjectList).Add(e);
         return e;
     } 
 
@@ -145,6 +145,7 @@ partial class Level : GameObjectList
 
     private Tile LoadBreakableWall(int x, int y)
     {
+        breakableWalls++;
         GameObjectList breakwalls = Find("BreakableWalls") as GameObjectList;
         Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
         BreakableWall breakWall = new BreakableWall(1, "BreakableWall", position);

@@ -29,11 +29,16 @@ class PlayerStats : TextGameObject
         int potions = player.Potions;
         int keys = player.Key;
 
+        int value1 = PlayingState.CurrentLevel.secretValue1;
+        int value2 = PlayingState.CurrentLevel.secretValue2;
+        int value3 = PlayingState.CurrentLevel.goalSecretValue1;
+        int value4 = PlayingState.CurrentLevel.goalSecretValue2;
         //set data into a text format
         text = 
               " Score: " + score +
             "\n Health:" + health +
             "\n Potions:" + potions +
-            "\n Keys:"+ keys;
+            "\n Keys:"+ keys
+            + value1+value2+value3+value4;
     }
 }

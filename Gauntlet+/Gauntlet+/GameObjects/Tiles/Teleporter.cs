@@ -62,6 +62,9 @@ class Teleport : Tile
                         closestPortal.teleportAllowed = false;
                         player.Position = new Vector2(closestPortal.Position.X + Tile.Size/2, closestPortal.Position.Y + Tile.Size);
                         GameEnvironment.AssetManager.PlaySound("Teleport");
+                        //for hidden level
+                        if ((GameWorld as Level).secretValue2 == (GameWorld as Level).goalSecretValue2)
+                            (GameWorld as Level).secretValue1++;
                     }
                 }
         else
