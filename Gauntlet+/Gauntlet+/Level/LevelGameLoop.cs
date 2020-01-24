@@ -34,6 +34,8 @@ partial class Level : GameObjectList
         {
             Reset();
             //Find(GameEnvironment.SelectedClass).Visible = false;
+            IGameLoopObject playingState = GameEnvironment.GameStateManager.GetGameState("playingState");
+            playingState.Reset();
             GameEnvironment.GameStateManager.SwitchTo("titleMenu");
         }
     }

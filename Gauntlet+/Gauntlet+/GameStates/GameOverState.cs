@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Data.SqlClient;
+using System;
 
 class GameOverState : GameObjectList
 {
@@ -12,16 +14,36 @@ class GameOverState : GameObjectList
         SpriteGameObject overlay = new SpriteGameObject( "Overlays/spr_gameover");
         overlay.Position = new Vector2(GameEnvironment.Screen.X, GameEnvironment.Screen.Y) / 2 - overlay.Center;
         Add(overlay);
+
+        try
+        {
+            var cb = new SqlConnectionStringBuilder();
+            cb.DataSource = "gauntletserver.database.windows.net";
+            cb.UserID = "KayleighLieverse";
+            cb.Password = "$ypl1Dfm$21e1";
+            cb.InitialCatalog = "GauntletHighscore";
+
+            using (var connection = new SqlConnection(cb.ConnectionString))
+            {
+                connection.Open();
+            }
+        }
+        catch (SqlException e)
+        {
+            Console.WriteLine(e.ToString());
+            Console.WriteLine("Highscore list not available, your score won't be tracked");
+        }
     }
 
     public override void HandleInput(InputHelper inputHelper)
     {
-        if (!inputHelper.KeyPressed(Keys.Space))
+        if (!inputHelper.KeyPressed(Keys.Enter))
         {
             return;
         }
+        UpdateDatabase();
         playingState.Reset();
-        GameEnvironment.GameStateManager.SwitchTo("playingState");
+        GameEnvironment.GameStateManager.SwitchTo("titleMenu");
     }
 
     public override void Update(GameTime gameTime)
@@ -33,5 +55,10 @@ class GameOverState : GameObjectList
     {
         playingState.Draw(gameTime, spriteBatch);
         base.Draw(gameTime, spriteBatch);
+    }
+
+    public void UpdateDatabase()
+    {
+
     }
 }
