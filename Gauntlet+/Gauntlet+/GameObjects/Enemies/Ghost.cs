@@ -8,38 +8,57 @@ using System.Threading.Tasks;
 class Ghost : EnemyObject
 {
     
-    public Ghost(Vector2 startPosition) : base(2, "Ghost")
+    public Ghost(Vector2 startPosition, bool wasSpawned = false) : base(2, "Ghost")
     {
+        this.wasSpawned = wasSpawned;
         this.position = startPosition;
         //set strength of ghost
         strength = 30;
+        
     }
 
     public override void Update(GameTime gameTime)
     {
-        base.Update(gameTime);
-        //change its strength value based on the amount of health it has
-        if (health < 21)
-            strength = 20;
-        if (health < 11)
-            strength = 10;
-        if (health < 1)
+        if (wasSpawned && CollidesWithObject() && !beginCollision)
         {
-            //removes the instance from game
-            GameWorld.Remove(this);
+            isDead = true;
+            visible = false;
         }
-        Attack();
+        else
+        {
+            beginCollision = true;
+        }
+        if (!isDead)
+        {
+            base.Update(gameTime);
+            //change its strength value based on the amount of health it has
+            if (health < 21)
+                strength = 20;
+            if (health < 11)
+                strength = 10;
+            if (health < 1)
+            {
+                //removes the instance from game
+                visible = false;
+                isDead = true;
+            }
+            Attack();
+        }
+        
     }
 
     //calculates attack and removes instance from game
     private void Attack()
     {
-        Player player = GameWorld.Find("Elf") as Player;
-        if (CollidesWith(player))
-        {
-            player.health -= strength;
-            this.visible = false;
-        } 
+        List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
+        if (players != null)
+            foreach (Player player in players)
+                if (CollidesWith(player))
+                {
+                    player.HitByEnemy(strength);
+                    visible = false;
+                    isDead = true;
+                } 
         
 //        if (CollidesWithObject())
 //        {

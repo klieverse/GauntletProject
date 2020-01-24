@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 class Key : Item
@@ -11,6 +7,7 @@ class Key : Item
     public Key(int layer, string id, Vector2 position)
         : base(layer: 0, id, position)
     {
+        visible = true;
     }
 
     public override void Update(GameTime gameTime)
@@ -24,7 +21,6 @@ class Key : Item
                 if (CollidesWith(player))
                 {
                     player.AddKey();
-                    //KeyIcon.AddKey(player);
                     visible = false;
                 }
     }

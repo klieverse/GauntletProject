@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -14,6 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -25,6 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>7.3</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -34,6 +36,7 @@
     <DefineConstants>TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>
@@ -48,7 +51,9 @@
     <Compile Include="GameManagement\Animation.cs" />
     <Compile Include="GameManagement\AssetManager.cs" />
     <Compile Include="GameManagement\Camera.cs" />
-    <Compile Include="GameObjects\Teleport.cs" />
+    <Compile Include="GameObjects\Enemies\EnemyShot.cs" />
+    <Compile Include="GameObjects\Tiles\BreakableWall.cs" />
+    <Compile Include="GameObjects\Tiles\Door.cs" />
     <Compile Include="GameObjects\Enemies\EnemyObject.cs" />
     <Compile Include="GameManagement\Collision.cs" />
     <Compile Include="GameManagement\DrawingHelper.cs" />
@@ -77,8 +82,11 @@
     <Compile Include="GameObjects\Enemies\Troll.cs" />
     <Compile Include="GameObjects\Enemies\Ghost.cs" />
     <Compile Include="GameObjects\Enemies\Wizard.cs" />
+    <Compile Include="GameObjects\Items\Food.cs" />
+    <Compile Include="GameObjects\Tiles\Exit.cs" />
     <Compile Include="GameObjects\Items\Item.cs" />
     <Compile Include="GameObjects\Items\Key.cs" />
+    <Compile Include="GameObjects\Items\Treasure.cs" />
     <Compile Include="GameObjects\PlayerStatField.cs" />
     <Compile Include="GameObjects\PlayerStats.cs" />
     <Compile Include="GameObjects\Players\Player.cs" />
@@ -88,11 +96,14 @@
     <Compile Include="GameObjects\Players\Thyra.cs" />
     <Compile Include="GameObjects\Players\Thor.cs" />
     <Compile Include="GameObjects\Players\Merlin.cs" />
+    <Compile Include="GameObjects\Tiles\Teleporter.cs" />
+    <Compile Include="GameObjects\Tiles\Wall.cs" />
     <Compile Include="GameStates\BetweenLevelState.cs" />
     <Compile Include="GameStates\GameOverState.cs" />
     <Compile Include="GameStates\HelpState.cs" />
     <Compile Include="GameStates\MultiPlayerState.cs" />
     <Compile Include="GameStates\PlayingState.cs" />
+    <Compile Include="GameStates\ChooseCharacterState.cs" />
     <Compile Include="GameStates\SinglePlayerState.cs" />
     <Compile Include="GameStates\TitleMenuState.cs" />
     <Compile Include="Level\Level.cs" />
@@ -129,6 +140,9 @@
       <HintPath>..\packages\SuperWebSocketNETServer.0.8\lib\net45\SuperWebSocket.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>

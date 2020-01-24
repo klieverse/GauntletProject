@@ -7,117 +7,175 @@ using Microsoft.Xna.Framework;
 
 public class EnemyObject : AnimatedGameObject
 {
-    protected float speedVert;
-    protected float speedHori;
-    protected int health = 30;
-    protected int strength;
-    protected int speed = 250;
-    TileField tileField;
-    float meleeTimer = 1;
+    Player closestPlayer;
+    protected float speedVert, speedHori;
+    protected int health = 30, strength, speed = 250, chaseDistance;
+    //TileField tileField;
+    protected float meleeTimer = 1f, maxDistance = 99999999999f, distance;
     protected Vector2 previousPosition;
+    protected bool lastLookedLeft = false, isDead = false, canBeInvisible, noInvisible, wasSpawned, beginCollision = false/*, collisionAtSpawn*/;
 
     public bool canBeMeleed = true;
 
-    public EnemyObject(int layer, string id) : base(layer, id)
+    public EnemyObject(int layer, string id, int chaseDistance = 0, bool canBeInvisible = false/*, bool spawnCollision = false*/) : base(layer, id)
     {
+        this.canBeInvisible = canBeInvisible;
+        this.chaseDistance = chaseDistance;
+        //collisionAtSpawn = spawnCollision;
         LoadAnimations();
-        PlayAnimation(id + "idle");
+        PlayAnimation("idle");
     }
     void LoadAnimations()
     {
-        LoadAnimation("Sprites/Enemies/spr_" + id + "idle", id + "idle", true);
-        LoadAnimation("Sprites/Enemies/spr_" + id + "runRight@13", id + "runRight", true);
-        LoadAnimation("Sprites/Enemies/spr_" + id + "runLeft@13", id + "runLeft", true);
+        LoadAnimation("Sprites/Enemies/spr_" + id + "idle@4", "idle", true);
+        LoadAnimation("Sprites/Enemies/spr_" + id + "run@4", "run", true);
     }
     public override void Update(GameTime gameTime)
     {
         previousPosition = position;
         base.Update(gameTime);
         
-        tileField = GameWorld.Find("tiles") as TileField;
+        /*if (collisionAtSpawn)
+        {
+            if (CollidesWithObject())
+            {
+                visible = false;
+            }
+        }*/
+
+
+        //tileField = GameWorld.Find("tiles") as TileField;
         if (CollidesWithObject())
             position = previousPosition;
-        Player player = GameWorld.Find("Elf") as Player;
-        if (player != null)
+
+        FindClosestPlayer();
+        MoveToCLosestPlayer();
+
+
+        /*if (CollidesWithObject())
+            position = previousPosition;
+        GameObjectList players = GameWorld.Find("players") as GameObjectList;
+        Player player;
+        if (players.Children.Count != 0)
         {
-            float opposite = player.Position.Y - position.Y + 55;
-            float adjacent = player.Position.X - position.X + 30;
+            player = players.Children[0] as Player;
+            if (player.IsAlive)
+            {*/
+
+        //    }
+
+        //}
+
+        TimeToAttack(gameTime);
+    }
+
+    private void TimeToAttack(GameTime gameTime)
+    {
+        /*meleeTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds; // makes sure a specific enemy can only be melee'd once a second;
+        if (meleeTimer >= 1000)
+        {
+            meleeTimer = 0;
+            canBeMeleed = true;
+        } */
+        HandleAnimations();
+    }
+
+    private void MoveToCLosestPlayer()
+    {
+        if (closestPlayer != null)
+        {
+            float opposite = (closestPlayer.Position.Y + closestPlayer.Height / 4) - position.Y;
+            float adjacent = closestPlayer.Position.X - position.X;
+            distance = (float)Math.Sqrt((opposite * opposite) + (adjacent * adjacent));
             float vertical = (float)Math.Atan2(opposite, adjacent);
             float horizontal = (float)Math.Atan2(adjacent, opposite);
-            speedVert = (float)Math.Sin(vertical) * speed;
-            speedHori = (float)Math.Sin(horizontal) * speed;
-            velocity.Y = speedVert;
-            velocity.X = speedHori;
+            speedVert = ((float)Math.Sin(vertical) * speed) / 2;
+            speedHori = ((float)Math.Sin(horizontal) * speed) / 2;
+            if (distance > chaseDistance)
+            {
+                velocity.Y = speedVert;
+                velocity.X = speedHori;
+            }
+            else
+            {
+                velocity.Y = 0;
+                velocity.X = 0;
+            }
+            if (canBeInvisible && distance < 100)
+            {
+                visible = true;
+                noInvisible = true;
+            }
+            else
+            {
+                noInvisible = false;
+            }
         }
-
-        meleeTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds; // makes sure a specific enemy can only be melee'd once a second;
-        if (meleeTimer <= 0)
-        {
-            canBeMeleed = true;
-        }
-        HandleAnimations();
     }
 
     void HandleAnimations()
     {
         if (velocity == Vector2.Zero)
         {
-            PlayAnimation(id + "idle");
-        }/*
-        else if (velocity.X > 0 && velocity.Y == 0)
-        {
-            PlayAnimation(id + "runRight");
+            PlayAnimation("idle");
         }
-        else if (velocity.X > 0 && velocity.Y > 0)
+        else PlayAnimation("run");
+        
+
+
+        if (velocity.X < 0)
         {
-            PlayAnimation(id + "runDownRight");
-        }
-        else if (velocity.X == 0 && velocity.Y > 0)
-        {
-            PlayAnimation(id + "runDown");
-        }
-        else if (velocity.X < 0 && velocity.Y > 0)
-        {
-            PlayAnimation(id + "runDownLeft");
-        }
-        else if (velocity.X < 0 && velocity.Y == 0)
-        {
-            PlayAnimation(id + "runLeft");
-        }
-        else if (velocity.X < 0 && velocity.Y < 0)
-        {
-            PlayAnimation(id + "runUpLeft");
-        }
-        else if (velocity.X == 0 && velocity.Y < 0)
-        {
-            PlayAnimation(id + "runUp");
-        }
-        */ //tijdenlijk voor testen met i.v.m. berkte animaties
-        else if (velocity.X < 0)
-        {
-            PlayAnimation(id + "runLeft");
+            lastLookedLeft = true;
         }
         else if (velocity.X > 0)
         {
-            PlayAnimation(id + "runRight");
+            lastLookedLeft = false;
         }
-        else if (velocity.Y > 0)
+
+        if (velocity.X < 0 || lastLookedLeft)
         {
-            PlayAnimation(id + "runRight");
+            Mirror = true;
         }
-        else if (velocity.Y < 0)
+        else Mirror = false;
+    }
+
+    private void FindClosestPlayer()
+    {
+        //check for all the portals in the level
+        List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
+        foreach (Player player in players)
         {
-            PlayAnimation(id + "runLeft");
+            //determines the closest portal to this portal, other than this portal itself           
+            float opposite = player.Position.Y - position.Y;
+            float adjacent = player.Position.X - position.X;
+            float hypotenuse = (float)Math.Sqrt(Math.Pow(opposite, 2) + Math.Pow(adjacent, 2));
+            if (closestPlayer != null)
+            {
+                float opposite2 = closestPlayer.Position.Y - position.Y;
+                float adjacent2 = closestPlayer.Position.X - position.X;
+                float hypotenuse2 = (float)Math.Sqrt(Math.Pow(opposite2, 2) + Math.Pow(adjacent2, 2));
+                if (hypotenuse < hypotenuse2)
+                {
+                    //maxDistance = hypotenuse;
+                    this.closestPlayer = player;
+                }
+            }
+            else
+            {
+                this.closestPlayer = player;
+            }
+            
         }
     }
 
     public bool CollidesWithObject()
     {
- 
+
         //check wall collision
+        TileField tileField = GameWorld.Find("tiles") as TileField;
         Tile tile = tileField.Get(1, 1) as Tile;
-        int Left = (int)((position.X -Width /2)/ tile.Width);
-        int Right = (int)((position.X + Width /2) / tile.Width);
+        int Left = (int)((position.X -this.Width /2)/ tile.Width);
+        int Right = (int)((position.X + this.Width /2) / tile.Width);
         int Top = (int)((position.Y-Height) / tile.Height);
         int Bottom = (int)((position.Y ) / tile.Height);
 
@@ -140,7 +198,15 @@ public class EnemyObject : AnimatedGameObject
                 if (CollidesWith(enemy))
                     return true;
 
-        return false;
+        List<GameObject> spawns = (GameWorld.Find("spawns") as GameObjectList).Children;
+        if (spawns != null)
+        {
+            foreach (SpriteGameObject spawn in spawns)
+                if (CollidesWith(spawn))
+                    return true;
+        }
+
+            return false;
     }
 
     public void HitByPlayer(float damage)

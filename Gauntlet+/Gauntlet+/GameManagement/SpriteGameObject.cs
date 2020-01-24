@@ -5,9 +5,9 @@ using System;
 public class SpriteGameObject : GameObject
 {
     protected SpriteSheet sprite;
-    protected Vector2 origin, scale;
+    protected Vector2 origin;
     public bool PerPixelCollisionDetection = true;
-    protected float rotation = 0;
+    protected float rotation = 0, scale = 1f;
 
     public SpriteGameObject(string assetName, int layer = 0, string id = "", int sheetIndex = 0)
         : base(layer, id)
@@ -35,11 +35,11 @@ public class SpriteGameObject : GameObject
         }
         if (GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("playingState"))
         {
-            sprite.Draw(spriteBatch, this.GlobalPosition - Camera.Position, rotation, origin);
+            sprite.Draw(spriteBatch, this.GlobalPosition - Camera.Position, rotation, origin, scale);
         }
         else
         {
-            sprite.Draw(spriteBatch, this.GlobalPosition, rotation, origin);
+            sprite.Draw(spriteBatch, this.GlobalPosition, rotation, origin, scale);
         }
     }
 

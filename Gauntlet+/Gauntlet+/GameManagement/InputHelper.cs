@@ -53,6 +53,11 @@ public class InputHelper
         return currentKeyboardState.IsKeyDown(k) && previousKeyboardState.IsKeyUp(k);
     }
 
+    public bool keyReleased(Keys k)
+    {
+        return currentKeyboardState.IsKeyUp(k);
+    }
+
     public bool IsKeyDown(Keys k)
     {
         return currentKeyboardState.IsKeyDown(k);

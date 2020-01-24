@@ -16,6 +16,8 @@ public class GameEnvironment : Game
     protected static Random random;
     protected static AssetManager assetManager;
 
+    public static string SelectedClass;
+
     public GameEnvironment()
     {
         graphics = new GraphicsDeviceManager(this);
@@ -25,6 +27,7 @@ public class GameEnvironment : Game
         spriteScale = Matrix.CreateScale(1, 1, 1);
         random = new Random();
         assetManager = new AssetManager(Content);
+
     }
 
     public static Point Screen

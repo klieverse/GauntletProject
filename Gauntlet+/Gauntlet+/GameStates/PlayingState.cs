@@ -2,12 +2,15 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 class PlayingState : IGameLoopObject
 {
-    protected List<Level> levels;
-    protected int currentLevelIndex;
+    static protected List<Level> levels;
+    static protected int currentLevelIndex;
     protected ContentManager content;
+    protected int maxLevelIndex = 9;
+    static protected bool maxLevelReached = false;
 
     public PlayingState(ContentManager content)
     {
@@ -17,12 +20,12 @@ class PlayingState : IGameLoopObject
         LoadLevels();
     }
 
-    public Level CurrentLevel
+    static public Level CurrentLevel
     {
-        get { return levels[currentLevelIndex]; }
+        get { return levels[currentLevelIndex]; } 
     }
 
-    public int CurrentLevelIndex
+    static public int CurrentLevelIndex
     {
         get { return currentLevelIndex; }
         set
@@ -68,18 +71,23 @@ class PlayingState : IGameLoopObject
         CurrentLevel.Reset();
     }
 
-    public void NextLevel()
+   
+
+    static public void NextLevel()
     {
         CurrentLevel.Reset();
-        if (currentLevelIndex >= levels.Count - 1)
+        if (maxLevelReached || currentLevelIndex >= levels.Count - 1)
         {
-            GameEnvironment.GameStateManager.SwitchTo("levelMenu");
+            CurrentLevelIndex = GameEnvironment.Random.Next(1,9);
+            maxLevelReached = true;
         }
+
         else
         {
             CurrentLevelIndex++;
         }
     }
+
 
     public void LoadLevels()
     {

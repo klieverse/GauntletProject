@@ -3,17 +3,14 @@
     "",
     "\\Gauntlet+",
     "\\Gauntlet+\\Gauntlet+",
-    "\\Gauntlet+\\Gauntlet+\\Content",
-    "\\Gauntlet+\\Gauntlet+\\Content\\Backgrounds",
-    "\\Gauntlet+\\Gauntlet+\\Content\\Sprites",
-    "\\Gauntlet+\\Gauntlet+\\Content\\statSprites",
-    "\\Gauntlet+\\Gauntlet+\\Content\\Tiles",
+    "\\Gauntlet+\\Gauntlet+\\GameManagement",
     "\\Gauntlet+\\Gauntlet+\\GameObjects",
     "\\Gauntlet+\\Gauntlet+\\GameObjects\\Enemies",
+    "\\Gauntlet+\\Gauntlet+\\GameObjects\\InteractiveTiles",
     "\\Gauntlet+\\Gauntlet+\\GameObjects\\Items",
-    "\\Gauntlet+\\Gauntlet+\\Properties",
-    "\\Gauntlet+\\packages"
+    "\\Gauntlet+\\Gauntlet+\\GameObjects\\Players",
+    "\\Gauntlet+\\Gauntlet+\\GameStates"
   ],
-  "SelectedNode": "\\Gauntlet+\\Gauntlet+\\GameObjects\\Enemies\\Gnome.cs",
+  "SelectedNode": "\\Gauntlet+\\Gauntlet+.sln",
   "PreviewInSolutionExplorer": false
 }

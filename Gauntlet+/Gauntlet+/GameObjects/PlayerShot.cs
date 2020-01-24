@@ -8,63 +8,77 @@ using System.Threading.Tasks;
 
 class PlayerShot : SpriteGameObject
 {
-    float shotSpeed;
-    float shotStrength;   
+    float shotSpeed, baseShotSpeed = 250;
+    float shotStrength;
+    Player player;
 
 
-    public PlayerShot(string id, float shotSpeed, float shotStrength, Vector2 direction, Vector2 position) : base(assetName: "arrow", layer: 0, id, sheetIndex: 0)
+    public PlayerShot(string id, float shotSpeed, float shotStrength, Vector2 direction, Vector2 position, Player player) : base(assetName: id + "Shot", layer: 0, id, sheetIndex: 0)
     {
         velocity = direction;
         this.position = position;
         this.shotSpeed = shotSpeed;
         this.shotStrength = shotStrength;
+        this.player = player;
         HandleDirection();
     }
 
-    void HandleDirection()
+    void HandleDirection() // rotates the sprite to the right direction, based on the direction it is going and giving it the right position and velocity;
     {
-        if (velocity.X > 0 && velocity.Y == 0) 
+        if (velocity.X > 0 && velocity.Y == 0) // facing right
         {
-             velocity.X = shotSpeed * 75 + 200; 
+             velocity.X = shotSpeed * 75 + baseShotSpeed; 
              Rotate(90);
+            position.Y -= Height;
+            position.X += Width / 2;
         }
-        if (velocity.X > 0 && velocity.Y > 0)
+        if (velocity.X > 0 && velocity.Y > 0) // facing down right
         {
-             velocity.X = 0.71f * (shotSpeed * 75 + 200);
-             velocity.Y = 0.71f * (shotSpeed * 75 + 200);
+             velocity.X = 0.71f * (shotSpeed * 75 + baseShotSpeed);
+             velocity.Y = 0.71f * (shotSpeed * 75 + baseShotSpeed);
              Rotate(135);
+            position.Y -= player.Height / 3;
+            position.X += Width / 2; 
         }
-        if (velocity.X < 0 && velocity.Y < 0)
+        if (velocity.X < 0 && velocity.Y < 0) // facing up left
         {
-            velocity.X = -0.71f * (shotSpeed * 75 + 200);
-            velocity.Y = -0.71f * (shotSpeed * 75 + 200);
+            velocity.X = -0.71f * (shotSpeed * 75 + baseShotSpeed);
+            velocity.Y = -0.71f * (shotSpeed * 75 + baseShotSpeed);
             Rotate(315);
+            position.Y -= player.Height / 3;
+            position.X -= player.Width / 2;
         }
-        if (velocity.X == 0 && velocity.Y > 0)
+        if (velocity.X == 0 && velocity.Y > 0) // facing down
         {
-            velocity.Y = (shotSpeed * 75 + 200);
+            velocity.Y = (shotSpeed * 75 + baseShotSpeed);
             Rotate(180);
+            position.X += Width / 2;
         }
-        if (velocity.X < 0 && velocity.Y == 0)
+        if (velocity.X < 0 && velocity.Y == 0) // facing left
         {
-            velocity.X = -(shotSpeed * 75 + 200);
+            velocity.X = -(shotSpeed * 75 + baseShotSpeed);
             Rotate(270);
+            position.X -= Width / 2;
+            position.Y -= Height / 2;
         }
-        if (velocity.X == 0 && velocity.Y < 0)
+        if (velocity.X == 0 && velocity.Y < 0) // facing up
         {
-            velocity.Y = -(shotSpeed *75 + 200);
+            velocity.Y = -(shotSpeed *75 + baseShotSpeed);
             Rotate(0);
+            position.X -= Width / 2;
+            position.Y -= Height;
         }
-        if (velocity.X > 0 && velocity.Y < 0)
+        if (velocity.X > 0 && velocity.Y < 0) // facing up right
         {
-            velocity.X = 0.71f * (shotSpeed * 75 + 200);
-            velocity.Y = -0.71f * (shotSpeed * 75 + 200);
+            velocity.X = 0.71f * (shotSpeed * 75 + baseShotSpeed);
+            velocity.Y = -0.71f * (shotSpeed * 75 + baseShotSpeed);
             Rotate(45);
+            position.Y -= Height;
         }
-        if (velocity.X < 0 && velocity.Y > 0)
+        if (velocity.X < 0 && velocity.Y > 0) // facing down left
         {
-            velocity.X = -0.71f * (shotSpeed * 75 + 200);
-            velocity.Y = 0.71f * (shotSpeed * 75 + 200);
+            velocity.X = -0.71f * (shotSpeed * 75 + baseShotSpeed);
+            velocity.Y = 0.71f * (shotSpeed * 75 + baseShotSpeed);
             Rotate(225);
         }
     }
@@ -83,7 +97,6 @@ class PlayerShot : SpriteGameObject
     void HandleCollisions()
     {
         TileField tileField = GameWorld.Find("tiles") as TileField;
-
         //check wall collision
         Tile tile = tileField.Get(1, 1) as Tile;
         int Left = (int)(position.X / tile.Width);
@@ -93,20 +106,13 @@ class PlayerShot : SpriteGameObject
 
         for (int x = Left; x <= Right; x++)
             for (int y = Top; y <= Bottom; y++)
-                if (tileField.GetTileType(x, y) == TileType.Wall)
+            {
+                TileType type = tileField.GetTileType(x, y);
+                if (type == TileType.Wall || type == TileType.BreakableWall || type == TileType.VerticalDoor || type == TileType.HorizontalDoor)
                 {
-                    //visible = false;
+                    visible = false;
                 }
-
-        //check breakable wall collision
-
-        for (int x = Left; x <= Right; x++)
-            for (int y = Top; y <= Bottom; y++)
-                if (tileField.GetTileType(x, y) == TileType.BreakableWall)
-                {
-                    //visible = false;
-                    //iets met muur;
-                }
+            }
 
         //check enemycollision
         List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
@@ -117,6 +123,34 @@ class PlayerShot : SpriteGameObject
                 enemy.HitByPlayer(shotStrength);
             }
 
+        List<GameObject> spawns = (GameWorld.Find("spawns") as GameObjectList).Children;
+        foreach (SpawnObject spawn in spawns)
+            if (CollidesWith(spawn))
+            {
+                visible = false;
+                spawn.HitByPlayer(shotStrength);
+            }
+
+        //check food collision
+        List<GameObject> foods = (GameWorld.Find("food") as GameObjectList).Children;
+        foreach (Food food in foods)
+            if (CollidesWith(food))
+            {
+                visible = false;
+                food.Visible = false;
+            }
+        //check potion collision
+        List<GameObject> potions = (GameWorld.Find("potions") as GameObjectList).Children;
+        foreach (Potion potion in potions)
+            if (CollidesWith(potion))
+            {
+                visible = false;
+                if (potion.PotType == PotionType.Normal)
+                {
+                    potion.Visible = false;
+                    player.KillEnemiesOnScreen();
+                } 
+            }
     }
 }
 
