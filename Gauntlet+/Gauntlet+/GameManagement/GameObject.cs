@@ -26,6 +26,10 @@ public abstract class GameObject : IGameLoopObject
     public virtual void Update(GameTime gameTime)
     {
         position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        position.X = (int)position.X;
+        position.Y = (int)position.Y;
+        velocity.X = (int)velocity.X;
+        velocity.Y = (int)velocity.Y;
     }
     
     public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -113,6 +117,7 @@ public abstract class GameObject : IGameLoopObject
         set { visible = value; }
     }
 
+    [JsonIgnore]
     public virtual Rectangle BoundingBox
     {
         get

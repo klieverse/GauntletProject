@@ -268,6 +268,7 @@ partial class Level : GameObjectList
                 SpriteSheet sprite = player.Sprite;
                 player = JsonConvert.DeserializeObject<Player>(message);
                 player.SetSprite(sprite);
+                Console.WriteLine("HIER KOMT ELF BINNEN: " + message);
             }
             else if (message.Contains("Wizard"))
             {
@@ -289,8 +290,10 @@ partial class Level : GameObjectList
                 SpriteSheet sprite = player.Sprite;
                 player = JsonConvert.DeserializeObject<Player>(message);
                 player.SetSprite(sprite);
+                Console.WriteLine("HIER KOMT VALKERY BINNEN: " + message);
             }
         }
+        /*
         //Keys updated
         else if(message.Contains("key"))
         {
@@ -360,7 +363,7 @@ partial class Level : GameObjectList
         //breakable walls updated
 
         //enemy shots updated
-
+        */
 
 
     }

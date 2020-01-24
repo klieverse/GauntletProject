@@ -54,6 +54,7 @@ public class SpriteGameObject : GameObject
         get { return sprite; }
     }
 
+    [JsonIgnore]
     public Vector2 Center
     {
         get { return new Vector2(Width, Height) / 2; }
