@@ -231,7 +231,7 @@ partial class Level : GameObjectList
         {
             string jplayershot = JsonConvert.SerializeObject(playerShot);
             GameEnvironment.Connection.Send(jplayershot);
-        }*/
+        }
 
         //sends current states of the doors
         GameObjectList doors = GameWorld.Find("Doors") as GameObjectList;
@@ -265,9 +265,11 @@ partial class Level : GameObjectList
             if(message.Contains("Elf"))
             {
                 Player player = players.Find("Elf") as Player;
+                players.Remove(player);
                 SpriteSheet sprite = player.Sprite;
-                player = JsonConvert.DeserializeObject<Player>(message);
-                player.SetSprite(sprite);
+                Player newPlayer = JsonConvert.DeserializeObject<Player>(message);
+                newPlayer.SetSprite(sprite);
+                players.Add(newPlayer);
                 Console.WriteLine("HIER KOMT ELF BINNEN: " + message);
             }
             else if (message.Contains("Wizard"))
@@ -287,9 +289,11 @@ partial class Level : GameObjectList
             else if (message.Contains("Valkery"))
             {
                 Player player = players.Find("Valkery") as Player;
+                players.Remove(player);
                 SpriteSheet sprite = player.Sprite;
-                player = JsonConvert.DeserializeObject<Player>(message);
-                player.SetSprite(sprite);
+                Player newPlayer = JsonConvert.DeserializeObject<Player>(message);
+                newPlayer.SetSprite(sprite);
+                players.Add(newPlayer);
                 Console.WriteLine("HIER KOMT VALKERY BINNEN: " + message);
             }
         }
