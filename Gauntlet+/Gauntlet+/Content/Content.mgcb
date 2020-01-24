@@ -1532,7 +1532,7 @@
 /processorParam:TextureFormat=Color
 /build:Tiles/Teleport.png
 
-#begin Tiles/Fire Animation.png
+#begin Tiles/Fire_Tele@4.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -1542,5 +1542,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/Fire Animation.png
+/build:Tiles/Fire_Tele@4.png
 

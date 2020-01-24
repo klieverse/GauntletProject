@@ -6,17 +6,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-class Teleport : Tile
+class Teleport : AnimatedGameObject
 {
     Teleport closestPortal;
     float distance = 9999999999f;
     bool teleportAllowed = true;
     float timer = 0;
 
-    public Teleport(Vector2 startPosition, int layer = 0) : base("Tiles/Teleport", TileType.Teleporter, layer, id: "teleport")
+    public Teleport(Vector2 startPosition, int layer = 0) : base(layer, id: "teleport")
     {
         //position is equal to given position in LevelLoading.cs
         this.position = startPosition;
+        LoadAnimation("Tiles/Fire_Tele@4", "fire", true);
+        LoadAnimation("Tiles/Teleport", "Tele", true);
+        PlayAnimation("Tele");
     }
 
     public override void Update(GameTime gameTime)
@@ -51,7 +54,7 @@ class Teleport : Tile
     private void Teleporting(GameTime gameTime)
     {
         //if the portal collides with the player, the position of the player becomes the same as the closest portal
-        
+
         List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
         if (players != null)
             foreach (SpriteGameObject player in players)
@@ -59,17 +62,28 @@ class Teleport : Tile
                 {
                     if (CollidesWith(player))
                     {
-                        timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                        if (timer >= 1.0f)
+                        if (player.Velocity == Vector2.Zero)
                         {
-                            //if the player teleported, this boolean prevents it from immediately teleporting again
-                            closestPortal.teleportAllowed = false;
-                            player.Position = new Vector2(closestPortal.Position.X + Tile.Size / 2, closestPortal.Position.Y + Tile.Size);
-                            GameEnvironment.AssetManager.PlaySound("Teleport");
-                            timer = 0;
+                            PlayAnimation("fire");
+                            timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                            if (timer >= 1.0f)
+                            {
+                                //if the player teleported, this boolean prevents it from immediately teleporting again
+                                closestPortal.teleportAllowed = false;
+                                player.Position = new Vector2(closestPortal.Position.X + Tile.Size / 2, closestPortal.Position.Y + Tile.Size / 2);
+                                GameEnvironment.AssetManager.PlaySound("Teleport");
+                                timer = 0;
+                            }
+
                         }
+                        else PlayAnimation("Tele");
                     }
-                    else timer = 0;
+                    else
+                    {
+                        timer = 0;
+                        PlayAnimation("Tele");
+                    }
+
                 }
         else
         {
