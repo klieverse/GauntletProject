@@ -148,6 +148,15 @@ class PlayerShot : SpriteGameObject
                 enemy.HitByPlayer(shotStrength);
                 GameEnvironment.AssetManager.PlaySound("Ghost hit");
             }
+            
+        //check spawnercollision
+        List<GameObject> spawns = (GameWorld.Find("spawns") as GameObjectList).Children;
+        foreach (SpawnObject spawn in spawns)
+            if (CollidesWith(spawn))
+            {
+                visible = false;
+                spawn.HitByPlayer(shotStrength);
+            }
 
         //check food collision
         List<GameObject> foods = (GameWorld.Find("food") as GameObjectList).Children;
