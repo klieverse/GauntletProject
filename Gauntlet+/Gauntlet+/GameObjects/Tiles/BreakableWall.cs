@@ -18,12 +18,12 @@ class BreakableWall : Tile
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-        CheckBreak();
     }
 
     public void HitByShot()
     {
         howBroken -= 1;
+        CheckBreak();
     }
 
     private void CheckBreak()
