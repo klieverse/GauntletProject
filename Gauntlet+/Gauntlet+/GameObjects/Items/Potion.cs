@@ -39,7 +39,6 @@ class Potion : Item
                 if (CollidesWith(player))
                 {
                     visible = false;
-                    player.AddPotion(PotType);
                     GameEnvironment.AssetManager.PlaySound("Key");
                     switch (PotType)
                     {
