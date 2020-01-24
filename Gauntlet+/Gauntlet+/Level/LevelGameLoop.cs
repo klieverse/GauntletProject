@@ -266,8 +266,10 @@ partial class Level : GameObjectList
             if(message.Contains("Elf"))
             {
                 Player player = players.Find("Elf") as Player;
+                Console.WriteLine(player.ToString());
                 SpriteSheet sprite = player.Sprite;
-                player = JsonConvert.DeserializeObject<Player>(message);
+                player = JsonConvert.DeserializeObject<Questor>(message);
+                Console.WriteLine(player.ToString());
                 player.SetSprite(sprite);
                 Console.WriteLine("HIER KOMT ELF BINNEN: " + message);
             }
@@ -275,23 +277,23 @@ partial class Level : GameObjectList
             {
                 Player player = players.Find("Wizard") as Player;
                 SpriteSheet sprite = player.Sprite;
-                player = JsonConvert.DeserializeObject<Player>(message);
+                player = JsonConvert.DeserializeObject<Merlin>(message);
                 player.SetSprite(sprite);
             }
             else if (message.Contains("Warrior"))
             {
                 Player player = players.Find("Warrior") as Player;
                 SpriteSheet sprite = player.Sprite;
-                player = JsonConvert.DeserializeObject<Player>(message);
+                player = JsonConvert.DeserializeObject<Thor>(message);
                 player.SetSprite(sprite);
             }
             else if (message.Contains("Valkery"))
             {
                 Player player = players.Find("Valkery") as Player;
                 SpriteSheet sprite = player.Sprite;
-                player = JsonConvert.DeserializeObject<Player>(message);
+                player = JsonConvert.DeserializeObject<Thyra>(message);
                 player.SetSprite(sprite);
-                Console.WriteLine("HIER KOMT VALKERY BINNEN: " + message);
+                //Console.WriteLine("HIER KOMT VALKERY BINNEN: " + message);
             }
         }
         /*
