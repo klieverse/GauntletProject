@@ -26,7 +26,7 @@ class Tile : SpriteGameObject
         : base(assetname, layer, id)
     {
         type = tp;
-        if(TileType != TileType.HorizontalDoor && TileType != TileType.VerticalDoor)
+        if (TileType != TileType.HorizontalDoor && TileType != TileType.VerticalDoor && TileType != TileType.Teleporter)
             scale = 1.5f;
     }
 

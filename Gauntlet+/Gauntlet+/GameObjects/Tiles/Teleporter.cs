@@ -11,6 +11,7 @@ class Teleport : Tile
     Teleport closestPortal;
     float distance = 9999999999f;
     bool teleportAllowed = true;
+    float timer = 0;
 
     public Teleport(Vector2 startPosition, int layer = 0) : base("Tiles/Teleport", TileType.Teleporter, layer, id: "teleport")
     {
@@ -22,7 +23,7 @@ class Teleport : Tile
     {
         base.Update(gameTime);
         FindClosestPortal();
-        Teleporting();
+        Teleporting(gameTime);
     }
 
     private void FindClosestPortal()
@@ -47,7 +48,7 @@ class Teleport : Tile
         }
     }
 
-    private void Teleporting()
+    private void Teleporting(GameTime gameTime)
     {
         //if the portal collides with the player, the position of the player becomes the same as the closest portal
         
@@ -58,11 +59,17 @@ class Teleport : Tile
                 {
                     if (CollidesWith(player))
                     {
-                        //if the player teleported, this boolean prevents it from immediately teleporting again
-                        closestPortal.teleportAllowed = false;
-                        player.Position = new Vector2(closestPortal.Position.X + Tile.Size/2, closestPortal.Position.Y + Tile.Size);
-                        GameEnvironment.AssetManager.PlaySound("Teleport");
+                        timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        if (timer >= 1.0f)
+                        {
+                            //if the player teleported, this boolean prevents it from immediately teleporting again
+                            closestPortal.teleportAllowed = false;
+                            player.Position = new Vector2(closestPortal.Position.X + Tile.Size / 2, closestPortal.Position.Y + Tile.Size);
+                            GameEnvironment.AssetManager.PlaySound("Teleport");
+                            timer = 0;
+                        }
                     }
+                    else timer = 0;
                 }
         else
         {
@@ -72,6 +79,8 @@ class Teleport : Tile
                 teleportAllowed = true;
             }
         }
+
+
 
     }
 }
