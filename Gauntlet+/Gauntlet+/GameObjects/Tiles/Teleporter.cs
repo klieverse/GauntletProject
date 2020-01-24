@@ -66,7 +66,7 @@ class Teleport : AnimatedGameObject
                         {
                             PlayAnimation("fire");
                             timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                            if (timer >= 1.0f)
+                            if (timer >= 0.5f)
                             {
                                 //if the player teleported, this boolean prevents it from immediately teleporting again
                                 closestPortal.teleportAllowed = false;
@@ -76,7 +76,11 @@ class Teleport : AnimatedGameObject
                             }
 
                         }
-                        else PlayAnimation("Tele");
+                        else
+                        {
+                            timer = 0;
+                            PlayAnimation("Tele");
+                        }
                     }
                     else
                     {
