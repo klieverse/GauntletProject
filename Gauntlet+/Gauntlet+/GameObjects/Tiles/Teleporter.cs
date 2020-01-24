@@ -66,11 +66,11 @@ class Teleport : AnimatedGameObject
                         {
                             PlayAnimation("fire");
                             timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                            if (timer >= 0.5f)
+                            if (timer >= 0.75f)
                             {
                                 //if the player teleported, this boolean prevents it from immediately teleporting again
                                 closestPortal.teleportAllowed = false;
-                                player.Position = new Vector2(closestPortal.Position.X + Tile.Size / 2, closestPortal.Position.Y + Tile.Size / 2);
+                                player.Position = new Vector2(closestPortal.Position.X, closestPortal.Position.Y - Tile.Size / 2);
                                 GameEnvironment.AssetManager.PlaySound("Teleport");
                                 timer = 0;
                             }
