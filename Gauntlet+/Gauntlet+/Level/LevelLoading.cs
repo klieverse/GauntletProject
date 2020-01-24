@@ -313,7 +313,7 @@ partial class Level : GameObjectList
     {
         GameObjectList Items = Find("keys") as GameObjectList;
         Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
-        Key item = new Key(2, "Key", position);
+        Key item = new Key(2, "key", position);
         Items.Add(item);
         return new Tile("Tiles/floors/floor 1", TileType.Background);
     }

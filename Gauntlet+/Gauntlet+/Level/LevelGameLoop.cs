@@ -291,9 +291,8 @@ partial class Level : GameObjectList
                 player.SetSprite(sprite);
             }
         }
-
         //Keys updated
-        else if(message.Contains("Key"))
+        else if(message.Contains("key"))
         {
             Key key = JsonConvert.DeserializeObject<Key>(message);
             GameObjectList keys = GameWorld.Find("keys") as GameObjectList;

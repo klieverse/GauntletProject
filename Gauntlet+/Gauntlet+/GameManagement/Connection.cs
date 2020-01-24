@@ -39,20 +39,32 @@ public class Connection
         try
         {
             networkStream = client.GetStream();
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[10025];
             int byte_count = networkStream.Read(buffer, 0, buffer.Length);
 
             if (byte_count != 0)
             {
                 string dataFromServer = Encoding.ASCII.GetString(buffer, 0, byte_count);
-                Console.WriteLine(dataFromServer);
                 if (dataFromServer.Contains("CurrentSelected = "))
                 {
                     MultiplayerCharacterState.receiveMessage(dataFromServer);
                 }
                 else
                 {
-                    MultiPlayerState.currentLevel.UpdateMultiplayer(dataFromServer);
+                    receivedMessages = new List<string>();
+                    int newPosition = 0;
+                    for(int i = 0; i < dataFromServer.Length - 1; i++)
+                    {
+                        if(dataFromServer[i] == '}' && dataFromServer[i+1] == '{')
+                        {
+                            int previousPosition = newPosition;
+                            newPosition = i + 1 ;
+                            MultiPlayerState.currentLevel.UpdateMultiplayer(dataFromServer.Substring(previousPosition, newPosition-previousPosition));
+                        }
+                    }
+                    int endPosition = newPosition;
+                    newPosition = dataFromServer.Length;
+                    MultiPlayerState.currentLevel.UpdateMultiplayer(dataFromServer.Substring(endPosition, newPosition - endPosition));
                 }
             }
 
@@ -70,15 +82,17 @@ public class Connection
 
     }
 
+    //send the incoming string if it is not null
     public void Send(string msg)
     {
-        //send string msg
-        Byte[] sendBytes = null;
-        string clientResponse = msg;
-        sendBytes = Encoding.ASCII.GetBytes(clientResponse);
-        networkStream.Write(sendBytes, 0, sendBytes.Length);
-        networkStream.Flush();
-
+        if(msg != "null" && msg != null)
+        {
+            Byte[] sendBytes = null;
+            string clientResponse = msg;
+            sendBytes = Encoding.ASCII.GetBytes(clientResponse);
+            networkStream.Write(sendBytes, 0, sendBytes.Length);
+            networkStream.Flush();
+        }
     }
 
     public List<string> receivedMessages
