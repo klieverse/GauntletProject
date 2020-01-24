@@ -14,9 +14,10 @@ public class Connection
     {
         try
         {
-            string serverIP = "localhost";
+            IPAddress ipAddress = IPAddress.Parse("25.62.226.197");
             int port = 8080;
-            client = new TcpClient(serverIP, port);
+            client = new TcpClient();
+            client.Connect(ipAddress, port);
             networkStream = client.GetStream();
 
             Console.WriteLine(" >> " + "Client Started");
