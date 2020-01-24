@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
+
 
 class MultiplayerCharacterState: GameObjectList
 {
@@ -65,7 +67,7 @@ class MultiplayerCharacterState: GameObjectList
 
         if (wizardButton.Pressed && !wizardChosen)
         {
-            currentSelected = "Wizard";
+            currentSelected = "Wizard"; 
         }
 
         if (warriorButton.Pressed && !warriorChosen)

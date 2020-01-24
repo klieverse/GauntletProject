@@ -39,18 +39,27 @@ public class Connection
         try
         {
             networkStream = client.GetStream();
-            byte[] bytesFrom = new byte[client.ReceiveBufferSize];
-            networkStream.Read(bytesFrom, 0, (int)client.ReceiveBufferSize);
-            string dataFromServer = System.Text.Encoding.ASCII.GetString(bytesFrom);
-            dataFromServer = dataFromServer.Substring(0, dataFromServer.IndexOf("$"));
-            if(dataFromServer.Contains("CurrentSelected = "))
+            byte[] buffer = new byte[1024];
+            int byte_count = networkStream.Read(buffer, 0, buffer.Length);
+
+            if (byte_count != 0)
             {
-                MultiplayerCharacterState.receiveMessage(dataFromServer);
+                string dataFromServer = Encoding.ASCII.GetString(buffer, 0, byte_count);
+                Console.WriteLine(dataFromServer);
+                if (dataFromServer.Contains("CurrentSelected = "))
+                {
+                    MultiplayerCharacterState.receiveMessage(dataFromServer);
+                }
+                else
+                {
+                    MultiPlayerState.currentLevel.UpdateMultiplayer(dataFromServer);
+                }
             }
-            else
-            {
-                MultiPlayerState.currentLevel.UpdateMultiplayer(dataFromServer);
-            }
+
+            
+            
+
+            
             
             //receivedMessages.Add(dataFromServer);
         }
