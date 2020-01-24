@@ -70,5 +70,4 @@ class Potion : Item
 
                 }
     }
-    public PotionType PotType { get; }
 }

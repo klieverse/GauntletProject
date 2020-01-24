@@ -172,15 +172,9 @@ partial class Level : GameObjectList
     
     private Tile LoadTeleport(int x, int y)
     {
-        /*        GameObjectList teleports = Find("tiles") as GameObjectList;
-                TileField tiles = Find("tiles") as TileField;
-                Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
-                Teleport t = new Teleport(startPosition);
-                teleports.Add(t);
-                return new Tile(); */
         GameObjectList teleports = Find("teleport") as GameObjectList;
         //TileField tiles = Find("tiles") as TileField;
-        Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
+        Vector2 startPosition = new Vector2(x * Tile.Size + Tile.Size/2, y * Tile.Size + Tile.Size);
         Teleport teleport = new Teleport(startPosition);
         teleports.Add(teleport);
         return new Tile();

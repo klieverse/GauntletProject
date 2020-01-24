@@ -25,10 +25,5 @@ using System.Threading.Tasks;
             base.Update(gameTime);
 
         }
-        public override void Shoot()
-        {
-            base.Shoot();
-            GameEnvironment.AssetManager.PlaySound("Valkyrie shot");
-        }
 }
 
