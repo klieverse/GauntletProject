@@ -7,18 +7,58 @@ using System.Threading.Tasks;
 
 class Wizard : EnemyObject
 {
-    float timer = 0f;
-    float visibilityTimer = 0f;
-    public Wizard(Vector2 startPosition) : base(2, "Wizard")
+    //Player closestPlayer;
+    float attackTimer = 0f, visibilityTimer = 0f;
+    //int check = 0;
+    public Wizard(Vector2 startPosition, bool wasSpawned = false) : base(2, "Wizard", canBeInvisible: true)
     {
+        this.wasSpawned = wasSpawned;
+        //this.closestPlayer = closestPlayer;
         this.position = startPosition;
         strength = 10;
     }
 
     public override void Update(GameTime gameTime)
     {
-        base.Update(gameTime);
-        //strength based on current health
+        if (wasSpawned && CollidesWithObject() && !beginCollision)
+        {
+            isDead = true;
+            visible = false;
+        }
+        else
+        {
+            beginCollision = true;
+        }
+        if (!isDead)
+        {
+            base.Update(gameTime);
+            //strength based on current health
+
+            //FindClosestPlayer();
+
+            visibilityTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            attackTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            //wizard can get invisible, timer which switches state of visibility
+            //if (NoInvisibility())
+            //{
+            if (visibilityTimer > 500 && !noInvisible)
+                {
+                    visible = !visible;
+                    visibilityTimer = 0;
+                }
+            //}
+            //else
+            //{
+            //    visible = true;
+            //}
+            //calculates when the enemy can attack
+            if (attackTimer > 1000f)
+            {
+                Attack();
+                attackTimer = 0f;
+            }
+        }
+
         if (this.health < 21)
             strength = 8;
         if (this.health < 11)
@@ -26,25 +66,11 @@ class Wizard : EnemyObject
         //removes this object when health is less than 1
         if (this.health < 1)
         {
-            GameWorld.Remove(this);
+            visible = false;
+            isDead = true;
+
         }
-        visibilityTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-        //wizard can get invisible, timer which switches state of visibility
-        if (visibilityTimer > 500)
-        {
-            visible = !visible;
-            visibilityTimer = 0;
-        }
-        //calculates when the enemy can attack
-        if (timer == 0f)
-        {
-            Attack();
-            timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-        }
-        else if (timer > 500f)
-        {
-            timer = 0f;
-        }
+
     }
 
     //find player, if collides, then player loses health according to this' strength;
@@ -55,9 +81,92 @@ class Wizard : EnemyObject
             foreach (Player player in players)
                 if (CollidesWith(player) && visible)
                 {
-                    player.health -= strength;
-                    GameEnvironment.AssetManager.PlaySound("Wizard attack");
+                    player.HitByEnemy(strength);
                 }
     }
+
+ /*   private void FindClosestPlayer()
+    {
+        //check for all the portals in the level
+        List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
+        foreach (Player player in players)
+        {
+            if (player != closestPlayer)
+            {
+                float opposite = player.Position.Y - position.Y;
+                float adjacent = player.Position.X - position.X;
+                float hypotenuse = (float)Math.Sqrt(Math.Pow(opposite, 2) + Math.Pow(adjacent, 2));
+                if (closestPlayer != null)
+                {
+                    float opposite2 = closestPlayer.Position.Y - position.Y;
+                    float adjacent2 = closestPlayer.Position.X - position.X;
+                    float hypotenuse2 = (float)Math.Sqrt(Math.Pow(opposite2, 2) + Math.Pow(adjacent2, 2));
+                    if (hypotenuse < hypotenuse2)
+                    {
+                        //maxDistance = hypotenuse;
+                        this.closestPlayer = player;
+                    }
+                }
+                else
+                {
+                    this.closestPlayer = player;
+                }
+            }
+            //determines the closest portal to this portal, other than this portal itself           
+
+
+        }
+    }
+
+    private bool NoInvisibility()
+    {
+        //check for all the portals in the level
+        /*
+        List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
+        foreach (Player player in players)
+        {
+            //determines the closest portal to this portal, other than this portal itself           
+            float opposite = player.Position.Y - position.Y;
+            float adjacent = player.Position.X - position.X;
+            float hypotenuse = (float)Math.Sqrt(Math.Pow(opposite, 2) + Math.Pow(adjacent, 2));
+            if (closestPlayer != null)
+            {
+                float opposite2 = closestPlayer.Position.Y - position.Y;
+                float adjacent2 = closestPlayer.Position.X - position.X;
+                float hypotenuse2 = (float)Math.Sqrt(Math.Pow(opposite2, 2) + Math.Pow(adjacent2, 2));
+                if (hypotenuse < hypotenuse2)
+                {
+                    //maxDistance = hypotenuse;
+                    this.closestPlayer = player;
+                }
+            }
+            else
+            {
+                this.closestPlayer = player;
+            }
+        } 
+            return DistanceToPlayer();
+    }
+
+    private bool DistanceToPlayer()
+    {
+        
+        if (closestPlayer != null)
+        {
+            float opposite = closestPlayer.Position.Y /*+ closestPlayer.Height / 4) - position.Y;
+            float adjacent = closestPlayer.Position.X - position.X;
+            distance = (float)Math.Sqrt((opposite * opposite) + (adjacent * adjacent));
+            if (distance < 50)
+            {
+                return true;
+            }
+        }
+        if (check > 2)
+        {
+            return true;
+        }
+        check++;
+        return false;
+    } */
 }
 

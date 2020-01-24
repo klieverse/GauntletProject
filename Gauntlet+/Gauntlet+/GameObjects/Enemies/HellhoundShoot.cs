@@ -5,32 +5,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class HellhoundShoot : AnimatedGameObject
+class HellhoundShoot : EnemyShot
 {
-    public int strength;
-    public HellhoundShoot(Vector2 startPosition, Vector2 velocity, int strength) : base(2, "HellhoundSHoot")
+    public HellhoundShoot(Vector2 startPosition, Vector2 velocity, int strength, EnemyObject shooter) : base(2, "HellhoundShoot", isGnome: false)
     {
-        LoadAnimation("Ghost", "ghost", true);
-        PlayAnimation("ghost");
+        this.shooter = shooter;
         this.position = startPosition;
         this.velocity = velocity;
-        visible = true;
         this.strength = strength;
     }
 
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-        List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
+
+       /* List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
         if (players != null)
             foreach (Player player in players)
                 if (CollidesWith(player))
                 {
                     player.health -= strength;
                     visible = false;
-                    GameWorld.Remove(this);
-                    GameEnvironment.AssetManager.PlaySound("Ghost hit");
-                }
+                } */
     }
 }
 

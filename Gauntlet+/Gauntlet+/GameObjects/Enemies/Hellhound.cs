@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 class Hellhound : EnemyObject
 {
     float timer = 0f;
-    public Hellhound(Vector2 startPosition) : base(2, "Hellhound")
+    public Hellhound(Vector2 startPosition, bool wasSpawned = false) : base(2, "Hellhound", 300)
     {
+        this.wasSpawned = wasSpawned;
         //starting position equal to what is determined in SpawnObject.cs
         position = startPosition;
         strength = 10;
@@ -17,34 +18,47 @@ class Hellhound : EnemyObject
 
     public override void Update(GameTime gameTime)
     {
-        base.Update(gameTime);
-        //strength of enemy reduces with current health
-        if (this.health < 21)
-            strength = 8;
-        if (this.health < 11)
-            strength = 5;
-        if (this.health < 1)
+        if (wasSpawned && CollidesWithObject() && !beginCollision)
         {
-            GameWorld.Remove(this);
+            isDead = true;
+            visible = false;
         }
-        //cooldown for when the enemy attacks
-        if (timer == 0f)
+        else
         {
-            Attack();
+            beginCollision = true;
+        }
+        if (!isDead)
+        {
+            base.Update(gameTime);
+            //strength of enemy reduces with current health
+            if (this.health < 21)
+                strength = 8;
+            if (this.health < 11)
+                strength = 5;
+            if (this.health < 1)
+            {
+                visible = false;
+                isDead = true;
+            }
+            //cooldown for when the enemy attacks
+
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (timer > 500f)
+            {
+                Attack();
+                timer = 0f;
+            }
         }
-        else if (timer > 500f)
-        {
-            timer = 0f;
-        }
+        
     }
 
     //attacks by creating a shooting object, where the object shoots in the direction in which the enemy is moving
     private void Attack()
     {
         //HellhoundShoot hellhoundShoot = new HellhoundShoot(this.position, this.velocity, strength);
-        (GameWorld.Find("enemieshot") as GameObjectList).Add(new HellhoundShoot(this.position, this.velocity, strength));
-        GameEnvironment.AssetManager.PlaySound("Mage shot");
+        (GameWorld.Find("enemieShot") as GameObjectList).Add(new HellhoundShoot(this.position, new Vector2(speedHori, speedVert), strength, this));
     }
+
+    
 }
 
