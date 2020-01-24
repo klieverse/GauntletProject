@@ -79,7 +79,6 @@ class Teleport : AnimatedGameObject
                         else
                         {
                             timer = 0;
-                            PlayAnimation("Tele");
                         }
                     }
                     else
