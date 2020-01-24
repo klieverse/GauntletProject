@@ -149,7 +149,7 @@ partial class Level : GameObjectList
         string jplayer = JsonConvert.SerializeObject(player);
         GameEnvironment.Connection.Send(jplayer);
         player.SetSprite(sprite);
-
+        /*
         //sends the statistics of the current player
         GameObjectList stats = GameWorld.Find("StatFields") as GameObjectList;
         PlayerStatField statField = stats.Find(GameEnvironment.SelectedClass) as PlayerStatField;
@@ -253,7 +253,7 @@ partial class Level : GameObjectList
             string jwall = JsonConvert.SerializeObject(breakableWall);
             GameEnvironment.Connection.Send(jwall);
             breakableWall.SetSprite(sprite);
-        }
+        }*/
     }
 
     public void UpdateMultiplayer(string message)
