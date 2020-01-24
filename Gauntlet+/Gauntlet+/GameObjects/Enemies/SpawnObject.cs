@@ -234,19 +234,19 @@ class SpawnObject : SpriteGameObject
     //spawn certain enemies according to the spawnId given in Levelloading.cs (not created in levelloading yet)
     public virtual void Spawn()
     {
-        if (spawnId == "Wizard")
+        if (spawnId == "Temple/Wizard")
         {
             (GameWorld.Find("enemies") as GameObjectList).Add(new Wizard(spawnLocation, true));
         }
-        else if (spawnId == "Troll")
+        else if (spawnId == "Temple/Troll")
         {
             (GameWorld.Find("enemies") as GameObjectList).Add(new Troll(spawnLocation, true));
         }
-        else if (spawnId == "Hellhound")
+        else if (spawnId == "Temple/Hellhound")
         {
             (GameWorld.Find("enemies") as GameObjectList).Add(new Hellhound(spawnLocation, true));
         }
-        else if (spawnId == "Skeleton")
+        else if (spawnId == "Temple/Skeleton")
         {
             (GameWorld.Find("enemies") as GameObjectList).Add(new Ghost(spawnLocation, true));
         }
