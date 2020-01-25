@@ -63,10 +63,6 @@ class PlayingState : IGameLoopObject
         {
             GameEnvironment.GameStateManager.SwitchTo("gameOverState");
         }
-        else if (CurrentLevel.Completed)
-        {
-            GameEnvironment.GameStateManager.SwitchTo("levelFinishedState");
-        }
     }
 
     public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)

@@ -58,9 +58,9 @@ partial class Level : GameObjectList
     {
         get
         {
-            //Player player = Find("player") as Player;
-            //return !player.IsAlive;
             return false;
+            Player player = Find(GameEnvironment.SelectedClass) as Player;
+            return !player.IsAlive;
         }
     }
 }
