@@ -98,7 +98,7 @@
     <Compile Include="GameObjects\Players\Merlin.cs" />
     <Compile Include="GameObjects\Tiles\Teleporter.cs" />
     <Compile Include="GameObjects\Tiles\Wall.cs" />
-    <Compile Include="GameStates\BetweenLevelState.cs" />
+    <Compile Include="GameStates\SettingsState.cs" />
     <Compile Include="GameStates\GameOverState.cs" />
     <Compile Include="GameStates\HelpState.cs" />
     <Compile Include="GameStates\multiplayerCharacterState.cs" />

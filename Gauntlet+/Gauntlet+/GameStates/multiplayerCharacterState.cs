@@ -2,7 +2,7 @@
 
 class MultiplayerCharacterState: GameObjectList
 {
-    protected Button elfButton, valkeryButton, wizardButton, warriorButton, startButton;
+    protected Button elfButton, valkeryButton, wizardButton, warriorButton, startButton, backButton;
     protected PlayerStats elfStats, valkeryStats, wizardStats, warriorStats;
     string currentSelected, previousSelected;
     static bool elfChosen, valkeryChosen, wizardChosen, warriorChosen;
@@ -10,8 +10,11 @@ class MultiplayerCharacterState: GameObjectList
     public MultiplayerCharacterState()
     {
 
+        SpriteGameObject background = new SpriteGameObject("Backgrounds/spr_settings", 0, "background");
+        Add(background);
+
         elfButton = new Button("statSprites/ElfStats", 2); // create classbutton
-        elfButton.BeginPosition = new Vector2((GameEnvironment.Screen.X - elfButton.Width) / 4, 200); //give the button a position
+        elfButton.BeginPosition = new Vector2((GameEnvironment.Screen.X - elfButton.Width) / 4, 220); //give the button a position
         elfStats = new PlayerStats(elfButton.BeginPosition, "Elf"); // create statsList for the class
         //add stats and button to the screen
         Add(elfStats);
@@ -19,7 +22,7 @@ class MultiplayerCharacterState: GameObjectList
 
 
         valkeryButton = new Button("statSprites/ValkeryStats", 2);
-        valkeryButton.BeginPosition = new Vector2((GameEnvironment.Screen.X - elfButton.Width) / 4 * 3, 200);
+        valkeryButton.BeginPosition = new Vector2((GameEnvironment.Screen.X - elfButton.Width) / 4 * 3, 220);
         valkeryStats = new PlayerStats(valkeryButton.BeginPosition, "Valkery");
         Add(valkeryStats);
         Add(valkeryButton);
@@ -39,7 +42,11 @@ class MultiplayerCharacterState: GameObjectList
         startButton = new Button("Sprites/Buttons/StartButton", 1);
         startButton.BeginPosition = new Vector2((GameEnvironment.Screen.X / 2- (startButton.Width / 2)), 700);
         Add(startButton);
-        
+
+        // add a back but.ton
+        backButton = new Button("Sprites/Exit", 100);
+        backButton.Position = new Vector2((GameEnvironment.Screen.X - backButton.Width) / 2, 750);
+        Add(backButton);
 
         elfChosen = false;
         valkeryChosen = false;
@@ -77,6 +84,11 @@ class MultiplayerCharacterState: GameObjectList
         {
             GameEnvironment.SelectedClass = currentSelected;
             GameEnvironment.GameStateManager.SwitchTo("multiPlayerState");
+        }
+
+        if (backButton.Pressed)
+        {
+            GameEnvironment.GameStateManager.SwitchTo("titleMenu");
         }
 
     }

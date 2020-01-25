@@ -37,6 +37,18 @@
 /processorParam:TextureFormat=Color
 /build:Backgrounds/spr_help.png
 
+#begin Backgrounds/spr_settings.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/spr_settings.png
+
 #begin Backgrounds/spr_title.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -288,6 +300,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/Buttons/MultiPlayerButton.png
+
+#begin Sprites/Buttons/Settings.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Buttons/Settings.png
 
 #begin Sprites/Buttons/SinglePlayerButton.png
 /importer:TextureImporter

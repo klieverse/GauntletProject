@@ -10,7 +10,7 @@ class HelpState : GameObjectList
         SpriteGameObject background = new SpriteGameObject("Backgrounds/spr_help", 0, "background");
         Add(background);
 
-        // add a back but.ton
+        // add a back button
         backButton = new Button("Sprites/Exit", 100);
         backButton.Position = new Vector2((GameEnvironment.Screen.X - backButton.Width) / 2, 750);
         Add(backButton);

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 class TitleMenuState : GameObjectList
 {
-    protected Button singlePlayerButton, multiPlayerButton, helpButton;
+    protected Button singlePlayerButton, multiPlayerButton, helpButton, settingsButton;
 
     public TitleMenuState()
     {
@@ -14,18 +14,25 @@ class TitleMenuState : GameObjectList
 
         // add a single player button
         singlePlayerButton = new Button("Sprites/Buttons/SinglePlayerButton", 1);
-        singlePlayerButton.BeginPosition = new Vector2((GameEnvironment.Screen.X - singlePlayerButton.Width) / 2, 370);
+        singlePlayerButton.BeginPosition = new Vector2((GameEnvironment.Screen.X - singlePlayerButton.Width) / 2, 350);
         Add(singlePlayerButton);
 
         //add a multi player button
         multiPlayerButton = new Button("Sprites/Buttons/MultiPlayerButton", 1);
-        multiPlayerButton.BeginPosition = new Vector2((GameEnvironment.Screen.X - singlePlayerButton.Width) / 2, 470);
+        multiPlayerButton.BeginPosition = new Vector2((GameEnvironment.Screen.X - singlePlayerButton.Width) / 2, 440);
         Add(multiPlayerButton);
+
+        // add a settings button
+        settingsButton = new Button("Sprites/Buttons/Settings", 1);
+        settingsButton.BeginPosition = new Vector2((GameEnvironment.Screen.X - settingsButton.Width) / 2, 530);
+        Add(settingsButton);
 
         // add a help button
         helpButton = new Button("Sprites/Buttons/HelpButton", 1);
-        helpButton.BeginPosition = new Vector2((GameEnvironment.Screen.X - helpButton.Width) / 2, 570);
+        helpButton.BeginPosition = new Vector2((GameEnvironment.Screen.X - helpButton.Width) / 2, 620);
         Add(helpButton);
+
+        
     }
 
     public override void HandleInput(InputHelper inputHelper)
@@ -46,6 +53,10 @@ class TitleMenuState : GameObjectList
                 Console.WriteLine("Connection is not available");
             }
             
+        }
+        else if(settingsButton.Pressed)
+        {
+            GameEnvironment.GameStateManager.SwitchTo("SettingsState");
         }
         else if (helpButton.Pressed)
         {
