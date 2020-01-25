@@ -142,5 +142,11 @@ class SpawnObject : SpriteGameObject
             (GameWorld.Find("enemies") as GameObjectList).Add(new Ghost(spawnLocation));
         }
     }
+
+    public override void Reset()
+    {
+        base.Reset();
+        timer = 0;
+    }
 }
 

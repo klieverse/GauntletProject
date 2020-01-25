@@ -25,15 +25,22 @@ class Exit : Tile
 
     private void CheckCollision()
     {
+        bool Next = false;
         //check playercollision
         List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
         if (players != null)
             foreach (Player player in players)
                 if (CollidesWith(player))
                 {
-                    PlayingState.NextLevel(lvlIndex);
-                
+                    visible = false;
+                    Next = true;
                     GameEnvironment.AssetManager.PlaySound("Stage_Exit");
                 }
+
+        if (Next)
+        {
+            PlayingState.NextLevel(lvlIndex);
+        }
+    
     }
 }

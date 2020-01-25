@@ -32,7 +32,15 @@ class BreakableWall : Tile
         {
             visible = false;
             type = TileType.Background;
-            GameEnvironment.AssetManager.PlaySound("Ghoblin attack");
+            if (visible)
+                GameEnvironment.AssetManager.PlaySound("Ghoblin attack");
         }
+    }
+
+    public override void Reset()
+    {
+        base.Reset();
+        howBroken = 2;
+        type = TileType.BreakableWall;
     }
 }

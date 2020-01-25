@@ -14,6 +14,7 @@ public class GameObjectList : GameObject
     public List<GameObject> Children
     {
         get { return children; }
+        set { children = value; }
     }
 
     public void Add(GameObject obj)

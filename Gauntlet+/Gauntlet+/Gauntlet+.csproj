@@ -110,6 +110,8 @@
     <Compile Include="Level\Level.cs" />
     <Compile Include="Level\LevelGameLoop.cs" />
     <Compile Include="Level\LevelLoading.cs" />
+    <Compile Include="Level\LevelConnection.cs" />
+    <Compile Include="Level\LevelWallLoading.cs" />
     <Compile Include="Level\Tile.cs" />
     <Compile Include="Level\TileField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
