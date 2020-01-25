@@ -62,9 +62,7 @@ partial class Level : GameObjectList
         }
         
         
-        //Player player = Find("player") as Player;
 
-        // check if we died
         
 
         //update the fitting statfield with the data of the current player

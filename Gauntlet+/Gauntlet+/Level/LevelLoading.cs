@@ -197,7 +197,7 @@ partial class Level : GameObjectList
     {
         GameObjectList enemies = Find("spawns") as GameObjectList;
         TileField tiles = Find("tiles") as TileField;
-        Vector2 startPosition = new Vector2(((float)x + 0.5f) * Tile.Size, (y + 1) * Tile.Size);
+        Vector2 startPosition = new Vector2(x * Tile.Size, y * Tile.Size);
         SpawnObject enemy = new SpawnObject(startPosition, "Temple/Skeleton");
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
@@ -214,7 +214,7 @@ partial class Level : GameObjectList
     {
         GameObjectList enemies = Find("spawns") as GameObjectList;
         TileField tiles = Find("tiles") as TileField;
-        Vector2 startPosition = new Vector2(((float)x + 0.5f) * Tile.Size, (y + 1) * Tile.Size);
+        Vector2 startPosition = new Vector2(x * Tile.Size, y  * Tile.Size);
         SpawnObject enemy = new SpawnObject(startPosition, "Temple/Wizard");
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
@@ -231,7 +231,7 @@ partial class Level : GameObjectList
     {
         GameObjectList enemies = Find("spawns") as GameObjectList;
         TileField tiles = Find("tiles") as TileField;
-        Vector2 startPosition = new Vector2(((float)x + 0.5f) * Tile.Size, (y + 1) * Tile.Size);
+        Vector2 startPosition = new Vector2(x * Tile.Size, y * Tile.Size);
         SpawnObject enemy = new SpawnObject(startPosition, "Temple/Troll");
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
@@ -248,7 +248,7 @@ partial class Level : GameObjectList
     {
         GameObjectList enemies = Find("spawns") as GameObjectList;
         TileField tiles = Find("tiles") as TileField;
-        Vector2 startPosition = new Vector2(((float)x + 0.5f) * Tile.Size, (y + 1) * Tile.Size);
+        Vector2 startPosition = new Vector2(x * Tile.Size, y * Tile.Size);
         SpawnObject enemy = new SpawnObject(startPosition, "Temple/Hellhound");
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
