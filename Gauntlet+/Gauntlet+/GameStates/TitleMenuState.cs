@@ -32,7 +32,20 @@ class TitleMenuState : GameObjectList
         helpButton.BeginPosition = new Vector2((GameEnvironment.Screen.X - helpButton.Width) / 2, 620);
         Add(helpButton);
 
-        
+        GameObjectList hintField = new GameObjectList(100);
+        Add(hintField);
+        SpriteGameObject hintFrame = new SpriteGameObject("Sprites/spr_frame", 1);
+        hintField.Position = new Vector2((GameEnvironment.Screen.X - hintFrame.Width) / 2, 10);
+        hintField.Add(hintFrame);
+        TextGameObject hintText = new TextGameObject("StatFont", 2);
+        hintText.Text = GameEnvironment.Connection.ConsoleMessage;
+        hintText.Position = new Vector2(120, 25);
+        hintText.Color = Color.Black;
+        hintField.Add(hintText);
+        VisibilityTimer hintTimer = new VisibilityTimer(hintField, 1, "hintTimer");
+        Add(hintTimer);
+
+
     }
 
     public override void HandleInput(InputHelper inputHelper)
@@ -50,7 +63,8 @@ class TitleMenuState : GameObjectList
             }
             else
             {
-                Console.WriteLine("Connection is not available");
+                VisibilityTimer hintTimer = Find("hintTimer") as VisibilityTimer;
+                hintTimer.StartVisible();
             }
             
         }
