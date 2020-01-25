@@ -39,6 +39,7 @@ class GameOverState : GameObjectList
             {
                 connection.Open();
             }
+            hintText.Text = "Highscore list is available";
         }
         catch (SqlException e)
         {
