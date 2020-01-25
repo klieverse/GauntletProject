@@ -26,7 +26,7 @@ class Gauntlet : GameEnvironment
         FullScreen = false;
 
         gameStateManager.AddGameState("titleMenu", new TitleMenuState());
-        //gameStateManager.AddGameState("helpState", new HelpState());
+        gameStateManager.AddGameState("helpState", new HelpState());
         gameStateManager.AddGameState("chooseCharacterState", new ChooseCharacterState());
         gameStateManager.AddGameState("playingState", new PlayingState(Content));
         gameStateManager.AddGameState("multiPlayerState", new MultiPlayerState(Content));
