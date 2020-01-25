@@ -20,13 +20,13 @@ public class Connection
             client.Connect(ipAddress, port);
             networkStream = client.GetStream();
 
-            Console.WriteLine(" >> " + "Client Started");
+            ConsoleMessage = "You are online";
             multiplayerAllowed = true;
             //receivedMessages = new List<string>();
         }
         catch
         {
-            Console.WriteLine("Could not connect to server. Multiplayer is not available");
+            ConsoleMessage = "Could not connect to server. Multiplayer is not available";
             multiplayerAllowed = false;
         }
         
@@ -79,6 +79,12 @@ public class Connection
     }
 
     public bool multiplayerAllowed
+    {
+        get;
+        set;
+    }
+
+    public string ConsoleMessage
     {
         get;
         set;
