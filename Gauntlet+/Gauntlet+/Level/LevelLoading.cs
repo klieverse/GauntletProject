@@ -60,7 +60,7 @@ partial class Level : GameObjectList
         {
 
             case 'S':
-                return LoadSkeleton(x, y);
+                return LoadTempleSkeleton(x, y);
             case 'g':
                 return LoadGnome(x, y);
             default:
@@ -104,7 +104,7 @@ partial class Level : GameObjectList
 
             //Enemies
             case 'S':
-                return LoadSkeleton(x, y);
+                return LoadTempleSkeleton(x, y);
             case 'G':
                 return LoadGhost(x, y);
             case 'H':
@@ -193,7 +193,7 @@ partial class Level : GameObjectList
         return breakWall;
     }
 
-    private Tile LoadSkeleton(int x, int y)
+    private Tile LoadTempleSkeleton(int x, int y)
     {
         GameObjectList enemies = Find("spawns") as GameObjectList;
         TileField tiles = Find("tiles") as TileField;
@@ -201,7 +201,7 @@ partial class Level : GameObjectList
         SpawnObject enemy = new SpawnObject(startPosition, "Temple/Skeleton");
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
-        return new Tile();
+        return enemy;
         /*        TileField tiles = Find("tiles") as TileField;
                 Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
                 Ghost ghost = new Ghost(startPosition);
@@ -218,7 +218,7 @@ partial class Level : GameObjectList
         SpawnObject enemy = new SpawnObject(startPosition, "Temple/Wizard");
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
-        return new Tile();
+        return enemy;
         /*        TileField tiles = Find("tiles") as TileField;
                 Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
                 Ghost ghost = new Ghost(startPosition);
@@ -235,7 +235,7 @@ partial class Level : GameObjectList
         SpawnObject enemy = new SpawnObject(startPosition, "Temple/Troll");
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
-        return new Tile();
+        return enemy;
         /*        TileField tiles = Find("tiles") as TileField;
                 Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
                 Ghost ghost = new Ghost(startPosition);
@@ -252,7 +252,7 @@ partial class Level : GameObjectList
         SpawnObject enemy = new SpawnObject(startPosition, "Temple/Hellhound");
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
-        return new Tile();
+        return enemy;
         /*        TileField tiles = Find("tiles") as TileField;
                 Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
                 Ghost ghost = new Ghost(startPosition);

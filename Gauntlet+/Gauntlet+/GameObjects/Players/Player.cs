@@ -265,7 +265,7 @@ class Player : AnimatedGameObject
                 if (Math.Abs(tileDepth.X) < Math.Abs(tileDepth.Y))
                 {
                     if (tileType == TileType.Wall || tileType == TileType.BreakableWall || tileType == TileType.HorizontalDoor
-                        || tileType == TileType.VerticalDoor || tileType == TileType.Teleporter)
+                        || tileType == TileType.VerticalDoor || tileType == TileType.Teleporter || tileType == TileType.Temple)
                     {
                         if (doors != null)
                         {
@@ -286,7 +286,7 @@ class Player : AnimatedGameObject
                 }
 
                 if (tileType == TileType.Wall || tileType == TileType.BreakableWall || tileType == TileType.Teleporter
-                    || tileType == TileType.HorizontalDoor || tileType == TileType.VerticalDoor)
+                    || tileType == TileType.HorizontalDoor || tileType == TileType.VerticalDoor || tileType == TileType.Temple)
                 {
                     if (doors != null)
                     {

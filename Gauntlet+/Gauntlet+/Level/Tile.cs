@@ -11,7 +11,8 @@ enum TileType
     Teleporter,
     HorizontalDoor,
     VerticalDoor,
-    Trap
+    Trap,
+    Temple
 }
 
 class Tile : SpriteGameObject
@@ -26,7 +27,7 @@ class Tile : SpriteGameObject
         : base(assetname, layer, id)
     {
         type = tp;
-        if (TileType != TileType.HorizontalDoor && TileType != TileType.VerticalDoor && TileType != TileType.Teleporter)
+        if (TileType != TileType.HorizontalDoor && TileType != TileType.VerticalDoor && TileType != TileType.Teleporter && TileType != TileType.Temple)
             scale = 1.5f;
     }
 

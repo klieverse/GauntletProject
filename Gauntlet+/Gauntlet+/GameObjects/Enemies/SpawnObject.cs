@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-class SpawnObject : SpriteGameObject
+class SpawnObject : Tile
 {
     Player closestPlayer; 
     int distance, health = 50;
@@ -17,7 +17,7 @@ class SpawnObject : SpriteGameObject
     //   TileField tileField;
     readonly string spawnId = "";
 
-    public SpawnObject(Vector2 startPosition, string spawnId) : base(assetName: spawnId, 2, "Spawn")
+    public SpawnObject(Vector2 startPosition, string spawnId) : base(spawnId, TileType.Temple, 2, "Spawn")
     {
         position = startPosition;
         //r = new Random();
@@ -35,6 +35,7 @@ class SpawnObject : SpriteGameObject
             {
                 visible = false;
                 isDead = true;
+                type = TileType.Background;
             }
 
             FindClosestPlayer();
