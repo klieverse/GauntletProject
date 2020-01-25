@@ -15,6 +15,18 @@ class GameOverState : GameObjectList
         overlay.Position = new Vector2(GameEnvironment.Screen.X, GameEnvironment.Screen.Y) / 2 - overlay.Center;
         Add(overlay);
 
+        GameObjectList hintField = new GameObjectList(100);
+        Add(hintField);
+        SpriteGameObject hintFrame = new SpriteGameObject("Sprites/spr_frame", 1);
+        hintField.Position = new Vector2((GameEnvironment.Screen.X - hintFrame.Width) / 2, 10);
+        hintField.Add(hintFrame);
+        TextGameObject hintText = new TextGameObject("StatFont", 2);
+        hintText.Position = new Vector2(120, 25);
+        hintText.Color = Color.Black;
+        hintField.Add(hintText);
+        VisibilityTimer hintTimer = new VisibilityTimer(hintField, 1, "hintTimer");
+        Add(hintTimer);
+
         try
         {
             var cb = new SqlConnectionStringBuilder();
@@ -27,11 +39,12 @@ class GameOverState : GameObjectList
             {
                 connection.Open();
             }
+            hintText.Text = "Highscore list is available";
         }
         catch (SqlException e)
         {
             Console.WriteLine(e.ToString());
-            Console.WriteLine("Highscore list not available, your score won't be tracked");
+            hintText.Text = "Highscore list is not available, your score won't be saved";
         }
     }
 
@@ -55,6 +68,12 @@ class GameOverState : GameObjectList
     {
         playingState.Draw(gameTime, spriteBatch);
         base.Draw(gameTime, spriteBatch);
+    }
+
+    public override void Reset()
+    {
+        VisibilityTimer hintTimer = Find("hintTimer") as VisibilityTimer;
+        hintTimer.StartVisible();
     }
 
     public void UpdateDatabase()
