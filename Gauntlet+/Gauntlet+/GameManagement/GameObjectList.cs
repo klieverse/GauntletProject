@@ -71,17 +71,17 @@ public class GameObjectList : GameObject
         List<GameObject> delete = new List<GameObject>();
         foreach (GameObject obj in children)
         {
-            if(ObjectIsList(obj))
+            
+            if (ObjectIsList(obj))
             {
                 obj.Update(gameTime);
             }
             else
             {
-
                 if (Camera.CameraBox.Contains(obj.Position))
                 {
                     obj.Update(gameTime);
-                    if(obj.Visible == false && Id == "enemies")
+                    if((!obj.Visible) && (Id == "enemies" || Id == "playershot" || Id == "enemieShot") && obj.Id != "Wizard")
                     {
                         delete.Add(obj);
                     }

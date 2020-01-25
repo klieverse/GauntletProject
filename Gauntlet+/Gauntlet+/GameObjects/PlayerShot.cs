@@ -103,6 +103,7 @@ class PlayerShot : SpriteGameObject
         base.Update(gameTime);
 
         HandleCollisions();
+        HandleOutOfScreen();
     }
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
@@ -184,6 +185,14 @@ class PlayerShot : SpriteGameObject
                     GameEnvironment.AssetManager.PlaySound("Explosion");
                 } 
             }
+    }
+
+    public void HandleOutOfScreen()
+    {
+        if(!Camera.CameraBox.Contains(position))
+        {
+            visible = false;
+        }
     }
 }
 

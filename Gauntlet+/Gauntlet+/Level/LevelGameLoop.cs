@@ -61,6 +61,7 @@ partial class Level : GameObjectList
             base.Update(gameTime);
         }
         
+        
         //Player player = Find("player") as Player;
 
         // check if we died
