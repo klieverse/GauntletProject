@@ -145,7 +145,8 @@ partial class Level : GameObjectList
                 return LoadExtraPotion(x, y);
             case 't':
                 return LoadTreasure(x, y);
-
+            case 'F':
+                return LoadFood(x, y);
             default:
                 return LoadFloorTile(x, y);
         }        
