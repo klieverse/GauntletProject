@@ -51,7 +51,7 @@
     <Compile Include="GameManagement\Animation.cs" />
     <Compile Include="GameManagement\AssetManager.cs" />
     <Compile Include="GameManagement\Camera.cs" />
-	<Compile Include="GameObjects\Enemies\EnemyShot.cs" />
+    <Compile Include="GameObjects\Enemies\EnemyShot.cs" />
     <Compile Include="GameManagement\Connection.cs" />
     <Compile Include="GameObjects\Tiles\BreakableWall.cs" />
     <Compile Include="GameObjects\Tiles\Door.cs" />
@@ -70,7 +70,6 @@
     <Compile Include="GameManagement\SpriteSheet.cs" />
     <Compile Include="GameManagement\TextGameObject.cs" />
     <Compile Include="GameObjects\Button.cs" />
-    <Compile Include="GameObjects\Enemies\Skeleton.cs" />
     <Compile Include="GameObjects\Enemies\TempleHellhounds.cs" />
     <Compile Include="GameObjects\Enemies\TempleTrolls.cs" />
     <Compile Include="GameObjects\Enemies\TempleWizards.cs" />

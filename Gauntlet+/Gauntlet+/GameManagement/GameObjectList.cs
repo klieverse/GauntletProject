@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 public class GameObjectList : GameObject
 {
@@ -67,9 +68,29 @@ public class GameObjectList : GameObject
 
     public override void Update(GameTime gameTime)
     {
+        List<GameObject> delete = new List<GameObject>();
         foreach (GameObject obj in children)
         {
-            obj.Update(gameTime);
+            if(ObjectIsList(obj))
+            {
+                obj.Update(gameTime);
+            }
+            else
+            {
+
+                if (Camera.CameraBox.Contains(obj.Position))
+                {
+                    obj.Update(gameTime);
+                    if(obj.Visible == false && Id == "enemies")
+                    {
+                        delete.Add(obj);
+                    }
+                }
+            }
+        }
+        foreach(GameObject obj in delete)
+        {
+            Remove(obj);
         }
     }
 
@@ -92,6 +113,31 @@ public class GameObjectList : GameObject
         foreach (GameObject obj in children)
         {
             obj.Reset();
+        }
+    }
+
+    public bool ObjectIsList(GameObject obj)
+    {
+        switch(obj.Id)
+        {
+            case "spawns":
+            case "players":
+            case "StatFields":
+            case "enemies":
+            case "food":
+            case "keys":
+            case "treasures":
+            case "potions":
+            case "playershot":
+            case "enemieShot":
+            case "teleport":
+            case "BreakableWalls":
+            case "Doors":
+            case "Exits":
+            case "SpawnObjects":
+                return true;
+            default:
+                return false;
         }
     }
 }
