@@ -42,7 +42,7 @@ class ChooseCharacterState : GameObjectList
     public override void HandleInput(InputHelper inputHelper)
     {
         base.HandleInput(inputHelper);
-        //if a button is pressed set the fitting class and go to the level
+        //if a button is pressed set the matching class and go to the level
         if (elfButton.Pressed)
         {
             GameEnvironment.SelectedClass = "Elf";

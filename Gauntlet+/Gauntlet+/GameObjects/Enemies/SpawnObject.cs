@@ -256,5 +256,11 @@ class SpawnObject : SpriteGameObject
     {
         health -= (int)damage;
     }
+
+    public override void Reset()
+    {
+        base.Reset();
+        timer = 0;
+    }
 }
 

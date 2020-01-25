@@ -125,6 +125,8 @@ class PlayerShot : SpriteGameObject
                 TileType type = tileField.GetTileType(x, y);
                 if ( type == TileType.Wall || type == TileType.VerticalDoor || type == TileType.HorizontalDoor)
                 {
+                    if (visible)
+                        GameEnvironment.AssetManager.PlaySound("Ghost hit");
                     visible = false;
                 }
             }

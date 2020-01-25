@@ -4,7 +4,7 @@ using System;
 partial class Level : GameObjectList
 {
     protected Button quitButton;
-    protected Vector2 startPositionThyra, startPositionQuestor, startPositionThor, startPositionMerlin;
+    public Vector2 startPositionThyra, startPositionQuestor, startPositionThor, startPositionMerlin;
 
     public Level(int levelIndex)
     {
@@ -12,7 +12,6 @@ partial class Level : GameObjectList
 
 
         quitButton = new Button("Sprites/Exit", 100);
-        // quitButton.Position = new Vector2(GameEnvironment.Screen.X - quitButton.Width - 10, 10);
         Add(quitButton);
         
 
@@ -30,10 +29,11 @@ partial class Level : GameObjectList
         Add(new GameObjectList(2, "BreakableWalls"));
         Add(new GameObjectList(2, "Doors"));
         Add(new GameObjectList(2, "Exits"));
+        Add(new GameObjectList(2, "SpawnObjects"));
         // Add(new Questor(2, "Elf", new Vector2(150, 150), this, true));
         // Add(new PlayerStatField("Elf"));
-        
-        
+
+
 
         LoadTiles("Content/Levels/" + levelIndex + ".txt");
     }

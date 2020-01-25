@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 class PlayerStatField : SpriteGameObject
 {
     PlayerStats Stats;
-    public PlayerStatField(string playerClass, int pos, int layer = 5) :base("statSprites/" + playerClass + "Stats",layer,"StatField")
+    public PlayerStatField(string playerClass, int layer = 5) :base("statSprites/" + playerClass + "Stats",layer,"StatField")
     {
         id = playerClass + "Stats"; //set the id based on the playerclass
-        position = new Vector2(pos, GameEnvironment.Screen.Y - Height); //set position
+        SetPosition();
         Stats = new PlayerStats(position,playerClass); // create the statlist for in the field
         
     }
@@ -43,6 +43,19 @@ class PlayerStatField : SpriteGameObject
         }
         //draw the stats into the field
         Stats.Draw(gameTime, spriteBatch);
+    }
+
+    public void SetPosition()
+    {
+        if (id == "ElfStats")
+            position = new Vector2(GameEnvironment.Screen.X / 2 + 272 , GameEnvironment.Screen.Y - Height);
+        if (id == "WizardStats")
+            position = new Vector2(GameEnvironment.Screen.X / 2 , GameEnvironment.Screen.Y - Height);
+        if (id == "WarriorStats")
+            position = new Vector2(GameEnvironment.Screen.X / 2 - 2 * 272, GameEnvironment.Screen.Y - Height);
+        if (id == "ValkeryStats")
+            position = new Vector2(GameEnvironment.Screen.X / 2 - 272, GameEnvironment.Screen.Y - Height);
+
     }
 }
 

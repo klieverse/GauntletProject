@@ -8,10 +8,12 @@ using Microsoft.Xna.Framework;
 //Moeten nog even kijken voor de sprites of we twee losse classes nodig hebben of niet
 class Door : Tile
 {
+    protected TileType thisType;
     public Door(int layer, string id, Vector2 position, TileType type)
     : base("Tiles/" + id, type, layer, id)
     {
         this.position = position;
+        thisType = type;
     }
 
     public override void Update(GameTime gameTime)
@@ -83,6 +85,12 @@ class Door : Tile
                         }
                 }
         }
+    }
+
+    public override void Reset()
+    {
+        base.Reset();
+        type = thisType;
     }
 }
 
