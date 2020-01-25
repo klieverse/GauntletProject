@@ -161,7 +161,7 @@ partial class Level : GameObjectList
     {
         GameObjectList exits = Find("Exits") as GameObjectList;
         Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
-        Exit e = new Exit(layer, "Exit", position, levelExit);
+        Exit e = new Exit(layer, "Exit", position, levelExit - 48);
         exits.Add(e);
         return e;
     } 

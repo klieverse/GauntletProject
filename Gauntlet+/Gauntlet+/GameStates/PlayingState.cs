@@ -52,7 +52,8 @@ class PlayingState : IGameLoopObject
 
     public virtual void Update(GameTime gameTime)
     {
-        if(justOpened)
+        CurrentLevel.Update(gameTime);
+        if (justOpened)
         {
             LoadPlayers();
             justOpened = false;

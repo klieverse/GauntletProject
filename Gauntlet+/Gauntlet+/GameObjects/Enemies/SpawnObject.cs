@@ -261,6 +261,8 @@ class SpawnObject : SpriteGameObject
     {
         base.Reset();
         timer = 0;
+        health = 50;
+        isDead = false;
     }
 }
 

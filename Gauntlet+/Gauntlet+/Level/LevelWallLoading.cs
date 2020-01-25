@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 
 partial class Level : GameObjectList
-    {
+{
 
     private Tile LoadWallTile(int x, int y) // selects the correct wall tile depending on walls arround it;
     {

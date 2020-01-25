@@ -76,6 +76,7 @@ class Player : AnimatedGameObject
     public override void HandleInput(InputHelper inputHelper)
     {
         this.inputHelper = inputHelper;
+        
         if (!isAlive)
         {
             return;
@@ -87,13 +88,15 @@ class Player : AnimatedGameObject
         if (inputHelper.ControllerConnected())
             Xinput(inputHelper);
         else KeyboardInput(inputHelper);
+        VectorHelper();
     }
 
     
 
     public override void Update(GameTime gameTime)
     {
-        VectorHelper();
+        
+        
         previousPosition = position;
 
         base.Update(gameTime);
