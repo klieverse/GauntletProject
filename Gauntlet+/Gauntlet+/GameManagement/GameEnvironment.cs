@@ -19,7 +19,7 @@ public class GameEnvironment : Game
     protected static AssetManager assetManager;
     protected static Connection connection;
     public static string SelectedClass;
-    public static float Volume =1;
+    public static float Volume;
 
     public GameEnvironment()
     {
@@ -31,6 +31,7 @@ public class GameEnvironment : Game
         random = new Random();
         assetManager = new AssetManager(Content);
         connection = new Connection();
+
 
     }
 

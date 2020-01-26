@@ -27,7 +27,11 @@ public class AssetManager
         float panPosition= ((position - Camera.Position.X)/GameEnvironment.Screen.X )*2-1;
         SoundEffect snd = contentManager.Load<SoundEffect>("sounds/"+assetName);
         if (panPosition < -1 && panPosition > 1)
-            snd.Play(   GameEnvironment.Volume,0,panPosition);
+            snd.Play(GameEnvironment.Volume,0,panPosition);
+        else
+        {
+            snd.Play(GameEnvironment.Volume, 0, 0);
+        }
     }
 
     public void PlayMusic(string assetName, bool repeat = true)

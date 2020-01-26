@@ -17,6 +17,7 @@ class SettingsState : GameObjectList
         Add(backButton);
 
         slider = new SoundSlider(new Vector2(0, GameEnvironment.Screen.Y/2));
+        Add(slider);
     }
 
     public override void HandleInput(InputHelper inputHelper)
