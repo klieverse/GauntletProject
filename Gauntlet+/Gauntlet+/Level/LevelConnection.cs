@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 
 partial class Level : GameObjectList
 {
+    string jplayer;
+
     public void SendInformation()
     {
         //sends the player class
@@ -13,15 +15,16 @@ partial class Level : GameObjectList
         Player player = players.Find(GameEnvironment.SelectedClass) as Player;
         SpriteSheet sprite = player.Sprite;
         player.SetSprite(null);
-        string jplayer = JsonConvert.SerializeObject(player);
+        jplayer = JsonConvert.SerializeObject(player);
         GameEnvironment.Connection.Send(jplayer);
         player.SetSprite(sprite);
         
+        /*
         //sends the statistics of the current player
         GameObjectList stats = GameWorld.Find("StatFields") as GameObjectList;
         PlayerStatField statField = stats.Find(GameEnvironment.SelectedClass) as PlayerStatField;
         string jstats = JsonConvert.SerializeObject(statField);
-        GameEnvironment.Connection.Send(jstats);
+        GameEnvironment.Connection.Send(jstats);*/
 
         /*
         //sends all in game enemies
@@ -129,6 +132,10 @@ partial class Level : GameObjectList
         //Player classes updated
         if (message.Contains("playerClass"))
         {
+            if(message == jplayer)
+            {
+                return;
+            }
             GameObjectList players = GameWorld.Find("players") as GameObjectList;
             if (message.Contains("Elf"))
             {
