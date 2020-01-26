@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 using Newtonsoft.Json;
 
 
 partial class Level : GameObjectList
 {
-
     public void SendInformation()
     {
         //sends the player class
@@ -19,7 +16,7 @@ partial class Level : GameObjectList
         string jplayer = JsonConvert.SerializeObject(player);
         GameEnvironment.Connection.Send(jplayer);
         player.SetSprite(sprite);
-
+        /*
         //sends the statistics of the current player
         GameObjectList stats = GameWorld.Find("StatFields") as GameObjectList;
         PlayerStatField statField = stats.Find(GameEnvironment.SelectedClass) as PlayerStatField;
@@ -28,7 +25,7 @@ partial class Level : GameObjectList
 
         //sends all in game enemies
         GameObjectList enemies = GameWorld.Find("enemies") as GameObjectList;
-        foreach (EnemyObject enemy in enemies.Children)
+        foreach(EnemyObject enemy in enemies.Children)
         {
             sprite = enemy.Sprite;
             enemy.SetSprite(null);
@@ -36,7 +33,7 @@ partial class Level : GameObjectList
             GameEnvironment.Connection.Send(jenemy);
             enemy.SetSprite(sprite);
         }
-
+        
 
         //sends all in game food
         GameObjectList foods = GameWorld.Find("food") as GameObjectList;
@@ -48,7 +45,7 @@ partial class Level : GameObjectList
             GameEnvironment.Connection.Send(jfood);
             food.SetSprite(sprite);
         }
-
+        
 
         //sends all in game keys
         GameObjectList keys = GameWorld.Find("keys") as GameObjectList;
@@ -60,7 +57,7 @@ partial class Level : GameObjectList
             GameEnvironment.Connection.Send(jkey);
             key.SetSprite(sprite);
         }
-
+        
         //sends all in game treasures
         GameObjectList treasures = GameWorld.Find("treasures") as GameObjectList;
         foreach (Treasure treasure in treasures.Children)
@@ -71,7 +68,7 @@ partial class Level : GameObjectList
             GameEnvironment.Connection.Send(jtreasure);
             treasure.SetSprite(sprite);
         }
-
+        
         //sends all in game potions
         GameObjectList potions = GameWorld.Find("potions") as GameObjectList;
         foreach (Potion potion in potions.Children)
@@ -82,7 +79,7 @@ partial class Level : GameObjectList
             GameEnvironment.Connection.Send(jpotion);
             potion.SetSprite(sprite);
         }
-
+        
         //sends all in game player shots
         GameObjectList playershots = GameWorld.Find("playershot") as GameObjectList;
         foreach (PlayerShot playerShot in playershots.Children)
@@ -101,7 +98,7 @@ partial class Level : GameObjectList
         {
             string jplayershot = JsonConvert.SerializeObject(playerShot);
             GameEnvironment.Connection.Send(jplayershot);
-        }*/
+        }
 
         //sends current states of the doors
         GameObjectList doors = GameWorld.Find("Doors") as GameObjectList;
@@ -123,7 +120,7 @@ partial class Level : GameObjectList
             string jwall = JsonConvert.SerializeObject(breakableWall);
             GameEnvironment.Connection.Send(jwall);
             breakableWall.SetSprite(sprite);
-        }
+        }*/
     }
 
     public void UpdateMultiplayer(string message)
@@ -136,41 +133,46 @@ partial class Level : GameObjectList
             {
                 Player player = players.Find("Elf") as Player;
                 SpriteSheet sprite = player.Sprite;
-                player = JsonConvert.DeserializeObject<Player>(message);
+                Questor newPlayer = JsonConvert.DeserializeObject<Questor>(message);
+                PlayerUpdate(player, newPlayer);
                 player.SetSprite(sprite);
             }
             else if (message.Contains("Wizard"))
             {
                 Player player = players.Find("Wizard") as Player;
                 SpriteSheet sprite = player.Sprite;
-                player = JsonConvert.DeserializeObject<Player>(message);
+                Merlin newPlayer = JsonConvert.DeserializeObject<Merlin>(message);
+                PlayerUpdate(player, newPlayer);
                 player.SetSprite(sprite);
             }
             else if (message.Contains("Warrior"))
             {
                 Player player = players.Find("Warrior") as Player;
                 SpriteSheet sprite = player.Sprite;
-                player = JsonConvert.DeserializeObject<Player>(message);
+                Thor newPlayer = JsonConvert.DeserializeObject<Thor>(message);
+                PlayerUpdate(player, newPlayer);
                 player.SetSprite(sprite);
             }
             else if (message.Contains("Valkery"))
             {
                 Player player = players.Find("Valkery") as Player;
                 SpriteSheet sprite = player.Sprite;
-                player = JsonConvert.DeserializeObject<Player>(message);
+                Thyra newPlayer = JsonConvert.DeserializeObject<Thyra>(message);
+                PlayerUpdate(player, newPlayer);
                 player.SetSprite(sprite);
+                //Console.WriteLine("HIER KOMT VALKERY BINNEN: " + message);
             }
         }
-
+        /*
         //Keys updated
-        else if (message.Contains("Key"))
+        else if(message.Contains("key"))
         {
             Key key = JsonConvert.DeserializeObject<Key>(message);
             GameObjectList keys = GameWorld.Find("keys") as GameObjectList;
-            foreach (Key k in keys.Children)
+            foreach(Key k in keys.Children)
             {
                 //only change if visibility of new key is false
-                if (key.Position == k.Position && key.Visible == false)
+                if(key.Position == k.Position && key.Visible == false)
                 {
                     k.Visible = key.Visible;
                 }
@@ -231,9 +233,22 @@ partial class Level : GameObjectList
         //breakable walls updated
 
         //enemy shots updated
-
+        */
 
 
     }
+
+    public void PlayerUpdate(Player orgP, Player newP)
+    {
+        orgP.health = newP.health;
+        orgP.keys = newP.keys;
+        orgP.potions = newP.Potions;
+        orgP.score = newP.score;
+        orgP.Mirror = newP.Mirror;
+        orgP.Position = newP.Position;
+        orgP.Velocity = newP.Velocity;
+        orgP.Visible = newP.Visible;
+    }
+}
 }
 
