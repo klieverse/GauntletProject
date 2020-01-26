@@ -22,16 +22,19 @@ public class AssetManager
               return contentManager.Load<Texture2D>(assetName);
     }
 
-    public void PlaySound(string assetName)
+    public void PlaySound(string assetName, float position)
     {
+        float panPosition= ((position - Camera.Position.X)/GameEnvironment.Screen.X )*2-1;
         SoundEffect snd = contentManager.Load<SoundEffect>("sounds/"+assetName);
-        snd.Play();
+        if (panPosition < -1 && panPosition > 1)
+            snd.Play(   GameEnvironment.Volume,0,panPosition);
     }
 
     public void PlayMusic(string assetName, bool repeat = true)
     {
         MediaPlayer.IsRepeating = repeat;
-        MediaPlayer.Play(contentManager.Load<Song>(assetName));
+        MediaPlayer.Play(contentManager.Load<Song>("sounds/"+assetName));
+        MediaPlayer.Volume = GameEnvironment.Volume;
     }
 
     public ContentManager Content

@@ -45,6 +45,7 @@ class TitleMenuState : GameObjectList
         VisibilityTimer hintTimer = new VisibilityTimer(hintField, 1, "hintTimer");
         Add(hintTimer);
 
+       GameEnvironment.AssetManager.PlayMusic("Gauntlet-theme");
 
     }
 

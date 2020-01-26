@@ -45,5 +45,6 @@ class Gnome : EnemyObject
     {
        // GnomeShoot gnomeShoot = new GnomeShoot(this.position, this.velocity, strength);
         (GameWorld.Find("enemieShot") as GameObjectList).Add(new GnomeShoot(this.position, new Vector2(speedHori, speedVert), strength));
+        GameEnvironment.AssetManager.PlaySound("Gnome throw", position.X);
     }
 }

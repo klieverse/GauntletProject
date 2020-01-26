@@ -175,12 +175,6 @@
 /processorParam:Quality=Best
 /build:sounds/Game_Over.wav
 
-#begin sounds/Gauntlet-theme.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:sounds/Gauntlet-theme.wav
-
 #begin sounds/Ghoblin attack.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -1699,4 +1693,10 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GnomeShoot.png
+
+#begin sounds/Gauntlet-theme.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:sounds/Gauntlet-theme.mp3
 

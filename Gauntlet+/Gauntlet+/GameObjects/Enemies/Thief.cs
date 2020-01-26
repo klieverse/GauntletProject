@@ -64,7 +64,7 @@ class Thief : EnemyObject
                 {
                     player.HitByEnemy(strength);
                     escape = true;
-                    
+                    GameEnvironment.AssetManager.PlaySound("Thief laughter", position.X);
                 }
     }
 

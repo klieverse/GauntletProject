@@ -34,7 +34,7 @@ class Exit : Tile
                 {
                     visible = false;
                     Next = true;
-                    GameEnvironment.AssetManager.PlaySound("Stage_Exit");
+                    GameEnvironment.AssetManager.PlaySound("Stage_Exit", position.X);
                 }
 
         if (Next)

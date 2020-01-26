@@ -18,8 +18,8 @@ public class GameEnvironment : Game
     protected static Random random;
     protected static AssetManager assetManager;
     protected static Connection connection;
-
     public static string SelectedClass;
+    public static float Volume =1;
 
     public GameEnvironment()
     {
