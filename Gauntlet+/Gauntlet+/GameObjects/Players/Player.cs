@@ -110,7 +110,6 @@ class Player : AnimatedGameObject
         HandleCollision();
         HandleAnimations();
         CheckIfDead();
-        // stats.Update(100, health, potions,keys,position);
     }
 
     private void CheckIfDead()
