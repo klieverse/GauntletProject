@@ -51,8 +51,7 @@ public class Connection
             {
                 MultiPlayerState.currentLevel.UpdateMultiplayer(dataFromServer);
             }
-
-            //receivedMessages.Add(dataFromServer);
+            
         }
         catch (Exception ex)
         {
@@ -70,12 +69,6 @@ public class Connection
         networkStream.Write(sendBytes, 0, sendBytes.Length);
         networkStream.Flush();
 
-    }
-
-    public List<string> receivedMessages
-    {
-        get;
-        set;
     }
 
     public bool multiplayerAllowed
