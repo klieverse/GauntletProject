@@ -19,12 +19,11 @@ partial class Level : GameObjectList
         GameEnvironment.Connection.Send(jplayer);
         player.SetSprite(sprite);
         
-        /*
         //sends the statistics of the current player
         GameObjectList stats = GameWorld.Find("StatFields") as GameObjectList;
         PlayerStatField statField = stats.Find(GameEnvironment.SelectedClass) as PlayerStatField;
         string jstats = JsonConvert.SerializeObject(statField);
-        GameEnvironment.Connection.Send(jstats);*/
+        GameEnvironment.Connection.Send(jstats);
 
         /*
         //sends all in game enemies
