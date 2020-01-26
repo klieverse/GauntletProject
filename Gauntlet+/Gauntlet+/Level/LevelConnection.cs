@@ -250,5 +250,4 @@ partial class Level : GameObjectList
         orgP.Visible = newP.Visible;
     }
 }
-}
 
