@@ -15,7 +15,7 @@ public class Connection
         try
         {
             IPAddress ipAddress = IPAddress.Parse("25.62.226.197");
-            int port = 8080;
+            int port = 8000;
             client = new TcpClient();
             client.Connect(ipAddress, port);
             networkStream = client.GetStream();
@@ -54,7 +54,6 @@ public class Connection
                     List<string> messages = RetrieveStrings(data);
                     foreach(string message in messages)
                     {
-                        Console.WriteLine(message);
                         MultiPlayerState.currentLevel.UpdateMultiplayer(message);
                     }
                 

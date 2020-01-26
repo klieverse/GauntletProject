@@ -63,6 +63,16 @@ class PlayingState : IGameLoopObject
         {
             GameEnvironment.GameStateManager.SwitchTo("gameOverState");
         }
+        //load new character if in multiplayer
+        if(GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiplayerCharacterState"))
+        {
+            if(GameEnvironment.Connection.newCharacterChosen)
+            {
+
+                newCharacterChosen
+            }
+        }
+
     }
 
     public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -134,19 +144,19 @@ class PlayingState : IGameLoopObject
 
     public void LoadPlayers()
     {
-        if (GameEnvironment.SelectedClass == "Elf" || GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiPlayerState"))
+        if (GameEnvironment.SelectedClass == "Elf")
         {
             LoadElf();
         }
-        if (GameEnvironment.SelectedClass == "Wizard" || GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiPlayerState"))
+        if (GameEnvironment.SelectedClass == "Wizard")
         {
             LoadWizard();
         }
-        if (GameEnvironment.SelectedClass == "Warrior" || GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiPlayerState"))
+        if (GameEnvironment.SelectedClass == "Warrior")
         {
             LoadWarrior();
         }
-        if (GameEnvironment.SelectedClass == "Valkery" || GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiPlayerState"))
+        if (GameEnvironment.SelectedClass == "Valkery")
         {
             LoadValkery();
         }

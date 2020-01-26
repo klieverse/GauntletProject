@@ -50,7 +50,7 @@ partial class Level : GameObjectList
             }
             foreach (Player player in (Find("players") as GameObjectList).Children)
             {
-                if (player.Id == GameEnvironment.SelectedClass)
+                //if (player.Id == GameEnvironment.SelectedClass)
                 {
                     player.Update(gameTime);
                 }
