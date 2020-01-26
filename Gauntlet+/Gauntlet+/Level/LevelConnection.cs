@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 partial class Level : GameObjectList
 {
-    Player player;
+    Player _player;
     string jplayer;
 
     public void SendInformation()
@@ -88,66 +88,81 @@ partial class Level : GameObjectList
             {
                 try
                 {
-                    player = players.Find("Elf") as Player;
+                    _player = players.Find("Elf") as Player;
                 }
                 catch
                 {
-
+                    Vector2 startPosition = new Vector2(((float)startPositionQuestor.X + 0.5f) * Tile.Size, (startPositionQuestor.Y + 1) * Tile.Size);
+                    Questor questor = new Questor(4, "Elf", startPosition, this, true); //create the player
+                    (Find("players") as GameObjectList).Add(questor); //add player to level
+                    PlayerStatField questorStats = new PlayerStatField("Elf"); //create the players Statfield
+                    (Find("StatFields") as GameObjectList).Add(questorStats);
                 }
-                SpriteSheet sprite = player.Sprite;
+                SpriteSheet sprite = _player.Sprite;
                 Questor newPlayer = JsonConvert.DeserializeObject<Questor>(message);
-                PlayerUpdate(player, newPlayer);
-                player.SetSprite(sprite);
+                PlayerUpdate(_player, newPlayer);
+                _player.SetSprite(sprite);
             }
             else if (message.Contains("Wizard"))
             {
                 try
                 {
-                    player = players.Find("Wizard") as Player;
+                    _player = players.Find("Wizard") as Player;
                 }
                 catch
                 {
-
+                    Vector2 startPosition = new Vector2(((float)startPositionMerlin.X + 0.5f) * Tile.Size, (startPositionMerlin.Y + 1f) * Tile.Size);
+                    Merlin merlin = new Merlin(4, "Wizard", startPosition, this, true);
+                    (Find("players") as GameObjectList).Add(merlin);
+                    PlayerStatField wizardStats = new PlayerStatField("Wizard");
+                    (Find("StatFields") as GameObjectList).Add(wizardStats);
                 }
-                SpriteSheet sprite = player.Sprite;
+                SpriteSheet sprite = _player.Sprite;
                 Merlin newPlayer = JsonConvert.DeserializeObject<Merlin>(message);
-                PlayerUpdate(player, newPlayer);
-                player.SetSprite(sprite);
+                PlayerUpdate(_player, newPlayer);
+                _player.SetSprite(sprite);
             }
             else if (message.Contains("Warrior"))
             {
                 try
                 {
-                    player = players.Find("Warrior") as Player;
+                    _player = players.Find("Warrior") as Player;
                 }
                 catch
                 {
-
+                    Vector2 startPosition = new Vector2(((float)startPositionThor.X) * Tile.Size, (startPositionThor.Y) * Tile.Size);
+                    Thor thor = new Thor(4, "Warrior", startPosition, this, true);
+                    (Find("players") as GameObjectList).Add(thor);
+                    PlayerStatField warriorStats = new PlayerStatField("Warrior");
+                    (Find("StatFields") as GameObjectList).Add(warriorStats);
                 }
-                Player player = players.Find("Warrior") as Player;
-                SpriteSheet sprite = player.Sprite;
+                _player = players.Find("Warrior") as Player;
+                SpriteSheet sprite = _player.Sprite;
                 Thor newPlayer = JsonConvert.DeserializeObject<Thor>(message);
-                PlayerUpdate(player, newPlayer);
-                player.SetSprite(sprite);
+                PlayerUpdate(_player, newPlayer);
+                _player.SetSprite(sprite);
             }
             else if (message.Contains("Valkery"))
             {
                 try
                 {
-                    player = players.Find("Valkery") as Player;
+                    _player = players.Find("Valkery") as Player;
                 }
                 catch
                 {
-                    //player add
+                    Vector2 startPosition = new Vector2((startPositionThyra.X + 2) * Tile.Size, (startPositionThyra.Y + 2) * Tile.Size);
+                    Thyra thyra = new Thyra(4, "Valkery", startPosition, this, true);
+                    (Find("players") as GameObjectList).Add(thyra);
+                    PlayerStatField valkeryStats = new PlayerStatField("Valkery");
+                    (Find("StatFields") as GameObjectList).Add(valkeryStats);
                 }
-                SpriteSheet sprite = player.Sprite;
+                SpriteSheet sprite = _player.Sprite;
                 Thyra newPlayer = JsonConvert.DeserializeObject<Thyra>(message);
-                PlayerUpdate(player, newPlayer);
-                player.SetSprite(sprite);
+                PlayerUpdate(_player, newPlayer);
+                _player.SetSprite(sprite);
             }
         }
         /*
-        
         
 
         //enemies updated
