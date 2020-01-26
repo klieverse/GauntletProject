@@ -29,8 +29,8 @@ public class Connection
             ConsoleMessage = "Could not connect to server. Multiplayer is not available";
             multiplayerAllowed = false;
         }
-        
-        
+
+
     }
 
     public void Update()
@@ -43,7 +43,7 @@ public class Connection
             networkStream.Read(bytesFrom, 0, (int)client.ReceiveBufferSize);
             string dataFromServer = System.Text.Encoding.ASCII.GetString(bytesFrom);
             dataFromServer = dataFromServer.Substring(0, dataFromServer.IndexOf("$"));
-            if(dataFromServer.Contains("CurrentSelected = "))
+            if (dataFromServer.Contains("CurrentSelected = "))
             {
                 MultiplayerCharacterState.receiveMessage(dataFromServer);
             }
@@ -51,7 +51,7 @@ public class Connection
             {
                 MultiPlayerState.currentLevel.UpdateMultiplayer(dataFromServer);
             }
-            
+
             //receivedMessages.Add(dataFromServer);
         }
         catch (Exception ex)
