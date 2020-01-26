@@ -16,13 +16,14 @@ partial class Level : GameObjectList
         string jplayer = JsonConvert.SerializeObject(player);
         GameEnvironment.Connection.Send(jplayer);
         player.SetSprite(sprite);
-        /*
+        
         //sends the statistics of the current player
         GameObjectList stats = GameWorld.Find("StatFields") as GameObjectList;
         PlayerStatField statField = stats.Find(GameEnvironment.SelectedClass) as PlayerStatField;
         string jstats = JsonConvert.SerializeObject(statField);
         GameEnvironment.Connection.Send(jstats);
 
+        /*
         //sends all in game enemies
         GameObjectList enemies = GameWorld.Find("enemies") as GameObjectList;
         foreach(EnemyObject enemy in enemies.Children)
@@ -160,7 +161,6 @@ partial class Level : GameObjectList
                 Thyra newPlayer = JsonConvert.DeserializeObject<Thyra>(message);
                 PlayerUpdate(player, newPlayer);
                 player.SetSprite(sprite);
-                //Console.WriteLine("HIER KOMT VALKERY BINNEN: " + message);
             }
         }
         /*

@@ -56,7 +56,6 @@ class Player : AnimatedGameObject
 
     public override void Reset()
     {
-        Console.WriteLine("hier reset ie");
         position = startPosition;
         velocity = Vector2.Zero;
         isAlive = true;

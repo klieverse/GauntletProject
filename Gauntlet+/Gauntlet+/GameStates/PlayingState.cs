@@ -68,7 +68,6 @@ class PlayingState : IGameLoopObject
     public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         CurrentLevel.Draw(gameTime, spriteBatch);
-        
     }
 
     public virtual void Reset()
