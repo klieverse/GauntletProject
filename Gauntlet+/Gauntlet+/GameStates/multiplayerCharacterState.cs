@@ -6,7 +6,6 @@ class MultiplayerCharacterState: GameObjectList
     protected Button elfButton, valkeryButton, wizardButton, warriorButton, startButton, backButton;
     protected PlayerStats elfStats, valkeryStats, wizardStats, warriorStats;
     string currentSelected, previousSelected;
-    public static bool elfChosen, valkeryChosen, wizardChosen, warriorChosen;
 
     public MultiplayerCharacterState()
     {

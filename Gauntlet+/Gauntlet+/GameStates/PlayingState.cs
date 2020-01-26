@@ -66,10 +66,32 @@ class PlayingState : IGameLoopObject
         //load new character if in multiplayer
         if(GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiplayerCharacterState"))
         {
-            if(GameEnvironment.Connection.newCharacterChosen)
+            for(int i = 0; i < MultiplayerCharacterState.ChosenCharacters.Count; i++ )
             {
-
-                newCharacterChosen
+                if (MultiplayerCharacterState.ChosenCharacters[i] == "Elf")
+                {
+                    LoadElf();
+                    MultiplayerCharacterState.ChosenCharacters.Remove("Elf");
+                    break;
+                }
+                if (MultiplayerCharacterState.ChosenCharacters[i] == "Wizard")
+                {
+                    LoadWizard();
+                    MultiplayerCharacterState.ChosenCharacters.Remove("Wizard");
+                    break;
+                }
+                if (MultiplayerCharacterState.ChosenCharacters[i] == "Warrior")
+                {
+                    LoadWarrior();
+                    MultiplayerCharacterState.ChosenCharacters.Remove("Warrior");
+                    break;
+                }
+                if (MultiplayerCharacterState.ChosenCharacters[i] == "Valkery")
+                {
+                    LoadValkery();
+                    MultiplayerCharacterState.ChosenCharacters.Remove("Valkery");
+                    break;
+                }
             }
         }
 

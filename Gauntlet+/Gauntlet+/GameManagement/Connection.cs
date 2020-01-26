@@ -45,7 +45,7 @@ public class Connection
             if (byte_count != 0)
             {
                 string data = Encoding.ASCII.GetString(buffer, 0, byte_count);
-                if (data.Contains("CurrentSelected = "))
+                if (data.Contains("CurrentSelected = ") && GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiplayerCharacterState"))
                 {
                     MultiplayerCharacterState.receiveMessage(data);
                 }
@@ -103,6 +103,30 @@ public class Connection
         string last = data.Substring(start, end - start + 1);
         ret.Add(last);
         return ret;
+    }
+
+    public string RemoveCurrentSelected(string data)
+    {
+        for (int i = 0; i < data.Length - 1; i++)
+        {
+            if (data[i] == 'C' && data[i + 1] == 'u' && data[i + 2] == 'r' && data[i + 3] == 'r' && data[i+4] == 'e')
+            {
+                for (int j = 0;  j < data.Length - 1; j++)
+                {
+                    if (data[j + 1] == '{')
+                    {
+                        data.Remove(i, j - 1);
+                        break;
+                    }
+                    if(j == data.Length - 1)
+                    {
+                        data.Remove(i, data.Length - i);
+                    }
+                }
+            }
+        }
+        Console.WriteLine(data);
+        return data;
     }
 
     public bool multiplayerAllowed
