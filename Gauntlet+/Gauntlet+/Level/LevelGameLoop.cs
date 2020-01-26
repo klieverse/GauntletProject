@@ -68,9 +68,16 @@ partial class Level : GameObjectList
         //update the fitting statfield with the data of the current player
         foreach (Player player in (Find("players") as GameObjectList).Children)
         {
-            if(player.Id == GameEnvironment.SelectedClass)
+            if (GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiPlayerState"))
             {
                 (Find(player.playerClass + "Stats") as PlayerStatField).Update(player);
+            }
+            else
+            {
+                if (player.Id == GameEnvironment.SelectedClass)
+                {
+                    (Find(player.playerClass + "Stats") as PlayerStatField).Update(player);
+                }
             }
         }
     }

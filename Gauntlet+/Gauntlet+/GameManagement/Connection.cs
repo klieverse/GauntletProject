@@ -77,10 +77,7 @@ public class Connection
             sendBytes = Encoding.ASCII.GetBytes(clientResponse);
             networkStream.Write(sendBytes, 0, sendBytes.Length);
             networkStream.Flush();
-
         }
-
-
     }
 
     public List<string> RetrieveStrings(string data)
