@@ -16,7 +16,7 @@ partial class Level : GameObjectList
         
 
         Add(new GameObjectList(4, "players"));
-        Add(new GameObjectList(4, "spawns"));
+        Add(new GameObjectList(2, "spawns"));
         Add(new GameObjectList(6, "StatFields"));
         Add(new GameObjectList(4, "enemies"));
         Add(new GameObjectList(3, "food"));

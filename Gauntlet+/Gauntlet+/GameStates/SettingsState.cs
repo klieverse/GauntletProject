@@ -16,16 +16,16 @@ class SettingsState : GameObjectList
         backButton.Position = new Vector2((GameEnvironment.Screen.X - backButton.Width) / 2, 750);
         Add(backButton);
 
-        slider = new SoundSlider(new Vector2(500, GameEnvironment.Screen.Y/2));
+        slider = new SoundSlider(new Vector2(500, GameEnvironment.Screen.Y/3));
         Add(slider);
 
         // add controls button
-        controllerButton = new Button("", 1);
-        controllerButton.Position = new Vector2((GameEnvironment.Screen.X - controllerButton.Width) / 2, (GameEnvironment.Screen.X - controllerButton.Height) / 2);
+        controllerButton = new Button("Sprites/Buttons/Controller", 30);
+        controllerButton.BeginPosition = new Vector2((GameEnvironment.Screen.X - controllerButton.Width) / 2 - 200, 500);
         Add(controllerButton);
 
-        keyboardButton = new Button("", 1);
-        keyboardButton.Position = new Vector2((GameEnvironment.Screen.X - controllerButton.Width) / 2, GameEnvironment.Screen.X + 50);
+        keyboardButton = new Button("Sprites/Buttons/Keyboard", 30);
+        keyboardButton.BeginPosition = new Vector2((GameEnvironment.Screen.X - keyboardButton.Width) / 2 + 200,500);
         Add(keyboardButton);
     }
 
@@ -39,19 +39,16 @@ class SettingsState : GameObjectList
         slider.HandleInput(inputHelper);
         if (controllerButton.Pressed)
         {
-            InputHelper.UsingController = false;
-            keyboardButton.Position = controllerButton.Position;
-            controllerButton.Position = new Vector2((GameEnvironment.Screen.X - controllerButton.Width) / 2, GameEnvironment.Screen.X + 50); 
+            InputHelper.UsingController = true;
+            controllerButton.Position = new Vector2((GameEnvironment.Screen.X - controllerButton.Width) / 2, GameEnvironment.Screen.X + 200); 
         }
         if (keyboardButton.Pressed)
         {
             if (inputHelper.ControllerConnected())
             {
-                InputHelper.UsingController = true;
-                controllerButton.Position = keyboardButton.Position;
-                keyboardButton.Position = new Vector2((GameEnvironment.Screen.X - controllerButton.Width) / 2, GameEnvironment.Screen.X + 50);
+                InputHelper.UsingController = false;
+                keyboardButton.Position = new Vector2((GameEnvironment.Screen.X - keyboardButton.Width) / 2, GameEnvironment.Screen.X + 200);
             }
-            
         }
     }
 
