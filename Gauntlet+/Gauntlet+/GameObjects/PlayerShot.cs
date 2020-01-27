@@ -182,7 +182,7 @@ class PlayerShot : SpriteGameObject
             {
                 visible = false;
                 enemy.HitByPlayer(shotStrength);
-                if (enemy.Health < 0)
+                if (enemy.Health < 1)
                     player.ScoreUp(50);
                 GameEnvironment.AssetManager.PlaySound("Ghost hit", position.X);
             }
@@ -193,11 +193,11 @@ class PlayerShot : SpriteGameObject
             if (CollidesWith(spawn))
             {
                 visible = false;
-                if (spawn.Health < 0)
+                spawn.HitByPlayer(shotStrength);
+                if (spawn.Health < 1)
                 {
                     player.ScoreUp(100);
                 }
-                spawn.HitByPlayer(shotStrength);
             }
 
         //check food collision
