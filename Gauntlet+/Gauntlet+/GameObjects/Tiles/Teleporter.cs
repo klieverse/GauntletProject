@@ -57,7 +57,7 @@ class Teleport : AnimatedGameObject
 
         List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
         if (players != null)
-            foreach (SpriteGameObject player in players)
+            foreach (Player player in players)
                 if (teleportAllowed == true)
                 {
                     if (CollidesWith(player))
@@ -72,6 +72,8 @@ class Teleport : AnimatedGameObject
                                 closestPortal.teleportAllowed = false;
                                 player.Position = new Vector2(closestPortal.Position.X, closestPortal.Position.Y - Tile.Size / 2);
                                 GameEnvironment.AssetManager.PlaySound("Teleport");
+                                if (player.Id == GameEnvironment.SelectedClass)
+                                    player.HandleCamera();
                                 timer = 0;
                             }
 

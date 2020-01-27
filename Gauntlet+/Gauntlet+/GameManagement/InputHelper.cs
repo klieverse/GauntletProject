@@ -72,6 +72,11 @@ public class InputHelper
         get { return currentKeyboardState.GetPressedKeys().Length > 0 && previousKeyboardState.GetPressedKeys().Length == 0; }
     }
 
+    public bool AnyKeyDown
+    {
+        get { return currentKeyboardState.GetPressedKeys().Length > 0; }
+    }
+
     public Vector2 JoyStickLeft
     {
         get { return currentGamePadState.ThumbSticks.Left; }

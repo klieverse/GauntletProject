@@ -8,7 +8,7 @@ class GameOverState : GameObjectList
 {
     protected IGameLoopObject playingState;
     protected TextBox textBox;
-    protected bool enteredstate;
+    protected bool enteredState;
 
     public GameOverState()
     {
@@ -19,7 +19,7 @@ class GameOverState : GameObjectList
 
         textBox = new TextBox(new Vector2(560, 457));
         Add(textBox);
-
+        enteredState = true;
 
         GameObjectList hintField = new GameObjectList(100);
         Add(hintField);
@@ -56,11 +56,17 @@ class GameOverState : GameObjectList
 
     public override void HandleInput(InputHelper inputHelper)
     {
-        base.HandleInput(inputHelper);
+        if (enteredState)
+        {
+            if (!inputHelper.AnyKeyDown)
+                enteredState = false;
+        }
+        else
+            base.HandleInput(inputHelper);
         if (inputHelper.KeyPressed(Keys.Enter))
         {
             UpdateDatabase();
-            playingState.Reset();
+            enteredState = true;
             PlayingState.Exit();
         }
 
@@ -68,8 +74,11 @@ class GameOverState : GameObjectList
 
     public override void Update(GameTime gameTime)
     {
-        
-        base.Update(gameTime);
+
+        if (enteredState)
+            textBox.Text = "";
+        else
+            base.Update(gameTime);
         playingState.Update(gameTime);
     }
 
