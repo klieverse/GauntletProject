@@ -88,8 +88,6 @@ partial class Level : GameObjectList
                 return LoadVerticalDoor(x,y);
             case 'O':
                 return LoadTeleport(x, y);
-            case 'x':
-                return LoadBasicTile("Trap", TileType.Trap, 1);
             case '0':
             case '1':
             case '2':
