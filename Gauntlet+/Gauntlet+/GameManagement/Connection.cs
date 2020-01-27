@@ -49,7 +49,7 @@ public class Connection
                 {
                     MultiplayerCharacterState.receiveMessage(data);
                 }
-                else
+                else if (!data.Contains("CurrentSelected"))
                 {
                     List<string> messages = RetrieveStrings(data);
                     foreach (string message in messages)
