@@ -142,9 +142,9 @@ partial class Level : GameObjectList
 
                 //Items
             case 'P':
-                return LoadPotion(PotionType.Normal,"Normal", x, y);
+                return LoadPotion(PotionType.Normal,"NormalPotion", x, y);
             case 'p':
-                return LoadPotion(PotionType.Orange, "Orange", x, y);
+                return LoadPotion(PotionType.Orange, "OrangePotion", x, y);
             case 's':
                 return LoadPotion(PotionType.Speed, "speed", x, y);
             case 'a':
