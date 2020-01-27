@@ -15,8 +15,6 @@ enum PotionType
 
 class Potion : Item
 {
-    
-
     public Potion(PotionType pot, int layer, string id, Vector2 position)
         : base(layer, id, position)
     {
@@ -40,32 +38,7 @@ class Potion : Item
                 {
                     visible = false;
                     GameEnvironment.AssetManager.PlaySound("Key");
-                    switch (PotType)
-                    {
-                        case PotionType.Normal:
-                        case PotionType.Orange:
-                            player.AddPotion(PotType);
-                            break;
-                        case PotionType.Armor:
-                            player.ArmorUp();
-                            break;
-                        case PotionType.Magic:
-                            player.MagicUp();
-                            break;
-                        case PotionType.Melee:
-                            player.MeleeUp();
-                            break;
-                        case PotionType.ShotPower:
-                            player.ShotPowerUp();
-                            break;
-                        case PotionType.ShotSpeed:
-                            player.ShotSpeedUP();
-                            break;
-                        case PotionType.Speed:
-                            player.SpeedUp();
-                            break;
-                        default: break;
-                    }
+                    player.AddPotion(PotType);
 
                 }
     }

@@ -186,7 +186,7 @@ class PlayerShot : SpriteGameObject
                 if (potion.PotType == PotionType.Normal)
                 {
                     potion.Visible = false;
-                    player.KillEnemiesOnScreen();
+                    player.KillEnemiesOnScreen(false);
                     GameEnvironment.AssetManager.PlaySound("Ghost hit");
                     GameEnvironment.AssetManager.PlaySound("Explosion");
                 } 

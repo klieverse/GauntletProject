@@ -33,7 +33,7 @@ class Player : AnimatedGameObject
         this.armor = armor;
         baseArmor = armor;
         this.magic = magic * 10;
-        baseMagic = magic * 10;
+        baseMagic = magic * 20;
         this.shotStrength = shotStrength * 10;
         baseShotStrength = shotStrength * 10;
         this.shotSpeed = shotSpeed;
@@ -215,7 +215,7 @@ class Player : AnimatedGameObject
         }
     }
 
-    public void KillEnemiesOnScreen()
+    public void KillEnemiesOnScreen(bool intentional)
     {
         List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
         foreach (EnemyObject enemy in enemies)
@@ -225,7 +225,9 @@ class Player : AnimatedGameObject
             float onScreenEnemyY = MathHelper.Clamp(enemy.Position.Y, Camera.Position.Y, Camera.Position.Y + GameEnvironment.Screen.Y);
             if (enemy.Position.X == onScreenEnemyX && enemy.Position.Y == onScreenEnemyY)
             {
-                enemy.HitByPlayer(magic);
+                if (intentional)
+                    enemy.HitByPlayer(magic);
+                else enemy.HitByPlayer(magic/1.5f);
             }
 
         }
@@ -415,6 +417,24 @@ class Player : AnimatedGameObject
             case PotionType.Orange:
                 potions += 1;
                 break;
+            case PotionType.Armor:
+                armor += 10f;
+                break;
+            case PotionType.Magic:
+                magic += 10f;
+                break;
+            case PotionType.Melee:
+                melee += 10f;
+                break;
+            case PotionType.ShotPower:
+                shotStrength += 10f;
+                break;
+            case PotionType.ShotSpeed:
+                shotSpeed += 10f;
+                break;
+            case PotionType.Speed:
+                speedHelper += 30f;
+                break;
             default:
                 break;
         }
@@ -423,36 +443,6 @@ class Player : AnimatedGameObject
     public void EatFood()
     {
         health += 100;
-    }
-
-    public void ArmorUp()
-    {
-        armor += 10f;
-    }
-
-    public void MagicUp()
-    {
-        magic += 10f;
-    }
-
-    public void MeleeUp()
-    {
-        melee += 10f;
-    }
-
-    public void ShotPowerUp()
-    {
-        shotStrength += 10f;
-    }
-
-    public void ShotSpeedUP()
-    {
-        shotSpeed += 10f;
-    }
-
-    public void SpeedUp()
-    {
-        speedHelper += 30f;
     }
     public void ScoreUp(int score)
     {
@@ -565,7 +555,7 @@ class Player : AnimatedGameObject
             if (potions > 0)
             {
                 potions -= 1;
-                KillEnemiesOnScreen();
+                KillEnemiesOnScreen(true);
             }
         }
     }
@@ -602,7 +592,7 @@ class Player : AnimatedGameObject
             if (potions > 0)
             {
                 potions -= 1;
-                KillEnemiesOnScreen();
+                KillEnemiesOnScreen(true);
             }
         }
     }
