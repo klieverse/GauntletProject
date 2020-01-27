@@ -56,6 +56,7 @@ class PlayingState : IGameLoopObject
         if (justOpened)
         {
             LoadPlayers();
+            (CurrentLevel.Find(GameEnvironment.SelectedClass) as Player).HandleCamera();
             justOpened = false;
         }
         CurrentLevel.Update(gameTime);
@@ -68,7 +69,6 @@ class PlayingState : IGameLoopObject
     public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         CurrentLevel.Draw(gameTime, spriteBatch);
-        
     }
 
     public virtual void Reset()
@@ -88,7 +88,6 @@ class PlayingState : IGameLoopObject
         List<Player> players = new List<Player>();
         foreach (Player player in (CurrentLevel.Find("players") as GameObjectList).Children)
             players.Add(player);
-        
         CurrentLevel.Reset();
         if (maxLevelReached || currentLevelIndex >= levels.Count - 1)
         {
@@ -99,9 +98,8 @@ class PlayingState : IGameLoopObject
         {
             CurrentLevelIndex = index;
         }
-        
         ReloadPlayers(players);
-
+        (CurrentLevel.Find(GameEnvironment.SelectedClass) as Player).HandleCamera();
     }
 
     static public void ReloadPlayers(List<Player> players)

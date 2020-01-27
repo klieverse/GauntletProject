@@ -58,15 +58,23 @@ partial class Level : GameObjectList
     {
         switch (tileType)
         {
-
-            case 'S':
-                return LoadTempleSkeleton(x, y);
+            case 'G':
+                return LoadGhost(x, y);
+            case 'H':
+                return LoadHellhound(x, y);
+            case 'b':
+                return LoadThief(x, y);
+            case 'B':
+                return LoadTroll(x, y);
+            case 'w':
+                return LoadWizard(x, y);
             case 'g':
                 return LoadGnome(x, y);
+            case 'D':
+                return LoadDeath(x, y);
             default:
                 return null;
         }
-
     }
 
     private Tile LoadTile(char tileType, int x, int y)

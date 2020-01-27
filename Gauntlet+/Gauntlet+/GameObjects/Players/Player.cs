@@ -200,7 +200,7 @@ class Player : AnimatedGameObject
         PlayAnimation("die");
     }
 
-    void HandleCamera()
+    public void HandleCamera()
     {
         if (isYou)
         {

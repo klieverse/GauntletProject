@@ -15,8 +15,7 @@ class SettingsState : GameObjectList
         backButton.Position = new Vector2((GameEnvironment.Screen.X - backButton.Width) / 2, 750);
         Add(backButton);
 
-        TextBox textBox = new TextBox(new Vector2(500, 250));
-        Add(textBox);
+        
     }
 
     public override void HandleInput(InputHelper inputHelper)

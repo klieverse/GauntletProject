@@ -8,9 +8,7 @@ class TextBox : TextGameObject
 {
     static GameWindow gameWindow;
     protected bool writing, pressed;
-    String character;
-
-
+    protected String character;
 
     public TextBox(Vector2 position):base("TextFont",100)
     {
@@ -20,10 +18,7 @@ class TextBox : TextGameObject
         writing = true;
         text = "";
         pressed = false;
-       
     }
-
-    
 
     public override void HandleInput(InputHelper inputHelper)
     {
@@ -32,8 +27,6 @@ class TextBox : TextGameObject
             writing = false;
         if (inputHelper.AnyKeyPressed)
         {
-           // if (inputHelper.KeyPressed(Keys.Back))
-                //myString.Remove(myString.Length-2, 1);
             pressed = true;
         }
         else
@@ -52,16 +45,11 @@ class TextBox : TextGameObject
 
     public override void Update(GameTime gameTime)
     {
-        
         if (writing&&pressed)
         {           
-            
             gameWindow.TextInput += OnInput;
                 text += character;
-            
         }
     }
-
-
 }
 

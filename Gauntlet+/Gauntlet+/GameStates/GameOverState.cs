@@ -19,7 +19,6 @@ class GameOverState : GameObjectList
 
         textBox = new TextBox(new Vector2(560, 457));
         Add(textBox);
-        enteredstate = true;
 
 
         GameObjectList hintField = new GameObjectList(100);
@@ -62,8 +61,7 @@ class GameOverState : GameObjectList
         {
             UpdateDatabase();
             playingState.Reset();
-            GameEnvironment.GameStateManager.SwitchTo("titleMenu");
-            enteredstate = true;
+            PlayingState.Exit();
         }
 
     }

@@ -71,9 +71,6 @@
     <Compile Include="GameManagement\SpriteSheet.cs" />
     <Compile Include="GameManagement\TextGameObject.cs" />
     <Compile Include="GameObjects\Button.cs" />
-    <Compile Include="GameObjects\Enemies\TempleHellhounds.cs" />
-    <Compile Include="GameObjects\Enemies\TempleTrolls.cs" />
-    <Compile Include="GameObjects\Enemies\TempleWizards.cs" />
     <Compile Include="GameObjects\Enemies\GnomeShoot.cs" />
     <Compile Include="GameObjects\Enemies\HellhoundShoot.cs" />
     <Compile Include="GameObjects\Enemies\Thief.cs" />
