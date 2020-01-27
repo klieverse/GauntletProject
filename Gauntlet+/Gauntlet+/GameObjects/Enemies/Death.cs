@@ -27,6 +27,7 @@ class Death : EnemyObject
             {
                 Attack();
                 timer = 0;
+                GameEnvironment.AssetManager.PlaySound("Death", position.X);
             }
 
         }

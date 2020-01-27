@@ -82,6 +82,7 @@ class Wizard : EnemyObject
                 if (CollidesWith(player) && visible)
                 {
                     player.HitByEnemy(strength);
+                    GameEnvironment.AssetManager.PlaySound("Wizard attack", position.X);
                 }
     }
 

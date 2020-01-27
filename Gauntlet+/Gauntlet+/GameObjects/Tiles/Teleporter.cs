@@ -71,9 +71,9 @@ class Teleport : AnimatedGameObject
                                 //if the player teleported, this boolean prevents it from immediately teleporting again
                                 closestPortal.teleportAllowed = false;
                                 player.Position = new Vector2(closestPortal.Position.X, closestPortal.Position.Y - Tile.Size / 2);
-                                GameEnvironment.AssetManager.PlaySound("Teleport");
                                 if (player.Id == GameEnvironment.SelectedClass)
                                     player.HandleCamera();
+                                GameEnvironment.AssetManager.PlaySound("Teleport", position.X);
                                 timer = 0;
                             }
 

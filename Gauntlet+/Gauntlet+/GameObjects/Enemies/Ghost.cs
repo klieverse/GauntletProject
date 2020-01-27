@@ -58,6 +58,7 @@ class Ghost : EnemyObject
                     player.HitByEnemy(strength);
                     visible = false;
                     isDead = true;
+                    GameEnvironment.AssetManager.PlaySound("Ghost attack", position.X);
                 } 
         
 //        if (CollidesWithObject())

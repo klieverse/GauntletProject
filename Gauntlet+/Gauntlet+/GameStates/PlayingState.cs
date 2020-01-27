@@ -81,6 +81,7 @@ class PlayingState : IGameLoopObject
         currentLevelIndex = 0;
         justOpened = true;
         GameEnvironment.GameStateManager.SwitchTo("titleMenu");
+        Camera.Position = Vector2.Zero;
    }
 
     static public void NextLevel(int index)

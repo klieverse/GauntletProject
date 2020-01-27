@@ -50,13 +50,6 @@ class Button : SpriteGameObject
         {
             return;
         }
-        if (GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("playingState"))
-        {
-            sprite.Draw(spriteBatch, this.GlobalPosition , rotation, origin, scale);
-        }
-        else
-        {
-            sprite.Draw(spriteBatch, this.GlobalPosition, rotation, origin, scale);
-        }
+        sprite.Draw(spriteBatch, this.GlobalPosition , rotation, origin, scale);
     }
 }

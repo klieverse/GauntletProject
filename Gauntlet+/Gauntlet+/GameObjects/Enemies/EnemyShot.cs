@@ -35,6 +35,7 @@ public class EnemyShot : AnimatedGameObject
                     {
                         player.HitByEnemy(strength);
                         visible = false;
+                        GameEnvironment.AssetManager.PlaySound("Ghost hit", position.X);
                     }
         }
         else
@@ -46,10 +47,12 @@ public class EnemyShot : AnimatedGameObject
                     {
                         player.HitByEnemy(strength);
                         visible = false;
+                        GameEnvironment.AssetManager.PlaySound("Ghost hit", position.X);
                     }
             if (CollidesWithObject())
             {
                 visible = false;
+                GameEnvironment.AssetManager.PlaySound("Ghost hit", position.X);
             }
         }
         
