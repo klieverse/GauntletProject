@@ -93,4 +93,5 @@ public class InputHelper
     {
         return capabilities.IsConnected;
     }
+    public static bool UsingController;
 }
