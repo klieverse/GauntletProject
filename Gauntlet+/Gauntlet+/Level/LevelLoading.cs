@@ -402,7 +402,7 @@ partial class Level : GameObjectList
                 return new Tile(); */
         GameObjectList teleports = Find("teleport") as GameObjectList;
         //TileField tiles = Find("tiles") as TileField;
-        Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
+        Vector2 startPosition = new Vector2((float)(x + 0.5f )* Tile.Size, (y+1) * Tile.Size);
         Teleport teleport = new Teleport(startPosition);
         teleports.Add(teleport);
         return new Tile();
