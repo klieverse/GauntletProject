@@ -43,22 +43,24 @@ partial class Level : GameObjectList
         {
             foreach (GameObject obj in children)
             {
+                Console.WriteLine(obj.Id);
                 if(obj.Id != "players")
                 {
+                    Console.WriteLine(obj.Id);
                     obj.Update(gameTime);
                 }
             }
             foreach (Player player in (Find("players") as GameObjectList).Children)
             {
-                if (player.Id == GameEnvironment.SelectedClass)
+                //if (player.Id == GameEnvironment.SelectedClass)
                 {
                     player.Update(gameTime);
-                }
+                }/*
                 else
                 {
                     player.HandleAnimations();
                     player.HandleCollision();
-                }
+                }*/
             }
         }
         else

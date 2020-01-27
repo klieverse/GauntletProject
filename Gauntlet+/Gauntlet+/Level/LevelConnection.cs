@@ -71,7 +71,6 @@ partial class Level : GameObjectList
                     sprite = enemy.Sprite;
                     enemy.SetSprite(null);
                     string jenemy = JsonConvert.SerializeObject(enemy);
-                    Console.WriteLine(jenemy);
                     GameEnvironment.Connection.Send(jenemy);
                     enemy.SetSprite(sprite);
                 }
@@ -84,12 +83,14 @@ partial class Level : GameObjectList
         //Player classes updated
         if (message.Contains("playerClass"))
         {
+            
             GameObjectList players = GameWorld.Find("players") as GameObjectList;
             if (message.Contains("Elf") && GameEnvironment.SelectedClass != "Elf")
             {
                 Player player = players.Find("Elf") as Player;
                 SpriteSheet sprite = player.Sprite;
                 Questor newPlayer = JsonConvert.DeserializeObject<Questor>(message);
+                sprite.Mirror = newPlayer.isMirror;
                 PlayerUpdate(player, newPlayer);
                 player.SetSprite(sprite);
             }
@@ -98,6 +99,7 @@ partial class Level : GameObjectList
                 Player player = players.Find("Wizard") as Player;
                 SpriteSheet sprite = player.Sprite;
                 Merlin newPlayer = JsonConvert.DeserializeObject<Merlin>(message);
+                sprite.Mirror = newPlayer.isMirror;
                 PlayerUpdate(player, newPlayer);
                 player.SetSprite(sprite);
             }
@@ -106,6 +108,7 @@ partial class Level : GameObjectList
                 Player player = players.Find("Warrior") as Player;
                 SpriteSheet sprite = player.Sprite;
                 Thor newPlayer = JsonConvert.DeserializeObject<Thor>(message);
+                sprite.Mirror = newPlayer.isMirror;
                 PlayerUpdate(player, newPlayer);
                 player.SetSprite(sprite);
             }
@@ -114,6 +117,7 @@ partial class Level : GameObjectList
                 Player player = players.Find("Valkery") as Player;
                 SpriteSheet sprite = player.Sprite;
                 Thyra newPlayer = JsonConvert.DeserializeObject<Thyra>(message);
+                sprite.Mirror = newPlayer.isMirror;
                 PlayerUpdate(player, newPlayer);
                 player.SetSprite(sprite);
             }
@@ -182,7 +186,7 @@ partial class Level : GameObjectList
         orgP.keys = newP.keys;
         orgP.potions = newP.Potions;
         orgP.score = newP.score;
-        orgP.Mirror = newP.Mirror;
+        orgP.Sprite.Mirror = newP.isMirror;
         orgP.Position = newP.Position;
         orgP.Velocity = newP.Velocity;
         orgP.Visible = newP.Visible;

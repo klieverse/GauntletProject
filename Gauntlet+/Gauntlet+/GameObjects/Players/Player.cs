@@ -15,6 +15,11 @@ class Player : AnimatedGameObject
         set;
     }
     protected bool isAlive, isYou, lastLookedLeft = false, canMove = true, canShoot = true;
+    public bool isMirror
+    {
+        get;
+        set;
+    }
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
     protected float baseSpeedHelper, baseArmor, baseMagic, baseShotStrength, baseShotSpeed, baseMelee;
     public int health = 100, keys, potions, score, shotCount;
@@ -95,19 +100,27 @@ class Player : AnimatedGameObject
 
     public override void Update(GameTime gameTime)
     {
-        
+        isMirror = sprite.Mirror;
         
         previousPosition = position;
 
         base.Update(gameTime);
-        HandleCamera();
+        if (GameEnvironment.SelectedClass == id)
+        {
+            HandleCamera();
+        }
+        
 
         if (!isAlive)
         {
             return;
         }
 
-        HandleTimer(gameTime);
+        if(GameEnvironment.SelectedClass == id)
+        {
+            HandleTimer(gameTime);
+        }
+        
         HandleCollision();
         HandleAnimations();
         CheckIfDead();
@@ -167,9 +180,12 @@ class Player : AnimatedGameObject
             {
                 PlayAnimation("idle");
             }
-            else PlayAnimation("run");
+            else
+            {
+                PlayAnimation("run");
+            }
         }
-
+        
 
         if (velocity.X < 0)
         {
@@ -179,12 +195,14 @@ class Player : AnimatedGameObject
         {
             lastLookedLeft = false;
         }
-
         if (velocity.X < 0 || lastLookedLeft)
         {
             Mirror = true;
         }
-        else Mirror = false;
+        else
+        {
+            Mirror = false;
+        }
     }
 
     public void Die()
