@@ -54,7 +54,6 @@ public class Connection
                     List<string> messages = RetrieveStrings(data);
                     foreach (string message in messages)
                     {
-                        Console.WriteLine(message);
                         MultiPlayerState.currentLevel.UpdateMultiplayer(message);
                     }
 

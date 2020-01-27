@@ -129,6 +129,31 @@ partial class Level : GameObjectList
                 Troll enemy = JsonConvert.DeserializeObject<Troll>(message);
                 enemies.Add(enemy);
             }
+            else if (message.Contains("Ghost"))
+            {
+                Ghost enemy = JsonConvert.DeserializeObject<Ghost>(message);
+                enemies.Add(enemy);
+            }
+            else if (message.Contains("Gnome"))
+            {
+                Gnome enemy = JsonConvert.DeserializeObject<Gnome>(message);
+                enemies.Add(enemy);
+            }
+            else if (message.Contains("Hellhound"))
+            {
+                Hellhound enemy = JsonConvert.DeserializeObject<Hellhound>(message);
+                enemies.Add(enemy);
+            }
+            else if (message.Contains("Thief"))
+            {
+                Thief enemy = JsonConvert.DeserializeObject<Thief>(message);
+                enemies.Add(enemy);
+            }
+            else if (message.Contains("Wizard"))
+            {
+                Wizard enemy = JsonConvert.DeserializeObject<Wizard>(message);
+                enemies.Add(enemy);
+            }
         }
 
         //playershots updated

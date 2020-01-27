@@ -54,6 +54,11 @@ partial class Level : GameObjectList
                 {
                     player.Update(gameTime);
                 }
+                else
+                {
+                    player.HandleAnimations();
+                    player.HandleCollision();
+                }
             }
         }
         else

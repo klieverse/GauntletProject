@@ -157,7 +157,7 @@ class Player : AnimatedGameObject
         }
     }
 
-    private void HandleAnimations() // Makes sure the right animation is being played;
+    public void HandleAnimations() // Makes sure the right animation is being played;
     {
         if (!isAlive)
             return;
@@ -231,7 +231,7 @@ class Player : AnimatedGameObject
         }
 
     }
-    void HandleCollision()
+    public void HandleCollision()
     {
         //check Tile collision
         TileField tiles = GameWorld.Find("tiles") as TileField;

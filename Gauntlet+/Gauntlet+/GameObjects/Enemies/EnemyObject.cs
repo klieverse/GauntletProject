@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Newtonsoft.Json;
 
 public class EnemyObject : AnimatedGameObject
 {
+    [JsonIgnore]
     Player closestPlayer;
+
     protected float speedVert, speedHori;
     protected int health = 30, strength, speed = 250, chaseDistance;
     //TileField tileField;

@@ -50,9 +50,14 @@ class SpawnObject : Tile
                 timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (timer > 2000)
                 {
-                    NewLocation();
-                    Spawn();
-                    timer = 0;
+                    if((GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("playingState")) ||
+                        (GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiPlayerState") && GameEnvironment.SelectedClass == "Elf"))
+                    {
+                        NewLocation();
+                        Spawn();
+                        timer = 0;
+                    }
+                    
                 }
             }
         }
