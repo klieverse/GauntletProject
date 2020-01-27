@@ -113,6 +113,7 @@ class Player : AnimatedGameObject
 
         if (!isAlive)
         {
+            health = 0;
             return;
         }
 
