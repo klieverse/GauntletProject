@@ -33,7 +33,7 @@ partial class Level : GameObjectList
         }*/
         
         //sends all in game player shots
-        GameObjectList playershots = GameWorld.Find("playershot") as GameObjectList;
+        GameObjectList playershots = Find("playershot") as GameObjectList;
         foreach (PlayerShot playerShot in playershots.Children)
         {
             if(playerShot.Id == GameEnvironment.SelectedClass && playerShot.Visible)
@@ -194,7 +194,7 @@ partial class Level : GameObjectList
 
     public void PlayerShotUpdate(PlayerShot shot)
     {
-        GameObjectList playershots = GameWorld.Find("playershot") as GameObjectList;
+        GameObjectList playershots = Find("playershot") as GameObjectList;
         foreach (PlayerShot playerShot in playershots.Children)
         {
             if (playerShot.shotCount == shot.shotCount && playerShot.Id == shot.Id)

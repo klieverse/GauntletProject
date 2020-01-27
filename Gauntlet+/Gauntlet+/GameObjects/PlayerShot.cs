@@ -176,6 +176,7 @@ class PlayerShot : SpriteGameObject
 
         //check enemycollision
         List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
+        
         foreach (EnemyObject enemy in enemies)
             if (CollidesWith(enemy))
             {

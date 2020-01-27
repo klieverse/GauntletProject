@@ -43,10 +43,8 @@ partial class Level : GameObjectList
         {
             foreach (GameObject obj in children)
             {
-                Console.WriteLine(obj.Id);
                 if(obj.Id != "players")
                 {
-                    Console.WriteLine(obj.Id);
                     obj.Update(gameTime);
                 }
             }
