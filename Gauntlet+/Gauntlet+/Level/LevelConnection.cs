@@ -36,7 +36,7 @@ partial class Level : GameObjectList
         GameObjectList playershots = GameWorld.Find("playershot") as GameObjectList;
         foreach (PlayerShot playerShot in playershots.Children)
         {
-            if(playerShot.Id == GameEnvironment.SelectedClass)
+            if(playerShot.Id == GameEnvironment.SelectedClass && playerShot.Visible)
             {
                 sprite = playerShot.Sprite;
                 Player _player = playerShot.player;
@@ -112,16 +112,13 @@ partial class Level : GameObjectList
         {
             Console.WriteLine(message);
             PlayerShot shot = JsonConvert.DeserializeObject<PlayerShot>(message);
-            if(shot.Id != GameEnvironment.SelectedClass && shot.Visible == true)
+            if(shot.Id != GameEnvironment.SelectedClass && shot.Visible)
             {
-                SpriteSheet shotsprite = new SpriteSheet(shot.Id + "Shot");
-                shot.SetSprite(shotsprite);
-                GameObjectList players = GameWorld.Find("players") as GameObjectList;
-                Player player = players.Find(shot.Id) as Player;
-                shot.player = player;
-                shot.HandleIncoming();
-                GameObjectList playershots = GameWorld.Find("playershot") as GameObjectList;
-                playershots.Add(shot);
+                PlayerShotUpdate(shot);
+            }
+            if(!shot.Visible)
+            {
+                //DeletePlayerShot(shot);
             }
         }
 
@@ -142,5 +139,37 @@ partial class Level : GameObjectList
         orgP.Velocity = newP.Velocity;
         orgP.Visible = newP.Visible;
     }
+
+    public void PlayerShotUpdate(PlayerShot shot)
+    {
+        GameObjectList playershots = GameWorld.Find("playershot") as GameObjectList;
+        foreach (PlayerShot playerShot in playershots.Children)
+        {
+            if (playerShot.shotCount == shot.shotCount && playerShot.Id == shot.Id)
+            {
+                return;
+            }
+        }
+        SpriteSheet shotsprite = new SpriteSheet(shot.Id + "Shot");
+        shot.SetSprite(shotsprite);
+        GameObjectList players = GameWorld.Find("players") as GameObjectList;
+        Player player = players.Find(shot.Id) as Player;
+        shot.player = player;
+        shot.HandleIncoming();
+        playershots.Add(shot);
+    }
+    /*
+    public void DeletePlayerShot(PlayerShot shot)
+    {
+        GameObjectList playershots = GameWorld.Find("playershot") as GameObjectList;
+        foreach (PlayerShot playerShot in playershots.Children)
+        {
+            if (playerShot.shotCount == shot.shotCount && playerShot.Id == shot.Id)
+            {
+                playershots.Remove(playerShot);
+                return;
+            }
+        }
+    }*/
 }
 

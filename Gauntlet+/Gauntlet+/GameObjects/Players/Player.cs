@@ -17,7 +17,7 @@ class Player : AnimatedGameObject
     protected bool isAlive, isYou, lastLookedLeft = false, canMove = true, canShoot = true;
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
     protected float baseSpeedHelper, baseArmor, baseMagic, baseShotStrength, baseShotSpeed, baseMelee;
-    public int health = 100, keys, potions, score;
+    public int health = 100, keys, potions, score, shotCount;
     float healthTimer = 1f, shootTimer = 0.225f;
     InputHelper inputHelper;
     float multiplier;
@@ -41,7 +41,7 @@ class Player : AnimatedGameObject
         this.melee = melee * 10;
         baseMelee = melee * 10;
         startPosition = new Vector2(start.X, start.Y + 20);
-
+        shotCount = 0;
         LoadAnimations();
         Reset();
     }
@@ -70,6 +70,7 @@ class Player : AnimatedGameObject
         melee = baseMelee;
         lastLookedLeft = false;
         canMove = canShoot = true;
+        shotCount = 0;
     }
 
     public override void HandleInput(InputHelper inputHelper)
@@ -550,7 +551,8 @@ class Player : AnimatedGameObject
                 canShoot = false;
                 PlayAnimation("shoot");
                 GameEnvironment.AssetManager.PlaySound(id + " shot");
-                (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position, this, inputHelper));
+                (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotCount, shotSpeed, shotStrength, direction, position, this, inputHelper));
+                shotCount++;
             }
         }
 
@@ -586,7 +588,8 @@ class Player : AnimatedGameObject
             canShoot = false;
             PlayAnimation("shoot");
             GameEnvironment.AssetManager.PlaySound(id +" shot");
-            (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position, this, inputHelper));
+            (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotCount, shotSpeed, shotStrength, direction, position, this, inputHelper));
+            shotCount++;
         }
 
         if (inputHelper.JoyStickRight == Vector2.Zero)

@@ -95,10 +95,13 @@ public class Connection
                 ret.Add(jsonConform);
             }
         }
-        start = end + 1;
-        end = data.Length - 1;
-        string last = data.Substring(start, end - start + 1);
-        ret.Add(last);
+        if (data[data.Length - 1] == '}')
+        {
+            start = end + 1;
+            end = data.Length - 1;
+            string last = data.Substring(start, end - start + 1);
+            ret.Add(last);
+        }
         return ret;
     }
 

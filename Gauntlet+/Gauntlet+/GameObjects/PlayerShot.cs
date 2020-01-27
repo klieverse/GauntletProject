@@ -15,12 +15,18 @@ class PlayerShot : SpriteGameObject
         get;
         set;
     }
+    public int shotCount
+    {
+        get;
+        set;
+    }
 
 
-    public PlayerShot(string id, float shotSpeed, float shotStrength, Vector2 direction, Vector2 position, Player player, InputHelper inputHelper) : base(assetName: id + "Shot", layer: 0, id, sheetIndex: 0)
+    public PlayerShot(string id, int shotCount, float shotSpeed, float shotStrength, Vector2 direction, Vector2 position, Player player, InputHelper inputHelper) : base(assetName: id + "Shot", layer: 0, id, sheetIndex: 0)
     {
         velocity = direction;
         this.position.X = position.X;
+        this.shotCount = shotCount;
         if(player != null)
         {
             this.position.Y = position.Y - player.Height / 3;
