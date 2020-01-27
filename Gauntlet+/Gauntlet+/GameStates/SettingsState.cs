@@ -2,7 +2,7 @@
 
 class SettingsState : GameObjectList
 {
-    protected Button backButton;
+    protected Button backButton, controllerButton, keyboardButton;
     protected SoundSlider slider;
 
     public SettingsState()
@@ -18,6 +18,15 @@ class SettingsState : GameObjectList
 
         slider = new SoundSlider(new Vector2(500, GameEnvironment.Screen.Y/2));
         Add(slider);
+
+        // add controls button
+        controllerButton = new Button("", 1);
+        controllerButton.Position = new Vector2((GameEnvironment.Screen.X - controllerButton.Width) / 2, (GameEnvironment.Screen.X - controllerButton.Height) / 2);
+        Add(controllerButton);
+
+        keyboardButton = new Button("", 1);
+        keyboardButton.Position = new Vector2((GameEnvironment.Screen.X - controllerButton.Width) / 2, GameEnvironment.Screen.X + 50);
+        Add(keyboardButton);
     }
 
     public override void HandleInput(InputHelper inputHelper)
@@ -28,6 +37,22 @@ class SettingsState : GameObjectList
             GameEnvironment.GameStateManager.SwitchTo("titleMenu");
         }
         slider.HandleInput(inputHelper);
+        if (controllerButton.Pressed)
+        {
+            InputHelper.UsingController = false;
+            keyboardButton.Position = controllerButton.Position;
+            controllerButton.Position = new Vector2((GameEnvironment.Screen.X - controllerButton.Width) / 2, GameEnvironment.Screen.X + 50); 
+        }
+        if (keyboardButton.Pressed)
+        {
+            if (inputHelper.ControllerConnected())
+            {
+                InputHelper.UsingController = true;
+                controllerButton.Position = keyboardButton.Position;
+                keyboardButton.Position = new Vector2((GameEnvironment.Screen.X - controllerButton.Width) / 2, GameEnvironment.Screen.X + 50);
+            }
+            
+        }
     }
 
 }
