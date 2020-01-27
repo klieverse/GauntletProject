@@ -144,13 +144,23 @@ partial class Level : GameObjectList
 
                 //Items
             case 'P':
-                return LoadPotion(PotionType.Normal, x, y);
+                return LoadPotion(PotionType.Normal,"Normal", x, y);
             case 'p':
-                return LoadPotion(PotionType.Orange, x, y);
+                return LoadPotion(PotionType.Orange, "Orange", x, y);
+            case 's':
+                return LoadPotion(PotionType.Speed, "speed", x, y);
+            case 'a':
+                return LoadPotion(PotionType.Armor, "armor", x, y);
+            case 'm':
+                return LoadPotion(PotionType.Magic, "magic power", x, y);
+            case 'f':
+                return LoadPotion(PotionType.ShotPower, "shot power", x, y);
+            case 'v':
+                return LoadPotion(PotionType.ShotSpeed, "shot speed", x, y);
+            case 'k':
+                return LoadPotion(PotionType.Melee, "melee strength", x, y);
             case 'K':
                 return LoadKey(x, y);
-            case 'a':
-                return LoadExtraPotion(x, y);
             case 't':
                 return LoadTreasure(x, y);
             case 'F':
@@ -433,18 +443,12 @@ partial class Level : GameObjectList
         return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
 
-    private Tile LoadPotion(PotionType type, int x, int y)
+    private Tile LoadPotion(PotionType type, string id, int x, int y)
     {
         GameObjectList Items = Find("potions") as GameObjectList;
         Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
-        Potion item = new Potion(type, 2, type.ToString() + "Potion", position);
+        Potion item = new Potion(type, 2, id, position, this);
         Items.Add(item);
-        return new Tile("Tiles/floors/floor 1", TileType.Background);
-    }
-
-    private Tile LoadExtraPotion(int x, int y)
-    {
-
         return new Tile("Tiles/floors/floor 1", TileType.Background);
     }
 
