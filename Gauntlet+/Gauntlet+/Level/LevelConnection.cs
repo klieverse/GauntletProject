@@ -58,7 +58,25 @@ partial class Level : GameObjectList
             string jplayershot = JsonConvert.SerializeObject(playerShot);
             GameEnvironment.Connection.Send(jplayershot);
         }*/
-        
+
+        //if the chosen player is elf it sends all created enemies to the server
+        if(GameEnvironment.SelectedClass == "Elf")
+        {
+            GameObjectList enemies = GameWorld.Find("enemies") as GameObjectList;
+            foreach (EnemyObject enemy in enemies.Children)
+            {
+                if (!enemy.Sent)
+                {
+                    enemy.Sent = true;
+                    sprite = enemy.Sprite;
+                    enemy.SetSprite(null);
+                    string jenemy = JsonConvert.SerializeObject(enemy);
+                    Console.WriteLine(jenemy);
+                    GameEnvironment.Connection.Send(jenemy);
+                    enemy.SetSprite(sprite);
+                }
+            }
+        }
     }
 
     public void UpdateMultiplayer(string message)
@@ -73,8 +91,6 @@ partial class Level : GameObjectList
                 SpriteSheet sprite = player.Sprite;
                 Questor newPlayer = JsonConvert.DeserializeObject<Questor>(message);
                 PlayerUpdate(player, newPlayer);
-                player.SetSprite(sprite);
-
                 player.SetSprite(sprite);
             }
             else if (message.Contains("Wizard") && GameEnvironment.SelectedClass != "Wizard")
@@ -105,12 +121,19 @@ partial class Level : GameObjectList
         
 
         //enemies updated
-
+        if(message.Contains("Sent") && GameEnvironment.SelectedClass != "Elf")
+        {
+            GameObjectList enemies = Find("enemies") as GameObjectList;
+            if (message.Contains("Troll"))
+            {
+                Troll enemy = JsonConvert.DeserializeObject<Troll>(message);
+                enemies.Add(enemy);
+            }
+        }
 
         //playershots updated
         if(message.Contains("IsShot"))
         {
-            Console.WriteLine(message);
             PlayerShot shot = JsonConvert.DeserializeObject<PlayerShot>(message);
             if(shot.Id != GameEnvironment.SelectedClass && shot.Visible)
             {

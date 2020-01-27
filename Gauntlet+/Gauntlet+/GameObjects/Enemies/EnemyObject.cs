@@ -17,13 +17,18 @@ public class EnemyObject : AnimatedGameObject
 
     public bool canBeMeleed = true;
 
-    public EnemyObject(int layer, string id, int chaseDistance = 0, bool canBeInvisible = false/*, bool spawnCollision = false*/) : base(layer, id)
+    public EnemyObject(int layer, string id, int chaseDistance = 0, bool canBeInvisible = false/*, bool spawnCollision = false*/, bool sent = false) : base(layer, id)
     {
         this.canBeInvisible = canBeInvisible;
         this.chaseDistance = chaseDistance;
         //collisionAtSpawn = spawnCollision;
-        LoadAnimations();
-        PlayAnimation("idle");
+        //if(sprite != null)
+        {
+            LoadAnimations();
+            PlayAnimation("idle");
+        }
+        
+        Sent = sent;
     }
     void LoadAnimations()
     {
@@ -214,6 +219,11 @@ public class EnemyObject : AnimatedGameObject
         health -= (int)damage;
     }
     
+    public bool Sent
+    {
+        get;
+        set;
+    }
 
 }
 

@@ -35,7 +35,7 @@ class PlayerShot : SpriteGameObject
         else
         {
             this.player = null;
-            this.position.Y = position.Y;
+            this.position.Y = position.Y + 18;
         }
         
         this.shotSpeed = shotSpeed;
