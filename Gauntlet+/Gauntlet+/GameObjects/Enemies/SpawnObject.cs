@@ -47,7 +47,7 @@ class SpawnObject : Tile
             timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (distance < 1000)
             {
-                if (timer > 4f)
+                if (timer > 3f)
                 {
                     NewLocation();
                     Spawn();
