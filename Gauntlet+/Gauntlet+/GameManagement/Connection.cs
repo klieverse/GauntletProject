@@ -45,7 +45,7 @@ public class Connection
             if (byte_count != 0)
             {
                 string data = Encoding.ASCII.GetString(buffer, 0, byte_count);
-                if (data.Contains("CurrentSelected = ") && GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiplayerCharacterState"))
+                if (data.Contains("CurrentSelected") && GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiplayerCharacterState"))
                 {
                     MultiplayerCharacterState.receiveMessage(data);
                 }

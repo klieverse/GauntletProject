@@ -83,7 +83,6 @@ partial class Level : GameObjectList
         //Player classes updated
         if (message.Contains("playerClass"))
         {
-            
             GameObjectList players = GameWorld.Find("players") as GameObjectList;
             if (message.Contains("Elf") && GameEnvironment.SelectedClass != "Elf")
             {
