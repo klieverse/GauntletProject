@@ -7,6 +7,8 @@ using System;
 class GameOverState : GameObjectList
 {
     protected IGameLoopObject playingState;
+    protected TextBox textBox;
+    protected bool enteredstate;
 
     public GameOverState()
     {
@@ -14,6 +16,11 @@ class GameOverState : GameObjectList
         SpriteGameObject overlay = new SpriteGameObject("Backgrounds/overlay");
         overlay.Position = new Vector2(GameEnvironment.Screen.X, GameEnvironment.Screen.Y) / 2 - overlay.Center;
         Add(overlay);
+
+        textBox = new TextBox(new Vector2(560, 430));
+        Add(textBox);
+        enteredstate = true;
+
 
         GameObjectList hintField = new GameObjectList(100);
         Add(hintField);
@@ -50,17 +57,21 @@ class GameOverState : GameObjectList
 
     public override void HandleInput(InputHelper inputHelper)
     {
+        base.HandleInput(inputHelper);
         if (inputHelper.KeyPressed(Keys.Enter))
         {
             UpdateDatabase();
             playingState.Reset();
             GameEnvironment.GameStateManager.SwitchTo("titleMenu");
+            enteredstate = true;
         }
 
     }
 
     public override void Update(GameTime gameTime)
     {
+        
+        base.Update(gameTime);
         playingState.Update(gameTime);
     }
 

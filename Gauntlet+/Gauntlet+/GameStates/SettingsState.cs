@@ -14,6 +14,9 @@ class SettingsState : GameObjectList
         backButton = new Button("Sprites/Exit", 100);
         backButton.Position = new Vector2((GameEnvironment.Screen.X - backButton.Width) / 2, 750);
         Add(backButton);
+
+        TextBox textBox = new TextBox(new Vector2(500, 250));
+        Add(textBox);
     }
 
     public override void HandleInput(InputHelper inputHelper)
@@ -24,4 +27,5 @@ class SettingsState : GameObjectList
             GameEnvironment.GameStateManager.SwitchTo("titleMenu");
         }
     }
+
 }
