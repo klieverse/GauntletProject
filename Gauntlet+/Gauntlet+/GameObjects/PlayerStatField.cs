@@ -19,7 +19,7 @@ class PlayerStatField : SpriteGameObject
 
     public void Update(Player player)
     {
-        if(player.Id == GameEnvironment.SelectedClass)
+        //if(player.Id == GameEnvironment.SelectedClass)
         {
             Stats.Update(player); //update the statlist based op the given player
         }

@@ -15,9 +15,14 @@ class Player : AnimatedGameObject
         set;
     }
     protected bool isAlive, isYou, lastLookedLeft = false, canMove = true, canShoot = true;
+    public bool isMirror
+    {
+        get;
+        set;
+    }
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
     protected float baseSpeedHelper, baseArmor, baseMagic, baseShotStrength, baseShotSpeed, baseMelee;
-    public int health = 100, keys, potions, score;
+    public int health = 100, keys, potions, score, shotCount;
     float healthTimer = 1f, shootTimer = 0.225f;
     InputHelper inputHelper;
     float multiplier;
@@ -41,7 +46,7 @@ class Player : AnimatedGameObject
         this.melee = melee * 10;
         baseMelee = melee * 10;
         startPosition = new Vector2(start.X, start.Y + 20);
-
+        shotCount = 0;
         LoadAnimations();
         Reset();
     }
@@ -56,7 +61,6 @@ class Player : AnimatedGameObject
 
     public override void Reset()
     {
-        Console.WriteLine("hier reset ie");
         position = startPosition;
         velocity = Vector2.Zero;
         isAlive = true;
@@ -71,6 +75,7 @@ class Player : AnimatedGameObject
         melee = baseMelee;
         lastLookedLeft = false;
         canMove = canShoot = true;
+        shotCount = 0;
     }
 
     public override void HandleInput(InputHelper inputHelper)
@@ -95,19 +100,27 @@ class Player : AnimatedGameObject
 
     public override void Update(GameTime gameTime)
     {
-        
+        isMirror = sprite.Mirror;
         
         previousPosition = position;
 
         base.Update(gameTime);
-        HandleCamera();
+        if (GameEnvironment.SelectedClass == id)
+        {
+            HandleCamera();
+        }
+        
 
         if (!isAlive)
         {
             return;
         }
 
-        HandleTimer(gameTime);
+        if(GameEnvironment.SelectedClass == id)
+        {
+            HandleTimer(gameTime);
+        }
+        
         HandleCollision();
         HandleAnimations();
         CheckIfDead();
@@ -157,7 +170,7 @@ class Player : AnimatedGameObject
         }
     }
 
-    private void HandleAnimations() // Makes sure the right animation is being played;
+    public void HandleAnimations() // Makes sure the right animation is being played;
     {
         if (!isAlive)
             return;
@@ -167,9 +180,12 @@ class Player : AnimatedGameObject
             {
                 PlayAnimation("idle");
             }
-            else PlayAnimation("run");
+            else
+            {
+                PlayAnimation("run");
+            }
         }
-
+        
 
         if (velocity.X < 0)
         {
@@ -179,12 +195,14 @@ class Player : AnimatedGameObject
         {
             lastLookedLeft = false;
         }
-
         if (velocity.X < 0 || lastLookedLeft)
         {
             Mirror = true;
         }
-        else Mirror = false;
+        else
+        {
+            Mirror = false;
+        }
     }
 
     public void Die()
@@ -233,7 +251,7 @@ class Player : AnimatedGameObject
         }
 
     }
-    void HandleCollision()
+    public void HandleCollision()
     {
         //check Tile collision
         TileField tiles = GameWorld.Find("tiles") as TileField;
@@ -541,7 +559,8 @@ class Player : AnimatedGameObject
                 canShoot = false;
                 PlayAnimation("shoot");
                 GameEnvironment.AssetManager.PlaySound(id + " shot", position.X);
-                (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position, this, inputHelper));
+                (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotCount, shotSpeed, shotStrength, direction, position, this, inputHelper));
+                shotCount++;
             }
         }
 
@@ -576,8 +595,9 @@ class Player : AnimatedGameObject
             shootTimer = 0.225f;
             canShoot = false;
             PlayAnimation("shoot");
-            GameEnvironment.AssetManager.PlaySound(id +" shot",position.X);
-            (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position, this, inputHelper));
+            GameEnvironment.AssetManager.PlaySound(id +" shot", position.X);
+            (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotCount, shotSpeed, shotStrength, direction, position, this, inputHelper));
+            shotCount++;
         }
 
         if (inputHelper.JoyStickRight == Vector2.Zero)
