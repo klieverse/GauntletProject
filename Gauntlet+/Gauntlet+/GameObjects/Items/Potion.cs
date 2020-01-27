@@ -40,7 +40,7 @@ class Potion : Item
                 if (CollidesWith(player))
                 {
                     visible = false;
-                    GameEnvironment.AssetManager.PlaySound("Key");
+                    GameEnvironment.AssetManager.PlaySound("Key", position.X);
                     player.AddPotion(PotType);
                     if(PotType != PotionType.Normal && PotType != PotionType.Orange)
                     {

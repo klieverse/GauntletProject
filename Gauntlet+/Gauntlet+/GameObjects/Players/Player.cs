@@ -540,7 +540,7 @@ class Player : AnimatedGameObject
                 shootTimer = 0.225f;
                 canShoot = false;
                 PlayAnimation("shoot");
-                GameEnvironment.AssetManager.PlaySound(id + " shot");
+                GameEnvironment.AssetManager.PlaySound(id + " shot", position.X);
                 (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position, this, inputHelper));
             }
         }
@@ -576,7 +576,7 @@ class Player : AnimatedGameObject
             shootTimer = 0.225f;
             canShoot = false;
             PlayAnimation("shoot");
-            GameEnvironment.AssetManager.PlaySound(id +" shot");
+            GameEnvironment.AssetManager.PlaySound(id +" shot",position.X);
             (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position, this, inputHelper));
         }
 

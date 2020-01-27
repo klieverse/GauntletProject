@@ -63,6 +63,7 @@ class Troll : EnemyObject
                 if (CollidesWith(player))
                 {
                     player.HitByEnemy(strength);
+                    GameEnvironment.AssetManager.PlaySound("Ghoblin attack", position.X);
                 }
             }                  
     }

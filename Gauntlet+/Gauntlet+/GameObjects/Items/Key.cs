@@ -22,7 +22,7 @@ class Key : Item
                 {
                     player.AddKey();
                     visible = false;
-                    GameEnvironment.AssetManager.PlaySound("Key");
+                    GameEnvironment.AssetManager.PlaySound("Key", position.X);
                 }
     }
 }

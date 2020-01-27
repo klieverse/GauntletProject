@@ -127,7 +127,7 @@ class PlayerShot : SpriteGameObject
                 if ( type == TileType.Wall || type == TileType.VerticalDoor || type == TileType.HorizontalDoor)
                 {
                     if (visible)
-                        GameEnvironment.AssetManager.PlaySound("Ghost hit");
+                        GameEnvironment.AssetManager.PlaySound("Ghost hit",position.X);
                     visible = false;
                 }
             }
@@ -139,7 +139,7 @@ class PlayerShot : SpriteGameObject
             {
                 visible = false;
                 bWall.HitByShot();
-                GameEnvironment.AssetManager.PlaySound("Ghost hit");
+                GameEnvironment.AssetManager.PlaySound("Ghost hit", position.X);
             }
 
         //check enemycollision
@@ -151,7 +151,7 @@ class PlayerShot : SpriteGameObject
                 enemy.HitByPlayer(shotStrength);
                 if (enemy.Health < 0)
                     player.ScoreUp(50);
-                GameEnvironment.AssetManager.PlaySound("Ghost hit");
+                GameEnvironment.AssetManager.PlaySound("Ghost hit", position.X);
             }
             
         //check spawnercollision
@@ -174,7 +174,7 @@ class PlayerShot : SpriteGameObject
             {
                 visible = false;
                 food.Visible = false;
-                GameEnvironment.AssetManager.PlaySound("Ghost hit");
+                GameEnvironment.AssetManager.PlaySound("Ghost hit", position.X);
             }
         //check potion collision
         List<GameObject> potions = (GameWorld.Find("potions") as GameObjectList).Children;
@@ -182,13 +182,13 @@ class PlayerShot : SpriteGameObject
             if (CollidesWith(potion))
             {
                 visible = false;
-                GameEnvironment.AssetManager.PlaySound("Ghost hit");
+                GameEnvironment.AssetManager.PlaySound("Ghost hit", position.X);
                 if (potion.PotType == PotionType.Normal)
                 {
                     potion.Visible = false;
                     player.KillEnemiesOnScreen(false);
-                    GameEnvironment.AssetManager.PlaySound("Ghost hit");
-                    GameEnvironment.AssetManager.PlaySound("Explosion");
+                    GameEnvironment.AssetManager.PlaySound("Ghost hit", position.X);
+                    GameEnvironment.AssetManager.PlaySound("Explosion", position.X);
                 } 
             }
     }

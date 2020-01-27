@@ -3,6 +3,7 @@
 class SettingsState : GameObjectList
 {
     protected Button backButton;
+    protected SoundSlider slider;
 
     public SettingsState()
     {
@@ -15,7 +16,8 @@ class SettingsState : GameObjectList
         backButton.Position = new Vector2((GameEnvironment.Screen.X - backButton.Width) / 2, 750);
         Add(backButton);
 
-        
+        slider = new SoundSlider(new Vector2(500, GameEnvironment.Screen.Y/2));
+        Add(slider);
     }
 
     public override void HandleInput(InputHelper inputHelper)
@@ -25,6 +27,7 @@ class SettingsState : GameObjectList
         {
             GameEnvironment.GameStateManager.SwitchTo("titleMenu");
         }
+        slider.HandleInput(inputHelper);
     }
 
 }

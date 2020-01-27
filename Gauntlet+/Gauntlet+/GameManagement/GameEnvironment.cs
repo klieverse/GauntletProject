@@ -18,14 +18,13 @@ public class GameEnvironment : Game
     protected static Random random;
     protected static AssetManager assetManager;
     protected static Connection connection;
-
     public static string SelectedClass;
+    public static float Volume;
     public static GameWindow gameWindow; 
 
     public GameEnvironment()
     {
         graphics = new GraphicsDeviceManager(this);
-
         inputHelper = new InputHelper();
         gameStateManager = new GameStateManager();
         spriteScale = Matrix.CreateScale(1, 1, 1);
