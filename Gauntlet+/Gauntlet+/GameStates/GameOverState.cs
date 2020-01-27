@@ -69,7 +69,6 @@ class GameOverState : GameObjectList
             enteredState = true;
             PlayingState.Exit();
         }
-
     }
 
     public override void Update(GameTime gameTime)

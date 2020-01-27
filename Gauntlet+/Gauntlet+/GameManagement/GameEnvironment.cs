@@ -32,6 +32,7 @@ public class GameEnvironment : Game
         assetManager = new AssetManager(Content);
         connection = new Connection();
         gameWindow = Window;
+        Volume = 1;
     }
 
     public static Point Screen
