@@ -2,12 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\Gauntlet+",
-    "\\Gauntlet+\\Gauntlet+",
-    "\\Gauntlet+\\Gauntlet+\\GameObjects\\Enemies",
-    "\\Gauntlet+\\Gauntlet+\\GameObjects\\InteractiveTiles",
-    "\\Gauntlet+\\Gauntlet+\\GameObjects\\Items",
-    "\\Gauntlet+\\Gauntlet+\\GameObjects\\Players"
+    "\\Gauntlet+\\Gauntlet+"
   ],
-  "SelectedNode": "\\Gauntlet+\\Gauntlet+\\Gauntlet+.csproj",
+  "SelectedNode": "\\Gauntlet+\\Gauntlet+.sln",
   "PreviewInSolutionExplorer": false
 }
