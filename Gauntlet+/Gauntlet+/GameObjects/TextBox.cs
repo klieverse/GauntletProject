@@ -8,7 +8,9 @@ class TextBox : TextGameObject
 {
     static GameWindow gameWindow;
     protected bool writing, pressed;
-    StringBuilder myString = new StringBuilder();
+    String character;
+
+
 
     public TextBox(Vector2 position):base("TextFont",100)
     {
@@ -19,7 +21,6 @@ class TextBox : TextGameObject
         text = "";
         pressed = false;
        
-        gameWindow.TextInput += OnInput;
     }
 
     
@@ -38,7 +39,7 @@ class TextBox : TextGameObject
         else
             pressed = false;
     }
-    String character;
+    
     public void OnInput(object sender, TextInputEventArgs e)
     {
         var k = e.Key;
@@ -57,7 +58,6 @@ class TextBox : TextGameObject
             
             gameWindow.TextInput += OnInput;
                 text += character;
-            gameWindow.TextInput -= OnInput;
             
         }
     }

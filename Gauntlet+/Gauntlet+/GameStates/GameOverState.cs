@@ -17,7 +17,7 @@ class GameOverState : GameObjectList
         overlay.Position = new Vector2(GameEnvironment.Screen.X, GameEnvironment.Screen.Y) / 2 - overlay.Center;
         Add(overlay);
 
-        textBox = new TextBox(new Vector2(560, 430));
+        textBox = new TextBox(new Vector2(560, 457));
         Add(textBox);
         enteredstate = true;
 
