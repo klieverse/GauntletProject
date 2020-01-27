@@ -16,7 +16,7 @@ class SettingsState : GameObjectList
         backButton.Position = new Vector2((GameEnvironment.Screen.X - backButton.Width) / 2, 750);
         Add(backButton);
 
-        slider = new SoundSlider(new Vector2(0, GameEnvironment.Screen.Y/2));
+        slider = new SoundSlider(new Vector2(500, GameEnvironment.Screen.Y/2));
         Add(slider);
     }
 

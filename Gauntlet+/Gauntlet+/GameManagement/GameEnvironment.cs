@@ -20,19 +20,17 @@ public class GameEnvironment : Game
     protected static Connection connection;
     public static string SelectedClass;
     public static float Volume;
+    public static GraphicsDevice graphicsDevice;
 
     public GameEnvironment()
     {
         graphics = new GraphicsDeviceManager(this);
-
         inputHelper = new InputHelper();
         gameStateManager = new GameStateManager();
         spriteScale = Matrix.CreateScale(1, 1, 1);
         random = new Random();
         assetManager = new AssetManager(Content);
         connection = new Connection();
-
-
     }
 
     public static Point Screen

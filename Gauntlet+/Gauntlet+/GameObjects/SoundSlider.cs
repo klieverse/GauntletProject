@@ -11,9 +11,8 @@ class SoundSlider:SpriteGameObject
 {
     Vector2 startPosition, maxPosition;
     bool slide;
-    DrawingHelper drawing;
     float sliderWidth = 400;
-    protected static Texture2D pixel;
+    Texture2D line;
 
     public SoundSlider(Vector2 startposition) : base("SoundSlider", 100)
     {
@@ -21,7 +20,7 @@ class SoundSlider:SpriteGameObject
         maxPosition = startposition + new Vector2(sliderWidth, 0);
         position = maxPosition;
         slide = false;
-        drawing = new DrawingHelper();
+        line = GameEnvironment.AssetManager.GetSprite("SoundSliderLine");
     }
     public override void HandleInput(InputHelper inputHelper)
     {
@@ -34,7 +33,7 @@ class SoundSlider:SpriteGameObject
         
         if (slide)
         { 
-            position.X = inputHelper.MousePosition.X;
+            position.X = inputHelper.MousePosition.X-21;
             if (position.X < startPosition.X)
                position.X = startPosition.X;
             if (position.X > maxPosition.X)
@@ -51,8 +50,9 @@ class SoundSlider:SpriteGameObject
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
+        for (float i = startPosition.X +18; i < maxPosition.X +24; i++)
+            spriteBatch.Draw(line, new Vector2(i, position.Y + 48), Color.White);
         base.Draw(gameTime, spriteBatch);
-        
     }
 
 }
