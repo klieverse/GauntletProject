@@ -44,15 +44,14 @@ class SpawnObject : Tile
                 DistanceToClosestPlayer();
             }
 
-
+            timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (distance < 1000)
             {
-                timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-                if (timer > 2000)
+                if (timer > 4f)
                 {
                     NewLocation();
                     Spawn();
-                    timer = 0;
+                    timer = 0f;
                 }
             }
         }
