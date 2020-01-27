@@ -149,6 +149,8 @@ class PlayerShot : SpriteGameObject
             {
                 visible = false;
                 enemy.HitByPlayer(shotStrength);
+                if (enemy.Health < 0)
+                    player.ScoreUp(50);
                 GameEnvironment.AssetManager.PlaySound("Ghost hit");
             }
             
@@ -158,6 +160,10 @@ class PlayerShot : SpriteGameObject
             if (CollidesWith(spawn))
             {
                 visible = false;
+                if (spawn.Health < 0)
+                {
+                    player.ScoreUp(100);
+                }
                 spawn.HitByPlayer(shotStrength);
             }
 

@@ -214,6 +214,9 @@ public class EnemyObject : AnimatedGameObject
         health -= (int)damage;
     }
     
-
+    public int Health
+    {
+        get { return health; }
+    }
 }
 

@@ -265,5 +265,10 @@ class SpawnObject : Tile
         health = 50;
         isDead = false;
     }
+
+    public int Health
+    {
+        get { return health; }
+    }
 }
 
