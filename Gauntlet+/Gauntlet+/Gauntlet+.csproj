@@ -53,6 +53,7 @@
     <Compile Include="GameManagement\Camera.cs" />
     <Compile Include="GameObjects\Enemies\EnemyShot.cs" />
     <Compile Include="GameManagement\Connection.cs" />
+    <Compile Include="GameObjects\TextBox.cs" />
     <Compile Include="GameObjects\Tiles\BreakableWall.cs" />
     <Compile Include="GameObjects\Tiles\Door.cs" />
     <Compile Include="GameObjects\Enemies\EnemyObject.cs" />

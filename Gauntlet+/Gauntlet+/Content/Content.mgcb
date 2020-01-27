@@ -1700,3 +1700,10 @@
 /processorParam:TextureFormat=Color
 /build:WizardShot.png
 
+#begin TextFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:TextFont.spritefont
+

@@ -20,6 +20,7 @@ public class GameEnvironment : Game
     protected static Connection connection;
 
     public static string SelectedClass;
+    public static GameWindow gameWindow; 
 
     public GameEnvironment()
     {
@@ -31,7 +32,7 @@ public class GameEnvironment : Game
         random = new Random();
         assetManager = new AssetManager(Content);
         connection = new Connection();
-
+        gameWindow = Window;
     }
 
     public static Point Screen
