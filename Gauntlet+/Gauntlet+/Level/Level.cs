@@ -30,8 +30,6 @@ partial class Level : GameObjectList
         Add(new GameObjectList(2, "Doors"));
         Add(new GameObjectList(2, "Exits"));
         Add(new GameObjectList(2, "SpawnObjects"));
-        // Add(new Questor(2, "Elf", new Vector2(150, 150), this, true));
-        // Add(new PlayerStatField("Elf"));
 
 
 
