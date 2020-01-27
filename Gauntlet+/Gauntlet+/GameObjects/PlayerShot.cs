@@ -10,19 +10,51 @@ class PlayerShot : SpriteGameObject
 {
     float shotSpeed, baseShotSpeed = 250;
     float shotStrength;
-    Player player;
+    public Player player
+    {
+        get;
+        set;
+    }
+    public int shotCount
+    {
+        get;
+        set;
+    }
 
 
-    public PlayerShot(string id, float shotSpeed, float shotStrength, Vector2 direction, Vector2 position, Player player, InputHelper inputHelper) : base(assetName: id + "Shot", layer: 0, id, sheetIndex: 0)
+    public PlayerShot(string id, int shotCount, float shotSpeed, float shotStrength, Vector2 direction, Vector2 position, Player player, InputHelper inputHelper) : base(assetName: id + "Shot", layer: 0, id, sheetIndex: 0)
     {
         velocity = direction;
         this.position.X = position.X;
-        this.position.Y = position.Y - player.Height / 3;
+        this.shotCount = shotCount;
+        if(player != null)
+        {
+            this.position.Y = position.Y - player.Height / 3;
+            this.player = player;
+        }
+        else
+        {
+            this.player = null;
+            this.position.Y = position.Y + 18;
+        }
+        
         this.shotSpeed = shotSpeed;
         this.shotStrength = shotStrength;
-        this.player = player;
-        HandleDirection(inputHelper);
-        origin = new Vector2(sprite.Width / 2, sprite.Height / 2);
+
+        if (inputHelper != null)
+        {
+            HandleDirection(inputHelper);
+        }
+        
+        if(sprite != null)
+        {
+            origin = new Vector2(sprite.Width / 2, sprite.Height / 2);
+        }
+        else
+        {
+            origin = Vector2.Zero;
+        }
+        
     }
 
     void HandleDirection(InputHelper inputHelper) // rotates the sprite to the right direction, based on the direction it is going and giving it the right position and velocity;
@@ -144,6 +176,7 @@ class PlayerShot : SpriteGameObject
 
         //check enemycollision
         List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
+        
         foreach (EnemyObject enemy in enemies)
             if (CollidesWith(enemy))
             {
@@ -199,6 +232,62 @@ class PlayerShot : SpriteGameObject
         {
             visible = false;
         }
+    }
+
+    public void HandleIncoming()
+    {
+        this.position.Y = position.Y - player.Height / 3;
+        origin = new Vector2(sprite.Width / 2, sprite.Height / 2);
+        if (velocity.X > 0 && velocity.Y == 0) // facing right
+        {
+            velocity.X = shotSpeed * 75 + baseShotSpeed;
+            Rotate(90);
+        }
+        if (velocity.X > 0 && velocity.Y > 0) // facing down right
+        {
+            velocity.X = 0.71f * (shotSpeed * 75 + baseShotSpeed);
+            velocity.Y = 0.71f * (shotSpeed * 75 + baseShotSpeed);
+            Rotate(135);
+        }
+        if (velocity.X < 0 && velocity.Y < 0) // facing up left
+        {
+            velocity.X = -0.71f * (shotSpeed * 75 + baseShotSpeed);
+            velocity.Y = -0.71f * (shotSpeed * 75 + baseShotSpeed);
+            Rotate(315);
+        }
+        if (velocity.X == 0 && velocity.Y > 0) // facing down
+        {
+            velocity.Y = (shotSpeed * 75 + baseShotSpeed);
+            Rotate(180);
+        }
+        if (velocity.X < 0 && velocity.Y == 0) // facing left
+        {
+            velocity.X = -(shotSpeed * 75 + baseShotSpeed);
+            Rotate(270);
+        }
+        if (velocity.X == 0 && velocity.Y < 0) // facing up
+        {
+            velocity.Y = -(shotSpeed * 75 + baseShotSpeed);
+            Rotate(0);
+        }
+        if (velocity.X > 0 && velocity.Y < 0) // facing up right
+        {
+            velocity.X = 0.71f * (shotSpeed * 75 + baseShotSpeed);
+            velocity.Y = -0.71f * (shotSpeed * 75 + baseShotSpeed);
+            Rotate(45);
+        }
+        if (velocity.X < 0 && velocity.Y > 0) // facing down left
+        {
+            velocity.X = -0.71f * (shotSpeed * 75 + baseShotSpeed);
+            velocity.Y = 0.71f * (shotSpeed * 75 + baseShotSpeed);
+            Rotate(225);
+        }
+    }
+
+    public bool IsShot
+    {
+        get { return true; }
+
     }
 }
 

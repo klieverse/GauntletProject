@@ -15,7 +15,7 @@ public class Connection
         try
         {
             IPAddress ipAddress = IPAddress.Parse("25.62.226.197");
-            int port = 8080;
+            int port = 8000;
             client = new TcpClient();
             client.Connect(ipAddress, port);
             networkStream = client.GetStream();
@@ -29,8 +29,8 @@ public class Connection
             ConsoleMessage = "Could not connect to server. Multiplayer is not available";
             multiplayerAllowed = false;
         }
-        
-        
+
+
     }
 
     public void Update()
@@ -38,21 +38,27 @@ public class Connection
         //get received messages
         try
         {
-            networkStream = client.GetStream();
-            byte[] bytesFrom = new byte[client.ReceiveBufferSize];
-            networkStream.Read(bytesFrom, 0, (int)client.ReceiveBufferSize);
-            string dataFromServer = System.Text.Encoding.ASCII.GetString(bytesFrom);
-            dataFromServer = dataFromServer.Substring(0, dataFromServer.IndexOf("$"));
-            if(dataFromServer.Contains("CurrentSelected = "))
+            NetworkStream stream = client.GetStream();
+            byte[] buffer = new byte[10025];
+            int byte_count = stream.Read(buffer, 0, buffer.Length);
+
+            if (byte_count != 0)
             {
-                MultiplayerCharacterState.receiveMessage(dataFromServer);
+                string data = Encoding.ASCII.GetString(buffer, 0, byte_count);
+                if (data.Contains("CurrentSelected = ") && GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiplayerCharacterState"))
+                {
+                    MultiplayerCharacterState.receiveMessage(data);
+                }
+                else
+                {
+                    List<string> messages = RetrieveStrings(data);
+                    foreach (string message in messages)
+                    {
+                        MultiPlayerState.currentLevel.UpdateMultiplayer(message);
+                    }
+
+                }
             }
-            else
-            {
-                MultiPlayerState.currentLevel.UpdateMultiplayer(dataFromServer);
-            }
-            
-            //receivedMessages.Add(dataFromServer);
         }
         catch (Exception ex)
         {
@@ -64,18 +70,39 @@ public class Connection
     public void Send(string msg)
     {
         //send string msg
-        Byte[] sendBytes = null;
-        string clientResponse = msg;
-        sendBytes = Encoding.ASCII.GetBytes(clientResponse);
-        networkStream.Write(sendBytes, 0, sendBytes.Length);
-        networkStream.Flush();
-
+        if (msg != "null")
+        {
+            Byte[] sendBytes = null;
+            string clientResponse = msg;
+            sendBytes = Encoding.ASCII.GetBytes(clientResponse);
+            networkStream.Write(sendBytes, 0, sendBytes.Length);
+            networkStream.Flush();
+        }
     }
 
-    public List<string> receivedMessages
+    public List<string> RetrieveStrings(string data)
     {
-        get;
-        set;
+        List<string> ret = new List<string>();
+        int start = 0;
+        int end = -1;
+        for (int i = 0; i < data.Length - 1; i++)
+        {
+            if (data[i] == '}' && data[i + 1] == '{')
+            {
+                start = end + 1;
+                end = i;
+                string jsonConform = data.Substring(start, end - start + 1);
+                ret.Add(jsonConform);
+            }
+        }
+        if (data[data.Length - 1] == '}')
+        {
+            start = end + 1;
+            end = data.Length - 1;
+            string last = data.Substring(start, end - start + 1);
+            ret.Add(last);
+        }
+        return ret;
     }
 
     public bool multiplayerAllowed
