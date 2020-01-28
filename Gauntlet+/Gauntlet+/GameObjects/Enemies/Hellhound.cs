@@ -52,6 +52,13 @@ class Hellhound : EnemyObject
         
     }
 
+    public override void HitByPlayer(float damage)
+    {
+        health -= (int)damage;
+        color = Color.DarkRed;
+        colorTimer = 200f;
+    }
+
     //attacks by creating a shooting object, where the object shoots in the direction in which the enemy is moving
     private void Attack()
     {

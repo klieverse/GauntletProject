@@ -40,6 +40,13 @@ class Gnome : EnemyObject
         
     }
 
+    public override void HitByPlayer(float damage)
+    {
+        health -= (int)damage;
+        color = Color.DarkRed;
+        colorTimer = 200f;
+    }
+
     //enemy creates shooting object that shoots in the direction in which the gnome is facing.
     private void Attack()
     {

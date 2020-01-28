@@ -23,7 +23,7 @@ class Player : AnimatedGameObject
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
     protected float baseSpeedHelper, baseArmor, baseMagic, baseShotStrength, baseShotSpeed, baseMelee;
     public int health = 100, keys, potions, score, shotCount;
-    float healthTimer = 1f, shootTimer = 0.225f;
+    float healthTimer = 1f, shootTimer = 0.225f, colorTimer = 200f;
     InputHelper inputHelper;
     float multiplier;
 
@@ -157,6 +157,7 @@ class Player : AnimatedGameObject
     {
         healthTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds; //makes the timer count down;
         shootTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+        colorTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
         if (healthTimer <= 0)
         {
@@ -168,6 +169,12 @@ class Player : AnimatedGameObject
         {
             canShoot = true;
             shootTimer = 0.225f;
+        }
+
+        if(colorTimer <= 0)
+        {
+            color = Color.White;
+            colorTimer = 200f;
         }
     }
 
@@ -411,6 +418,8 @@ class Player : AnimatedGameObject
     {   // calculates the damage, where the more armor the player has, the closer the damage is to being only half the strength of the enemy;
         float Damage = (0.5f * EnemyStrength) + (0.5f * EnemyStrength * (1 - ((armor / 100) / (armor / 100 + 1))));
         health -= (int)Damage;
+        color = Color.IndianRed;
+        colorTimer = 200f;
     }
 
     public void AddKey()

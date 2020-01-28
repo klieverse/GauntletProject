@@ -49,8 +49,13 @@ class Troll : EnemyObject
                 timer = 0f;
             }
         }
-        
-        
+    }
+
+    public override void HitByPlayer(float damage)
+    {
+        health -= (int)damage;
+        color = Color.DarkRed;
+        colorTimer = 200f;
     }
 
     //finds player, if collides, then reduce player's health according to this' strength

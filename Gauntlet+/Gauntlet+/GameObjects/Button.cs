@@ -50,6 +50,6 @@ class Button : SpriteGameObject
         {
             return;
         }
-        sprite.Draw(spriteBatch, this.GlobalPosition , rotation, origin, scale);
+        sprite.Draw(spriteBatch, this.GlobalPosition , rotation, origin, scale, color);
     }
 }

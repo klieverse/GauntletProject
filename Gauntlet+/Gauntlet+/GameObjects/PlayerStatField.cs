@@ -35,11 +35,11 @@ class PlayerStatField : SpriteGameObject
         }
         if (GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("playingState"))
         {
-            sprite.Draw(spriteBatch, this.GlobalPosition , rotation, origin, scale);
+            sprite.Draw(spriteBatch, this.GlobalPosition , rotation, origin, scale, color);
         }
         else
         {
-            sprite.Draw(spriteBatch, this.GlobalPosition, rotation, origin, scale);
+            sprite.Draw(spriteBatch, this.GlobalPosition, rotation, origin, scale, color);
         }
         //draw the stats into the field
         Stats.Draw(gameTime, spriteBatch);

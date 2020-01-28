@@ -11,6 +11,7 @@ public class SpriteGameObject : GameObject
     protected Vector2 origin;
     public bool PerPixelCollisionDetection = true;
     protected float rotation = 0, scale = 1f;
+    protected Color color = Color.White;
 
     public SpriteGameObject(string assetName, int layer = 0, string id = "", int sheetIndex = 0)
         : base(layer, id)
@@ -40,11 +41,11 @@ public class SpriteGameObject : GameObject
         if (GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("playingState") || 
             GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiPlayerState"))
         {
-            sprite.Draw(spriteBatch, this.GlobalPosition - Camera.Position, rotation, origin, scale);
+            sprite.Draw(spriteBatch, this.GlobalPosition - Camera.Position, rotation, origin, scale, color);
         }
         else
         {
-            sprite.Draw(spriteBatch, this.GlobalPosition, rotation, origin, scale);
+            sprite.Draw(spriteBatch, this.GlobalPosition, rotation, origin, scale, color);
         }
     }
 

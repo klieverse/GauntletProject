@@ -14,7 +14,7 @@ public class EnemyObject : AnimatedGameObject
     protected float speedVert, speedHori;
     protected int health = 30, strength, speed = 250, chaseDistance;
     //TileField tileField;
-    protected float meleeTimer = 1f, maxDistance = 99999999999f, distance;
+    protected float meleeTimer = 1f, colorTimer = 200f, maxDistance = 99999999999f, distance;
     protected Vector2 previousPosition;
     protected bool lastLookedLeft = false, isDead = false, canBeInvisible, noInvisible, wasSpawned, beginCollision = false/*, collisionAtSpawn*/;
 
@@ -75,17 +75,27 @@ public class EnemyObject : AnimatedGameObject
 
         //}
 
-        TimeToAttack(gameTime);
+        HandleTimers(gameTime);
     }
 
-    private void TimeToAttack(GameTime gameTime)
+    private void HandleTimers(GameTime gameTime)
     {
         meleeTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds; // makes sure a specific enemy can only be melee'd once a second;
+        
         if (meleeTimer >= 1000)
         {
             meleeTimer = 0;
             canBeMeleed = true;
-        } 
+        }
+
+        colorTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds; // sets the color back to normal after timer hits 0;
+
+        if(colorTimer <= 0)
+        {
+            color = Color.White;
+            colorTimer = 200f;
+        }
+
         HandleAnimations();
     }
 
@@ -345,9 +355,11 @@ public class EnemyObject : AnimatedGameObject
             return false;
     }
 
-    public void HitByPlayer(float damage)
+    public virtual void HitByPlayer(float damage)
     {
         health -= (int)damage;
+        color = Color.Red;
+        colorTimer = 200f;
     }
     
     public bool Sent
