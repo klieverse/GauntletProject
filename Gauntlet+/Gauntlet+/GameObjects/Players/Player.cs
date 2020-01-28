@@ -148,7 +148,7 @@ class Player : AnimatedGameObject
         {
             float vectorLength = (float)Math.Sqrt((inputHelper.JoyStickLeft.Y * inputHelper.JoyStickLeft.Y) + (inputHelper.JoyStickLeft.X * inputHelper.JoyStickLeft.X));
             if (vectorLength > 1f)
-                multiplier = 1f/vectorLength; /// vectorLength; // helps set the velocity to 1 * walkingspeed if it would otherwise succeed it
+                multiplier = 1f/vectorLength;  // helps set the velocity to 1 * walkingspeed if it would otherwise succeed it
             else multiplier = 1f;
         }
     }

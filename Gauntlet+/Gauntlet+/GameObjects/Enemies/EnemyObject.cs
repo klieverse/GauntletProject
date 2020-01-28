@@ -17,9 +17,8 @@ class EnemyObject : AnimatedGameObject
     protected float meleeTimer = 1f, colorTimer = 200f, maxDistance = 99999999999f, distance, despawnTimer = 1f;
     protected Vector2 previousPosition;
     protected bool lastLookedLeft = false, isDead = false, canBeInvisible, noInvisible, wasSpawned, beginCollision = false;
-
+    float multiplier;
     public bool canBeMeleed = true;
-
     protected SpawnObject spawn;
 
     public EnemyObject(int layer, string id, SpawnObject spawnObject, int chaseDistance = 0, bool canBeInvisible = false, bool sent = false) : base(layer, id)
@@ -73,6 +72,10 @@ class EnemyObject : AnimatedGameObject
     {
         if (closestPlayer != null)
         {
+            float vectorLength = (float)Math.Sqrt((velocity.Y * velocity.Y) + (velocity.X * velocity.X));
+            if (vectorLength > 1f)
+                multiplier = 1f / vectorLength;  // helps set the velocity to 1 * walkingspeed if it would otherwise succeed it
+            else multiplier = 1f;
             float opposite = (closestPlayer.Position.Y + closestPlayer.Height / 4) - position.Y; // calculates where the enemye must go
             float adjacent = closestPlayer.Position.X - position.X;
             distance = (float)Math.Sqrt((opposite * opposite) + (adjacent * adjacent));
@@ -82,8 +85,8 @@ class EnemyObject : AnimatedGameObject
             speedHori = ((float)Math.Sin(horizontal) * speed) / 2;
             if (distance > chaseDistance)
             {
-                velocity.Y = speedVert;
-                velocity.X = speedHori;
+                velocity.Y = multiplier * speedVert;
+                velocity.X = multiplier * speedHori;
             }
             else
             {
