@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 class SpawnObject : Tile
 {
-    public static int enemies = 0;
+    public int enemies = 0;
     Player closestPlayer; 
     int distance;
     bool isDead = false;
@@ -54,7 +54,7 @@ class SpawnObject : Tile
     private void HandleTimers(GameTime gameTime)
     {
         timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-        if (distance < 1000 && timer > 3f && enemies < 27) // keeps a lock on the total allowed enemies to spawn
+        if (distance < 1000 && timer > 7f && enemies < 7) // keeps a lock on the total allowed enemies to spawn
         {
             NewLocation();
             Spawn();
@@ -256,19 +256,19 @@ class SpawnObject : Tile
     {
         if (spawnId == "Temple/Wizard")
         {
-            (GameWorld.Find("enemies") as GameObjectList).Add(new Wizard(spawnLocation, level, true));
+            (GameWorld.Find("enemies") as GameObjectList).Add(new Wizard(spawnLocation, this, true));
         }
         else if (spawnId == "Temple/Troll")
         {
-            (GameWorld.Find("enemies") as GameObjectList).Add(new Troll(spawnLocation, level, true));
+            (GameWorld.Find("enemies") as GameObjectList).Add(new Troll(spawnLocation, this, true));
         }
         else if (spawnId == "Temple/Hellhound")
         {
-            (GameWorld.Find("enemies") as GameObjectList).Add(new Hellhound(spawnLocation, level, true));
+            (GameWorld.Find("enemies") as GameObjectList).Add(new Hellhound(spawnLocation, this, true));
         }
         else if (spawnId == "Temple/Skeleton")
         {
-            (GameWorld.Find("enemies") as GameObjectList).Add(new Ghost(spawnLocation, level, true));
+            (GameWorld.Find("enemies") as GameObjectList).Add(new Ghost(spawnLocation, this, true));
         }
     }
 

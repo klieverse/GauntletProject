@@ -11,27 +11,22 @@ class EnemyObject : AnimatedGameObject
     [JsonIgnore]
     Player closestPlayer;
 
-    [JsonIgnore]
-    public Level level
-    {
-        get;
-        set;
-    }
-
     protected float speedVert, speedHori;
     protected int health = 30, strength, speed = 175, chaseDistance;
     //TileField tileField;
-    protected float meleeTimer = 1f, colorTimer = 200f, maxDistance = 99999999999f, distance, despawnTimer = 10f;
+    protected float meleeTimer = 1f, colorTimer = 200f, maxDistance = 99999999999f, distance, despawnTimer = 1f;
     protected Vector2 previousPosition;
     protected bool lastLookedLeft = false, isDead = false, canBeInvisible, noInvisible, wasSpawned, beginCollision = false/*, collisionAtSpawn*/;
 
     public bool canBeMeleed = true;
 
-    public EnemyObject(int layer, string id, Level level, int chaseDistance = 0, bool canBeInvisible = false/*, bool spawnCollision = false*/, bool sent = false) : base(layer, id)
+    protected SpawnObject spawn;
+
+    public EnemyObject(int layer, string id, SpawnObject spawnObject, int chaseDistance = 0, bool canBeInvisible = false/*, bool spawnCollision = false*/, bool sent = false) : base(layer, id)
     {
         this.canBeInvisible = canBeInvisible;
         this.chaseDistance = chaseDistance;
-        this.level = level;
+        spawn = spawnObject;
         //collisionAtSpawn = spawnCollision;
         //if(sprite != null)
         {
@@ -68,7 +63,6 @@ class EnemyObject : AnimatedGameObject
         MoveToCLosestPlayer();
         HandleCollision();
 
-
         /*if (CollidesWithObject())
             position = previousPosition;
         GameObjectList players = GameWorld.Find("players") as GameObjectList;
@@ -102,15 +96,6 @@ class EnemyObject : AnimatedGameObject
         {
             color = Color.White;
             colorTimer = 200f;
-        }
-
-        if (!visible)
-        {
-            despawnTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if(despawnTimer <= 0)
-            {
-                level.Delete.Add(this);
-            }
         }
 
         HandleAnimations();

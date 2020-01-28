@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 class Troll : EnemyObject
 {
     float timer = 0f;
-    public Troll(Vector2 startPosition, Level level, bool wasSpawned = false) : base(2, "Troll", level)
+    public Troll(Vector2 startPosition, SpawnObject spawnObject, bool wasSpawned = false) : base(2, "Troll", spawnObject)
     {
         this.wasSpawned = wasSpawned;
         this.position = startPosition;
@@ -40,7 +40,7 @@ class Troll : EnemyObject
             {
                 visible = false;
                 isDead = true;
-                SpawnObject.enemies--;
+                spawn.enemies--;
             }
             //timer for when it can attack
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;

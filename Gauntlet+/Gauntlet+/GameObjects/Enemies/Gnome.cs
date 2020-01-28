@@ -9,7 +9,7 @@ class Gnome : EnemyObject
 {
     float timer = 0f;
 
-    public Gnome(Vector2 startPosition, Level level) : base(2, "Gnome" , level, 500)
+    public Gnome(Vector2 startPosition, SpawnObject spawnObject) : base(2, "Gnome" , spawnObject, 500)
     {
         position = startPosition;
         strength = 3;
@@ -35,7 +35,7 @@ class Gnome : EnemyObject
             {
                 Attack();
                 timer = 0f;
-                SpawnObject.enemies--;
+                spawn.enemies--;
             }
         }
         

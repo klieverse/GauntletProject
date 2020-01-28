@@ -34,7 +34,6 @@ class EnemyShot : AnimatedGameObject
         timer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
         if (timer <= 0)
             visible = false;
-
     }
 
     private void HandleCollision()

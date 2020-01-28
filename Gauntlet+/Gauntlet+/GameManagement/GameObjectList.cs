@@ -7,11 +7,12 @@ public class GameObjectList : GameObject
 {
     protected List<GameObject> children;
 
-    public List<GameObject> Delete = new List<GameObject>();
+    public List<GameObject> Delete;
 
     public GameObjectList(int layer = 0, string id = "") : base(layer, id)
     {
         children = new List<GameObject>();
+        Delete = new List<GameObject>();
     }
 
     public List<GameObject> Children
@@ -136,7 +137,6 @@ public class GameObjectList : GameObject
             case "Doors":
             case "Exits":
             case "SpawnObjects":
-            case "textbox":
                 return true;
             default:
                 return false;

@@ -284,7 +284,7 @@ partial class Level : GameObjectList
         GameObjectList enemies = Find("enemies") as GameObjectList;
         //TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
-        Ghost enemy = new Ghost(startPosition, this);
+        Ghost enemy = new Ghost(startPosition, null);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();
@@ -301,7 +301,7 @@ partial class Level : GameObjectList
         GameObjectList enemies = Find("enemies") as GameObjectList;
         TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
-        Hellhound enemy = new Hellhound(startPosition, this);
+        Hellhound enemy = new Hellhound(startPosition, null);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();
@@ -318,7 +318,7 @@ partial class Level : GameObjectList
         GameObjectList enemies = Find("enemies") as GameObjectList;
         TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
-        Gnome enemy = new Gnome(startPosition, this);
+        Gnome enemy = new Gnome(startPosition, null);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();
@@ -335,7 +335,7 @@ partial class Level : GameObjectList
         GameObjectList enemies = Find("enemies") as GameObjectList;
         //TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
-        Thief enemy = new Thief(startPosition, this);
+        Thief enemy = new Thief(startPosition, null);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();
@@ -352,7 +352,7 @@ partial class Level : GameObjectList
         GameObjectList enemies = Find("enemies") as GameObjectList;
         //TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
-        Death enemy = new Death(startPosition, this);
+        Death enemy = new Death(startPosition, null);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();
@@ -369,7 +369,7 @@ partial class Level : GameObjectList
         GameObjectList enemies = Find("enemies") as GameObjectList;
         //TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
-        Troll enemy = new Troll(startPosition, this);
+        Troll enemy = new Troll(startPosition, null);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();
@@ -386,7 +386,7 @@ partial class Level : GameObjectList
         GameObjectList enemies = Find("enemies") as GameObjectList;
         //TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
-        Wizard enemy = new Wizard(startPosition, this);
+        Wizard enemy = new Wizard(startPosition, null);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();
