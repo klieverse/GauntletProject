@@ -27,7 +27,7 @@ class Death : EnemyObject
             {
                 Attack();
                 timer = 0;
-                GameEnvironment.AssetManager.PlaySound("Death", position.X);
+                
             }
 
         }
@@ -44,6 +44,7 @@ class Death : EnemyObject
                 {
                     player.health -= strength;
                     enoughDamage++;
+                    GameEnvironment.AssetManager.PlaySound("Death", position.X);
                 }
                 else if (enoughDamage > 100)
                 {
