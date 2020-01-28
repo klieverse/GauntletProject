@@ -92,12 +92,33 @@ class PlayingState : IGameLoopObject
         CurrentLevel.Reset();
         if (maxLevelReached || currentLevelIndex >= levels.Count - 1)
         {
-            CurrentLevelIndex = GameEnvironment.Random.Next(1,5);
+            CurrentLevelIndex = GameEnvironment.Random.Next(0,14);
             maxLevelReached = true;
         }
         else
         {
-            CurrentLevelIndex = index;
+            switch (currentLevelIndex)
+            {
+                case '!':
+                    index = 10;
+                    break;
+                case '@':
+                    index = 11;
+                    break;
+                case '#':
+                    index = 12;
+                    break;
+                case '$':
+                    index = 13;
+                    break;
+                case '%':
+                    index = 14;
+                    break;
+
+                default:
+                    CurrentLevelIndex = index;
+                    break;
+            }
         }
         ReloadPlayers(players);
         (CurrentLevel.Find(GameEnvironment.SelectedClass) as Player).HandleCamera();
