@@ -207,6 +207,7 @@ partial class Level : GameObjectList
         Vector2 position = new Vector2(x * Tile.Size, y * Tile.Size);
         BreakableWall breakWall = new BreakableWall(1, "BreakableWall", position);
         breakwalls.Add(breakWall);
+        breakebleWalls++;
         return breakWall;
     }
 

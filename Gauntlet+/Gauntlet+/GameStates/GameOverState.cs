@@ -7,7 +7,6 @@ using System;
 class GameOverState : GameObjectList
 {
     protected IGameLoopObject playingState;
-    protected TextBox textBox;
     protected bool enteredState;
 
     public GameOverState()
@@ -17,9 +16,10 @@ class GameOverState : GameObjectList
         overlay.Position = new Vector2(GameEnvironment.Screen.X, GameEnvironment.Screen.Y) / 2 - overlay.Center;
         Add(overlay);
 
-        textBox = new TextBox(new Vector2(560, 457));
+        TextBox textBox = new TextBox(new Vector2(560, 457));
         Add(textBox);
         enteredState = true;
+        
 
         GameObjectList hintField = new GameObjectList(100);
         Add(hintField);
@@ -32,6 +32,8 @@ class GameOverState : GameObjectList
         hintField.Add(hintText);
         VisibilityTimer hintTimer = new VisibilityTimer(hintField, 1, "hintTimer");
         Add(hintTimer);
+
+        
 
         try
         {
@@ -75,10 +77,13 @@ class GameOverState : GameObjectList
     {
 
         if (enteredState)
-            textBox.Text = "";
+        {
+            (Find("textbox") as TextBox).Text = "";
+            Camera.Position = Vector2.Zero;
+        }
         else
             base.Update(gameTime);
-        playingState.Update(gameTime);
+        //playingState.Update(gameTime);
     }
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

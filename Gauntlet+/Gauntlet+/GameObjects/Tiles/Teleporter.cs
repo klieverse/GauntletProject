@@ -75,6 +75,8 @@ class Teleport : AnimatedGameObject
                                     player.HandleCamera();
                                 GameEnvironment.AssetManager.PlaySound("Teleport", position.X);
                                 timer = 0;
+                                if ((GameWorld as Level).secretValue1 == (GameWorld as Level).goalSecretValue1)
+                                (GameWorld as Level).secretValue2++;
                             }
 
                         }

@@ -78,7 +78,7 @@ class PlayingState : IGameLoopObject
    static public void Exit()
    {
         CurrentLevel.Reset();
-        currentLevelIndex = 0;
+        currentLevelIndex = 14;
         justOpened = true;
         GameEnvironment.GameStateManager.SwitchTo("titleMenu");
         Camera.Position = Vector2.Zero;
@@ -99,6 +99,17 @@ class PlayingState : IGameLoopObject
         {
             CurrentLevelIndex = index;
         }
+        ReloadPlayers(players);
+        (CurrentLevel.Find(GameEnvironment.SelectedClass) as Player).HandleCamera();
+    }
+
+    static public void HiddenLevel()
+    {
+        List<Player> players = new List<Player>();
+        foreach (Player player in (CurrentLevel.Find("players") as GameObjectList).Children)
+            players.Add(player);
+        CurrentLevel.Reset();
+        CurrentLevelIndex = 0; //set index for hidden level here
         ReloadPlayers(players);
         (CurrentLevel.Find(GameEnvironment.SelectedClass) as Player).HandleCamera();
     }
