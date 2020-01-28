@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 class Hellhound : EnemyObject
 {
     float timer = 0f;
-    public Hellhound(Vector2 startPosition, bool wasSpawned = false) : base(2, "Hellhound", 300)
+    public Hellhound(Vector2 startPosition, SpawnObject spawnObject, bool wasSpawned = false) : base(2, "Hellhound", spawnObject, 300)
     {
         this.wasSpawned = wasSpawned;
         //starting position equal to what is determined in SpawnObject.cs
@@ -39,6 +39,8 @@ class Hellhound : EnemyObject
             {
                 visible = false;
                 isDead = true;
+                if (spawn != null)
+                    spawn.enemies--;
             }
             //cooldown for when the enemy attacks
 

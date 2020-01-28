@@ -10,7 +10,7 @@ class Wizard : EnemyObject
     //Player closestPlayer;
     float attackTimer = 0f, visibilityTimer = 0f;
     //int check = 0;
-    public Wizard(Vector2 startPosition, bool wasSpawned = false) : base(2, "Wizard", canBeInvisible: true)
+    public Wizard(Vector2 startPosition, SpawnObject spawnObject, bool wasSpawned = false) : base(2, "Wizard", spawnObject, canBeInvisible: true)
     {
         this.wasSpawned = wasSpawned;
         //this.closestPlayer = closestPlayer;
@@ -68,7 +68,8 @@ class Wizard : EnemyObject
         {
             visible = false;
             isDead = true;
-
+            if (spawn != null)
+                spawn.enemies--;
         }
 
     }

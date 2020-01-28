@@ -23,7 +23,7 @@ class Player : AnimatedGameObject
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
     protected float baseSpeedHelper, baseArmor, baseMagic, baseShotStrength, baseShotSpeed, baseMelee;
     public int health = 100, keys, potions, score, shotCount;
-    float healthTimer = 1f, shootTimer = 0.225f, colorTimer = 200f;
+    float healthTimer = 1f, shootTimer = 0.35f, colorTimer = 200f;
     InputHelper inputHelper;
     float multiplier;
 
@@ -54,9 +54,9 @@ class Player : AnimatedGameObject
     public virtual void LoadAnimations()
     {
         LoadAnimation("Sprites/Player/spr_" + id + "idle@4", "idle", true, 0.15f);
-        LoadAnimation("Sprites/Player/spr_" + id + "run@4", "run", true);
-        LoadAnimation("Sprites/Player/spr_" + id + "shoot@3", "shoot", true);
-        LoadAnimation("Sprites/Player/spr_" + id + "die@3", "die", false);
+        LoadAnimation("Sprites/Player/spr_" + id + "run@4", "run", true, 0.1f);
+        LoadAnimation("Sprites/Player/spr_" + id + "shoot@3", "shoot", true, 0.1f);
+        LoadAnimation("Sprites/Player/spr_" + id + "die@3", "die", false, 0.1f);
     }
 
     public override void Reset()
@@ -88,7 +88,7 @@ class Player : AnimatedGameObject
         }
 
         velocity = Vector2.Zero;
-        walkingSpeed = (float)Math.Sqrt(speedHelper) * 10;
+        walkingSpeed = (float)Math.Sqrt(speedHelper) * 7;
 
         if (inputHelper.ControllerConnected() && InputHelper.UsingController)
             Xinput(inputHelper);
@@ -168,7 +168,7 @@ class Player : AnimatedGameObject
         if (shootTimer <= 0)
         {
             canShoot = true;
-            shootTimer = 0.225f;
+            shootTimer = 0.35f;
         }
 
         if(colorTimer <= 0)
@@ -289,6 +289,7 @@ class Player : AnimatedGameObject
                 Vector2 tileDepth = Collision.CalculateIntersectionDepth(boundingBox, tileBounds);
 
                 List<GameObject> doors = (GameWorld.Find("Doors") as GameObjectList).Children;
+                List<GameObject> spawns = (GameWorld.Find("SpawnObjects") as GameObjectList).Children;
 
                 if (Math.Abs(tileDepth.X) < Math.Abs(tileDepth.Y))
                 {
@@ -303,6 +304,16 @@ class Player : AnimatedGameObject
                                 {
                                     door.DeleteDoors();
                                     keys -= 1;
+                                }
+                            }
+                        }
+                        if (spawns != null)
+                        {
+                            foreach (SpawnObject spawn in spawns)
+                            {
+                                if (CollidesWith(spawn))
+                                {
+                                    spawn.HitByPlayer(melee);
                                 }
                             }
                         }
@@ -565,7 +576,7 @@ class Player : AnimatedGameObject
 
             if (canShoot)
             {
-                shootTimer = 0.225f;
+                shootTimer = 0.35f;
                 canShoot = false;
                 PlayAnimation("shoot");
                 GameEnvironment.AssetManager.PlaySound(id + " shot", position.X);
@@ -579,7 +590,7 @@ class Player : AnimatedGameObject
             canMove = true;
         }
 
-        if (inputHelper.IsKeyDown(Keys.E))
+        if (inputHelper.KeyPressed(Keys.E))
         {
             if (potions > 0)
             {
@@ -602,7 +613,7 @@ class Player : AnimatedGameObject
 
         if (canShoot && (inputHelper.JoyStickRight.X > 0.2f || inputHelper.JoyStickRight.X < -0.2f || inputHelper.JoyStickRight.Y > 0.2f || inputHelper.JoyStickRight.Y < -0.2f))
         {
-            shootTimer = 0.225f;
+            shootTimer = 0.35f;
             canShoot = false;
             PlayAnimation("shoot");
             GameEnvironment.AssetManager.PlaySound(id +" shot", position.X);

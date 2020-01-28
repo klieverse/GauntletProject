@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class GnomeShoot : EnemyShot
+class GnomeShoot : EnemyShot
 {
     //int elapsed = 0;
 
-    public GnomeShoot(Vector2 startPosition, Vector2 velocity, int strength) : base(2, "GnomeShoot")
+    public GnomeShoot(Vector2 startPosition, Vector2 velocity, int strength, EnemyObject shooter) : base(2, "GnomeShoot", shooter)
     {
         this.position = startPosition;
         this.velocity = velocity;

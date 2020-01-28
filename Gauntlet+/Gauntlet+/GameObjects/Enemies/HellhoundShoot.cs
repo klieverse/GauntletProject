@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 class HellhoundShoot : EnemyShot
 {
-    public HellhoundShoot(Vector2 startPosition, Vector2 velocity, int strength, EnemyObject shooter) : base(2, "HellhoundShoot", isGnome: false)
+    public HellhoundShoot(Vector2 startPosition, Vector2 velocity, int strength, EnemyObject shooter) : base(2, "HellhoundShoot", shooter, isGnome: false)
     {
         this.shooter = shooter;
         this.position = startPosition;

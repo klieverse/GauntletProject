@@ -6,24 +6,27 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Newtonsoft.Json;
 
-public class EnemyObject : AnimatedGameObject
+class EnemyObject : AnimatedGameObject
 {
     [JsonIgnore]
     Player closestPlayer;
 
     protected float speedVert, speedHori;
-    protected int health = 30, strength, speed = 250, chaseDistance;
+    protected int health = 30, strength, speed = 175, chaseDistance;
     //TileField tileField;
-    protected float meleeTimer = 1f, colorTimer = 200f, maxDistance = 99999999999f, distance;
+    protected float meleeTimer = 1f, colorTimer = 200f, maxDistance = 99999999999f, distance, despawnTimer = 1f;
     protected Vector2 previousPosition;
     protected bool lastLookedLeft = false, isDead = false, canBeInvisible, noInvisible, wasSpawned, beginCollision = false/*, collisionAtSpawn*/;
 
     public bool canBeMeleed = true;
 
-    public EnemyObject(int layer, string id, int chaseDistance = 0, bool canBeInvisible = false/*, bool spawnCollision = false*/, bool sent = false) : base(layer, id)
+    protected SpawnObject spawn;
+
+    public EnemyObject(int layer, string id, SpawnObject spawnObject, int chaseDistance = 0, bool canBeInvisible = false/*, bool spawnCollision = false*/, bool sent = false) : base(layer, id)
     {
         this.canBeInvisible = canBeInvisible;
         this.chaseDistance = chaseDistance;
+        spawn = spawnObject;
         //collisionAtSpawn = spawnCollision;
         //if(sprite != null)
         {
@@ -59,7 +62,6 @@ public class EnemyObject : AnimatedGameObject
         FindClosestPlayer();
         MoveToCLosestPlayer();
         HandleCollision();
-
 
         /*if (CollidesWithObject())
             position = previousPosition;
@@ -295,6 +297,36 @@ public class EnemyObject : AnimatedGameObject
                     {
                         if ((velocity.Y > 0 && player.Velocity.Y < 0) || (velocity.Y < 0 && player.Velocity.Y > 0) || (velocity.Y > 0 && player.Velocity.Y >= 0 && position.Y < player.Position.Y)
                             || (velocity.Y < 0 && player.Velocity.Y <= 0 && position.Y > player.Position.Y))
+                            position.Y = previousPosition.Y;
+                    }
+                }
+            }
+        }
+
+        // checks collision w/ treasures
+        List<GameObject> treasures = (GameWorld.Find("treasures") as GameObjectList).Children;
+
+        if (players != null)
+        {
+            foreach (Treasure treasure in treasures)
+            {
+                if (CollidesWith(treasure))
+                {
+                    Rectangle playerBox = treasure.BoundingBox;
+                    Rectangle boundingBox = this.BoundingBox;
+                    boundingBox.X += 1;
+                    Vector2 playerDepth = Collision.CalculateIntersectionDepth(boundingBox, playerBox);
+
+                    if (Math.Abs(playerDepth.X) < Math.Abs(playerDepth.Y))
+                    {
+                        if ((velocity.X > 0 && treasure.Velocity.X < 0) || (velocity.X < 0 && treasure.Velocity.X > 0) || (velocity.X > 0 && treasure.Velocity.X >= 0 && position.X < treasure.Position.X)
+                            || (velocity.X < 0 && treasure.Velocity.X <= 0 && previousPosition.X > treasure.Position.X))
+                            position.X = previousPosition.X;
+                    }
+                    else
+                    {
+                        if ((velocity.Y > 0 && treasure.Velocity.Y < 0) || (velocity.Y < 0 && treasure.Velocity.Y > 0) || (velocity.Y > 0 && treasure.Velocity.Y >= 0 && position.Y < treasure.Position.Y)
+                            || (velocity.Y < 0 && treasure.Velocity.Y <= 0 && position.Y > treasure.Position.Y))
                             position.Y = previousPosition.Y;
                     }
                 }

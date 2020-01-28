@@ -10,7 +10,7 @@ class TextBox : TextGameObject
     protected bool writing, pressed;
     protected String character;
 
-    public TextBox(Vector2 position) : base("TextFont", 100)
+    public TextBox(Vector2 position) : base("TextFont", 150,"textbox")
     {
         this.position = position;
         gameWindow = GameEnvironment.gameWindow;
@@ -24,8 +24,6 @@ class TextBox : TextGameObject
     public override void HandleInput(InputHelper inputHelper)
     {
         base.HandleInput(inputHelper);
-        if (inputHelper.KeyPressed(Keys.Enter))
-            writing = false;
         if (inputHelper.AnyKeyPressed)
         {
             pressed = true;
@@ -42,6 +40,12 @@ class TextBox : TextGameObject
         character.Replace("\t", "");
         character.Replace("\0", "");
         character.Replace("\b", "");
+    }
+
+    public void WhenEntered()
+    {
+        gameWindow.TextInput -= OnInput;
+        gameWindow.TextInput += OnInput;
     }
 
     public override void Update(GameTime gameTime)

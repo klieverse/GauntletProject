@@ -10,7 +10,7 @@ class Death : EnemyObject
     float timer = 0f;
     int enoughDamage = 0;
 
-    public Death(Vector2 startPosition) : base(2, "Death")
+    public Death(Vector2 startPosition, SpawnObject spawnObject) : base(2, "Death", spawnObject)
     {
         this.position = startPosition;
         strength = 4;

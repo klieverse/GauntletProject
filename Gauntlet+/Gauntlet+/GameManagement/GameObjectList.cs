@@ -7,9 +7,12 @@ public class GameObjectList : GameObject
 {
     protected List<GameObject> children;
 
+    public List<GameObject> Delete;
+
     public GameObjectList(int layer = 0, string id = "") : base(layer, id)
     {
         children = new List<GameObject>();
+        Delete = new List<GameObject>();
     }
 
     public List<GameObject> Children
@@ -68,7 +71,6 @@ public class GameObjectList : GameObject
 
     public override void Update(GameTime gameTime)
     {
-        List<GameObject> delete = new List<GameObject>();
         foreach (GameObject obj in children)
         {
             
@@ -83,12 +85,12 @@ public class GameObjectList : GameObject
                     obj.Update(gameTime);
                     if((!obj.Visible) && (Id == "enemies" || Id == "playershot" || Id == "enemieShot") && obj.Id != "Wizard")
                     {
-                        delete.Add(obj);
+                        Delete.Add(obj);
                     }
                 }
             }
         }
-        foreach(GameObject obj in delete)
+        foreach(GameObject obj in Delete)
         {
             Remove(obj);
         }

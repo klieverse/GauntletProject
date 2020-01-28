@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 class Ghost : EnemyObject
 {
     
-    public Ghost(Vector2 startPosition, bool wasSpawned = false) : base(2, "Ghost")
+    public Ghost(Vector2 startPosition, SpawnObject spawnObject, bool wasSpawned = false) : base(2, "Ghost", spawnObject)
     {
         this.wasSpawned = wasSpawned;
         this.position = startPosition;
@@ -41,6 +41,8 @@ class Ghost : EnemyObject
                 //removes the instance from game
                 visible = false;
                 isDead = true;
+                if (spawn != null)
+                    spawn.enemies--;
             }
             Attack();
         }

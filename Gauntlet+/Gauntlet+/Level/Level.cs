@@ -5,6 +5,7 @@ partial class Level : GameObjectList
 {
     protected Button quitButton;
     public Vector2 startPositionThyra, startPositionQuestor, startPositionThor, startPositionMerlin;
+    public int secretValue1 =0 , goalSecretValue1 = 0, secretValue2 = 0, goalSecretValue2 = 2, breakebleWalls=0;
 
     public Level(int levelIndex)
     {
@@ -31,7 +32,7 @@ partial class Level : GameObjectList
         Add(new GameObjectList(2, "Exits"));
         Add(new GameObjectList(2, "SpawnObjects"));
 
-
+        goalSecretValue1 = breakebleWalls / 2 + 1;
 
         LoadTiles("Content/Levels/" + levelIndex + ".txt");
     }

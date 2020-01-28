@@ -11,7 +11,7 @@ class Thief : EnemyObject
     bool escape = false;
     float escapeDistance;
 
-    public Thief(Vector2 startPosition) : base(2, "Thief")
+    public Thief(Vector2 startPosition, SpawnObject spawnObject) : base(2, "Thief", spawnObject)
     {
         speed = thiefSpeed;
         position = startPosition;
