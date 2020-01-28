@@ -289,6 +289,7 @@ class Player : AnimatedGameObject
                 Vector2 tileDepth = Collision.CalculateIntersectionDepth(boundingBox, tileBounds);
 
                 List<GameObject> doors = (GameWorld.Find("Doors") as GameObjectList).Children;
+                List<GameObject> spawns = (GameWorld.Find("SpawnObjects") as GameObjectList).Children;
 
                 if (Math.Abs(tileDepth.X) < Math.Abs(tileDepth.Y))
                 {
@@ -303,6 +304,16 @@ class Player : AnimatedGameObject
                                 {
                                     door.DeleteDoors();
                                     keys -= 1;
+                                }
+                            }
+                        }
+                        if (spawns != null)
+                        {
+                            foreach (SpawnObject spawn in spawns)
+                            {
+                                if (CollidesWith(spawn))
+                                {
+                                    spawn.HitByPlayer(melee);
                                 }
                             }
                         }
