@@ -80,12 +80,12 @@ public class EnemyObject : AnimatedGameObject
 
     private void TimeToAttack(GameTime gameTime)
     {
-        /*meleeTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds; // makes sure a specific enemy can only be melee'd once a second;
+        meleeTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds; // makes sure a specific enemy can only be melee'd once a second;
         if (meleeTimer >= 1000)
         {
             meleeTimer = 0;
             canBeMeleed = true;
-        } */
+        } 
         HandleAnimations();
     }
 
