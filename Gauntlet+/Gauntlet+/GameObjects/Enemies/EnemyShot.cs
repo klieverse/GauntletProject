@@ -10,7 +10,7 @@ class EnemyShot : AnimatedGameObject
 {
     protected int strength;
     protected bool isGnome;
-    float timer = 3f;
+    float timer = 5f;
     protected EnemyObject shooter;
     public EnemyShot(int layer, string id, EnemyObject shooter, bool isGnome = true) : base(layer, id)
     {
