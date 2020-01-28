@@ -41,7 +41,8 @@ class Ghost : EnemyObject
                 //removes the instance from game
                 visible = false;
                 isDead = true;
-                spawn.enemies--;
+                if (spawn != null)
+                    spawn.enemies--;
             }
             Attack();
         }

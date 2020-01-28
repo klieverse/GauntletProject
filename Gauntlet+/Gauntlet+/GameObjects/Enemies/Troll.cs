@@ -40,7 +40,8 @@ class Troll : EnemyObject
             {
                 visible = false;
                 isDead = true;
-                spawn.enemies--;
+                if (spawn != null)
+                    spawn.enemies--;
             }
             //timer for when it can attack
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;

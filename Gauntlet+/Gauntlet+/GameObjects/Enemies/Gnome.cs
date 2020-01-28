@@ -28,6 +28,8 @@ class Gnome : EnemyObject
             {
                 visible = false;
                 isDead = true;
+                if(spawn != null)
+                    spawn.enemies--;
             }
             //cooldown in which the enemy attacks
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -35,7 +37,6 @@ class Gnome : EnemyObject
             {
                 Attack();
                 timer = 0f;
-                spawn.enemies--;
             }
         }
         
