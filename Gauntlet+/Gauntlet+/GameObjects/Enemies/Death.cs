@@ -10,7 +10,7 @@ class Death : EnemyObject
     float timer = 0f;
     int enoughDamage = 0;
 
-    public Death(Vector2 startPosition) : base(2, "Death")
+    public Death(Vector2 startPosition, Level level) : base(2, "Death", level)
     {
         this.position = startPosition;
         strength = 4;
@@ -49,6 +49,7 @@ class Death : EnemyObject
                 {
                     visible = false;
                     isDead = true;
+                    SpawnObject.enemies--;
                 }
     }
 }

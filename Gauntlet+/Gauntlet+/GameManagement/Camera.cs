@@ -7,6 +7,6 @@ public static class Camera
 
     public static Rectangle CameraBox
     {
-        get { return new Rectangle((int)Position.X, (int)Position.Y, GameEnvironment.Screen.X, GameEnvironment.Screen.Y); }
+        get { return new Rectangle((int)Position.X - 300, (int)Position.Y - 300, GameEnvironment.Screen.X + 600, GameEnvironment.Screen.Y + 600); }
     }
 }

@@ -38,8 +38,9 @@ public class SpriteGameObject : GameObject
         {
             return;
         }
-        if (GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("playingState") || 
-            GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiPlayerState"))
+        if ((GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("playingState") || 
+            GameEnvironment.GameStateManager.CurrentGameState == GameEnvironment.GameStateManager.GetGameState("multiPlayerState")) &&
+            layer < 80)
         {
             sprite.Draw(spriteBatch, this.GlobalPosition - Camera.Position, rotation, origin, scale, color);
         }
