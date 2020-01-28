@@ -6,16 +6,19 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-public class EnemyShot : AnimatedGameObject
+class EnemyShot : AnimatedGameObject
 {
-    protected EnemyObject shooter;
     protected int strength;
     protected bool isGnome;
-    public EnemyShot(int layer, string id, bool isGnome = true) : base(layer, id)
+    float timer = 3f;
+    protected EnemyObject shooter;
+    public EnemyShot(int layer, string id, EnemyObject shooter, bool isGnome = true) : base(layer, id)
     {
         this.isGnome = isGnome;
         LoadAnimations();
         PlayAnimation("shoot");
+        velocity *= 0.8f;
+        this.shooter = shooter;
     }
 
     void LoadAnimations()
@@ -26,6 +29,16 @@ public class EnemyShot : AnimatedGameObject
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
+        HandleCollision();
+
+        timer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+        if (timer <= 0)
+            visible = false;
+
+    }
+
+    private void HandleCollision()
+    {
         if (isGnome)
         {
             List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
@@ -55,7 +68,6 @@ public class EnemyShot : AnimatedGameObject
                 GameEnvironment.AssetManager.PlaySound("Ghost hit", position.X);
             }
         }
-        
     }
 
     public bool CollidesWithObject()

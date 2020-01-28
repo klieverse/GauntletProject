@@ -19,11 +19,16 @@ class Button : SpriteGameObject
             BoundingBox.Contains((int)inputHelper.MousePosition.X, (int)inputHelper.MousePosition.Y);
         if (BoundingBox.Contains((int)inputHelper.MousePosition.X, (int)inputHelper.MousePosition.Y))
         {
-            position = beginPosition - new Vector2(5, 5);
+            origin = new Vector2(Width / 2, Height / 2);
+            position = beginPosition + new Vector2(Width/2, Height/2);
+            scale = 1.1f;
+
         }
         else
         {
-            position = beginPosition;
+            origin = new Vector2(Width / 2, Height / 2);
+            position = beginPosition + new Vector2(Width / 2, Height / 2);
+            scale = 1f;
         }
     }
 

@@ -216,7 +216,7 @@ partial class Level : GameObjectList
         GameObjectList enemies = Find("spawns") as GameObjectList;
         TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2(x * Tile.Size, y * Tile.Size);
-        SpawnObject enemy = new SpawnObject(startPosition, "Temple/Skeleton");
+        SpawnObject enemy = new SpawnObject(startPosition, "Temple/Skeleton", this);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return enemy;
@@ -233,7 +233,7 @@ partial class Level : GameObjectList
         GameObjectList enemies = Find("spawns") as GameObjectList;
         TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2(x * Tile.Size, y  * Tile.Size);
-        SpawnObject enemy = new SpawnObject(startPosition, "Temple/Wizard");
+        SpawnObject enemy = new SpawnObject(startPosition, "Temple/Wizard", this);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return enemy;
@@ -250,7 +250,7 @@ partial class Level : GameObjectList
         GameObjectList enemies = Find("spawns") as GameObjectList;
         TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2(x * Tile.Size, y * Tile.Size);
-        SpawnObject enemy = new SpawnObject(startPosition, "Temple/Troll");
+        SpawnObject enemy = new SpawnObject(startPosition, "Temple/Troll", this);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return enemy;
@@ -267,7 +267,7 @@ partial class Level : GameObjectList
         GameObjectList enemies = Find("spawns") as GameObjectList;
         TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2(x * Tile.Size, y * Tile.Size);
-        SpawnObject enemy = new SpawnObject(startPosition, "Temple/Hellhound");
+        SpawnObject enemy = new SpawnObject(startPosition, "Temple/Hellhound", this);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return enemy;
@@ -284,7 +284,7 @@ partial class Level : GameObjectList
         GameObjectList enemies = Find("enemies") as GameObjectList;
         //TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
-        Ghost enemy = new Ghost(startPosition);
+        Ghost enemy = new Ghost(startPosition, this);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();
@@ -301,7 +301,7 @@ partial class Level : GameObjectList
         GameObjectList enemies = Find("enemies") as GameObjectList;
         TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
-        Hellhound enemy = new Hellhound(startPosition);
+        Hellhound enemy = new Hellhound(startPosition, this);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();
@@ -318,7 +318,7 @@ partial class Level : GameObjectList
         GameObjectList enemies = Find("enemies") as GameObjectList;
         TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
-        Gnome enemy = new Gnome(startPosition);
+        Gnome enemy = new Gnome(startPosition, this);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();
@@ -335,7 +335,7 @@ partial class Level : GameObjectList
         GameObjectList enemies = Find("enemies") as GameObjectList;
         //TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
-        Thief enemy = new Thief(startPosition);
+        Thief enemy = new Thief(startPosition, this);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();
@@ -352,7 +352,7 @@ partial class Level : GameObjectList
         GameObjectList enemies = Find("enemies") as GameObjectList;
         //TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
-        Death enemy = new Death(startPosition);
+        Death enemy = new Death(startPosition, this);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();
@@ -369,7 +369,7 @@ partial class Level : GameObjectList
         GameObjectList enemies = Find("enemies") as GameObjectList;
         //TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
-        Troll enemy = new Troll(startPosition);
+        Troll enemy = new Troll(startPosition, this);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();
@@ -386,7 +386,7 @@ partial class Level : GameObjectList
         GameObjectList enemies = Find("enemies") as GameObjectList;
         //TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
-        Wizard enemy = new Wizard(startPosition);
+        Wizard enemy = new Wizard(startPosition, this);
         //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();

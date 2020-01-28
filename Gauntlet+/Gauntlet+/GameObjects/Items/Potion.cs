@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 enum PotionType
@@ -24,15 +25,15 @@ class Potion : Item
         this.level = level;
         GameObjectList hintField = new GameObjectList(100);
         level.Add(hintField);
-        SpriteGameObject hintFrame = new SpriteGameObject("Sprites/spr_frame", 1);
+        SpriteGameObject hintFrame = new SpriteGameObject("Sprites/spr_frame", 100);
         hintField.Position = new Vector2((GameEnvironment.Screen.X - hintFrame.Width) / 2, 10);
         hintField.Add(hintFrame);
-        TextGameObject hintText = new TextGameObject("StatFont", 2);
+        TextGameObject hintText = new TextGameObject("StatFont", 101);
         hintText.Text = "Secret potion found! more " + id + " added to stat";
         hintText.Position = new Vector2(120, 25);
         hintText.Color = Color.Black;
         hintField.Add(hintText);
-        VisibilityTimer hintTimer = new VisibilityTimer(hintField, 1, id + "Timer");
+        VisibilityTimer hintTimer = new VisibilityTimer(hintField, 90, id + "Timer");
         level.Add(hintTimer);
     }
 
@@ -66,6 +67,15 @@ class Potion : Item
         VisibilityTimer hintTimer = level.Find(Id + "Timer") as VisibilityTimer;
         hintTimer.StartVisible();
     }
+
+    /*public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+    {
+        if(PotType != PotionType.Normal && PotType != PotionType.Orange)
+        {
+            sprite.Draw(spriteBatch, this.GlobalPosition, rotation, origin, scale, color);
+        }
+        else base.Draw(gameTime, spriteBatch);
+    }*/
 
     public PotionType PotType
     {
