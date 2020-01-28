@@ -45,7 +45,7 @@ class Hellhound : EnemyObject
             //cooldown for when the enemy attacks
 
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (timer > 500f)
+            if (timer > 1500f)
             {
                 Attack();
                 timer = 0f;

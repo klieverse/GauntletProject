@@ -33,7 +33,7 @@ class Gnome : EnemyObject
             }
             //cooldown in which the enemy attacks
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (timer > 1000f)
+            if (timer > 3000f)
             {
                 Attack();
                 timer = 0f;
