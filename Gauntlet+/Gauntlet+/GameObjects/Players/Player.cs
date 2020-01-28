@@ -121,7 +121,7 @@ class Player : AnimatedGameObject
         {
             HandleTimer(gameTime);
         }
-        
+        HandleColorTimer(gameTime);
         HandleCollision();
         HandleAnimations();
         CheckIfDead();
@@ -157,7 +157,6 @@ class Player : AnimatedGameObject
     {
         healthTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds; //makes the timer count down;
         shootTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-        colorTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
         if (healthTimer <= 0)
         {
@@ -170,8 +169,12 @@ class Player : AnimatedGameObject
             canShoot = true;
             shootTimer = 0.35f;
         }
+    }
 
-        if(colorTimer <= 0)
+    private void HandleColorTimer(GameTime gameTime)
+    {
+        colorTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+        if (colorTimer <= 0)
         {
             color = Color.White;
             colorTimer = 200f;
