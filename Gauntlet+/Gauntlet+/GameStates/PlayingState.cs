@@ -62,6 +62,7 @@ class PlayingState : IGameLoopObject
         CurrentLevel.Update(gameTime);
         if (CurrentLevel.GameOver)
         {
+            GameOverState.Score = (CurrentLevel.Find(GameEnvironment.SelectedClass) as Player).Score;
             GameEnvironment.GameStateManager.SwitchTo("gameOverState");
         }
     }
