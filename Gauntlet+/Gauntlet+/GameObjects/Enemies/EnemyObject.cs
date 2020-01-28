@@ -16,24 +16,19 @@ class EnemyObject : AnimatedGameObject
     //TileField tileField;
     protected float meleeTimer = 1f, colorTimer = 200f, maxDistance = 99999999999f, distance, despawnTimer = 1f;
     protected Vector2 previousPosition;
-    protected bool lastLookedLeft = false, isDead = false, canBeInvisible, noInvisible, wasSpawned, beginCollision = false/*, collisionAtSpawn*/;
+    protected bool lastLookedLeft = false, isDead = false, canBeInvisible, noInvisible, wasSpawned, beginCollision = false;
 
     public bool canBeMeleed = true;
 
     protected SpawnObject spawn;
 
-    public EnemyObject(int layer, string id, SpawnObject spawnObject, int chaseDistance = 0, bool canBeInvisible = false/*, bool spawnCollision = false*/, bool sent = false) : base(layer, id)
+    public EnemyObject(int layer, string id, SpawnObject spawnObject, int chaseDistance = 0, bool canBeInvisible = false, bool sent = false) : base(layer, id)
     {
         this.canBeInvisible = canBeInvisible;
         this.chaseDistance = chaseDistance;
         spawn = spawnObject;
-        //collisionAtSpawn = spawnCollision;
-        //if(sprite != null)
-        {
-            LoadAnimations();
-            PlayAnimation("idle");
-        }
-        
+        LoadAnimations();
+        PlayAnimation("idle");
         Sent = sent;
     }
     void LoadAnimations()
@@ -46,36 +41,9 @@ class EnemyObject : AnimatedGameObject
         previousPosition = position;
         base.Update(gameTime);
         
-        /*if (collisionAtSpawn)
-        {
-            if (CollidesWithObject())
-            {
-                visible = false;
-            }
-        }*/
-
-
-        //tileField = GameWorld.Find("tiles") as TileField;
-        /*if (CollidesWithObject())
-            position = previousPosition;*/
-
         FindClosestPlayer();
         MoveToCLosestPlayer();
         HandleCollision();
-
-        /*if (CollidesWithObject())
-            position = previousPosition;
-        GameObjectList players = GameWorld.Find("players") as GameObjectList;
-        Player player;
-        if (players.Children.Count != 0)
-        {
-            player = players.Children[0] as Player;
-            if (player.IsAlive)
-            {*/
-
-        //    }
-
-        //}
 
         HandleTimers(gameTime);
     }
@@ -105,7 +73,7 @@ class EnemyObject : AnimatedGameObject
     {
         if (closestPlayer != null)
         {
-            float opposite = (closestPlayer.Position.Y + closestPlayer.Height / 4) - position.Y;
+            float opposite = (closestPlayer.Position.Y + closestPlayer.Height / 4) - position.Y; // calculates where the enemye must go
             float adjacent = closestPlayer.Position.X - position.X;
             distance = (float)Math.Sqrt((opposite * opposite) + (adjacent * adjacent));
             float vertical = (float)Math.Atan2(opposite, adjacent);

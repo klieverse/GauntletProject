@@ -221,7 +221,6 @@ class Player : AnimatedGameObject
         }
 
         isAlive = false;
-        //GameEnvironment.AssetManager.PlaySound("Sounds/snd_" + id + "_die");
 
         PlayAnimation("die");
     }
@@ -298,7 +297,7 @@ class Player : AnimatedGameObject
                     {
                         if (doors != null)
                         {
-                            foreach (Door door in doors)
+                            foreach (Door door in doors) // opens the door when colliding
                             {
                                 if (CollidesWith(door) && keys > 0)
                                 {
@@ -309,7 +308,7 @@ class Player : AnimatedGameObject
                         }
                         if (spawns != null)
                         {
-                            foreach (SpawnObject spawn in spawns)
+                            foreach (SpawnObject spawn in spawns) // does damage to spawner when coliiding
                             {
                                 if (CollidesWith(spawn))
                                 {
@@ -329,12 +328,22 @@ class Player : AnimatedGameObject
                 {
                     if (doors != null)
                     {
-                        foreach (Door door in doors)
+                        foreach (Door door in doors) // opens the door when colliding
                         {
                             if (CollidesWith(door) && keys > 0)
                             {
                                 door.DeleteDoors();
                                 keys -= 1;
+                            }
+                        }
+                    }
+                    if (spawns != null)
+                    {
+                        foreach (SpawnObject spawn in spawns) // does damage to spawner when coliiding
+                        {
+                            if (CollidesWith(spawn))
+                            {
+                                spawn.HitByPlayer(melee);
                             }
                         }
                     }
@@ -574,7 +583,7 @@ class Player : AnimatedGameObject
                 direction = new Vector2(0, 1);
             }
 
-            if (canShoot)
+            if (canShoot) // shoots a playershot when possible
             {
                 shootTimer = 0.35f;
                 canShoot = false;
@@ -617,7 +626,7 @@ class Player : AnimatedGameObject
             canShoot = false;
             PlayAnimation("shoot");
             GameEnvironment.AssetManager.PlaySound(id +" shot", position.X);
-            (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotCount, shotSpeed, shotStrength, direction, position, this, inputHelper));
+            (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotCount, shotSpeed, shotStrength, direction, position, this, inputHelper));  // shoots a playershot when possible
             shotCount++;
         }
 

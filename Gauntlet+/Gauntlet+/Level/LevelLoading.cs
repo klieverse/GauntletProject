@@ -222,15 +222,8 @@ partial class Level : GameObjectList
         TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2(x * Tile.Size, y * Tile.Size);
         SpawnObject enemy = new SpawnObject(startPosition, "Temple/Skeleton", this);
-        //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return enemy;
-        /*        TileField tiles = Find("tiles") as TileField;
-                Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
-                Ghost ghost = new Ghost(startPosition);
-                Add(ghost);
-        */
-        //return new Tile("Tiles/background", TileType.Background);
     }
 
     private Tile LoadTempleWizard(int x, int y)
@@ -239,15 +232,8 @@ partial class Level : GameObjectList
         TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2(x * Tile.Size, y  * Tile.Size);
         SpawnObject enemy = new SpawnObject(startPosition, "Temple/Wizard", this);
-        //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return enemy;
-        /*        TileField tiles = Find("tiles") as TileField;
-                Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
-                Ghost ghost = new Ghost(startPosition);
-                Add(ghost);
-        */
-        //return new Tile("Tiles/background", TileType.Background);
     }
 
     private Tile LoadTempleTroll(int x, int y)
@@ -256,15 +242,8 @@ partial class Level : GameObjectList
         TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2(x * Tile.Size, y * Tile.Size);
         SpawnObject enemy = new SpawnObject(startPosition, "Temple/Troll", this);
-        //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return enemy;
-        /*        TileField tiles = Find("tiles") as TileField;
-                Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
-                Ghost ghost = new Ghost(startPosition);
-                Add(ghost);
-        */
-        //return new Tile("Tiles/background", TileType.Background);
     }
 
     private Tile LoadTempleHellhound(int x, int y)
@@ -273,32 +252,17 @@ partial class Level : GameObjectList
         TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2(x * Tile.Size, y * Tile.Size);
         SpawnObject enemy = new SpawnObject(startPosition, "Temple/Hellhound", this);
-        //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return enemy;
-        /*        TileField tiles = Find("tiles") as TileField;
-                Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
-                Ghost ghost = new Ghost(startPosition);
-                Add(ghost);
-        */
-        //return new Tile("Tiles/background", TileType.Background);
     }
 
     private Tile LoadGhost(int x, int y)
     {
         GameObjectList enemies = Find("enemies") as GameObjectList;
-        //TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
         Ghost enemy = new Ghost(startPosition, null);
-        //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();
-        /*        TileField tiles = Find("tiles") as TileField;
-                Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
-                Ghost ghost = new Ghost(startPosition);
-                Add(ghost);
-        */
-        //return new Tile("Tiles/background", TileType.Background);
     }
 
     private Tile LoadHellhound(int x, int y)
@@ -307,15 +271,8 @@ partial class Level : GameObjectList
         TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
         Hellhound enemy = new Hellhound(startPosition, null);
-        //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();
-        /*        TileField tiles = Find("tiles") as TileField;
-                Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
-                Ghost ghost = new Ghost(startPosition);
-                Add(ghost);
-        */
-        //return new Tile("Tiles/background", TileType.Background);
     }
 
     private Tile LoadGnome(int x, int y)
@@ -324,83 +281,44 @@ partial class Level : GameObjectList
         TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
         Gnome enemy = new Gnome(startPosition, null);
-        //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();
-        /*        TileField tiles = Find("tiles") as TileField;
-                Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
-                Gnome gnome = new Gnome(startPosition);
-                Add(gnome);
-                return new Tile("Tiles/background", TileType.Background);
-                */
     }
 
     private Tile LoadThief(int x, int y)
     {
         GameObjectList enemies = Find("enemies") as GameObjectList;
-        //TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
         Thief enemy = new Thief(startPosition, null);
-        //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();
-        /*        TileField tiles = Find("tiles") as TileField;
-                Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
-                Ghost ghost = new Ghost(startPosition);
-                Add(ghost);
-        */
-        //return new Tile("Tiles/background", TileType.Background);
     }
 
     private Tile LoadDeath(int x, int y)
     {
         GameObjectList enemies = Find("enemies") as GameObjectList;
-        //TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
         Death enemy = new Death(startPosition, null);
-        //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();
-        /*        TileField tiles = Find("tiles") as TileField;
-                Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
-                Ghost ghost = new Ghost(startPosition);
-                Add(ghost);
-        */
-        //return new Tile("Tiles/background", TileType.Background);
     }
 
     private Tile LoadTroll(int x, int y)
     {
         GameObjectList enemies = Find("enemies") as GameObjectList;
-        //TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
         Troll enemy = new Troll(startPosition, null);
-        //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();
-        /*        TileField tiles = Find("tiles") as TileField;
-                Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
-                Ghost ghost = new Ghost(startPosition);
-                Add(ghost);
-        */
-        //return new Tile("Tiles/background", TileType.Background);
     }
 
     private Tile LoadWizard(int x, int y)
     {
         GameObjectList enemies = Find("enemies") as GameObjectList;
-        //TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)x * Tile.Size, y * Tile.Size);
         Wizard enemy = new Wizard(startPosition, null);
-        //enemy.Position = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight + 25.0f);
         enemies.Add(enemy);
         return new Tile();
-        /*        TileField tiles = Find("tiles") as TileField;
-                Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
-                Ghost ghost = new Ghost(startPosition);
-                Add(ghost);
-        */
-        //return new Tile("Tiles/background", TileType.Background);
     }
 
 
@@ -408,14 +326,7 @@ partial class Level : GameObjectList
 
     private Tile LoadTeleport(int x, int y)
     {
-        /*        GameObjectList teleports = Find("tiles") as GameObjectList;
-                TileField tiles = Find("tiles") as TileField;
-                Vector2 startPosition = new Vector2(((float)x + 0.5f) * 55, (y + 1) * 55);
-                Teleport t = new Teleport(startPosition);
-                teleports.Add(t);
-                return new Tile(); */
         GameObjectList teleports = Find("teleport") as GameObjectList;
-        //TileField tiles = Find("tiles") as TileField;
         Vector2 startPosition = new Vector2((float)(x + 0.5f )* Tile.Size, (y+1) * Tile.Size);
         Teleport teleport = new Teleport(startPosition);
         teleports.Add(teleport);

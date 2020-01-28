@@ -126,83 +126,32 @@ class SpawnObject : Tile
         {
             case 0:
                 spawnLocation.X = position.X + 30 + this.Width;
-                //if (CollidesWithObject())
-                //{
-                    //spawnLocation.X = position.X;
-                    //NewLocation();
-                //}
-
                 break;
             case 1:
                 spawnLocation.X = position.X + 30 + this.Width;
                 spawnLocation.Y = position.Y + 30 + this.Height;
-                //if (CollidesWithObject())
-                //{
-                    //spawnLocation.X = position.X;
-                    //spawnLocation.Y = position.Y;
-                    //NewLocation();
-                //}
-
                 break;
             case 2:
                 spawnLocation.Y = position.Y + 30 + this.Height;
-                /*if (CollidesWithObject())
-                {
-                    spawnLocation.Y = position.Y;
-                    //NewLocation();
-                }*/
-
                 break;
             case 3:
                 spawnLocation.X = position.X - 30;
                 spawnLocation.Y = position.Y + 30 + this.Height;
-                /*if (CollidesWithObject())
-                {
-                    spawnLocation.X = position.X;
-                    spawnLocation.Y = position.Y;
-                    //NewLocation();
-                }*/
-
                 break;
             case 4:
                 spawnLocation.X = position.X - 30;
-                /*if (CollidesWithObject())
-                {
-                    spawnLocation.X = position.X;
-                    //NewLocation();
-                }*/
-
                 break;
             case 5:
                 spawnLocation.X = position.X - 30;
                 spawnLocation.Y = position.Y - 30;
-                /*if (CollidesWithObject())
-                {
-                    spawnLocation.X = position.X;
-                    spawnLocation.Y = position.Y;
-                    //NewLocation();
-                }*/
-
                 break;
             case 6:
                 spawnLocation.Y = position.Y - 30;
-                /*if (CollidesWithObject())
-                {
-                    spawnLocation.Y = position.Y;
-                    //NewLocation();
-                }*/
 
                 break;
             default:
                 spawnLocation.X = position.X + 30 + this.Width;
                 spawnLocation.Y = position.Y - 30;
-                /*if (CollidesWithObject())
-                {
-                    spawnLocation.X = position.X;
-                    spawnLocation.Y = position.Y;
-                    //NewLocation();
-                }*/
-
                 break;
         }
     }
@@ -235,15 +184,6 @@ class SpawnObject : Tile
         foreach (SpriteGameObject enemy in enemies)
             if (CollidesWith(enemy))
                 return true;
-
-        /*List<GameObject> spawns = (GameWorld.Find("spawns") as GameObjectList).Children;
-        if (spawns != null)
-        {
-            foreach (SpriteGameObject spawn in spawns)
-                if (CollidesWith(spawn))
-                    return true;
-        } */
-
 
         return false;
     }

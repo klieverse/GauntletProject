@@ -135,7 +135,7 @@ class PlayerShot : SpriteGameObject
         base.Update(gameTime);
 
         HandleCollisions();
-        //HandleOutOfScreen();
+        HandleOutOfScreen();
     }
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
@@ -226,13 +226,13 @@ class PlayerShot : SpriteGameObject
             }
     }
 
-    /*public void HandleOutOfScreen()
+    public void HandleOutOfScreen()
     {
         if(!Camera.CameraBox.Contains(position))
         {
             visible = false;
         }
-    }*/
+    }
 
     public void HandleIncoming()
     {

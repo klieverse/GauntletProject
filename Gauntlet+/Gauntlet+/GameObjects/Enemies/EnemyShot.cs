@@ -30,15 +30,24 @@ class EnemyShot : AnimatedGameObject
     {
         base.Update(gameTime);
         HandleCollision();
+        HandleOutOfScreen();
 
         timer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
         if (timer <= 0)
             visible = false;
     }
+    public void HandleOutOfScreen()
+    {
+        if (!Camera.CameraBox.Contains(position))
+        {
+            visible = false;
+        }
+    }
 
     private void HandleCollision()
     {
-        if (isGnome)
+        //checks for collision with player
+        if (isGnome) 
         {
             List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
             if (players != null)
@@ -85,14 +94,6 @@ class EnemyShot : AnimatedGameObject
                 if (tileField.GetTileType(x, y) == TileType.Wall || tileField.GetTileType(x, y) == TileType.BreakableWall
                     || tileField.GetTileType(x, y) == TileType.HorizontalDoor || tileField.GetTileType(x, y) == TileType.VerticalDoor)
                     return true;
-        //check playercollision
-        /*List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
-        if (players != null)
-            foreach (SpriteGameObject player in players)
-                if (player != this)
-                    if (CollidesWith(player))
-                        return true;*/
-        //check enemycollision
         List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
         foreach (SpriteGameObject enemy in enemies)
             if (enemy != shooter)
