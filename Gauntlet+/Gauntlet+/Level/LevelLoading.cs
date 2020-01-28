@@ -106,12 +106,17 @@ partial class Level : GameObjectList
             case '7':
             case '8':
             case '9':
-            case '!':
-            case '@':
-            case '#':
-            case '$':
-            case '%':
                 return LoadExitTile(tileType, x, y);
+            case '!':
+                return LoadExitTile(10, x, y);
+            case '@':
+                return LoadExitTile(11, x, y);
+            case '#':
+                return LoadExitTile(12, x, y);
+            case '$':
+                return LoadExitTile(13, x, y);
+            case '%':
+                return LoadExitTile(14, x, y);
 
             //Enemies
             case 'S':

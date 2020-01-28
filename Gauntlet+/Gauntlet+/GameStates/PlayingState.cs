@@ -9,7 +9,7 @@ class PlayingState : IGameLoopObject
     static protected List<Level> levels;
     static protected int currentLevelIndex;
     protected ContentManager content;
-    protected int maxLevelIndex = 9;
+    protected int maxLevelIndex = 14;
     static protected bool maxLevelReached = false, justOpened;
     
 
@@ -79,7 +79,7 @@ class PlayingState : IGameLoopObject
    static public void Exit()
    {
         CurrentLevel.Reset();
-        currentLevelIndex = 0;
+        currentLevelIndex = 9;
         justOpened = true;
         GameEnvironment.GameStateManager.SwitchTo("titleMenu");
         Camera.Position = Vector2.Zero;
@@ -93,34 +93,10 @@ class PlayingState : IGameLoopObject
         CurrentLevel.Reset();
         if (maxLevelReached || currentLevelIndex >= levels.Count - 1)
         {
-            CurrentLevelIndex = GameEnvironment.Random.Next(0,14);
+            CurrentLevelIndex = GameEnvironment.Random.Next(0, 14);
             maxLevelReached = true;
         }
-        else
-        {
-            switch (currentLevelIndex)
-            {
-                case '!':
-                    index = 10;
-                    break;
-                case '@':
-                    index = 11;
-                    break;
-                case '#':
-                    index = 12;
-                    break;
-                case '$':
-                    index = 13;
-                    break;
-                case '%':
-                    index = 14;
-                    break;
-
-                default:
-                    CurrentLevelIndex = index;
-                    break;
-            }
-        }
+        else CurrentLevelIndex = index;
         ReloadPlayers(players);
         (CurrentLevel.Find(GameEnvironment.SelectedClass) as Player).HandleCamera();
     }
