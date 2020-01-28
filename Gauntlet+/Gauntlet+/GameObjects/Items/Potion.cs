@@ -22,6 +22,18 @@ class Potion : Item
     {
         PotType = pot;
         this.level = level;
+        GameObjectList hintField = new GameObjectList(100);
+        level.Add(hintField);
+        SpriteGameObject hintFrame = new SpriteGameObject("Sprites/spr_frame", 1);
+        hintField.Position = new Vector2((GameEnvironment.Screen.X - hintFrame.Width) / 2, 10);
+        hintField.Add(hintFrame);
+        TextGameObject hintText = new TextGameObject("StatFont", 2);
+        hintText.Text = "Secret potion found! more " + id + " added to stat";
+        hintText.Position = new Vector2(120, 25);
+        hintText.Color = Color.Black;
+        hintField.Add(hintText);
+        VisibilityTimer hintTimer = new VisibilityTimer(hintField, 1, id + "Timer");
+        level.Add(hintTimer);
     }
 
     public override void Update(GameTime gameTime)
@@ -51,18 +63,8 @@ class Potion : Item
 
     void DisplayMessage()
     {
-        GameObjectList hintField = new GameObjectList(100);
-        level.Add(hintField);
-        SpriteGameObject hintFrame = new SpriteGameObject("Sprites/spr_frame", 1);
-        hintField.Position = new Vector2((GameEnvironment.Screen.X - hintFrame.Width) / 2, 10);
-        hintField.Add(hintFrame);
-        TextGameObject hintText = new TextGameObject("StatFont", 2);
-        hintText.Text = "Secret potion found! more " +id+ " added to stat";
-        hintText.Position = new Vector2(120, 25);
-        hintText.Color = Color.Black;
-        hintField.Add(hintText);
-        VisibilityTimer hintTimer = new VisibilityTimer(hintField, 1, "hintTimer");
-        level.Add(hintTimer);
+        VisibilityTimer hintTimer = level.Find(Id + "Timer") as VisibilityTimer;
+        hintTimer.StartVisible();
     }
 
     public PotionType PotType
