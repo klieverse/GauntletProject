@@ -150,7 +150,7 @@ class PlayerShot : SpriteGameObject
         int Left = (int)(position.X / tile.Width);
         int Right = (int)((position.X + Width) / tile.Width);
         int Top = (int)(position.Y / tile.Height);
-        int Bottom = (int)((position.Y + (Height/2)) / tile.Height);
+        int Bottom = (int)((position.Y + (Height/3)) / tile.Height);
 
         for (int x = Left; x <= Right; x++)
             for (int y = Top; y <= Bottom; y++)

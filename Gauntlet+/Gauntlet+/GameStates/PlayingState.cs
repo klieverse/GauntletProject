@@ -79,7 +79,7 @@ class PlayingState : IGameLoopObject
    static public void Exit()
    {
         CurrentLevel.Reset();
-        currentLevelIndex = 14;
+        currentLevelIndex = 0;
         justOpened = true;
         GameEnvironment.GameStateManager.SwitchTo("titleMenu");
         Camera.Position = Vector2.Zero;
