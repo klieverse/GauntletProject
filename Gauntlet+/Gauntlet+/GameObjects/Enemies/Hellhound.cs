@@ -40,7 +40,7 @@ class Hellhound : EnemyObject
                 visible = false;
                 isDead = true;
                 if (spawn != null)
-                    spawn.enemies--;
+                    spawn.enemies-=1;
             }
             //cooldown for when the enemy attacks
 

@@ -69,7 +69,7 @@ class Wizard : EnemyObject
             visible = false;
             isDead = true;
             if (spawn != null)
-                spawn.enemies--;
+                spawn.enemies-=1;
         }
 
     }
