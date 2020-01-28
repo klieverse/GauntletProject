@@ -137,6 +137,7 @@ public class GameObjectList : GameObject
             case "Doors":
             case "Exits":
             case "SpawnObjects":
+            case "textbox":
                 return true;
             default:
                 return false;
