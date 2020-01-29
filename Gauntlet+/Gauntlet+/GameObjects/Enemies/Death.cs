@@ -13,7 +13,7 @@ class Death : EnemyObject
     public Death(Vector2 startPosition, SpawnObject spawnObject) : base(2, "Death", spawnObject)
     {
         this.position = startPosition;
-        strength = 4;
+        strength = 5;
     }
 
     public override void Update(GameTime gameTime)
@@ -46,7 +46,7 @@ class Death : EnemyObject
                     enoughDamage++;
                     GameEnvironment.AssetManager.PlaySound("Death", position.X);
                 }
-                else if (enoughDamage > 100)
+                else if (enoughDamage > 150)
                 {
                     visible = false;
                     isDead = true;
