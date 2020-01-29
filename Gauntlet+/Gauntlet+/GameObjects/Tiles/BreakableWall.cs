@@ -14,7 +14,6 @@ class BreakableWall : Tile
         this.position = position;
     }
 
-
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
@@ -30,10 +29,14 @@ class BreakableWall : Tile
     {
         if (howBroken <= 0)
         {
-            visible = false;
             type = TileType.Background;
             if (visible)
-                GameEnvironment.AssetManager.PlaySound("Ghoblin attack");
+            {
+                GameEnvironment.AssetManager.PlaySound("Ghoblin attack", position.X);
+                (GameWorld as Level).secretValue1++;
+            }
+            visible = false;
+
         }
     }
 

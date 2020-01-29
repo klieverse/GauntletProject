@@ -8,21 +8,24 @@ using System.Threading.Tasks;
 
 class SpawnObject : Tile
 {
+    public int enemies = 0;
     Player closestPlayer; 
-    int distance, health = 50;
+    int distance;
     bool isDead = false;
     public Vector2 spawnLocation;
     //Random r;
-    float timer = 0;
+    float timer = 0, colorTimer = 200f;
     //   TileField tileField;
     readonly string spawnId = "";
+    Level level;
 
-    public SpawnObject(Vector2 startPosition, string spawnId) : base(spawnId, TileType.Temple, 2, "Spawn")
+    public SpawnObject(Vector2 startPosition, string spawnId, Level level) : base(spawnId, TileType.Temple, 2, "Spawn")
     {
         position = startPosition;
         //r = new Random();
         //        tileField = GameWorld.Find("Tiles") as TileField;
         this.spawnId = spawnId;
+        this.level = level;
     }
     public override void Update(GameTime gameTime)
     {
@@ -31,34 +34,50 @@ class SpawnObject : Tile
             base.Update(gameTime);
             //cooldown timer for when an enemy is getting spawned
 
-            if (health <= 0)
-            {
-                visible = false;
-                isDead = true;
-                type = TileType.Background;
-            }
+            CheckIfDead();
 
-            FindClosestPlayer();
-            if (closestPlayer != null)
-            {
-                DistanceToClosestPlayer();
-            }
-
-
-            if (distance < 1000)
-            {
-                timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-                if (timer > 2000)
-                {
-                    NewLocation();
-                    Spawn();
-                    timer = 0;
-                }
-            }
+            PlayerCalculation();
+            HandleTimers(gameTime);
         }
-        
-        
+    }
 
+    private void CheckIfDead()
+    {
+        if (Health <= 0)
+        {
+            visible = false;
+            isDead = true;
+            type = TileType.Background;
+        }
+    }
+
+    private void HandleTimers(GameTime gameTime)
+    {
+        timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+        if (distance < 1000 && timer > 5f && enemies < 8) // keeps a lock on the total allowed enemies to spawn
+        {
+            NewLocation();
+            Spawn();
+            timer = 0f;
+            enemies += 1;
+        }
+
+        colorTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+        if(colorTimer <= 0)
+        {
+            color = Color.White;
+            colorTimer = 200f;
+        }
+    }
+
+    private void PlayerCalculation()
+    {
+        FindClosestPlayer();
+        if (closestPlayer != null)
+        {
+            DistanceToClosestPlayer();
+        }
     }
 
     private void DistanceToClosestPlayer()
@@ -107,83 +126,32 @@ class SpawnObject : Tile
         {
             case 0:
                 spawnLocation.X = position.X + 30 + this.Width;
-                //if (CollidesWithObject())
-                //{
-                    //spawnLocation.X = position.X;
-                    //NewLocation();
-                //}
-
                 break;
             case 1:
                 spawnLocation.X = position.X + 30 + this.Width;
                 spawnLocation.Y = position.Y + 30 + this.Height;
-                //if (CollidesWithObject())
-                //{
-                    //spawnLocation.X = position.X;
-                    //spawnLocation.Y = position.Y;
-                    //NewLocation();
-                //}
-
                 break;
             case 2:
                 spawnLocation.Y = position.Y + 30 + this.Height;
-                /*if (CollidesWithObject())
-                {
-                    spawnLocation.Y = position.Y;
-                    //NewLocation();
-                }*/
-
                 break;
             case 3:
                 spawnLocation.X = position.X - 30;
                 spawnLocation.Y = position.Y + 30 + this.Height;
-                /*if (CollidesWithObject())
-                {
-                    spawnLocation.X = position.X;
-                    spawnLocation.Y = position.Y;
-                    //NewLocation();
-                }*/
-
                 break;
             case 4:
                 spawnLocation.X = position.X - 30;
-                /*if (CollidesWithObject())
-                {
-                    spawnLocation.X = position.X;
-                    //NewLocation();
-                }*/
-
                 break;
             case 5:
                 spawnLocation.X = position.X - 30;
                 spawnLocation.Y = position.Y - 30;
-                /*if (CollidesWithObject())
-                {
-                    spawnLocation.X = position.X;
-                    spawnLocation.Y = position.Y;
-                    //NewLocation();
-                }*/
-
                 break;
             case 6:
                 spawnLocation.Y = position.Y - 30;
-                /*if (CollidesWithObject())
-                {
-                    spawnLocation.Y = position.Y;
-                    //NewLocation();
-                }*/
 
                 break;
             default:
                 spawnLocation.X = position.X + 30 + this.Width;
                 spawnLocation.Y = position.Y - 30;
-                /*if (CollidesWithObject())
-                {
-                    spawnLocation.X = position.X;
-                    spawnLocation.Y = position.Y;
-                    //NewLocation();
-                }*/
-
                 break;
         }
     }
@@ -217,15 +185,6 @@ class SpawnObject : Tile
             if (CollidesWith(enemy))
                 return true;
 
-        /*List<GameObject> spawns = (GameWorld.Find("spawns") as GameObjectList).Children;
-        if (spawns != null)
-        {
-            foreach (SpriteGameObject spawn in spawns)
-                if (CollidesWith(spawn))
-                    return true;
-        } */
-
-
         return false;
     }
 
@@ -237,33 +196,37 @@ class SpawnObject : Tile
     {
         if (spawnId == "Temple/Wizard")
         {
-            (GameWorld.Find("enemies") as GameObjectList).Add(new Wizard(spawnLocation, true));
+            (GameWorld.Find("enemies") as GameObjectList).Add(new Wizard(spawnLocation, this, true));
         }
         else if (spawnId == "Temple/Troll")
         {
-            (GameWorld.Find("enemies") as GameObjectList).Add(new Troll(spawnLocation, true));
+            (GameWorld.Find("enemies") as GameObjectList).Add(new Troll(spawnLocation, this, true));
         }
         else if (spawnId == "Temple/Hellhound")
         {
-            (GameWorld.Find("enemies") as GameObjectList).Add(new Hellhound(spawnLocation, true));
+            (GameWorld.Find("enemies") as GameObjectList).Add(new Hellhound(spawnLocation, this, true));
         }
         else if (spawnId == "Temple/Skeleton")
         {
-            (GameWorld.Find("enemies") as GameObjectList).Add(new Ghost(spawnLocation, true));
+            (GameWorld.Find("enemies") as GameObjectList).Add(new Ghost(spawnLocation, this, true));
         }
     }
 
     public void HitByPlayer(float damage)
     {
-        health -= (int)damage;
+        Health -= (int)damage;
+        color = Color.IndianRed;
+        colorTimer = 200f;
     }
 
     public override void Reset()
     {
         base.Reset();
         timer = 0;
-        health = 50;
+        Health = 65;
         isDead = false;
     }
+
+    public int Health { get; private set; } = 50;
 }
 

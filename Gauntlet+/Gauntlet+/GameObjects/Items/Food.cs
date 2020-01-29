@@ -24,7 +24,7 @@ class Food : Item
                 {
                     player.EatFood();
                     visible = false;
-                    GameEnvironment.AssetManager.PlaySound("Food");
+                    GameEnvironment.AssetManager.PlaySound("Food", position.X);
                 }
     }
 }

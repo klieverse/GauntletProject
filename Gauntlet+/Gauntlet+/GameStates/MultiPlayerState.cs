@@ -22,7 +22,6 @@ class MultiPlayerState : PlayingState
         CurrentLevel.SendInformation();
         //client retreives data from the server
         GameEnvironment.Connection.Update();
-        //Console.WriteLine("tot hier");
         //client changes data in game according to what is retreived from the server
     }
 

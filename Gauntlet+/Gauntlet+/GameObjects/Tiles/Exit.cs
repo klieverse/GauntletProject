@@ -33,13 +33,18 @@ class Exit : Tile
                 if (CollidesWith(player))
                 {
                     visible = false;
-                    Next = true;
-                    GameEnvironment.AssetManager.PlaySound("Stage_Exit");
+                    
+                            Next = true;
+                    GameEnvironment.AssetManager.PlaySound("Stage_Exit", position.X);
                 }
 
         if (Next)
         {
-            PlayingState.NextLevel(lvlIndex);
+            if ((GameWorld as Level).secretValue1 == (GameWorld as Level).goalSecretValue1 &&
+                        (GameWorld as Level).secretValue2 == (GameWorld as Level).goalSecretValue2)
+                PlayingState.HiddenLevel();
+            else
+                PlayingState.NextLevel(lvlIndex);
         }
     
     }

@@ -5,6 +5,7 @@ partial class Level : GameObjectList
 {
     protected Button quitButton;
     public Vector2 startPositionThyra, startPositionQuestor, startPositionThor, startPositionMerlin;
+    public int secretValue1 =0 , goalSecretValue1 = 0, secretValue2 = 0, goalSecretValue2 = 2, breakebleWalls=0;
 
     public Level(int levelIndex)
     {
@@ -16,7 +17,7 @@ partial class Level : GameObjectList
         
 
         Add(new GameObjectList(4, "players"));
-        Add(new GameObjectList(4, "spawns"));
+        Add(new GameObjectList(2, "spawns")); 
         Add(new GameObjectList(6, "StatFields"));
         Add(new GameObjectList(4, "enemies"));
         Add(new GameObjectList(3, "food"));
@@ -30,10 +31,8 @@ partial class Level : GameObjectList
         Add(new GameObjectList(2, "Doors"));
         Add(new GameObjectList(2, "Exits"));
         Add(new GameObjectList(2, "SpawnObjects"));
-        // Add(new Questor(2, "Elf", new Vector2(150, 150), this, true));
-        // Add(new PlayerStatField("Elf"));
 
-
+        goalSecretValue1 = breakebleWalls / 2 + 1;
 
         LoadTiles("Content/Levels/" + levelIndex + ".txt");
     }

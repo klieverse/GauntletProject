@@ -6,16 +6,19 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-public class EnemyShot : AnimatedGameObject
+class EnemyShot : AnimatedGameObject
 {
-    protected EnemyObject shooter;
     protected int strength;
     protected bool isGnome;
-    public EnemyShot(int layer, string id, bool isGnome = true) : base(layer, id)
+    float timer = 5f;
+    protected EnemyObject shooter;
+    public EnemyShot(int layer, string id, EnemyObject shooter, bool isGnome = true) : base(layer, id)
     {
         this.isGnome = isGnome;
         LoadAnimations();
         PlayAnimation("shoot");
+        velocity *= 0.8f;
+        this.shooter = shooter;
     }
 
     void LoadAnimations()
@@ -26,7 +29,25 @@ public class EnemyShot : AnimatedGameObject
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-        if (isGnome)
+        HandleCollision();
+        HandleOutOfScreen();
+
+        timer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+        if (timer <= 0)
+            visible = false;
+    }
+    public void HandleOutOfScreen()
+    {
+        if (!Camera.CameraBox.Contains(position))
+        {
+            visible = false;
+        }
+    }
+
+    private void HandleCollision()
+    {
+        //checks for collision with player
+        if (isGnome) 
         {
             List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
             if (players != null)
@@ -35,6 +56,7 @@ public class EnemyShot : AnimatedGameObject
                     {
                         player.HitByEnemy(strength);
                         visible = false;
+                        GameEnvironment.AssetManager.PlaySound("Ghost hit", position.X);
                     }
         }
         else
@@ -46,13 +68,14 @@ public class EnemyShot : AnimatedGameObject
                     {
                         player.HitByEnemy(strength);
                         visible = false;
+                        GameEnvironment.AssetManager.PlaySound("Ghost hit", position.X);
                     }
             if (CollidesWithObject())
             {
                 visible = false;
+                GameEnvironment.AssetManager.PlaySound("Ghost hit", position.X);
             }
         }
-        
     }
 
     public bool CollidesWithObject()
@@ -71,14 +94,6 @@ public class EnemyShot : AnimatedGameObject
                 if (tileField.GetTileType(x, y) == TileType.Wall || tileField.GetTileType(x, y) == TileType.BreakableWall
                     || tileField.GetTileType(x, y) == TileType.HorizontalDoor || tileField.GetTileType(x, y) == TileType.VerticalDoor)
                     return true;
-        //check playercollision
-        /*List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
-        if (players != null)
-            foreach (SpriteGameObject player in players)
-                if (player != this)
-                    if (CollidesWith(player))
-                        return true;*/
-        //check enemycollision
         List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
         foreach (SpriteGameObject enemy in enemies)
             if (enemy != shooter)

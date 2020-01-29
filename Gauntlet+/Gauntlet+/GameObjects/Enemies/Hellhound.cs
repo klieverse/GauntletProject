@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 class Hellhound : EnemyObject
 {
     float timer = 0f;
-    public Hellhound(Vector2 startPosition, bool wasSpawned = false) : base(2, "Hellhound", 300)
+    public Hellhound(Vector2 startPosition, SpawnObject spawnObject, bool wasSpawned = false) : base(2, "Hellhound", spawnObject, 300)
     {
         this.wasSpawned = wasSpawned;
         //starting position equal to what is determined in SpawnObject.cs
         position = startPosition;
-        strength = 10;
+        strength = 60;
     }
 
     public override void Update(GameTime gameTime)
@@ -32,18 +32,20 @@ class Hellhound : EnemyObject
             base.Update(gameTime);
             //strength of enemy reduces with current health
             if (this.health < 21)
-                strength = 8;
+                strength = 40;
             if (this.health < 11)
-                strength = 5;
+                strength = 20;
             if (this.health < 1)
             {
                 visible = false;
                 isDead = true;
+                if (spawn != null)
+                    spawn.enemies-=1;
             }
             //cooldown for when the enemy attacks
 
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (timer > 500f)
+            if (timer > 2000f)
             {
                 Attack();
                 timer = 0f;
@@ -52,11 +54,19 @@ class Hellhound : EnemyObject
         
     }
 
+    public override void HitByPlayer(float damage)
+    {
+        health -= (int)damage;
+        color = Color.DarkRed;
+        colorTimer = 200f;
+    }
+
     //attacks by creating a shooting object, where the object shoots in the direction in which the enemy is moving
     private void Attack()
     {
         //HellhoundShoot hellhoundShoot = new HellhoundShoot(this.position, this.velocity, strength);
         (GameWorld.Find("enemieShot") as GameObjectList).Add(new HellhoundShoot(this.position, new Vector2(speedHori, speedVert), strength, this));
+        GameEnvironment.AssetManager.PlaySound("Wizard shot", position.X);
     }
 
     

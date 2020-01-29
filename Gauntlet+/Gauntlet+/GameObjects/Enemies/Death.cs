@@ -10,10 +10,10 @@ class Death : EnemyObject
     float timer = 0f;
     int enoughDamage = 0;
 
-    public Death(Vector2 startPosition) : base(2, "Death")
+    public Death(Vector2 startPosition, SpawnObject spawnObject) : base(2, "Death", spawnObject)
     {
         this.position = startPosition;
-        strength = 4;
+        strength = 5;
     }
 
     public override void Update(GameTime gameTime)
@@ -27,6 +27,7 @@ class Death : EnemyObject
             {
                 Attack();
                 timer = 0;
+                
             }
 
         }
@@ -43,8 +44,9 @@ class Death : EnemyObject
                 {
                     player.health -= strength;
                     enoughDamage++;
+                    GameEnvironment.AssetManager.PlaySound("Death", position.X);
                 }
-                else if (enoughDamage > 100)
+                else if (enoughDamage > 150)
                 {
                     visible = false;
                     isDead = true;

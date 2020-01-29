@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 class Thief : EnemyObject
 {
-    readonly int thiefSpeed = 900;
+    readonly int thiefSpeed = 650;
     bool escape = false;
     float escapeDistance;
 
-    public Thief(Vector2 startPosition) : base(2, "Thief")
+    public Thief(Vector2 startPosition, SpawnObject spawnObject) : base(2, "Thief", spawnObject)
     {
         speed = thiefSpeed;
         position = startPosition;
-        strength = 10;
-        health = 20;
+        strength = 30;
+        health = 40;
     }
 
     public override void Update(GameTime gameTime)
@@ -30,7 +30,7 @@ class Thief : EnemyObject
             
 
             if (health <= 15)
-                strength = 5;
+                strength = 10;
             //dies if health is less than 1
             if (health <= 0)
             {
@@ -64,7 +64,7 @@ class Thief : EnemyObject
                 {
                     player.HitByEnemy(strength);
                     escape = true;
-                    
+                    GameEnvironment.AssetManager.PlaySound("Thief laughter", position.X);
                 }
     }
 

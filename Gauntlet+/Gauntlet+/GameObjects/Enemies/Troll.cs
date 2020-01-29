@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 class Troll : EnemyObject
 {
     float timer = 0f;
-    public Troll(Vector2 startPosition, bool wasSpawned = false) : base(2, "Troll")
+    public Troll(Vector2 startPosition, SpawnObject spawnObject, bool wasSpawned = false) : base(2, "Troll", spawnObject)
     {
         this.wasSpawned = wasSpawned;
         this.position = startPosition;
-        strength = 10;
+        strength = 40;
         health = 50;
     }
 
@@ -32,25 +32,32 @@ class Troll : EnemyObject
             base.Update(gameTime);
             //strength is based on current health
             if (this.health < 21)
-                strength = 8;
+                strength = 20;
             if (this.health < 11)
-                strength = 5;
+                strength = 10;
             //dies if health is less than 1
             if (this.health < 1)
             {
                 visible = false;
                 isDead = true;
+                if (spawn != null)
+                    spawn.enemies-=1;
             }
             //timer for when it can attack
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (timer > 1000f)
+            if (timer > 500f)
             {
                 Attack();
                 timer = 0f;
             }
         }
-        
-        
+    }
+
+    public override void HitByPlayer(float damage)
+    {
+        health -= (int)damage;
+        color = Color.DarkRed;
+        colorTimer = 200f;
     }
 
     //finds player, if collides, then reduce player's health according to this' strength
@@ -63,6 +70,7 @@ class Troll : EnemyObject
                 if (CollidesWith(player))
                 {
                     player.HitByEnemy(strength);
+                    GameEnvironment.AssetManager.PlaySound("Ghoblin attack", position.X);
                 }
             }                  
     }

@@ -9,7 +9,7 @@ class PlayingState : IGameLoopObject
     static protected List<Level> levels;
     static protected int currentLevelIndex;
     protected ContentManager content;
-    protected int maxLevelIndex = 9;
+    protected int maxLevelIndex = 14;
     static protected bool maxLevelReached = false, justOpened;
     
 
@@ -56,11 +56,13 @@ class PlayingState : IGameLoopObject
         if (justOpened)
         {
             LoadPlayers();
+            (CurrentLevel.Find(GameEnvironment.SelectedClass) as Player).HandleCamera();
             justOpened = false;
         }
         CurrentLevel.Update(gameTime);
         if (CurrentLevel.GameOver)
         {
+            GameOverState.Score = (CurrentLevel.Find(GameEnvironment.SelectedClass) as Player).Score;
             GameEnvironment.GameStateManager.SwitchTo("gameOverState");
         }
     }
@@ -68,7 +70,6 @@ class PlayingState : IGameLoopObject
     public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         CurrentLevel.Draw(gameTime, spriteBatch);
-        
     }
 
     public virtual void Reset()
@@ -81,6 +82,7 @@ class PlayingState : IGameLoopObject
         currentLevelIndex = 0;
         justOpened = true;
         GameEnvironment.GameStateManager.SwitchTo("titleMenu");
+        Camera.Position = Vector2.Zero;
    }
 
     static public void NextLevel(int index)
@@ -88,20 +90,26 @@ class PlayingState : IGameLoopObject
         List<Player> players = new List<Player>();
         foreach (Player player in (CurrentLevel.Find("players") as GameObjectList).Children)
             players.Add(player);
-        
         CurrentLevel.Reset();
-        if (maxLevelReached || currentLevelIndex >= levels.Count - 1)
+        if (maxLevelReached || currentLevelIndex >= 14)
         {
-            CurrentLevelIndex = GameEnvironment.Random.Next(1,5);
+            CurrentLevelIndex = GameEnvironment.Random.Next(0, 14);
             maxLevelReached = true;
         }
-        else
-        {
-            CurrentLevelIndex = index;
-        }
-        
+        else CurrentLevelIndex = index;
         ReloadPlayers(players);
+        (CurrentLevel.Find(GameEnvironment.SelectedClass) as Player).HandleCamera();
+    }
 
+    static public void HiddenLevel()
+    {
+        List<Player> players = new List<Player>();
+        foreach (Player player in (CurrentLevel.Find("players") as GameObjectList).Children)
+            players.Add(player);
+        CurrentLevel.Reset();
+        CurrentLevelIndex = 0; //set index for hidden level here
+        ReloadPlayers(players);
+        (CurrentLevel.Find(GameEnvironment.SelectedClass) as Player).HandleCamera();
     }
 
     static public void ReloadPlayers(List<Player> players)
@@ -127,7 +135,7 @@ class PlayingState : IGameLoopObject
 
     public void LoadLevels()
     {
-        for(int i = 0; i <= 4; i++)
+        for(int i = 0; i <= 14; i++)
             levels.Add(new Level(i));
     }
 

@@ -10,12 +10,12 @@ class Wizard : EnemyObject
     //Player closestPlayer;
     float attackTimer = 0f, visibilityTimer = 0f;
     //int check = 0;
-    public Wizard(Vector2 startPosition, bool wasSpawned = false) : base(2, "Wizard", canBeInvisible: true)
+    public Wizard(Vector2 startPosition, SpawnObject spawnObject, bool wasSpawned = false) : base(2, "Wizard", spawnObject, canBeInvisible: true)
     {
         this.wasSpawned = wasSpawned;
         //this.closestPlayer = closestPlayer;
         this.position = startPosition;
-        strength = 10;
+        strength = 25;
     }
 
     public override void Update(GameTime gameTime)
@@ -52,7 +52,7 @@ class Wizard : EnemyObject
             //    visible = true;
             //}
             //calculates when the enemy can attack
-            if (attackTimer > 1000f)
+            if (attackTimer > 500f)
             {
                 Attack();
                 attackTimer = 0f;
@@ -60,15 +60,16 @@ class Wizard : EnemyObject
         }
 
         if (this.health < 21)
-            strength = 8;
+            strength = 20;
         if (this.health < 11)
-            strength = 5;
+            strength = 15;
         //removes this object when health is less than 1
         if (this.health < 1)
         {
             visible = false;
             isDead = true;
-
+            if (spawn != null)
+                spawn.enemies-=1;
         }
 
     }
@@ -82,6 +83,7 @@ class Wizard : EnemyObject
                 if (CollidesWith(player) && visible)
                 {
                     player.HitByEnemy(strength);
+                    GameEnvironment.AssetManager.PlaySound("Wizard attack", position.X);
                 }
     }
 

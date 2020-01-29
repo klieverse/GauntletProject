@@ -14,11 +14,16 @@ class Player : AnimatedGameObject
         get;
         set;
     }
-    protected bool isAlive, isYou, lastLookedLeft = false, canMove = true, canShoot = true;
+    protected bool isAlive, isYou, lastLookedLeft = false, canMove = true, canShoot = true, inventoryFull = false;
+    public bool isMirror
+    {
+        get;
+        set;
+    }
     protected float walkingSpeed, speedHelper, armor, magic, shotStrength, shotSpeed, melee;
     protected float baseSpeedHelper, baseArmor, baseMagic, baseShotStrength, baseShotSpeed, baseMelee;
-    public int health = 100, keys, potions, score;
-    float healthTimer = 1f, shootTimer = 0.225f;
+    public int health = 100, keys, potions, score, shotCount;
+    float healthTimer = 1f, shootTimer = 0.35f, colorTimer = 200f;
     InputHelper inputHelper;
     float multiplier;
 
@@ -33,7 +38,7 @@ class Player : AnimatedGameObject
         this.armor = armor;
         baseArmor = armor;
         this.magic = magic * 10;
-        baseMagic = magic * 10;
+        baseMagic = magic * 20;
         this.shotStrength = shotStrength * 10;
         baseShotStrength = shotStrength * 10;
         this.shotSpeed = shotSpeed;
@@ -41,7 +46,7 @@ class Player : AnimatedGameObject
         this.melee = melee * 10;
         baseMelee = melee * 10;
         startPosition = new Vector2(start.X, start.Y + 20);
-
+        shotCount = 0;
         LoadAnimations();
         Reset();
     }
@@ -49,14 +54,13 @@ class Player : AnimatedGameObject
     public virtual void LoadAnimations()
     {
         LoadAnimation("Sprites/Player/spr_" + id + "idle@4", "idle", true, 0.15f);
-        LoadAnimation("Sprites/Player/spr_" + id + "run@4", "run", true);
-        LoadAnimation("Sprites/Player/spr_" + id + "shoot@3", "shoot", true);
-        LoadAnimation("Sprites/Player/spr_" + id + "die@3", "die", false);
+        LoadAnimation("Sprites/Player/spr_" + id + "run@4", "run", true, 0.1f);
+        LoadAnimation("Sprites/Player/spr_" + id + "shoot@3", "shoot", true, 0.1f);
+        LoadAnimation("Sprites/Player/spr_" + id + "die@3", "die", false, 0.1f);
     }
 
     public override void Reset()
     {
-        Console.WriteLine("hier reset ie");
         position = startPosition;
         velocity = Vector2.Zero;
         isAlive = true;
@@ -71,6 +75,8 @@ class Player : AnimatedGameObject
         melee = baseMelee;
         lastLookedLeft = false;
         canMove = canShoot = true;
+        shotCount = 0;
+        inventoryFull = false;
     }
 
     public override void HandleInput(InputHelper inputHelper)
@@ -83,9 +89,9 @@ class Player : AnimatedGameObject
         }
 
         velocity = Vector2.Zero;
-        walkingSpeed = (float)Math.Sqrt(speedHelper) * 10;
+        walkingSpeed = (float)Math.Sqrt(speedHelper) * 7;
 
-        if (inputHelper.ControllerConnected())
+        if (inputHelper.ControllerConnected() && InputHelper.UsingController)
             Xinput(inputHelper);
         else KeyboardInput(inputHelper);
         VectorHelper();
@@ -95,23 +101,41 @@ class Player : AnimatedGameObject
 
     public override void Update(GameTime gameTime)
     {
-        
-        
+        isMirror = sprite.Mirror;
+
         previousPosition = position;
 
         base.Update(gameTime);
-        HandleCamera();
+        if (GameEnvironment.SelectedClass == id)
+        {
+            HandleCamera();
+        }
+
 
         if (!isAlive)
         {
+            health = 0;
             return;
         }
 
-        HandleTimer(gameTime);
+        if (GameEnvironment.SelectedClass == id)
+        {
+            HandleTimer(gameTime);
+        }
+        HandleColorTimer(gameTime);
         HandleCollision();
         HandleAnimations();
+        HandleInventory();
         CheckIfDead();
-        // stats.Update(100, health, potions,keys,position);
+    }
+
+    private void HandleInventory()
+    {
+        if (keys + potions >= 12)
+        {
+            inventoryFull = true;
+        }
+        else inventoryFull = false;
     }
 
     private void CheckIfDead()
@@ -134,7 +158,7 @@ class Player : AnimatedGameObject
         {
             float vectorLength = (float)Math.Sqrt((inputHelper.JoyStickLeft.Y * inputHelper.JoyStickLeft.Y) + (inputHelper.JoyStickLeft.X * inputHelper.JoyStickLeft.X));
             if (vectorLength > 1f)
-                multiplier = 1f/vectorLength; /// vectorLength; // helps set the velocity to 1 * walkingspeed if it would otherwise succeed it
+                multiplier = 1f/vectorLength;  // helps set the velocity to 1 * walkingspeed if it would otherwise succeed it
             else multiplier = 1f;
         }
     }
@@ -153,11 +177,21 @@ class Player : AnimatedGameObject
         if (shootTimer <= 0)
         {
             canShoot = true;
-            shootTimer = 0.225f;
+            shootTimer = 0.35f;
         }
     }
 
-    private void HandleAnimations() // Makes sure the right animation is being played;
+    private void HandleColorTimer(GameTime gameTime)
+    {
+        colorTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+        if (colorTimer <= 0)
+        {
+            color = Color.White;
+            colorTimer = 200f;
+        }
+    }
+
+    public void HandleAnimations() // Makes sure the right animation is being played;
     {
         if (!isAlive)
             return;
@@ -167,9 +201,12 @@ class Player : AnimatedGameObject
             {
                 PlayAnimation("idle");
             }
-            else PlayAnimation("run");
+            else
+            {
+                PlayAnimation("run");
+            }
         }
-
+        
 
         if (velocity.X < 0)
         {
@@ -179,12 +216,14 @@ class Player : AnimatedGameObject
         {
             lastLookedLeft = false;
         }
-
         if (velocity.X < 0 || lastLookedLeft)
         {
             Mirror = true;
         }
-        else Mirror = false;
+        else
+        {
+            Mirror = false;
+        }
     }
 
     public void Die()
@@ -195,12 +234,11 @@ class Player : AnimatedGameObject
         }
 
         isAlive = false;
-        //GameEnvironment.AssetManager.PlaySound("Sounds/snd_" + id + "_die");
 
         PlayAnimation("die");
     }
 
-    void HandleCamera()
+    public void HandleCamera()
     {
         if (isYou)
         {
@@ -215,7 +253,7 @@ class Player : AnimatedGameObject
         }
     }
 
-    public void KillEnemiesOnScreen()
+    public void KillEnemiesOnScreen(bool intentional)
     {
         List<GameObject> enemies = (GameWorld.Find("enemies") as GameObjectList).Children;
         foreach (EnemyObject enemy in enemies)
@@ -225,13 +263,15 @@ class Player : AnimatedGameObject
             float onScreenEnemyY = MathHelper.Clamp(enemy.Position.Y, Camera.Position.Y, Camera.Position.Y + GameEnvironment.Screen.Y);
             if (enemy.Position.X == onScreenEnemyX && enemy.Position.Y == onScreenEnemyY)
             {
-                enemy.HitByPlayer(magic);
+                if (intentional)
+                    enemy.HitByPlayer(magic);
+                else enemy.HitByPlayer(magic/1.5f);
             }
 
         }
 
     }
-    void HandleCollision()
+    public void HandleCollision()
     {
         //check Tile collision
         TileField tiles = GameWorld.Find("tiles") as TileField;
@@ -261,6 +301,7 @@ class Player : AnimatedGameObject
                 Vector2 tileDepth = Collision.CalculateIntersectionDepth(boundingBox, tileBounds);
 
                 List<GameObject> doors = (GameWorld.Find("Doors") as GameObjectList).Children;
+                List<GameObject> spawns = (GameWorld.Find("SpawnObjects") as GameObjectList).Children;
 
                 if (Math.Abs(tileDepth.X) < Math.Abs(tileDepth.Y))
                 {
@@ -269,12 +310,22 @@ class Player : AnimatedGameObject
                     {
                         if (doors != null)
                         {
-                            foreach (Door door in doors)
+                            foreach (Door door in doors) // opens the door when colliding
                             {
                                 if (CollidesWith(door) && keys > 0)
                                 {
                                     door.DeleteDoors();
                                     keys -= 1;
+                                }
+                            }
+                        }
+                        if (spawns != null)
+                        {
+                            foreach (SpawnObject spawn in spawns) // does damage to spawner when coliiding
+                            {
+                                if (CollidesWith(spawn))
+                                {
+                                    spawn.HitByPlayer(melee);
                                 }
                             }
                         }
@@ -290,12 +341,22 @@ class Player : AnimatedGameObject
                 {
                     if (doors != null)
                     {
-                        foreach (Door door in doors)
+                        foreach (Door door in doors) // opens the door when colliding
                         {
                             if (CollidesWith(door) && keys > 0)
                             {
                                 door.DeleteDoors();
                                 keys -= 1;
+                            }
+                        }
+                    }
+                    if (spawns != null)
+                    {
+                        foreach (SpawnObject spawn in spawns) // does damage to spawner when coliiding
+                        {
+                            if (CollidesWith(spawn))
+                            {
+                                spawn.HitByPlayer(melee);
                             }
                         }
                     }
@@ -390,6 +451,8 @@ class Player : AnimatedGameObject
     {   // calculates the damage, where the more armor the player has, the closer the damage is to being only half the strength of the enemy;
         float Damage = (0.5f * EnemyStrength) + (0.5f * EnemyStrength * (1 - ((armor / 100) / (armor / 100 + 1))));
         health -= (int)Damage;
+        color = Color.IndianRed;
+        colorTimer = 200f;
     }
 
     public void AddKey()
@@ -415,6 +478,24 @@ class Player : AnimatedGameObject
             case PotionType.Orange:
                 potions += 1;
                 break;
+            case PotionType.Armor:
+                armor += 2f;
+                break;
+            case PotionType.Magic:
+                magic += 2f;
+                break;
+            case PotionType.Melee:
+                melee += 2f;
+                break;
+            case PotionType.ShotPower:
+                shotStrength += 2f;
+                break;
+            case PotionType.ShotSpeed:
+                shotSpeed += 2f;
+                break;
+            case PotionType.Speed:
+                speedHelper += 40f;
+                break;
             default:
                 break;
         }
@@ -423,36 +504,6 @@ class Player : AnimatedGameObject
     public void EatFood()
     {
         health += 100;
-    }
-
-    public void ArmorUp()
-    {
-        armor += 10f;
-    }
-
-    public void MagicUp()
-    {
-        magic += 10f;
-    }
-
-    public void MeleeUp()
-    {
-        melee += 10f;
-    }
-
-    public void ShotPowerUp()
-    {
-        shotStrength += 10f;
-    }
-
-    public void ShotSpeedUP()
-    {
-        shotSpeed += 10f;
-    }
-
-    public void SpeedUp()
-    {
-        speedHelper += 30f;
     }
     public void ScoreUp(int score)
     {
@@ -545,13 +596,14 @@ class Player : AnimatedGameObject
                 direction = new Vector2(0, 1);
             }
 
-            if (canShoot)
+            if (canShoot) // shoots a playershot when possible
             {
-                shootTimer = 0.225f;
+                shootTimer = 0.35f;
                 canShoot = false;
                 PlayAnimation("shoot");
-                GameEnvironment.AssetManager.PlaySound(id + " shot");
-                (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position, this, inputHelper));
+                GameEnvironment.AssetManager.PlaySound(id + " shot", position.X);
+                (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotCount, shotSpeed, shotStrength, direction, position, this, inputHelper));
+                shotCount++;
             }
         }
 
@@ -560,12 +612,12 @@ class Player : AnimatedGameObject
             canMove = true;
         }
 
-        if (inputHelper.IsKeyDown(Keys.E))
+        if (inputHelper.KeyPressed(Keys.E))
         {
             if (potions > 0)
             {
                 potions -= 1;
-                KillEnemiesOnScreen();
+                KillEnemiesOnScreen(true);
             }
         }
     }
@@ -583,11 +635,12 @@ class Player : AnimatedGameObject
 
         if (canShoot && (inputHelper.JoyStickRight.X > 0.2f || inputHelper.JoyStickRight.X < -0.2f || inputHelper.JoyStickRight.Y > 0.2f || inputHelper.JoyStickRight.Y < -0.2f))
         {
-            shootTimer = 0.225f;
+            shootTimer = 0.35f;
             canShoot = false;
             PlayAnimation("shoot");
-            GameEnvironment.AssetManager.PlaySound(id +" shot");
-            (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotSpeed, shotStrength, direction, position, this, inputHelper));
+            GameEnvironment.AssetManager.PlaySound(id +" shot", position.X);
+            (GameWorld.Find("playershot") as GameObjectList).Add(new PlayerShot(id, shotCount, shotSpeed, shotStrength, direction, position, this, inputHelper));  // shoots a playershot when possible
+            shotCount++;
         }
 
         if (inputHelper.JoyStickRight == Vector2.Zero)
@@ -602,7 +655,7 @@ class Player : AnimatedGameObject
             if (potions > 0)
             {
                 potions -= 1;
-                KillEnemiesOnScreen();
+                KillEnemiesOnScreen(true);
             }
         }
     }
@@ -634,6 +687,11 @@ class Player : AnimatedGameObject
     public int Score
     {
         get { return score; }
+    }
+
+    public bool InventoryFull
+    {
+        get { return inventoryFull; }
     }
 }
 

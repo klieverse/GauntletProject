@@ -14,6 +14,7 @@ public class AnimatedGameObject : SpriteGameObject
     public void LoadAnimation(string assetName, string id, bool looping,
                               float frameTime = 0.1f)
     {
+        frameTime = frameTime * 2;
         Animation anim = new Animation(assetName, looping, frameTime);
         animations[id] = anim;
     }

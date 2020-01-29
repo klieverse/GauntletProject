@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 
 class PlayerStats : TextGameObject
 {
-    
-    Vector2 staticPosition;
     public PlayerStats( Vector2 fieldPosition, string playerClass, int layer = 6):base("StatFont",layer)
     {
         
