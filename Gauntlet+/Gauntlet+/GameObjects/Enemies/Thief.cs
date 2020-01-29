@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 class Thief : EnemyObject
 {
-    readonly int thiefSpeed = 900;
+    readonly int thiefSpeed = 650;
     bool escape = false;
     float escapeDistance;
 
@@ -15,8 +15,8 @@ class Thief : EnemyObject
     {
         speed = thiefSpeed;
         position = startPosition;
-        strength = 10;
-        health = 20;
+        strength = 30;
+        health = 40;
     }
 
     public override void Update(GameTime gameTime)
@@ -30,7 +30,7 @@ class Thief : EnemyObject
             
 
             if (health <= 15)
-                strength = 5;
+                strength = 10;
             //dies if health is less than 1
             if (health <= 0)
             {
