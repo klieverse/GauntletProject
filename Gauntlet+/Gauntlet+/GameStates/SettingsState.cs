@@ -8,7 +8,7 @@ class SettingsState : GameObjectList
     public SettingsState()
     {
         // add a background
-        SpriteGameObject background = new SpriteGameObject("Backgrounds/spr_settings", 0, "background");
+        SpriteGameObject background = new SpriteGameObject("Backgrounds/spr_Settings", 0, "background");
         Add(background);
 
         // add a back but.ton
