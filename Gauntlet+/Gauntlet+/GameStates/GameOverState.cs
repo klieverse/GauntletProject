@@ -8,7 +8,6 @@ class GameOverState : GameObjectList
 {
     protected IGameLoopObject playingState;
     protected TextBox textBox;
-    protected bool enteredState;
 
     public GameOverState()
     {
@@ -17,42 +16,31 @@ class GameOverState : GameObjectList
         overlay.Position = new Vector2(GameEnvironment.Screen.X, GameEnvironment.Screen.Y) / 2 - overlay.Center;
         Add(overlay);
 
-        textBox = new TextBox(new Vector2(560, 457));
+        textBox = new TextBox( "highscore", new Vector2(560, 457));
         Add(textBox);
-        enteredState = true;
     }
 
     public override void HandleInput(InputHelper inputHelper)
     {
-        if (enteredState)
-        {
-            if (!inputHelper.AnyKeyDown)
-                enteredState = false;
-        }
-        else
-            base.HandleInput(inputHelper);
+        textBox.HandleInput(inputHelper);
         if (inputHelper.KeyPressed(Keys.Enter))
         {
             UpdateDatabase(textBox.Text, GameEnvironment.SelectedClass);
-            enteredState = true;
             PlayingState.Exit();
         }
     }
 
     public override void Update(GameTime gameTime)
     {
-
-        if (enteredState)
-            textBox.Text = "";
-        else
-            base.Update(gameTime);
-        playingState.Update(gameTime);
+        base.Update(gameTime);
+        textBox.Update(gameTime);
     }
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         playingState.Draw(gameTime, spriteBatch);
         base.Draw(gameTime, spriteBatch);
+        textBox.Draw(gameTime, spriteBatch);
     }
 
     public override void Reset()
@@ -73,7 +61,7 @@ class GameOverState : GameObjectList
             using (var connection = new SqlConnection(cb.ConnectionString))
             {
                 connection.Open();
-                SqlCommand cmd = new SqlCommand("INSERT INTO Scores(Username, Class, Points) VALUES('" + name + "','" + character + "','" + Score + "');", connection);
+                SqlCommand cmd = new SqlCommand("INSERT INTO Scores(Username, Class, Points) VALUES('" + textBox.Text + "','" + character + "','" + Score + "');", connection);
                 cmd.ExecuteNonQuery();
             }
         }

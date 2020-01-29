@@ -33,6 +33,7 @@ class Gauntlet : GameEnvironment
         gameStateManager.AddGameState("multiplayerCharacterState", new MultiplayerCharacterState());
         gameStateManager.AddGameState("gameOverState", new GameOverState());
         gameStateManager.AddGameState("SettingsState", new SettingsState());
+        gameStateManager.AddGameState("connectState", new ConnectState());
         gameStateManager.SwitchTo("titleMenu");
 
         //AssetManager.PlayMusic("Sounds/snd_music");
