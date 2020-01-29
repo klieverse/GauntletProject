@@ -12,7 +12,7 @@ class Troll : EnemyObject
     {
         this.wasSpawned = wasSpawned;
         this.position = startPosition;
-        strength = 10;
+        strength = 40;
         health = 50;
     }
 
@@ -32,9 +32,9 @@ class Troll : EnemyObject
             base.Update(gameTime);
             //strength is based on current health
             if (this.health < 21)
-                strength = 8;
+                strength = 20;
             if (this.health < 11)
-                strength = 5;
+                strength = 10;
             //dies if health is less than 1
             if (this.health < 1)
             {
@@ -45,7 +45,7 @@ class Troll : EnemyObject
             }
             //timer for when it can attack
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (timer > 1000f)
+            if (timer > 500f)
             {
                 Attack();
                 timer = 0f;
