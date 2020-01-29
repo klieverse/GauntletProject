@@ -13,7 +13,7 @@ class Hellhound : EnemyObject
         this.wasSpawned = wasSpawned;
         //starting position equal to what is determined in SpawnObject.cs
         position = startPosition;
-        strength = 10;
+        strength = 60;
     }
 
     public override void Update(GameTime gameTime)
@@ -32,9 +32,9 @@ class Hellhound : EnemyObject
             base.Update(gameTime);
             //strength of enemy reduces with current health
             if (this.health < 21)
-                strength = 8;
+                strength = 40;
             if (this.health < 11)
-                strength = 5;
+                strength = 20;
             if (this.health < 1)
             {
                 visible = false;
@@ -45,7 +45,7 @@ class Hellhound : EnemyObject
             //cooldown for when the enemy attacks
 
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (timer > 1500f)
+            if (timer > 2000f)
             {
                 Attack();
                 timer = 0f;
