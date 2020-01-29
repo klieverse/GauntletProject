@@ -223,7 +223,7 @@ class SpawnObject : Tile
     {
         base.Reset();
         timer = 0;
-        Health = 50;
+        Health = 65;
         isDead = false;
     }
 
