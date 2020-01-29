@@ -96,7 +96,6 @@ partial class Level : GameObjectList
                 return LoadVerticalDoor(x,y);
             case 'O':
                 return LoadTeleport(x, y);
-            case '0':
             case '1':
             case '2':
             case '3':
@@ -106,7 +105,7 @@ partial class Level : GameObjectList
             case '7':
             case '8':
             case '9':
-                return LoadExitTile(tileType, x, y);
+                return LoadExitTile(int.Parse(tileType.ToString()), x, y);
             case '!':
                 return LoadExitTile(10, x, y);
             case '@':

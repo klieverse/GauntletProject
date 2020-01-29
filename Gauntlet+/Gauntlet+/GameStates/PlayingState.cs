@@ -91,7 +91,7 @@ class PlayingState : IGameLoopObject
         foreach (Player player in (CurrentLevel.Find("players") as GameObjectList).Children)
             players.Add(player);
         CurrentLevel.Reset();
-        if (maxLevelReached || currentLevelIndex >= levels.Count - 1)
+        if (maxLevelReached || currentLevelIndex >= 14)
         {
             CurrentLevelIndex = GameEnvironment.Random.Next(0, 14);
             maxLevelReached = true;
