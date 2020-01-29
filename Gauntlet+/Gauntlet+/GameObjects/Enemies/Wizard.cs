@@ -15,7 +15,7 @@ class Wizard : EnemyObject
         this.wasSpawned = wasSpawned;
         //this.closestPlayer = closestPlayer;
         this.position = startPosition;
-        strength = 10;
+        strength = 25;
     }
 
     public override void Update(GameTime gameTime)
@@ -52,7 +52,7 @@ class Wizard : EnemyObject
             //    visible = true;
             //}
             //calculates when the enemy can attack
-            if (attackTimer > 1000f)
+            if (attackTimer > 500f)
             {
                 Attack();
                 attackTimer = 0f;
@@ -60,9 +60,9 @@ class Wizard : EnemyObject
         }
 
         if (this.health < 21)
-            strength = 8;
+            strength = 20;
         if (this.health < 11)
-            strength = 5;
+            strength = 15;
         //removes this object when health is less than 1
         if (this.health < 1)
         {
