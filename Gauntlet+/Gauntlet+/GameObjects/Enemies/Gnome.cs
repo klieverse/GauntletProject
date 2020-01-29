@@ -12,7 +12,7 @@ class Gnome : EnemyObject
     public Gnome(Vector2 startPosition, SpawnObject spawnObject) : base(2, "Gnome" , spawnObject, 500)
     {
         position = startPosition;
-        strength = 3;
+        strength = 10;
     }
 
     public override void Update(GameTime gameTime)
@@ -33,7 +33,7 @@ class Gnome : EnemyObject
             }
             //cooldown in which the enemy attacks
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (timer > 3000f)
+            if (timer > 2000f)
             {
                 Attack();
                 timer = 0f;
