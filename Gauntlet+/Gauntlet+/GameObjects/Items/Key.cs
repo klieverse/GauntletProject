@@ -18,7 +18,7 @@ class Key : Item
         List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
         if (players != null)
             foreach (Player player in players)
-                if (CollidesWith(player))
+                if (CollidesWith(player) && !player.InventoryFull) 
                 {
                     player.AddKey();
                     visible = false;

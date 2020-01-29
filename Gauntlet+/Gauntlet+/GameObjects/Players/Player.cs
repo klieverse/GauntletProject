@@ -14,7 +14,7 @@ class Player : AnimatedGameObject
         get;
         set;
     }
-    protected bool isAlive, isYou, lastLookedLeft = false, canMove = true, canShoot = true;
+    protected bool isAlive, isYou, lastLookedLeft = false, canMove = true, canShoot = true, inventoryFull = false;
     public bool isMirror
     {
         get;
@@ -76,6 +76,7 @@ class Player : AnimatedGameObject
         lastLookedLeft = false;
         canMove = canShoot = true;
         shotCount = 0;
+        inventoryFull = false;
     }
 
     public override void HandleInput(InputHelper inputHelper)
@@ -101,7 +102,7 @@ class Player : AnimatedGameObject
     public override void Update(GameTime gameTime)
     {
         isMirror = sprite.Mirror;
-        
+
         previousPosition = position;
 
         base.Update(gameTime);
@@ -109,7 +110,7 @@ class Player : AnimatedGameObject
         {
             HandleCamera();
         }
-        
+
 
         if (!isAlive)
         {
@@ -117,15 +118,24 @@ class Player : AnimatedGameObject
             return;
         }
 
-        if(GameEnvironment.SelectedClass == id)
+        if (GameEnvironment.SelectedClass == id)
         {
             HandleTimer(gameTime);
         }
         HandleColorTimer(gameTime);
         HandleCollision();
         HandleAnimations();
+        HandleInventory();
         CheckIfDead();
-        // stats.Update(100, health, potions,keys,position);
+    }
+
+    private void HandleInventory()
+    {
+        if (keys + potions >= 12)
+        {
+            inventoryFull = true;
+        }
+        else inventoryFull = false;
     }
 
     private void CheckIfDead()
@@ -469,22 +479,22 @@ class Player : AnimatedGameObject
                 potions += 1;
                 break;
             case PotionType.Armor:
-                armor += 10f;
+                armor += 2f;
                 break;
             case PotionType.Magic:
-                magic += 10f;
+                magic += 2f;
                 break;
             case PotionType.Melee:
-                melee += 10f;
+                melee += 2f;
                 break;
             case PotionType.ShotPower:
-                shotStrength += 10f;
+                shotStrength += 2f;
                 break;
             case PotionType.ShotSpeed:
-                shotSpeed += 10f;
+                shotSpeed += 2f;
                 break;
             case PotionType.Speed:
-                speedHelper += 30f;
+                speedHelper += 40f;
                 break;
             default:
                 break;
@@ -677,6 +687,11 @@ class Player : AnimatedGameObject
     public int Score
     {
         get { return score; }
+    }
+
+    public bool InventoryFull
+    {
+        get { return inventoryFull; }
     }
 }
 

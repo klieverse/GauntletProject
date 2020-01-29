@@ -50,15 +50,18 @@ class Potion : Item
         List<GameObject> players = (GameWorld.Find("players") as GameObjectList).Children;
         if (players != null)
             foreach (Player player in players)
-                if (CollidesWith(player))
+                if (CollidesWith(player) && PotType != PotionType.Normal && PotType != PotionType.Orange)
                 {
                     visible = false;
                     GameEnvironment.AssetManager.PlaySound("Key", position.X);
                     player.AddPotion(PotType);
-                    if(PotType != PotionType.Normal && PotType != PotionType.Orange)
-                    {
-                        DisplayMessage();
-                    }
+                    DisplayMessage();
+                }
+                else if (CollidesWith(player) && !player.InventoryFull)
+                {
+                    visible = false;
+                    GameEnvironment.AssetManager.PlaySound("Key", position.X);
+                    player.AddPotion(PotType);
                 }
     }
 
