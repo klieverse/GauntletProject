@@ -54,7 +54,7 @@ class SpawnObject : Tile
     private void HandleTimers(GameTime gameTime)
     {
         timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-        if (distance < 1000 && timer > 5f && enemies < 10) // keeps a lock on the total allowed enemies to spawn
+        if (distance < 1000 && timer > 6f && enemies < 7) // keeps a lock on the total allowed enemies to spawn
         {
             NewLocation();
             Spawn();
