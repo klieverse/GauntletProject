@@ -12,7 +12,7 @@ class EnemyObject : AnimatedGameObject
     Player closestPlayer;
 
     protected float speedVert, speedHori;
-    protected int health = 30, strength, speed = 175, chaseDistance;
+    protected int health = 35, strength, speed = 175, chaseDistance;
     //TileField tileField;
     protected float meleeTimer = 1f, colorTimer = 200f, maxDistance = 99999999999f, distance, despawnTimer = 1f;
     protected Vector2 previousPosition;
