@@ -13,7 +13,7 @@ public class SpriteGameObject : GameObject
     protected float rotation = 0, scale = 1f;
     protected Color color = Color.White;
 
-    public SpriteGameObject(string assetName, int layer = 0, string id = "", int sheetIndex = 0)
+    public SpriteGameObject(string assetName, int layer = 0, string id = "", int sheetIndex = 0, float scale = 1f)
         : base(layer, id)
     {
         if (assetName != "")
@@ -24,6 +24,7 @@ public class SpriteGameObject : GameObject
         {
             sprite = null;
         }
+        this.scale = scale;
     }
 
     public void Rotate(int degrees)
@@ -112,6 +113,11 @@ public class SpriteGameObject : GameObject
     {
         get { return origin; }
         set { origin = value; }
+    }
+
+    public float Scale
+    {
+        get { return scale; }
     }
 
     public override Rectangle BoundingBox

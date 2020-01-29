@@ -1803,6 +1803,18 @@
 /processorParam:TextureFormat=Color
 /build:Temple/Skeleton.png
 
+#begin Backgrounds/spr_Settings.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/spr_Settings.png
+
 #begin Backgrounds/spr_help.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1815,7 +1827,7 @@
 /processorParam:TextureFormat=Color
 /build:Backgrounds/spr_help.png
 
-#begin Backgrounds/spr_Settings.png
+#begin Backgrounds/Selector.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -1825,5 +1837,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Backgrounds/spr_Settings.png
+/build:Backgrounds/Selector.png
 
