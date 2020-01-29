@@ -7,17 +7,21 @@ using System.Collections.Generic;
 
 public class Connection
 {
-    TcpClient client;
-    NetworkStream networkStream;
+    public TcpClient client;
+    public NetworkStream networkStream;
 
     public Connection()
     {
+
+    }
+
+    public void Connecting(IPAddress ip)
+    {
         try
         {
-            IPAddress ipAddress = IPAddress.Parse("25.62.226.197");
             int port = 8000;
             client = new TcpClient();
-            client.Connect(ipAddress, port);
+            client.Connect(ip, port);
             networkStream = client.GetStream();
 
             ConsoleMessage = "You are online";
