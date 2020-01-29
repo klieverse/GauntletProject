@@ -114,6 +114,7 @@
     <Compile Include="GameObjects\Tiles\Teleporter.cs" />
     <Compile Include="GameObjects\Tiles\Wall.cs" />
     <Compile Include="GameObjects\VisibilityTimer.cs" />
+    <Compile Include="GameStates\ConnectState.cs" />
     <Compile Include="GameStates\SettingsState.cs" />
     <Compile Include="GameStates\GameOverState.cs" />
     <Compile Include="GameStates\HelpState.cs" />

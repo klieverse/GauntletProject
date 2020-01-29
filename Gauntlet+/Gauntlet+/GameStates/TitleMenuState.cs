@@ -58,15 +58,7 @@ class TitleMenuState : GameObjectList
         }
         else if(multiPlayerButton.Pressed)
         {
-            if(GameEnvironment.Connection.multiplayerAllowed)
-            {
-                GameEnvironment.GameStateManager.SwitchTo("multiplayerCharacterState");
-            }
-            else
-            {
-                VisibilityTimer hintTimer = Find("hintTimer") as VisibilityTimer;
-                hintTimer.StartVisible();
-            }
+            GameEnvironment.GameStateManager.SwitchTo("connectState");
             
         }
         else if(settingsButton.Pressed)

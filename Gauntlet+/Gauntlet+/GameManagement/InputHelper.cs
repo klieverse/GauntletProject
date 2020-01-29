@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
 
 public class InputHelper
 {
@@ -94,4 +96,25 @@ public class InputHelper
         return capabilities.IsConnected;
     }
     public static bool UsingController;
+
+    public List<Keys> PressedKeys()
+    {
+        List<Keys> pressedKeys = new List<Keys>();
+        Keys[] currentPressed = currentKeyboardState.GetPressedKeys();
+        Keys[] previousPressed = previousKeyboardState.GetPressedKeys();
+        foreach (Keys k in currentPressed)
+        {
+            foreach(Keys l in previousPressed)
+            {
+                //als de key in beide keyboards zit dan is het nog niet gereleased
+                if(k==l)
+                {
+                    break;
+                }
+            }
+            //de key zit niet in de vorige state;
+            pressedKeys.Add(k);
+        }
+        return pressedKeys;
+    }
 }

@@ -89,7 +89,7 @@ class Player : AnimatedGameObject
         }
 
         velocity = Vector2.Zero;
-        walkingSpeed = (float)Math.Sqrt(speedHelper) * 7;
+        walkingSpeed = (float)Math.Sqrt(speedHelper) * 8;
 
         if (inputHelper.ControllerConnected() && InputHelper.UsingController)
             Xinput(inputHelper);
